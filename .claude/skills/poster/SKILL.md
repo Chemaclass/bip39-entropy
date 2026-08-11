@@ -40,12 +40,19 @@ Portrait / landscape, in points, at 100 % scale:
 
 | Paper | Portrait (16 × 128) | Landscape (32 × 64) |
 |---|---|---|
-| A1 | 12.7 | 14.5 |
-| A2 | 9.0 | 10.2 |
-| A3 | 6.3 | 7.2 |
-| A4 | 4.8 | 5.4 |
-| Letter | 4.6 | 5.0 |
-| Tabloid | 6.6 | 7.4 |
+| A1 | 12.7 | 13.2 |
+| A2 | 9.0 | 9.2 |
+| A3 | 6.3 | 6.5 |
+| A4 | 4.8 | 4.7 |
+| Letter | 4.5 | 4.4 |
+| Tabloid | 6.6 | 6.6 |
+
+Type is bounded by the row height *or* the column width, whichever is smaller —
+a column must fit the widest word (8 glyphs, 4.8 em in the monospace face)
+without clipping. Two invariants worth re-checking after any layout change:
+no `.w` cell has `scrollWidth > clientWidth`, and no `.sheet` does either
+(`overflow:hidden` on a flex item zeroes its automatic minimum size, so a sheet
+wider than the viewport will silently flex-shrink and cut off its right columns).
 
 If a change moves these numbers, update the table in `README.md` too.
 

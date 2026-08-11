@@ -42,12 +42,18 @@ The control bar reports the exact resulting type size, and warns you below 4.6 p
 
 | Paper | Portrait | Landscape |
 |---|---|---|
-| A1 | 12.7 pt · 16 × 128 | **14.5 pt** · 32 × 64 |
-| A2 | 9.0 pt · 16 × 128 | **10.2 pt** · 32 × 64 |
-| A3 | 6.3 pt · 16 × 128 | **7.2 pt** · 32 × 64 |
-| A4 | 4.8 pt · 16 × 128 | **5.4 pt** · 32 × 64 |
-| Letter | 4.6 pt · 16 × 128 | **5.0 pt** · 32 × 64 |
-| Tabloid | 6.6 pt · 16 × 128 | **7.4 pt** · 32 × 64 |
+| A1 | 12.7 pt · 16 × 128 | **13.2 pt · 32 × 64** |
+| A2 | 9.0 pt · 16 × 128 | **9.2 pt · 32 × 64** |
+| A3 | 6.3 pt · 16 × 128 | **6.5 pt · 32 × 64** |
+| A4 | **4.8 pt · 16 × 128** | 4.7 pt · 32 × 64 |
+| Letter | **4.5 pt · 16 × 128** | 4.4 pt · 32 × 64 |
+| Tabloid | **6.6 pt · 16 × 128** | 6.6 pt · 32 × 64 |
+
+Type size is bounded by whichever runs out first, the row height or the column
+width. A column has to hold the widest word in the list without clipping it, so
+the solver sizes the type from `(usable width − padding) / (columns × 4.8 em +
+gutters)` as well as from the row box, and takes the smaller. The 4.8 em is the
+widest word — eight glyphs — in the widest face on offer, the monospace one.
 
 A4 gets all 2048 words onto one sheet, but at roughly map-legend size — a desk
 reference rather than a wall piece. A3 or larger is where it becomes readable
