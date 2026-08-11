@@ -45,6 +45,20 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/rebuild-before-commit.sh\"",
+            "if": "Bash(git commit:*)",
+            "statusMessage": "Checking index.html is current",
+            "timeout": 30
+          }
+        ]
+      }
     ]
   }
 }
