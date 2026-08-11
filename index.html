@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BIP-39 · The Eleven-Bit Address Space</title>
+<meta name="description" content="What entropy is, why a seed phrase needs 128 bits of it, how to roll your own with dice or coins, and a printable poster of all 2048 BIP-39 words. Works offline, no network.">
 <style id="pagestyle">@page { size: 210mm 297mm; margin: 0; }</style>
 <style>
 /* src/css/10-poster.css */
@@ -38,8 +39,7 @@ body{
 }
 
 /* ─────────── control bar ─────────── */
-.bar{position:sticky;top:0;z-index:20;background:rgba(25,29,31,.94);
-  backdrop-filter:blur(8px);border-bottom:1px solid var(--chrome-3);padding:10px 18px 12px}
+.bar{padding:10px 18px 12px}
 .bar-in{max-width:1500px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end}
 .brand{display:flex;flex-direction:column;gap:2px;margin-right:6px}
 .brand b{font:600 13px/1 var(--mono);letter-spacing:.16em}
@@ -124,10 +124,88 @@ body.plain .w{color:var(--ink)}
 .w.pinned b{color:#fff}
 @media (prefers-reduced-motion:no-preference){ .w{transition:background-color .12s ease} }
 
+/* src/css/20-site.css */
+/* ─────────── site chrome: header, tabs, views ─────────── */
+.chrome{position:sticky;top:0;z-index:20;background:rgba(25,29,31,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--chrome-3)}
+.top{padding:9px 18px 0}
+.top-in{max-width:1500px;margin:0 auto;display:flex;align-items:flex-end;gap:10px 26px;flex-wrap:wrap}
+.brand{text-decoration:none;color:inherit}
+.brand:hover span{color:var(--chrome-ink)}
+
+.tabs{display:flex;gap:2px;margin-bottom:-1px}
+.tabs a{font:600 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--chrome-dim);text-decoration:none;padding:10px 13px;
+  border-bottom:2px solid transparent}
+.tabs a:hover{color:var(--chrome-ink)}
+.tabs a.on{color:var(--patina);border-bottom-color:var(--patina)}
+
+.view[hidden]{display:none}
+
+@media (max-width:560px){
+  .top-in{gap:8px 14px}
+  .tabs a{padding:9px 8px;letter-spacing:.1em}
+}
+
+/* src/css/30-roll.css */
+/* ─────────── roll your own ─────────── */
+.roll{max-width:1000px;margin:0 auto;padding:30px 18px 90px}
+.roll-h{font:700 21px/1.2 var(--mono);letter-spacing:-.01em;margin:0 0 12px}
+.roll-lead{font:400 14px/1.7 var(--grot);color:#aab3af;max-width:68ch;margin:0 0 22px}
+
+.roll-warn{border-left:2px solid var(--amber);background:var(--chrome-2);
+  padding:13px 17px;font:400 13px/1.65 var(--grot);color:#c7cfcb;margin:0 0 26px;max-width:68ch}
+.roll-warn b{color:var(--amber);font-weight:700}
+.roll-warn em{font-style:normal;color:var(--chrome-ink)}
+
+.roll-ctl{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end;margin-bottom:22px}
+
+.roll-pad{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:9px}
+.roll-key{width:64px;height:64px;font:700 21px/1 var(--mono);color:var(--chrome-ink);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;
+  cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.roll-key:hover{border-color:var(--patina);color:var(--patina)}
+.roll-key:active{background:var(--chrome-3)}
+.roll-key span{font:500 9px/1 var(--mono);letter-spacing:.12em;color:#69736f}
+.roll-key.rej span{color:var(--amber)}
+.roll-key[disabled]{opacity:.4;cursor:not-allowed}
+
+.roll-hint{font:400 11px/1.6 var(--mono);color:#69736f;margin:0 0 18px;max-width:68ch}
+
+.roll-meter{height:5px;background:var(--chrome-3);overflow:hidden}
+.roll-meter-fill{height:100%;width:0;background:var(--patina);transition:width .15s linear}
+.roll-count{font:500 10.5px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;
+  color:var(--chrome-dim);margin:9px 0 22px}
+.roll-count b{color:var(--chrome-ink);font-weight:700}
+
+.roll-bits{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:26px}
+.roll-bits .byte{font:400 12px/1.5 var(--mono);letter-spacing:.06em;color:#8d9793;
+  background:var(--chrome-2);padding:3px 6px;border-radius:2px}
+.roll-bits .byte.cs{color:var(--amber);background:#2a2519}
+
+.roll-sec{font:500 9.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--patina);margin:0 0 10px}
+.roll-fact{font:400 12.5px/1.8 var(--mono);color:#8d9793;margin:0 0 22px;word-break:break-all}
+.roll-fact b{color:var(--chrome-ink);font-weight:600}
+
+.seed{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:2px;margin-bottom:26px}
+.seed-w{background:var(--chrome-2);padding:10px 12px;display:flex;align-items:baseline;gap:10px}
+.seed-n{font:500 11px/1 var(--mono);color:#69736f;min-width:2.2ch;text-align:right}
+.seed-t{font:700 15px/1 var(--grot);color:var(--patina)}
+.seed-b{margin-left:auto;font:400 10px/1 var(--mono);color:#69736f;letter-spacing:.04em}
+
+@media (max-width:560px){
+  .roll{padding:22px 14px 70px}
+  .roll-key{width:54px;height:54px;font-size:18px}
+}
+
 /* src/css/90-print.css */
 @media print{
   body{background:#fff}
-  .bar,.readout{display:none !important}
+  .chrome,.bar,.readout{display:none !important}
+  /* Printing always yields the poster, whichever section is on screen. */
+  #view-poster{display:block !important}
+  #view-learn,#view-roll{display:none !important}
   .stage{padding:0;gap:0;display:block}
   .sheetwrap{display:block;width:auto !important;height:auto !important}
   .sheet{transform:none !important;box-shadow:none;break-after:page;page-break-after:always}
@@ -140,71 +218,144 @@ body.plain .w{color:var(--ink)}
 </head>
 <body>
 
-<div class="bar">
-  <div class="bar-in">
-    <div class="brand"><b>BIP-39</b><span>2048 · english · print</span></div>
-
-    <div class="ctl">
-      <label for="paper">Paper</label>
-      <select id="paper">
-        <option value="A4" selected>A4 — 210 × 297</option>
-        <option value="A3">A3 — 297 × 420</option>
-        <option value="A2">A2 — 420 × 594</option>
-        <option value="A1">A1 — 594 × 841</option>
-        <option value="Letter">Letter — 8.5 × 11</option>
-        <option value="Tabloid">Tabloid — 11 × 17</option>
-      </select>
-    </div>
-
-    <div class="ctl">
-      <label for="orient">Orientation</label>
-      <select id="orient">
-        <option value="p" selected>Portrait</option>
-        <option value="l">Landscape</option>
-      </select>
-    </div>
-
-    <div class="ctl">
-      <label for="split">Grid</label>
-      <select id="split">
-        <option value="auto" selected>Auto — largest type, one sheet</option>
-        <option value="16x128:16x128">16 × 128 — one sheet (4+7 bits)</option>
-        <option value="32x64:32x64">32 × 64 — one sheet (5+6 bits)</option>
-        <option value="16x128:16x64">16 × 64 — two sheets</option>
-        <option value="16x128:8x128">8 × 128 — two sheets</option>
-        <option value="16x128:8x64">8 × 64 — four sheets</option>
-        <option value="16x128:4x64">4 × 64 — eight sheets</option>
-      </select>
-    </div>
-
-    <div class="ctl">
-      <label for="face">Word face</label>
-      <select id="face">
-        <option value="grot" selected>Grotesque</option>
-        <option value="serif">Serif</option>
-        <option value="mono">Monospace</option>
-      </select>
-    </div>
-
-    <div class="ctl">
-      <label for="find">Find word or index</label>
-      <input id="find" type="search" placeholder="abandon · 1024" autocomplete="off" spellcheck="false">
-    </div>
-
-    <div class="ctl">
-      <label>&nbsp;</label>
-      <div class="toggles">
-        <label class="tg"><input type="checkbox" id="prefix" checked> Prefix emphasis</label>
-        <label class="tg"><input type="checkbox" id="rules" checked> Row rules</label>
-        <button class="btn-print" id="print">PRINT</button>
-      </div>
+<div class="chrome">
+  <div class="top">
+    <div class="top-in">
+      <a class="brand" href="#poster"><b>BIP-39</b><span>entropy · words · print</span></a>
+      <nav class="tabs" id="tabs" aria-label="Sections">
+        <a href="#poster" data-view="poster">Poster</a>
+        <a href="#learn" data-view="learn">Entropy</a>
+        <a href="#roll" data-view="roll">Roll your own</a>
+      </nav>
     </div>
   </div>
 
-  <div class="readout" id="readout"></div>
+  <div class="bar" id="bar">
+    <div class="bar-in">
+      <div class="ctl">
+        <label for="paper">Paper</label>
+        <select id="paper">
+          <option value="A4" selected>A4 — 210 × 297</option>
+          <option value="A3">A3 — 297 × 420</option>
+          <option value="A2">A2 — 420 × 594</option>
+          <option value="A1">A1 — 594 × 841</option>
+          <option value="Letter">Letter — 8.5 × 11</option>
+          <option value="Tabloid">Tabloid — 11 × 17</option>
+        </select>
+      </div>
+
+      <div class="ctl">
+        <label for="orient">Orientation</label>
+        <select id="orient">
+          <option value="p" selected>Portrait</option>
+          <option value="l">Landscape</option>
+        </select>
+      </div>
+
+      <div class="ctl">
+        <label for="split">Grid</label>
+        <select id="split">
+          <option value="auto" selected>Auto — largest type, one sheet</option>
+          <option value="16x128:16x128">16 × 128 — one sheet (4+7 bits)</option>
+          <option value="32x64:32x64">32 × 64 — one sheet (5+6 bits)</option>
+          <option value="16x128:16x64">16 × 64 — two sheets</option>
+          <option value="16x128:8x128">8 × 128 — two sheets</option>
+          <option value="16x128:8x64">8 × 64 — four sheets</option>
+          <option value="16x128:4x64">4 × 64 — eight sheets</option>
+        </select>
+      </div>
+
+      <div class="ctl">
+        <label for="face">Word face</label>
+        <select id="face">
+          <option value="grot" selected>Grotesque</option>
+          <option value="serif">Serif</option>
+          <option value="mono">Monospace</option>
+        </select>
+      </div>
+
+      <div class="ctl">
+        <label for="find">Find word or index</label>
+        <input id="find" type="search" placeholder="abandon · 1024" autocomplete="off" spellcheck="false">
+      </div>
+
+      <div class="ctl">
+        <label>&nbsp;</label>
+        <div class="toggles">
+          <label class="tg"><input type="checkbox" id="prefix" checked> Prefix emphasis</label>
+          <label class="tg"><input type="checkbox" id="rules" checked> Row rules</label>
+          <button id="pdf">PDF</button>
+          <button class="btn-print" id="print">PRINT</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="readout" id="readout"></div>
+  </div>
 </div>
 
-<main class="stage" id="stage"></main>
+<main>
+  <div class="view" id="view-poster">
+    <div class="stage" id="stage"></div>
+  </div>
+
+  <div class="view" id="view-learn" hidden>
+<!-- src/content/00-placeholder.html -->
+<section class="learn">
+  <p>Placeholder — the entropy explainer lands here.</p>
+</section>
+  </div>
+
+  <div class="view" id="view-roll" hidden>
+    <section class="roll">
+      <h2 class="roll-h">Roll your own entropy</h2>
+      <p class="roll-lead">Twelve words are a 128-bit number plus a 4-bit checksum.
+        Below you make that number yourself, one throw at a time, and watch it turn
+        into words. Nothing here leaves the page — there is no network code in this
+        file at all.</p>
+
+      <aside class="roll-warn">
+        <b>Read this first.</b> A phrase generated in a browser is for
+        <em>learning and verification</em>. For money you intend to keep, generate the
+        phrase on a hardware wallet, or do this on a machine that is offline and stays
+        offline. Never type an existing seed phrase into this or any other page.
+      </aside>
+
+      <div class="roll-ctl">
+        <div class="ctl">
+          <label for="strength">Length</label>
+          <select id="strength">
+            <option value="12" selected>12 words — 128 bits</option>
+            <option value="24">24 words — 256 bits</option>
+          </select>
+        </div>
+        <div class="ctl">
+          <label for="method">Source</label>
+          <select id="method">
+            <option value="dice" selected>Dice — one d6</option>
+            <option value="coin">Coin — one flip</option>
+          </select>
+        </div>
+        <div class="ctl">
+          <label>&nbsp;</label>
+          <div class="toggles">
+            <button id="rollundo">Undo</button>
+            <button id="rollclear">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="roll-pad" id="rollpad"></div>
+      <p class="roll-hint" id="rollhint"></p>
+
+      <div class="roll-meter"><div class="roll-meter-fill" id="rollfill"></div></div>
+      <div class="roll-count" id="rollcount"></div>
+
+      <div class="roll-bits" id="rollbits"></div>
+      <div class="roll-out" id="rollout"></div>
+    </section>
+  </div>
+</main>
 
 <script>
 /* src/js/10-data.js */
@@ -568,11 +719,589 @@ function updateDecoders(idx){
   });
 }
 
+/* src/js/60-seed.js */
+/* ── BIP-39 seed engine ─────────────────────────────────────────── */
+// The page has to work from a file:// URL, where crypto.subtle is not exposed.
+// SHA-256 is therefore implemented here rather than borrowed from the platform.
+// Nothing in this file touches the network, storage, or the clock.
+const SEED = (() => {
+
+  /* ── sha-256 ──────────────────────────────────────────────────── */
+  // First 32 bits of the fractional parts of the cube roots of the first
+  // 64 primes, per FIPS 180-4 §4.2.2.
+  const K = new Uint32Array([
+    0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+    0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+    0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+    0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+    0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+    0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+    0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+    0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+  ]);
+
+  const rotr = (x, n) => (x >>> n) | (x << (32 - n));
+
+  function sha256(bytes){
+    const H = new Uint32Array([0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+                               0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19]);
+    const len = bytes.length;
+    const blocks = Math.ceil((len + 9) / 64);
+    const m = new Uint8Array(blocks * 64);
+    m.set(bytes);
+    m[len] = 0x80;
+
+    // Message length as a 64-bit big-endian bit count. Nothing here hashes
+    // more than 32 bytes, so the high word is always zero, but write it.
+    const dv = new DataView(m.buffer);
+    dv.setUint32(m.length - 8, Math.floor(len / 0x20000000));
+    dv.setUint32(m.length - 4, (len * 8) >>> 0);
+
+    const w = new Uint32Array(64);
+    for (let b = 0; b < blocks; b++){
+      for (let i = 0; i < 16; i++) w[i] = dv.getUint32(b * 64 + i * 4);
+      for (let i = 16; i < 64; i++){
+        const x = w[i - 15], y = w[i - 2];
+        const s0 = rotr(x, 7) ^ rotr(x, 18) ^ (x >>> 3);
+        const s1 = rotr(y, 17) ^ rotr(y, 19) ^ (y >>> 10);
+        w[i] = (w[i - 16] + s0 + w[i - 7] + s1) >>> 0;
+      }
+
+      let a = H[0], b1 = H[1], c = H[2], d = H[3];
+      let e = H[4], f = H[5], g = H[6], h = H[7];
+      for (let i = 0; i < 64; i++){
+        const S1 = rotr(e, 6) ^ rotr(e, 11) ^ rotr(e, 25);
+        const t1 = (h + S1 + ((e & f) ^ (~e & g)) + K[i] + w[i]) >>> 0;
+        const S0 = rotr(a, 2) ^ rotr(a, 13) ^ rotr(a, 22);
+        const t2 = (S0 + ((a & b1) ^ (a & c) ^ (b1 & c))) >>> 0;
+        h = g; g = f; f = e; e = (d + t1) >>> 0;
+        d = c; c = b1; b1 = a; a = (t1 + t2) >>> 0;
+      }
+      H[0] = (H[0] + a) >>> 0; H[1] = (H[1] + b1) >>> 0;
+      H[2] = (H[2] + c) >>> 0; H[3] = (H[3] + d) >>> 0;
+      H[4] = (H[4] + e) >>> 0; H[5] = (H[5] + f) >>> 0;
+      H[6] = (H[6] + g) >>> 0; H[7] = (H[7] + h) >>> 0;
+    }
+
+    const out = new Uint8Array(32), ov = new DataView(out.buffer);
+    for (let i = 0; i < 8; i++) ov.setUint32(i * 4, H[i]);
+    return out;
+  }
+
+  /* ── bits and bytes ───────────────────────────────────────────── */
+  const bytesToBits = bytes => Array.from(bytes, b => bin(b, 8)).join("");
+
+  const bitsToBytes = bits => {
+    if (!/^[01]*$/.test(bits)) throw new Error("bitsToBytes: not a bit string");
+    if (bits.length % 8) throw new Error("bitsToBytes: " + bits.length + " bits is not a whole number of bytes");
+    const out = new Uint8Array(bits.length / 8);
+    for (let i = 0; i < out.length; i++) out[i] = parseInt(bits.substr(i * 8, 8), 2);
+    return out;
+  };
+
+  const bytesToHex = bytes => Array.from(bytes, b => b.toString(16).padStart(2, "0")).join("");
+
+  const hexToBytes = hex => {
+    if (!/^([0-9a-fA-F]{2})*$/.test(hex)) throw new Error("hexToBytes: not an even-length hex string");
+    const out = new Uint8Array(hex.length / 2);
+    for (let i = 0; i < out.length; i++) out[i] = parseInt(hex.substr(i * 2, 2), 16);
+    return out;
+  };
+
+  /* ── BIP-39 ───────────────────────────────────────────────────── */
+  // ENT is 128..256 bits in steps of 32; CS = ENT/32; (ENT+CS) is a multiple
+  // of 11, which is what makes the word count come out whole.
+  const ENT_BYTES = [16, 20, 24, 28, 32];
+
+  const entropy = bytes => {
+    if (!(bytes instanceof Uint8Array)) throw new Error("entropy must be a Uint8Array");
+    if (!ENT_BYTES.includes(bytes.length))
+      throw new Error("entropy is " + bytes.length + " bytes, must be one of " + ENT_BYTES.join(", "));
+    return bytes;
+  };
+
+  const checksumBits = bytes =>
+    bytesToBits(sha256(entropy(bytes))).slice(0, bytes.length / 4);
+
+  const entropyToIndices = bytes => {
+    const bits = bytesToBits(entropy(bytes)) + checksumBits(bytes);
+    const idx = [];
+    for (let i = 0; i < bits.length; i += 11) idx.push(parseInt(bits.substr(i, 11), 2));
+    return idx;
+  };
+
+  const entropyToWords = bytes => entropyToIndices(bytes).map(i => WORDS[i]);
+
+  const STRENGTHS = [
+    { words:12, entBits:128, csBits:4, flips:128, diceRolls:64 },
+    { words:24, entBits:256, csBits:8, flips:256, diceRolls:128 }
+  ];
+
+  /* ── coins and dice ───────────────────────────────────────────── */
+  const coinBits = flips => flips.map((f, i) => {
+    if (f !== 0 && f !== 1) throw new Error("coin " + (i + 1) + " is " + f + ", must be 0 or 1");
+    return String(f);
+  }).join("");
+
+  // 1,2,3,4 map straight onto 00,01,10,11 and 5,6 are thrown away. Folding the
+  // spare faces back in (mod 4, or 6→pair) would waste no rolls but skews the
+  // distribution; this mapping is uniform and a person can verify it by hand.
+  const diceBits = rolls => {
+    let bits = "", used = 0, rejected = 0;
+    rolls.forEach((r, i) => {
+      if (!Number.isInteger(r) || r < 1 || r > 6)
+        throw new Error("roll " + (i + 1) + " is " + r + ", must be 1..6");
+      if (r <= 4){ bits += bin(r - 1, 2); used++; } else rejected++;
+    });
+    return { bits, used, rejected };
+  };
+
+  /* ── self test ────────────────────────────────────────────────── */
+  // Test vectors only. The seed path never hashes text, so an ASCII-range
+  // encoder is enough and avoids depending on TextEncoder.
+  const ascii = s => Uint8Array.from(s, c => c.charCodeAt(0));
+
+  const SHA_VECTORS = [
+    ["", "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"],
+    ["abc", "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"]
+  ];
+
+  // github.com/trezor/python-mnemonic vectors.json, English.
+  const rep = (w, n) => new Array(n).fill(w).join(" ");
+  const BIP39_VECTORS = [
+    ["00000000000000000000000000000000",
+     rep("abandon", 11) + " about"],
+    ["7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f",
+     "legal winner thank year wave sausage worth useful legal winner thank yellow"],
+    ["80808080808080808080808080808080",
+     "letter advice cage absurd amount doctor acoustic avoid letter advice cage above"],
+    ["ffffffffffffffffffffffffffffffff",
+     "zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo wrong"],
+    ["0000000000000000000000000000000000000000000000000000000000000000",
+     rep("abandon", 23) + " art"],
+    ["ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+     rep("zoo", 23) + " vote"]
+  ];
+
+  // Seeded so the property test is the same run to run; Math.random would make
+  // a failure unreproducible, which is the one thing a seed tool cannot afford.
+  const xorshift32 = s => {
+    let x = s >>> 0 || 1;
+    return () => {
+      x ^= x << 13; x >>>= 0;
+      x ^= x >>> 17;
+      x ^= x << 5;  x >>>= 0;
+      return x;
+    };
+  };
+
+  const selfTest = () => {
+    const failures = [];
+
+    SHA_VECTORS.forEach(([text, want]) => {
+      const got = bytesToHex(sha256(ascii(text)));
+      if (got !== want) failures.push('sha256("' + text + '") = ' + got + ", want " + want);
+    });
+
+    BIP39_VECTORS.forEach(([hex, want]) => {
+      let got;
+      try { got = entropyToWords(hexToBytes(hex)).join(" "); }
+      catch (e){ got = "threw " + e.message; }
+      if (got !== want) failures.push("entropy " + hex + "\n  got  " + got + "\n  want " + want);
+    });
+
+    const rnd = xorshift32(0x9e3779b9);
+    for (let n = 0; n < 200; n++){
+      const e = new Uint8Array(16);
+      for (let i = 0; i < 16; i++) e[i] = rnd() >>> 24;
+      const idx = entropyToIndices(e);
+      const where = "random case " + n + " (" + bytesToHex(e) + "): ";
+      if (idx.length !== 12){ failures.push(where + idx.length + " indices, want 12"); continue; }
+      if (idx.some(i => !Number.isInteger(i) || i < 0 || i > 2047)){
+        failures.push(where + "index outside 0..2047"); continue;
+      }
+      const bits = idx.map(i => bin(i, 11)).join("");
+      if (bits.slice(128) !== checksumBits(bitsToBytes(bits.slice(0, 128))))
+        failures.push(where + "checksum does not re-derive");
+    }
+
+    return { pass: failures.length === 0, failures };
+  };
+
+  return { sha256, bytesToBits, bitsToBytes, bytesToHex, hexToBytes,
+           checksumBits, entropyToIndices, entropyToWords,
+           coinBits, diceBits, STRENGTHS, selfTest };
+})();
+
+/* src/js/70-pdf.js */
+/* ── PDF writer ─────────────────────────────────────────────────── */
+// A minimal PDF 1.4 producer. Only the base-14 fonts are used, so nothing has
+// to be embedded and nothing is fetched: the page keeps working offline from a
+// file:// URL. Streams are left uncompressed — the output stays auditable in a
+// text editor, which matters more here than file size.
+const PDF = (() => {
+  const K = 72 / 25.4;      // millimetres -> PostScript points
+
+  /* Adobe AFM advance widths, 1/1000 em, ASCII 32..126 in order. */
+  const HELV = [
+    278, 278, 355, 556, 556, 889, 667, 222, 333, 333, 389, 584, 278, 333, 278, 278,
+    556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 278, 278, 584, 584, 584, 556,
+    1015, 667, 667, 722, 722, 667, 611, 778, 722, 278, 500, 667, 556, 833, 722, 778,
+    667, 778, 722, 667, 611, 722, 667, 944, 667, 667, 611, 278, 278, 278, 469, 556,
+    222, 556, 556, 500, 556, 556, 278, 556, 556, 222, 222, 500, 222, 833, 556, 556,
+    556, 556, 333, 500, 278, 556, 500, 722, 500, 500, 500, 334, 260, 334, 584
+  ];
+  const HELVB = [
+    278, 333, 474, 556, 556, 889, 722, 278, 333, 333, 389, 584, 278, 333, 278, 278,
+    556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 333, 333, 584, 584, 584, 611,
+    975, 722, 722, 722, 722, 667, 611, 778, 722, 278, 556, 722, 611, 833, 722, 778,
+    667, 778, 722, 667, 611, 722, 667, 944, 667, 667, 611, 333, 278, 333, 584, 556,
+    278, 556, 611, 556, 611, 556, 333, 611, 611, 278, 278, 556, 278, 889, 611, 611,
+    611, 611, 389, 556, 333, 611, 556, 778, 556, 556, 500, 389, 280, 389, 584
+  ];
+  const MONO = Array(95).fill(600);   // Courier is 600 in both weights, every glyph
+
+  // WinAnsi punctuation above 126 that the poster's labels use.
+  const EX = { 0x85: 1000, 0x91: 222, 0x92: 222, 0x93: 333, 0x94: 333,
+               0x95: 350, 0x96: 556, 0x97: 1000, 0xB7: 278, 0xD7: 584 };
+  const EXB = { 0x85: 1000, 0x91: 278, 0x92: 278, 0x93: 500, 0x94: 500,
+                0x95: 350, 0x96: 556, 0x97: 1000, 0xB7: 333, 0xD7: 584 };
+
+  const FONTS = {
+    helv:  { n: "Helvetica",       w: HELV,  x: EX,  d: 500 },
+    helvB: { n: "Helvetica-Bold",  w: HELVB, x: EXB, d: 556 },
+    cour:  { n: "Courier",         w: MONO,  x: {},  d: 600 },
+    courB: { n: "Courier-Bold",    w: MONO,  x: {},  d: 600 }
+  };
+  const KEYS = Object.keys(FONTS);
+
+  // The fonts are declared /WinAnsiEncoding, so Latin-1 maps to itself and the
+  // few smart-punctuation code points the poster uses have a byte each.
+  const WIN = { "‘": 0x91, "’": 0x92, "“": 0x93, "”": 0x94,
+                "•": 0x95, "–": 0x96, "—": 0x97, "…": 0x85 };
+  const byteOf = ch => {
+    const c = ch.codePointAt(0);
+    if (c < 128 || (c >= 0xA0 && c <= 0xFF)) return c;
+    return WIN[ch] || 63;              // 63 = '?', the fallback for anything else
+  };
+
+  const num = v => String(Math.round(v * 1000) / 1000);
+
+  const esc = str => {
+    let out = "";
+    for (const ch of str){
+      const b = byteOf(ch);
+      if (b < 32 || b > 126) out += "\\" + b.toString(8).padStart(3, "0");
+      else out += (b === 40 || b === 41 || b === 92 ? "\\" : "") + String.fromCharCode(b);
+    }
+    return out;
+  };
+
+  const advance = (str, size, font) => {          // -> points
+    const f = FONTS[font] || FONTS.helv;
+    let u = 0;
+    for (const ch of str){
+      const b = byteOf(ch);
+      u += (b >= 32 && b <= 126) ? f.w[b - 32] : (f.x[b] || f.d);
+    }
+    return u * size / 1000;
+  };
+
+  const col = (v, up) => Array.isArray(v)
+    ? v.map(num).join(" ") + " " + (up ? "RG" : "rg")
+    : num(v) + " " + (up ? "G" : "g");
+
+  const ink = o => o.rgb !== undefined ? o.rgb : (o.gray !== undefined ? o.gray : 0);
+
+  /* ── document ─────────────────────────────────────────────────── */
+  const doc = ({ w, h }) => {
+    const pages = [];
+    let cur = null;
+
+    const X = v => num(v * K);
+    const Y = v => num((h - v) * K);      // y arrives measured from the top edge
+
+    const d = {};
+
+    d.page = () => { cur = []; pages.push(cur); return d; };
+
+    d.text = (x, y, str, o = {}) => {
+      const size = o.size || 10, f = FONTS[o.font] ? o.font : "helv";
+      const tc = (o.tracking || 0) * size;
+      // Tc opens a gap after every glyph including the last; that trailing gap
+      // carries no ink, so alignment measures the string without it.
+      const wpt = advance(str, size, f) + tc * Math.max(0, [...str].length - 1);
+      const ax = x * K - (o.align === "c" ? wpt / 2 : o.align === "r" ? wpt : 0);
+      cur.push("BT " + col(ink(o), false) + " /" + f + " " + num(size) + " Tf " +
+               num(tc) + " Tc 1 0 0 1 " + num(ax) + " " + Y(y) +
+               " Tm (" + esc(str) + ") Tj ET");
+      return d;
+    };
+
+    d.rect = (x, y, ww, hh, o = {}) => {
+      const ops = [];
+      if (o.fill !== undefined) ops.push(col(o.fill, false));
+      if (o.stroke !== undefined)
+        ops.push(col(o.stroke, true), num((o.lw === undefined ? 0.2 : o.lw) * K) + " w");
+      ops.push(X(x) + " " + Y(y + hh) + " " + num(ww * K) + " " + num(hh * K) + " re");
+      ops.push(o.fill !== undefined ? (o.stroke !== undefined ? "B" : "f") : "S");
+      cur.push(ops.join(" "));
+      return d;
+    };
+
+    d.line = (x1, y1, x2, y2, o = {}) => {
+      cur.push(col(ink(o), true) + " " +
+               num((o.lw === undefined ? 0.2 : o.lw) * K) + " w " +
+               X(x1) + " " + Y(y1) + " m " + X(x2) + " " + Y(y2) + " l S");
+      return d;
+    };
+
+    d.width = (str, size, font) => advance(str, size, font) / K;
+
+    /* Objects: 1 catalog, 2 page tree, 3..6 fonts, then a dict and a content
+       stream per page. Offsets are read off the assembled string, never
+       predicted — a stale xref is the one error no viewer forgives. */
+    const bytes = () => {
+      const first = 3 + KEYS.length;
+      const res = "<< /Font << " +
+        KEYS.map((k, i) => "/" + k + " " + (3 + i) + " 0 R").join(" ") + " >> >>";
+      const objs = [
+        "<< /Type /Catalog /Pages 2 0 R >>",
+        "<< /Type /Pages /Count " + pages.length + " /Kids [" +
+          pages.map((_, i) => (first + i * 2) + " 0 R").join(" ") + "] >>"
+      ];
+      KEYS.forEach(k => objs.push("<< /Type /Font /Subtype /Type1 /BaseFont /" +
+        FONTS[k].n + " /Encoding /WinAnsiEncoding >>"));
+      pages.forEach((ops, i) => {
+        const s = ops.join("\n");
+        objs.push("<< /Type /Page /Parent 2 0 R /MediaBox [0 0 " +
+          num(w * K) + " " + num(h * K) + "] /Resources " + res +
+          " /Contents " + (first + i * 2 + 1) + " 0 R >>");
+        objs.push("<< /Length " + s.length + " >>\nstream\n" + s + "\nendstream");
+      });
+
+      let out = "%PDF-1.4\n%\xE2\xE3\xCF\xD3\n";
+      const off = [];
+      objs.forEach((o, i) => {
+        off.push(out.length);
+        out += (i + 1) + " 0 obj\n" + o + "\nendobj\n";
+      });
+      const xref = out.length;
+      out += "xref\n0 " + (objs.length + 1) + "\n0000000000 65535 f \n" +
+             off.map(p => String(p).padStart(10, "0") + " 00000 n \n").join("") +
+             "trailer\n<< /Size " + (objs.length + 1) + " /Root 1 0 R >>\n" +
+             "startxref\n" + xref + "\n%%EOF\n";
+
+      // Latin-1 out, byte for byte: a UTF-8 encode of the whole string would
+      // widen the binary marker and every octal escape, and shift every offset.
+      const buf = new Uint8Array(out.length);
+      for (let i = 0; i < out.length; i++) buf[i] = out.charCodeAt(i) & 0xff;
+      return buf;
+    };
+
+    d.blob = () => new Blob([bytes()], { type: "application/pdf" });
+
+    return d.page();
+  };
+
+  const save = (blob, filename) => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    // Safari reads the URL after the click returns, so it outlives the handler.
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+  };
+
+  return { doc, save };
+})();
+
+/* src/js/80-roll.js */
+/* ── roll your own entropy ──────────────────────────────────────── */
+// Throws are kept raw, never as accumulated bits, so Undo can take back the
+// physical event rather than a derived one — a rejected 5 costs a keypress and
+// no entropy, and the display has to be able to say so.
+const ROLL = { method:"dice", strength:12, throws:[] };
+
+const rollReady = () => typeof SEED !== "undefined";
+
+const rollSpec = () => SEED.STRENGTHS.find(s => s.words === ROLL.strength);
+
+function rollBits(){
+  if (ROLL.method === "coin") return { bits: SEED.coinBits(ROLL.throws), rejected: 0 };
+  const d = SEED.diceBits(ROLL.throws);
+  return { bits: d.bits, rejected: d.rejected };
+}
+
+function rollPad(){
+  const pad = $("rollpad");
+  pad.replaceChildren();
+  const keys = ROLL.method === "coin"
+    ? [["H", "1", false], ["T", "0", false]]
+    : [["1", "00", false], ["2", "01", false], ["3", "10", false],
+       ["4", "11", false], ["5", "reroll", true], ["6", "reroll", true]];
+
+  for (const [face, sub, rej] of keys){
+    const b = document.createElement("button");
+    b.className = "roll-key" + (rej ? " rej" : "");
+    b.type = "button";
+    b.innerHTML = face + "<span>" + sub + "</span>";
+    b.addEventListener("click", () => rollPush(face));
+    pad.appendChild(b);
+  }
+
+  $("rollhint").textContent = ROLL.method === "coin"
+    ? "Flip a real coin. Heads is 1, tails is 0 — press H or T, or 1 and 0. " +
+      "Backspace undoes the last flip."
+    : "Throw a real d6 and press what you see. 1 to 4 carry two bits each; " +
+      "5 and 6 carry nothing and are thrown again, which is what keeps the " +
+      "sixteen possible pairs equally likely. Backspace undoes the last throw.";
+}
+
+function rollPush(face){
+  const v = ROLL.method === "coin"
+    ? (face === "H" ? 1 : 0)
+    : Number(face);
+  const { bits } = rollBits();
+  if (bits.length >= rollSpec().entBits) return;   // already full
+  ROLL.throws.push(v);
+  rollRender();
+}
+
+function rollRender(){
+  if (!rollReady()) return;
+  const spec = rollSpec();
+  const { bits, rejected } = rollBits();
+  const have = Math.min(bits.length, spec.entBits);
+  const full = have >= spec.entBits;
+  const entBits = bits.slice(0, spec.entBits);
+
+  $("rollfill").style.width = (100 * have / spec.entBits) + "%";
+  $("rollcount").innerHTML =
+    "<b>" + have + "</b> / " + spec.entBits + " bits · " +
+    "<b>" + ROLL.throws.length + "</b> " + (ROLL.method === "coin" ? "flips" : "throws") +
+    (rejected ? " · " + rejected + " rerolled" : "");
+
+  const cs = full ? SEED.checksumBits(SEED.bitsToBytes(entBits)) : "";
+  const all = entBits + cs;
+  const bytes = $("rollbits");
+  bytes.replaceChildren();
+  for (let i = 0; i < all.length; i += 8){
+    const s = document.createElement("span");
+    s.className = "byte" + (i >= spec.entBits ? " cs" : "");
+    s.textContent = all.slice(i, i + 8);
+    bytes.appendChild(s);
+  }
+
+  const out = $("rollout");
+  out.replaceChildren();
+  if (!full) return;
+
+  const entropy = SEED.bitsToBytes(entBits);
+  const words = SEED.entropyToWords(entropy);
+  const hex = [...entropy].map(b => b.toString(16).padStart(2, "0")).join("");
+
+  const add = (cls, html) => {
+    const d = document.createElement("div");
+    d.className = cls;
+    d.innerHTML = html;
+    out.appendChild(d);
+    return d;
+  };
+
+  add("roll-sec", "Entropy · " + spec.entBits + " bits");
+  add("roll-fact", "<b>" + hex + "</b>");
+  add("roll-sec", "Checksum · first " + spec.csBits + " bits of sha256(entropy)");
+  add("roll-fact", "<b>" + cs + "</b>");
+  add("roll-sec", spec.words + " words · each one eleven bits of the " +
+      (spec.entBits + spec.csBits) + "-bit total");
+
+  const grid = document.createElement("div");
+  grid.className = "seed";
+  words.forEach((w, i) => {
+    const chunk = all.slice(i * 11, i * 11 + 11);
+    const cell = document.createElement("div");
+    cell.className = "seed-w";
+    cell.innerHTML = '<span class="seed-n">' + (i + 1) + '</span>' +
+      '<span class="seed-t">' + w + '</span>' +
+      '<span class="seed-b">' + chunk + " · " + parseInt(chunk, 2) + '</span>';
+    grid.appendChild(cell);
+  });
+  out.appendChild(grid);
+
+  add("roll-fact", "These words are exactly as unpredictable as your throws were, " +
+      "and no more. A phrase made in a browser tab is for learning — put nothing " +
+      "on it that you would mind losing.");
+}
+
+function rollReset(){
+  ROLL.throws = [];
+  rollRender();
+}
+
+function rollInit(){
+  if (!rollReady()){
+    $("view-roll").querySelector(".roll-warn").textContent =
+      "The entropy engine did not load, so this section is disabled.";
+    return;
+  }
+  $("strength").addEventListener("change", () => {
+    ROLL.strength = Number($("strength").value);
+    rollReset();
+  });
+  $("method").addEventListener("change", () => {
+    ROLL.method = $("method").value;
+    rollReset();
+    rollPad();
+  });
+  $("rollundo").addEventListener("click", () => { ROLL.throws.pop(); rollRender(); });
+  $("rollclear").addEventListener("click", rollReset);
+
+  document.addEventListener("keydown", e => {
+    if ($("view-roll").hidden) return;
+    if (e.target.matches("input,select,textarea")) return;
+    const k = e.key.toLowerCase();
+    if (k === "backspace"){ e.preventDefault(); ROLL.throws.pop(); rollRender(); return; }
+    if (ROLL.method === "coin"){
+      if (k === "h" || k === "1") rollPush("H");
+      if (k === "t" || k === "0") rollPush("T");
+    } else if (/^[1-6]$/.test(k)){
+      rollPush(k);
+    }
+  });
+
+  rollPad();
+  rollRender();
+}
+
+/* src/js/85-nav.js */
+/* ── views ──────────────────────────────────────────────────────── */
+const VIEWS = ["poster", "learn", "roll"];
+
+function showView(name){
+  if (!VIEWS.includes(name)) name = "poster";
+  VIEWS.forEach(v => { $("view-" + v).hidden = v !== name; });
+  document.querySelectorAll("#tabs a").forEach(a =>
+    a.classList.toggle("on", a.dataset.view === name));
+  $("bar").hidden = name !== "poster";
+  // The stage measures itself, so it can only be laid out while it is visible.
+  if (name === "poster") render();
+}
+
+function navInit(){
+  addEventListener("hashchange", () => showView(location.hash.slice(1)));
+  showView(location.hash.slice(1));
+}
+
 /* src/js/90-boot.js */
 /* ── events ─────────────────────────────────────────────────────── */
 ["paper","orient","split","face","prefix","rules"].forEach(id => $(id).addEventListener("change", render));
 $("find").addEventListener("input", applyFind);
 $("print").addEventListener("click", () => window.print());
+
+if (typeof posterPDF === "function") $("pdf").addEventListener("click", posterPDF);
+else $("pdf").hidden = true;
 
 stage.addEventListener("click", e => {
   const w = e.target.closest(".w");
@@ -584,7 +1313,9 @@ stage.addEventListener("click", e => {
 
 let t;
 window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(render, 140); });
-render();
+
+navInit();
+rollInit();
 </script>
 </body>
 </html>

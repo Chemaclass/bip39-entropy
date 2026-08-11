@@ -29,8 +29,7 @@ body{
 }
 
 /* ─────────── control bar ─────────── */
-.bar{position:sticky;top:0;z-index:20;background:rgba(25,29,31,.94);
-  backdrop-filter:blur(8px);border-bottom:1px solid var(--chrome-3);padding:10px 18px 12px}
+.bar{padding:10px 18px 12px}
 .bar-in{max-width:1500px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end}
 .brand{display:flex;flex-direction:column;gap:2px;margin-right:6px}
 .brand b{font:600 13px/1 var(--mono);letter-spacing:.16em}

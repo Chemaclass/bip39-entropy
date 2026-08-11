@@ -3,6 +3,9 @@
 $("find").addEventListener("input", applyFind);
 $("print").addEventListener("click", () => window.print());
 
+if (typeof posterPDF === "function") $("pdf").addEventListener("click", posterPDF);
+else $("pdf").hidden = true;
+
 stage.addEventListener("click", e => {
   const w = e.target.closest(".w");
   if (!w) return;
@@ -13,4 +16,6 @@ stage.addEventListener("click", e => {
 
 let t;
 window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(render, 140); });
-render();
+
+navInit();
+rollInit();

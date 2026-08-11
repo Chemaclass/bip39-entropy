@@ -18,6 +18,7 @@ WORDLIST = ROOT / "data" / "english.txt"
 TEMPLATE = ROOT / "src" / "template.html"
 CSS_DIR = ROOT / "src" / "css"
 JS_DIR = ROOT / "src" / "js"
+CONTENT_DIR = ROOT / "src" / "content"
 DEFAULT_OUTPUT = ROOT / "index.html"
 
 # SHA-256 of bip-0039/english.txt from github.com/bitcoin/bips
@@ -44,7 +45,7 @@ def load_words() -> tuple[list[str], str]:
     return words, digest
 
 
-def concat(directory: pathlib.Path, suffix: str) -> tuple[str, list[str]]:
+def concat(directory: pathlib.Path, suffix: str, comment: str = "/* {} */") -> tuple[str, list[str]]:
     """Join every file in the directory, in filename order.
 
     Filenames are numbered because concatenation order is load order:
@@ -56,7 +57,7 @@ def concat(directory: pathlib.Path, suffix: str) -> tuple[str, list[str]]:
 
     chunks = []
     for p in parts:
-        chunks.append(f"/* {p.relative_to(ROOT)} */\n{p.read_text().strip()}")
+        chunks.append(comment.format(p.relative_to(ROOT)) + "\n" + p.read_text().strip())
     return "\n\n".join(chunks), [p.name for p in parts]
 
 
@@ -71,15 +72,17 @@ def main() -> None:
     words, digest = load_words()
     html = TEMPLATE.read_text()
 
-    for placeholder in ("__CSS__", "__JS__"):
+    for placeholder in ("__CSS__", "__JS__", "__CONTENT__"):
         if placeholder not in html:
             sys.exit(f"src/template.html is missing placeholder {placeholder}")
 
     css, css_parts = concat(CSS_DIR, ".css")
     js, js_parts = concat(JS_DIR, ".js")
+    content, content_parts = concat(CONTENT_DIR, ".html", "<!-- {} -->")
 
-    # CSS and JS first: __WORDS__ and the hashes live inside the JS sources.
+    # CSS, JS and prose first: __WORDS__ and the hashes live inside the JS sources.
     html = html.replace("__CSS__", css).replace("__JS__", js)
+    html = html.replace("__CONTENT__", content)
 
     for placeholder in ("__WORDS__", "__SHA__", "__SHA_SHORT__"):
         if placeholder not in html:
@@ -91,8 +94,9 @@ def main() -> None:
 
     out.write_text(html)
     print(f"built {out}  {len(words)} words  {out.stat().st_size:,} bytes")
-    print(f"  css: {' '.join(css_parts)}")
-    print(f"  js:  {' '.join(js_parts)}")
+    print(f"  css:     {' '.join(css_parts)}")
+    print(f"  js:      {' '.join(js_parts)}")
+    print(f"  content: {' '.join(content_parts)}")
     print(f"legend word: {words[LEGEND_INDEX]} (index {LEGEND_INDEX})")
 
 

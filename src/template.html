@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BIP-39 · The Eleven-Bit Address Space</title>
+<meta name="description" content="What entropy is, why a seed phrase needs 128 bits of it, how to roll your own with dice or coins, and a printable poster of all 2048 BIP-39 words. Works offline, no network.">
 <style id="pagestyle">@page { size: 210mm 297mm; margin: 0; }</style>
 <style>
 __CSS__
@@ -11,71 +12,141 @@ __CSS__
 </head>
 <body>
 
-<div class="bar">
-  <div class="bar-in">
-    <div class="brand"><b>BIP-39</b><span>2048 · english · print</span></div>
-
-    <div class="ctl">
-      <label for="paper">Paper</label>
-      <select id="paper">
-        <option value="A4" selected>A4 — 210 × 297</option>
-        <option value="A3">A3 — 297 × 420</option>
-        <option value="A2">A2 — 420 × 594</option>
-        <option value="A1">A1 — 594 × 841</option>
-        <option value="Letter">Letter — 8.5 × 11</option>
-        <option value="Tabloid">Tabloid — 11 × 17</option>
-      </select>
-    </div>
-
-    <div class="ctl">
-      <label for="orient">Orientation</label>
-      <select id="orient">
-        <option value="p" selected>Portrait</option>
-        <option value="l">Landscape</option>
-      </select>
-    </div>
-
-    <div class="ctl">
-      <label for="split">Grid</label>
-      <select id="split">
-        <option value="auto" selected>Auto — largest type, one sheet</option>
-        <option value="16x128:16x128">16 × 128 — one sheet (4+7 bits)</option>
-        <option value="32x64:32x64">32 × 64 — one sheet (5+6 bits)</option>
-        <option value="16x128:16x64">16 × 64 — two sheets</option>
-        <option value="16x128:8x128">8 × 128 — two sheets</option>
-        <option value="16x128:8x64">8 × 64 — four sheets</option>
-        <option value="16x128:4x64">4 × 64 — eight sheets</option>
-      </select>
-    </div>
-
-    <div class="ctl">
-      <label for="face">Word face</label>
-      <select id="face">
-        <option value="grot" selected>Grotesque</option>
-        <option value="serif">Serif</option>
-        <option value="mono">Monospace</option>
-      </select>
-    </div>
-
-    <div class="ctl">
-      <label for="find">Find word or index</label>
-      <input id="find" type="search" placeholder="abandon · 1024" autocomplete="off" spellcheck="false">
-    </div>
-
-    <div class="ctl">
-      <label>&nbsp;</label>
-      <div class="toggles">
-        <label class="tg"><input type="checkbox" id="prefix" checked> Prefix emphasis</label>
-        <label class="tg"><input type="checkbox" id="rules" checked> Row rules</label>
-        <button class="btn-print" id="print">PRINT</button>
-      </div>
+<div class="chrome">
+  <div class="top">
+    <div class="top-in">
+      <a class="brand" href="#poster"><b>BIP-39</b><span>entropy · words · print</span></a>
+      <nav class="tabs" id="tabs" aria-label="Sections">
+        <a href="#poster" data-view="poster">Poster</a>
+        <a href="#learn" data-view="learn">Entropy</a>
+        <a href="#roll" data-view="roll">Roll your own</a>
+      </nav>
     </div>
   </div>
 
-  <div class="readout" id="readout"></div>
+  <div class="bar" id="bar">
+    <div class="bar-in">
+      <div class="ctl">
+        <label for="paper">Paper</label>
+        <select id="paper">
+          <option value="A4" selected>A4 — 210 × 297</option>
+          <option value="A3">A3 — 297 × 420</option>
+          <option value="A2">A2 — 420 × 594</option>
+          <option value="A1">A1 — 594 × 841</option>
+          <option value="Letter">Letter — 8.5 × 11</option>
+          <option value="Tabloid">Tabloid — 11 × 17</option>
+        </select>
+      </div>
+
+      <div class="ctl">
+        <label for="orient">Orientation</label>
+        <select id="orient">
+          <option value="p" selected>Portrait</option>
+          <option value="l">Landscape</option>
+        </select>
+      </div>
+
+      <div class="ctl">
+        <label for="split">Grid</label>
+        <select id="split">
+          <option value="auto" selected>Auto — largest type, one sheet</option>
+          <option value="16x128:16x128">16 × 128 — one sheet (4+7 bits)</option>
+          <option value="32x64:32x64">32 × 64 — one sheet (5+6 bits)</option>
+          <option value="16x128:16x64">16 × 64 — two sheets</option>
+          <option value="16x128:8x128">8 × 128 — two sheets</option>
+          <option value="16x128:8x64">8 × 64 — four sheets</option>
+          <option value="16x128:4x64">4 × 64 — eight sheets</option>
+        </select>
+      </div>
+
+      <div class="ctl">
+        <label for="face">Word face</label>
+        <select id="face">
+          <option value="grot" selected>Grotesque</option>
+          <option value="serif">Serif</option>
+          <option value="mono">Monospace</option>
+        </select>
+      </div>
+
+      <div class="ctl">
+        <label for="find">Find word or index</label>
+        <input id="find" type="search" placeholder="abandon · 1024" autocomplete="off" spellcheck="false">
+      </div>
+
+      <div class="ctl">
+        <label>&nbsp;</label>
+        <div class="toggles">
+          <label class="tg"><input type="checkbox" id="prefix" checked> Prefix emphasis</label>
+          <label class="tg"><input type="checkbox" id="rules" checked> Row rules</label>
+          <button id="pdf">PDF</button>
+          <button class="btn-print" id="print">PRINT</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="readout" id="readout"></div>
+  </div>
 </div>
 
-<main class="stage" id="stage"></main>
+<main>
+  <div class="view" id="view-poster">
+    <div class="stage" id="stage"></div>
+  </div>
+
+  <div class="view" id="view-learn" hidden>
+__CONTENT__
+  </div>
+
+  <div class="view" id="view-roll" hidden>
+    <section class="roll">
+      <h2 class="roll-h">Roll your own entropy</h2>
+      <p class="roll-lead">Twelve words are a 128-bit number plus a 4-bit checksum.
+        Below you make that number yourself, one throw at a time, and watch it turn
+        into words. Nothing here leaves the page — there is no network code in this
+        file at all.</p>
+
+      <aside class="roll-warn">
+        <b>Read this first.</b> A phrase generated in a browser is for
+        <em>learning and verification</em>. For money you intend to keep, generate the
+        phrase on a hardware wallet, or do this on a machine that is offline and stays
+        offline. Never type an existing seed phrase into this or any other page.
+      </aside>
+
+      <div class="roll-ctl">
+        <div class="ctl">
+          <label for="strength">Length</label>
+          <select id="strength">
+            <option value="12" selected>12 words — 128 bits</option>
+            <option value="24">24 words — 256 bits</option>
+          </select>
+        </div>
+        <div class="ctl">
+          <label for="method">Source</label>
+          <select id="method">
+            <option value="dice" selected>Dice — one d6</option>
+            <option value="coin">Coin — one flip</option>
+          </select>
+        </div>
+        <div class="ctl">
+          <label>&nbsp;</label>
+          <div class="toggles">
+            <button id="rollundo">Undo</button>
+            <button id="rollclear">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="roll-pad" id="rollpad"></div>
+      <p class="roll-hint" id="rollhint"></p>
+
+      <div class="roll-meter"><div class="roll-meter-fill" id="rollfill"></div></div>
+      <div class="roll-count" id="rollcount"></div>
+
+      <div class="roll-bits" id="rollbits"></div>
+      <div class="roll-out" id="rollout"></div>
+    </section>
+  </div>
+</main>
 
 <script>
 __JS__
