@@ -304,6 +304,456 @@ body.plain .w{color:var(--ink)}
 <section class="learn">
   <p>Placeholder — the entropy explainer lands here.</p>
 </section>
+
+<!-- src/content/learn.html -->
+<section id="learn" class="learn">
+
+  <header class="learn-head">
+    <p class="learn-eyebrow">Entropy · a field guide</p>
+    <h1 class="learn-title">Twelve words are<br>a number</h1>
+    <p class="learn-lead">
+      Everything that keeps that number yours is decided in the instant it is
+      generated — before you write anything down, before you pick a wallet, before
+      you think about fireproof steel. This page explains what that instant has to
+      accomplish, with the arithmetic shown rather than asserted. It is written for
+      someone who owns bitcoin, is about to record a recovery phrase, and has heard
+      the word <em>entropy</em> without being told what it measures.
+    </p>
+  </header>
+
+  <aside class="learn-warn">
+    <p class="learn-warn-label">Warning</p>
+    <p>
+      Never mark your own words on a printed word list. Twelve ticks on a grid of
+      2048 is a plaintext copy of your recovery phrase, and an easier one to read
+      than your handwriting.
+    </p>
+    <p>
+      Never type a real recovery phrase into any website, including this one. This
+      page has no field that accepts a phrase, makes no network requests, and stores
+      nothing — a claim you can check by reading the source and by pulling the cable.
+      Anything that offers to “validate” or “recover” your phrase online is a theft
+      pattern, not a service.
+    </p>
+  </aside>
+
+  <nav class="learn-toc" aria-label="Sections on this page">
+    <ol>
+      <li><a href="#learn-what">What a seed phrase actually is</a></li>
+      <li><a href="#learn-entropy">Entropy, defined properly</a></li>
+      <li><a href="#learn-2048">Why 2048 words</a></li>
+      <li><a href="#learn-checksum">The checksum</a></li>
+      <li><a href="#learn-source">Where the randomness comes from</a></li>
+      <li><a href="#learn-byhand">Doing it by hand</a></li>
+      <li><a href="#learn-threat">Threat model and hygiene</a></li>
+    </ol>
+  </nav>
+
+  <section class="learn-sec" id="learn-what">
+    <h2><span class="learn-num" aria-hidden="true">01</span> What a seed phrase actually is</h2>
+
+    <p>
+      A BIP-39 phrase is a number written in words. Each word is an index into a
+      fixed, public, ordered list of 2048 entries: <code>abandon</code> is
+      <code>0</code>, <code>length</code> is <code>1024</code>, <code>zoo</code> is
+      <code>2047</code>. Nothing else about a word matters — not its meaning, not
+      its length, not whether it sounds like a strong password. The list is a
+      numbering scheme for humans, and that is its entire job.
+    </p>
+
+    <p>
+      Your wallet does not store the words. It joins them into a string, runs
+      <code>PBKDF2-HMAC-SHA-512</code> over it for 2048 iterations, and gets a
+      512-bit seed from which every key in the wallet is derived deterministically.
+      The same words produce the same keys on any conforming wallet, forever. That
+      portability is the reason the standard exists.
+    </p>
+
+    <p>
+      So a phrase is worth exactly as much as its number is unpredictable. There is
+      no second factor hidden inside it. The word list, the derivation, the
+      arithmetic and this poster are all public; only the number was ever secret.
+      Anyone who can produce that number owns the coins, and no property of the
+      words themselves will stop them.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="learn-entropy">
+    <h2><span class="learn-num" aria-hidden="true">02</span> Entropy, defined properly</h2>
+
+    <p>
+      Entropy is not a measure of how random something looks. It measures how many
+      equally likely possibilities a secret was drawn from, expressed as a base-2
+      logarithm so it can be counted in bits. <code>n</code> bits of entropy means
+      <code>2^n</code> equally likely candidates; each additional bit doubles the
+      work an attacker must do.
+    </p>
+
+    <p>
+      A 12-word phrase generated correctly carries 128 bits, so it was drawn from
+      <code>2^128</code> candidates —
+      <code>340282366920938463463374607431768211456</code>, about
+      <code>3.4 × 10^38</code>. That number is hard to hold in the head, so here are
+      four handles on it, each with its working shown.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>Bitcoin's entire mining network.</b> The largest purpose-built computing
+        effort that has ever existed runs on the order of <code>10^21</code> hashes
+        per second. At that rate, merely counting to <code>2^128</code> takes
+        <code>3.4 × 10^17</code> seconds, or about <b>11 billion years</b> — roughly
+        the present age of the universe, which is about 13.8 billion years. And a
+        bare hash is far cheaper than one full trial of a candidate phrase, so this
+        is a generous underestimate of the real cost.
+      </li>
+      <li>
+        <b>Every computer on Earth.</b> Suppose ten billion devices
+        (<code>10^10</code>) each test a billion candidates per second
+        (<code>10^9</code>). That is <code>10^19</code> per second, and
+        <code>2^128</code> still takes <b>about 1.1 trillion years</b>, some 78
+        times the age of the universe.
+      </li>
+      <li>
+        <b>Since the Big Bang.</b> To have finished the search by today you would
+        have needed to test roughly <code>7.8 × 10^20</code> candidates every second
+        without pause since the universe began — about 780 billion billion per
+        second, for 13.8 billion years.
+      </li>
+      <li>
+        <b>Grains of sand, squared.</b> The often-quoted estimate for the sand on
+        Earth's beaches and deserts is around <code>7.5 × 10^18</code> grains; treat
+        that as very approximate. Replace every one of those grains with an entire
+        Earth's worth of sand — square the figure — and the total is still smaller
+        than <code>2^128</code>.
+      </li>
+    </ul>
+
+    <p class="learn-note">
+      For honesty's sake, <code>2^128</code> is not enormous by every measure.
+      <code>2^128</code> water molecules amount to about ten cubic kilometres of
+      water, a cube a little over two kilometres on each edge, and the Earth
+      contains vastly more atoms than that. What makes 128 bits sufficient is not
+      that <code>2^128</code> counts more stuff than exists, but that no physical
+      process can <em>visit</em> that many states one at a time.
+    </p>
+
+    <p>
+      Two consequences follow, and both are routinely missed.
+    </p>
+
+    <p>
+      <b>Randomness is a property of the process, not of the output.</b> From a fair
+      source, the bit string <code>0000…0000</code> is exactly as likely as any
+      other 128-bit string. A phrase that “looks random” tells you nothing, and a
+      phrase that looks meaningful is not thereby weak. You cannot inspect twelve
+      words and grade them; you can only ask where they came from.
+    </p>
+
+    <p>
+      <b>Entropy is measured against what an attacker knows about your process.</b>
+      If you rolled dice, the answer is 128 bits. If you picked words that mean
+      something to you, the honest answer is however many bits it takes to describe
+      your habit of choosing — and that number is small, no matter how arbitrary
+      the result feels from the inside.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="learn-2048">
+    <h2><span class="learn-num" aria-hidden="true">03</span> Why 2048 words</h2>
+
+    <p>
+      2048 is <code>2^11</code>. That is the whole reason for the number. Eleven
+      bits address exactly 2048 entries with nothing left over, so converting bits
+      to words is a straight slice of the bit string: take eleven bits, read a word,
+      repeat. A list of, say, 2000 words would not divide the space evenly, and
+      selecting from it without bias would need rejection sampling.
+    </p>
+
+    <p>
+      That is also why this poster can be a grid whose coordinates <em>are</em> the
+      index. <code>hamster</code> is index <code>837</code>, which is
+      <code>01101000101</code> in eleven bits: the high four bits choose the column,
+      the low seven choose the row.
+    </p>
+
+    <p>
+      Twelve words therefore carry <code>12 × 11 = 132</code> bits. BIP-39 does not
+      spend all 132 on entropy. It generates <code>ENT</code> bits of randomness,
+      appends <code>ENT ÷ 32</code> checksum bits, and splits the result into
+      eleven-bit groups. For twelve words that is 128 bits of entropy plus a 4-bit
+      checksum; for twenty-four, 256 plus 8.
+    </p>
+
+    <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Phrase length, entropy and checksum, scrollable table">
+      <table class="learn-tbl">
+        <caption>Phrase length against entropy</caption>
+        <thead>
+          <tr>
+            <th scope="col">Words</th>
+            <th scope="col">Entropy bits</th>
+            <th scope="col">Checksum bits</th>
+            <th scope="col">Total bits</th>
+            <th scope="col">Valid final words</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">12</th><td>128</td><td>4</td><td>132</td><td>128</td></tr>
+          <tr><th scope="row">15</th><td>160</td><td>5</td><td>165</td><td>64</td></tr>
+          <tr><th scope="row">18</th><td>192</td><td>6</td><td>198</td><td>32</td></tr>
+          <tr><th scope="row">21</th><td>224</td><td>7</td><td>231</td><td>16</td></tr>
+          <tr><th scope="row">24</th><td>256</td><td>8</td><td>264</td><td>8</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      The last column is a consequence worth knowing: the final word of a phrase is
+      never free. With the first eleven words fixed, only <code>2048 ÷ 16 = 128</code>
+      of the 2048 words complete a valid 12-word phrase; with twenty-three fixed,
+      only <code>2048 ÷ 256 = 8</code> complete a 24-word one. Equivalently, a
+      12-word sequence written down at random is a valid phrase about one time in
+      sixteen.
+    </p>
+
+    <p class="learn-note">
+      Whether 12 or 24 words is the better choice is not settled by entropy alone.
+      128 bits is already beyond brute force by the margins above; 24 words is
+      chiefly a hedge against future cryptanalysis and against Grover-style quantum
+      search, which in theory halves the effective strength of a symmetric secret —
+      128 bits would become 64, and 256 would become 128. Whether that speedup is
+      ever practical is genuinely disputed. Both lengths are supported everywhere,
+      and longer phrases cost you more to record and more to check.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="learn-checksum">
+    <h2><span class="learn-num" aria-hidden="true">04</span> The checksum</h2>
+
+    <p>
+      The checksum bits are the first <code>ENT ÷ 32</code> bits of
+      <code>SHA-256</code> of the raw entropy. They are appended before the phrase
+      is cut into words, which is why the last word carries a mixture of entropy and
+      checksum rather than sitting apart from the rest.
+    </p>
+
+    <p>
+      <b>What it catches.</b> A word you mistyped into some other real word. Two
+      words written in the wrong order. A word read off the wrong row of a grid. For
+      a 12-word phrase, any single such mistake survives the check only if it
+      happens to produce the right four bits — about one time in sixteen — so
+      roughly fifteen errors in sixteen are caught. For 24 words the figure is 255
+      in 256. This is a genuinely useful property; it is why wallets can reject a
+      typo instead of silently restoring an empty account.
+    </p>
+
+    <p>
+      <b>What it does not catch.</b> Three things, and all three matter more than
+      the first list.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>It is not a security check.</b> A phrase assembled from twelve words you
+        chose yourself passes exactly as readily as one from dice, provided the last
+        word is right. The checksum measures transcription, never entropy. “My
+        wallet accepted it” says nothing at all about how guessable it is.
+      </li>
+      <li>
+        <b>It does not slow an attacker down.</b> An attacker does not guess words
+        and test the checksum; they enumerate entropy values and compute the
+        checksum exactly as the standard prescribes. Those four bits cost them
+        nothing.
+      </li>
+      <li>
+        <b>It does not tell you the phrase is yours.</b> Many valid phrases exist. A
+        valid phrase that is not yours restores a real, empty wallet without
+        complaint. Only restoring and seeing your own history proves anything.
+      </li>
+    </ul>
+  </section>
+
+  <section class="learn-sec" id="learn-source">
+    <h2><span class="learn-num" aria-hidden="true">05</span> Where the randomness comes from</h2>
+
+    <p>
+      Three sources are in common use, and they fail in different directions.
+    </p>
+
+    <p>
+      <b>A hardware random number generator</b>, in a wallet or a phone, is fast and
+      — when the device and its firmware are sound — genuinely unpredictable. Its
+      weakness is that you cannot audit it. You are trusting a chip, a firmware
+      build and a supply chain, and there is a real history of generators that were
+      broken, weakened or simply misused by the software above them.
+    </p>
+
+    <p>
+      <b>Dice and coins</b> are slow, physical, and verifiable. You can watch every
+      bit arrive. Their weakness is procedural: a biased die, a mis-transcribed bit,
+      a photograph of the worksheet. Hand-generated entropy is not <em>more</em>
+      random than a good hardware source — the reason to do it is that you can check
+      it, not that it is stronger.
+    </p>
+
+    <p>
+      <b>A person</b> is not a random number generator, and this is not a matter of
+      trying harder. Asked for a random digit, people over-choose 7 and shy away
+      from 0 and 5. Asked for a sequence, they avoid repeats and long runs, because
+      repetition feels non-random. Asked for words, they reach for concrete nouns,
+      for things in the room, for names and dates and themes. Every one of those
+      tendencies is a pattern an attacker can rank candidates by, and an attacker who
+      ranks does not have to enumerate.
+    </p>
+
+    <p>
+      The arithmetic is stark. Suppose you were unusually disciplined about it and
+      chose each of your twelve words uniformly at random from a shortlist of the 16
+      words you find most memorable. That is 4 bits per word, <code>16^12 = 2^48</code>
+      in total. At roughly a million candidate derivations per second per GPU, a
+      thousand GPUs work through <code>2^48</code> in about <b>three days</b>. Widen
+      the shortlist to 32 words and you have <code>2^60</code>: about 36 years for
+      those thousand GPUs, or four months for a hundred thousand of them. That is a
+      hardware budget, not a physics problem. And these are upper bounds that assume
+      perfect uniformity within your shortlist, which no human achieves; the real
+      figure is lower.
+    </p>
+
+    <p>
+      For scale at the bottom end: <code>2^40</code> is about a trillion candidates,
+      which a single machine grinds through in a fortnight. “A few dozen bits” is
+      not a weaker version of security. It is the absence of it.
+    </p>
+
+    <p class="learn-note">
+      The 2048 PBKDF2 iterations in the derivation make each guess about two
+      thousand times more expensive than a bare hash — worth roughly eleven bits.
+      That is a meaningful speed bump against a weak passphrase and an irrelevance
+      against 128 bits of real entropy. It cannot rescue a phrase you chose yourself.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="learn-byhand">
+    <h2><span class="learn-num" aria-hidden="true">06</span> Doing it by hand</h2>
+
+    <p>
+      <b>Dice.</b> A six-sided die does not produce whole bits, so use rejection
+      sampling: read <code>1 2 3 4</code> as <code>00 01 10 11</code> and reroll
+      <code>5</code> and <code>6</code>. Each accepted roll is exactly two bits, with
+      no bias introduced by the mapping. 128 bits therefore needs 64 accepted rolls;
+      since a third of throws are discarded, expect to throw about 96 times.
+    </p>
+
+    <p>
+      <b>Coins.</b> One flip, one bit — heads <code>1</code>, tails <code>0</code> —
+      so 128 flips for a 12-word phrase. If you doubt the coin is fair, use von
+      Neumann's trick: flip in pairs, read <code>HT</code> as <code>1</code> and
+      <code>TH</code> as <code>0</code>, discard <code>HH</code> and <code>TT</code>.
+      That removes any fixed bias at a cost of about four flips per bit, so roughly
+      512 flips for 128 bits.
+    </p>
+
+    <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Dice and coin counts by phrase length, scrollable table">
+      <table class="learn-tbl">
+        <caption>Physical work per phrase</caption>
+        <thead>
+          <tr>
+            <th scope="col">Words</th>
+            <th scope="col">Entropy bits</th>
+            <th scope="col">d6 rolls kept</th>
+            <th scope="col">d6 throws (expected)</th>
+            <th scope="col">Coin flips</th>
+            <th scope="col">Debiased flips (expected)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">12</th><td>128</td><td>64</td><td>96</td><td>128</td><td>512</td></tr>
+          <tr><th scope="row">15</th><td>160</td><td>80</td><td>120</td><td>160</td><td>640</td></tr>
+          <tr><th scope="row">18</th><td>192</td><td>96</td><td>144</td><td>192</td><td>768</td></tr>
+          <tr><th scope="row">21</th><td>224</td><td>112</td><td>168</td><td>224</td><td>896</td></tr>
+          <tr><th scope="row">24</th><td>256</td><td>128</td><td>192</td><td>256</td><td>1024</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Write the bits out in groups of eleven. Each group is a word index from
+      <code>0</code> to <code>2047</code>, and on this poster you read it off
+      directly: the high bits select the column, the low bits the row. The first
+      eleven words of a 12-word phrase come straight from your first 121 bits.
+    </p>
+
+    <p>
+      <b>The last word is where a hand process stops.</b> Seven of your remaining
+      entropy bits and four checksum bits share the final word, and those four bits
+      are <code>SHA-256</code> output. You cannot compute SHA-256 by hand in any
+      practical sense. So the honest procedure is: generate the entropy physically,
+      then use an offline machine or a hardware wallet that accepts raw entropy or
+      dice input to compute the final word. Several wallets support exactly this.
+      The machine learns your entropy either way — the point of doing it by hand is
+      that the machine did not <em>choose</em> it.
+    </p>
+
+    <p class="learn-note">
+      Whatever you wrote the bits on is the phrase. Treat that worksheet as the
+      secret it is: destroy it once the phrase is recorded and verified, and never
+      photograph it. Do not reuse a set of rolls for a second wallet.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="learn-threat">
+    <h2><span class="learn-num" aria-hidden="true">07</span> Threat model and hygiene</h2>
+
+    <p>
+      <b>What a printed word list is.</b> The public BIP-39 English list, identical
+      in every wallet that implements the standard and downloadable from the
+      bitcoin/bips repository. There is nothing sensitive about it. Hanging it on a
+      wall reveals no more than hanging up a dictionary, and it is genuinely useful:
+      it turns bits into words, tells you the four-letter prefixes hardware wallets
+      ask for, and lets you confirm a word exists before you trust it to a metal
+      plate.
+    </p>
+
+    <p>
+      <b>What it is not.</b> It is not a backup, not a secret, and not a
+      verification tool. It cannot tell you whether a phrase is valid, because that
+      needs a hash, and it cannot tell you whether a phrase is yours.
+    </p>
+
+    <p>
+      Marking it changes all of that at once. A poster with twelve pencil ticks on
+      it is your recovery phrase in plaintext, legible from across a room, immune to
+      the usual excuse that a photograph was “only of the wall”. If you need to
+      trace words while transcribing, use a separate sheet you destroy afterwards.
+    </p>
+
+    <p>
+      Never type a real phrase into anything that is not your wallet, restoring on a
+      device you control. Not a website that offers to check it. Not a support chat,
+      an exchange form, a “migration” page or an email. Not a notes app that syncs,
+      a password manager backed by a server, or a photograph on a phone that backs
+      itself up. No legitimate party — not a wallet vendor, not an exchange, not a
+      developer — ever needs your recovery phrase, and the request itself is the
+      attack.
+    </p>
+
+    <p>
+      <b>Verify offline.</b> The only check worth running is restoring the phrase on
+      a device you control, offline, and seeing your own addresses come back. Do it
+      once, deliberately, soon after you record the phrase — an unverified backup is
+      a guess about the future.
+    </p>
+
+    <p class="learn-note">
+      This page asks for nothing and transmits nothing. It has no input that accepts
+      a recovery phrase, contains no analytics, loads no fonts, images, scripts or
+      styles from anywhere, and works with the network disconnected. That is a
+      design constraint the build enforces, not a promise: read the source, or open
+      it on a machine with no connection at all.
+    </p>
+  </section>
+
+</section>
   </div>
 
   <div class="view" id="view-roll" hidden>
@@ -362,6 +812,9 @@ body.plain .w{color:var(--ink)}
 const WORDS = ["abandon","ability","able","about","above","absent","absorb","abstract","absurd","abuse","access","accident","account","accuse","achieve","acid","acoustic","acquire","across","act","action","actor","actress","actual","adapt","add","addict","address","adjust","admit","adult","advance","advice","aerobic","affair","afford","afraid","again","age","agent","agree","ahead","aim","air","airport","aisle","alarm","album","alcohol","alert","alien","all","alley","allow","almost","alone","alpha","already","also","alter","always","amateur","amazing","among","amount","amused","analyst","anchor","ancient","anger","angle","angry","animal","ankle","announce","annual","another","answer","antenna","antique","anxiety","any","apart","apology","appear","apple","approve","april","arch","arctic","area","arena","argue","arm","armed","armor","army","around","arrange","arrest","arrive","arrow","art","artefact","artist","artwork","ask","aspect","assault","asset","assist","assume","asthma","athlete","atom","attack","attend","attitude","attract","auction","audit","august","aunt","author","auto","autumn","average","avocado","avoid","awake","aware","away","awesome","awful","awkward","axis","baby","bachelor","bacon","badge","bag","balance","balcony","ball","bamboo","banana","banner","bar","barely","bargain","barrel","base","basic","basket","battle","beach","bean","beauty","because","become","beef","before","begin","behave","behind","believe","below","belt","bench","benefit","best","betray","better","between","beyond","bicycle","bid","bike","bind","biology","bird","birth","bitter","black","blade","blame","blanket","blast","bleak","bless","blind","blood","blossom","blouse","blue","blur","blush","board","boat","body","boil","bomb","bone","bonus","book","boost","border","boring","borrow","boss","bottom","bounce","box","boy","bracket","brain","brand","brass","brave","bread","breeze","brick","bridge","brief","bright","bring","brisk","broccoli","broken","bronze","broom","brother","brown","brush","bubble","buddy","budget","buffalo","build","bulb","bulk","bullet","bundle","bunker","burden","burger","burst","bus","business","busy","butter","buyer","buzz","cabbage","cabin","cable","cactus","cage","cake","call","calm","camera","camp","can","canal","cancel","candy","cannon","canoe","canvas","canyon","capable","capital","captain","car","carbon","card","cargo","carpet","carry","cart","case","cash","casino","castle","casual","cat","catalog","catch","category","cattle","caught","cause","caution","cave","ceiling","celery","cement","census","century","cereal","certain","chair","chalk","champion","change","chaos","chapter","charge","chase","chat","cheap","check","cheese","chef","cherry","chest","chicken","chief","child","chimney","choice","choose","chronic","chuckle","chunk","churn","cigar","cinnamon","circle","citizen","city","civil","claim","clap","clarify","claw","clay","clean","clerk","clever","click","client","cliff","climb","clinic","clip","clock","clog","close","cloth","cloud","clown","club","clump","cluster","clutch","coach","coast","coconut","code","coffee","coil","coin","collect","color","column","combine","come","comfort","comic","common","company","concert","conduct","confirm","congress","connect","consider","control","convince","cook","cool","copper","copy","coral","core","corn","correct","cost","cotton","couch","country","couple","course","cousin","cover","coyote","crack","cradle","craft","cram","crane","crash","crater","crawl","crazy","cream","credit","creek","crew","cricket","crime","crisp","critic","crop","cross","crouch","crowd","crucial","cruel","cruise","crumble","crunch","crush","cry","crystal","cube","culture","cup","cupboard","curious","current","curtain","curve","cushion","custom","cute","cycle","dad","damage","damp","dance","danger","daring","dash","daughter","dawn","day","deal","debate","debris","decade","december","decide","decline","decorate","decrease","deer","defense","define","defy","degree","delay","deliver","demand","demise","denial","dentist","deny","depart","depend","deposit","depth","deputy","derive","describe","desert","design","desk","despair","destroy","detail","detect","develop","device","devote","diagram","dial","diamond","diary","dice","diesel","diet","differ","digital","dignity","dilemma","dinner","dinosaur","direct","dirt","disagree","discover","disease","dish","dismiss","disorder","display","distance","divert","divide","divorce","dizzy","doctor","document","dog","doll","dolphin","domain","donate","donkey","donor","door","dose","double","dove","draft","dragon","drama","drastic","draw","dream","dress","drift","drill","drink","drip","drive","drop","drum","dry","duck","dumb","dune","during","dust","dutch","duty","dwarf","dynamic","eager","eagle","early","earn","earth","easily","east","easy","echo","ecology","economy","edge","edit","educate","effort","egg","eight","either","elbow","elder","electric","elegant","element","elephant","elevator","elite","else","embark","embody","embrace","emerge","emotion","employ","empower","empty","enable","enact","end","endless","endorse","enemy","energy","enforce","engage","engine","enhance","enjoy","enlist","enough","enrich","enroll","ensure","enter","entire","entry","envelope","episode","equal","equip","era","erase","erode","erosion","error","erupt","escape","essay","essence","estate","eternal","ethics","evidence","evil","evoke","evolve","exact","example","excess","exchange","excite","exclude","excuse","execute","exercise","exhaust","exhibit","exile","exist","exit","exotic","expand","expect","expire","explain","expose","express","extend","extra","eye","eyebrow","fabric","face","faculty","fade","faint","faith","fall","false","fame","family","famous","fan","fancy","fantasy","farm","fashion","fat","fatal","father","fatigue","fault","favorite","feature","february","federal","fee","feed","feel","female","fence","festival","fetch","fever","few","fiber","fiction","field","figure","file","film","filter","final","find","fine","finger","finish","fire","firm","first","fiscal","fish","fit","fitness","fix","flag","flame","flash","flat","flavor","flee","flight","flip","float","flock","floor","flower","fluid","flush","fly","foam","focus","fog","foil","fold","follow","food","foot","force","forest","forget","fork","fortune","forum","forward","fossil","foster","found","fox","fragile","frame","frequent","fresh","friend","fringe","frog","front","frost","frown","frozen","fruit","fuel","fun","funny","furnace","fury","future","gadget","gain","galaxy","gallery","game","gap","garage","garbage","garden","garlic","garment","gas","gasp","gate","gather","gauge","gaze","general","genius","genre","gentle","genuine","gesture","ghost","giant","gift","giggle","ginger","giraffe","girl","give","glad","glance","glare","glass","glide","glimpse","globe","gloom","glory","glove","glow","glue","goat","goddess","gold","good","goose","gorilla","gospel","gossip","govern","gown","grab","grace","grain","grant","grape","grass","gravity","great","green","grid","grief","grit","grocery","group","grow","grunt","guard","guess","guide","guilt","guitar","gun","gym","habit","hair","half","hammer","hamster","hand","happy","harbor","hard","harsh","harvest","hat","have","hawk","hazard","head","health","heart","heavy","hedgehog","height","hello","helmet","help","hen","hero","hidden","high","hill","hint","hip","hire","history","hobby","hockey","hold","hole","holiday","hollow","home","honey","hood","hope","horn","horror","horse","hospital","host","hotel","hour","hover","hub","huge","human","humble","humor","hundred","hungry","hunt","hurdle","hurry","hurt","husband","hybrid","ice","icon","idea","identify","idle","ignore","ill","illegal","illness","image","imitate","immense","immune","impact","impose","improve","impulse","inch","include","income","increase","index","indicate","indoor","industry","infant","inflict","inform","inhale","inherit","initial","inject","injury","inmate","inner","innocent","input","inquiry","insane","insect","inside","inspire","install","intact","interest","into","invest","invite","involve","iron","island","isolate","issue","item","ivory","jacket","jaguar","jar","jazz","jealous","jeans","jelly","jewel","job","join","joke","journey","joy","judge","juice","jump","jungle","junior","junk","just","kangaroo","keen","keep","ketchup","key","kick","kid","kidney","kind","kingdom","kiss","kit","kitchen","kite","kitten","kiwi","knee","knife","knock","know","lab","label","labor","ladder","lady","lake","lamp","language","laptop","large","later","latin","laugh","laundry","lava","law","lawn","lawsuit","layer","lazy","leader","leaf","learn","leave","lecture","left","leg","legal","legend","leisure","lemon","lend","length","lens","leopard","lesson","letter","level","liar","liberty","library","license","life","lift","light","like","limb","limit","link","lion","liquid","list","little","live","lizard","load","loan","lobster","local","lock","logic","lonely","long","loop","lottery","loud","lounge","love","loyal","lucky","luggage","lumber","lunar","lunch","luxury","lyrics","machine","mad","magic","magnet","maid","mail","main","major","make","mammal","man","manage","mandate","mango","mansion","manual","maple","marble","march","margin","marine","market","marriage","mask","mass","master","match","material","math","matrix","matter","maximum","maze","meadow","mean","measure","meat","mechanic","medal","media","melody","melt","member","memory","mention","menu","mercy","merge","merit","merry","mesh","message","metal","method","middle","midnight","milk","million","mimic","mind","minimum","minor","minute","miracle","mirror","misery","miss","mistake","mix","mixed","mixture","mobile","model","modify","mom","moment","monitor","monkey","monster","month","moon","moral","more","morning","mosquito","mother","motion","motor","mountain","mouse","move","movie","much","muffin","mule","multiply","muscle","museum","mushroom","music","must","mutual","myself","mystery","myth","naive","name","napkin","narrow","nasty","nation","nature","near","neck","need","negative","neglect","neither","nephew","nerve","nest","net","network","neutral","never","news","next","nice","night","noble","noise","nominee","noodle","normal","north","nose","notable","note","nothing","notice","novel","now","nuclear","number","nurse","nut","oak","obey","object","oblige","obscure","observe","obtain","obvious","occur","ocean","october","odor","off","offer","office","often","oil","okay","old","olive","olympic","omit","once","one","onion","online","only","open","opera","opinion","oppose","option","orange","orbit","orchard","order","ordinary","organ","orient","original","orphan","ostrich","other","outdoor","outer","output","outside","oval","oven","over","own","owner","oxygen","oyster","ozone","pact","paddle","page","pair","palace","palm","panda","panel","panic","panther","paper","parade","parent","park","parrot","party","pass","patch","path","patient","patrol","pattern","pause","pave","payment","peace","peanut","pear","peasant","pelican","pen","penalty","pencil","people","pepper","perfect","permit","person","pet","phone","photo","phrase","physical","piano","picnic","picture","piece","pig","pigeon","pill","pilot","pink","pioneer","pipe","pistol","pitch","pizza","place","planet","plastic","plate","play","please","pledge","pluck","plug","plunge","poem","poet","point","polar","pole","police","pond","pony","pool","popular","portion","position","possible","post","potato","pottery","poverty","powder","power","practice","praise","predict","prefer","prepare","present","pretty","prevent","price","pride","primary","print","priority","prison","private","prize","problem","process","produce","profit","program","project","promote","proof","property","prosper","protect","proud","provide","public","pudding","pull","pulp","pulse","pumpkin","punch","pupil","puppy","purchase","purity","purpose","purse","push","put","puzzle","pyramid","quality","quantum","quarter","question","quick","quit","quiz","quote","rabbit","raccoon","race","rack","radar","radio","rail","rain","raise","rally","ramp","ranch","random","range","rapid","rare","rate","rather","raven","raw","razor","ready","real","reason","rebel","rebuild","recall","receive","recipe","record","recycle","reduce","reflect","reform","refuse","region","regret","regular","reject","relax","release","relief","rely","remain","remember","remind","remove","render","renew","rent","reopen","repair","repeat","replace","report","require","rescue","resemble","resist","resource","response","result","retire","retreat","return","reunion","reveal","review","reward","rhythm","rib","ribbon","rice","rich","ride","ridge","rifle","right","rigid","ring","riot","ripple","risk","ritual","rival","river","road","roast","robot","robust","rocket","romance","roof","rookie","room","rose","rotate","rough","round","route","royal","rubber","rude","rug","rule","run","runway","rural","sad","saddle","sadness","safe","sail","salad","salmon","salon","salt","salute","same","sample","sand","satisfy","satoshi","sauce","sausage","save","say","scale","scan","scare","scatter","scene","scheme","school","science","scissors","scorpion","scout","scrap","screen","script","scrub","sea","search","season","seat","second","secret","section","security","seed","seek","segment","select","sell","seminar","senior","sense","sentence","series","service","session","settle","setup","seven","shadow","shaft","shallow","share","shed","shell","sheriff","shield","shift","shine","ship","shiver","shock","shoe","shoot","shop","short","shoulder","shove","shrimp","shrug","shuffle","shy","sibling","sick","side","siege","sight","sign","silent","silk","silly","silver","similar","simple","since","sing","siren","sister","situate","six","size","skate","sketch","ski","skill","skin","skirt","skull","slab","slam","sleep","slender","slice","slide","slight","slim","slogan","slot","slow","slush","small","smart","smile","smoke","smooth","snack","snake","snap","sniff","snow","soap","soccer","social","sock","soda","soft","solar","soldier","solid","solution","solve","someone","song","soon","sorry","sort","soul","sound","soup","source","south","space","spare","spatial","spawn","speak","special","speed","spell","spend","sphere","spice","spider","spike","spin","spirit","split","spoil","sponsor","spoon","sport","spot","spray","spread","spring","spy","square","squeeze","squirrel","stable","stadium","staff","stage","stairs","stamp","stand","start","state","stay","steak","steel","stem","step","stereo","stick","still","sting","stock","stomach","stone","stool","story","stove","strategy","street","strike","strong","struggle","student","stuff","stumble","style","subject","submit","subway","success","such","sudden","suffer","sugar","suggest","suit","summer","sun","sunny","sunset","super","supply","supreme","sure","surface","surge","surprise","surround","survey","suspect","sustain","swallow","swamp","swap","swarm","swear","sweet","swift","swim","swing","switch","sword","symbol","symptom","syrup","system","table","tackle","tag","tail","talent","talk","tank","tape","target","task","taste","tattoo","taxi","teach","team","tell","ten","tenant","tennis","tent","term","test","text","thank","that","theme","then","theory","there","they","thing","this","thought","three","thrive","throw","thumb","thunder","ticket","tide","tiger","tilt","timber","time","tiny","tip","tired","tissue","title","toast","tobacco","today","toddler","toe","together","toilet","token","tomato","tomorrow","tone","tongue","tonight","tool","tooth","top","topic","topple","torch","tornado","tortoise","toss","total","tourist","toward","tower","town","toy","track","trade","traffic","tragic","train","transfer","trap","trash","travel","tray","treat","tree","trend","trial","tribe","trick","trigger","trim","trip","trophy","trouble","truck","true","truly","trumpet","trust","truth","try","tube","tuition","tumble","tuna","tunnel","turkey","turn","turtle","twelve","twenty","twice","twin","twist","two","type","typical","ugly","umbrella","unable","unaware","uncle","uncover","under","undo","unfair","unfold","unhappy","uniform","unique","unit","universe","unknown","unlock","until","unusual","unveil","update","upgrade","uphold","upon","upper","upset","urban","urge","usage","use","used","useful","useless","usual","utility","vacant","vacuum","vague","valid","valley","valve","van","vanish","vapor","various","vast","vault","vehicle","velvet","vendor","venture","venue","verb","verify","version","very","vessel","veteran","viable","vibrant","vicious","victory","video","view","village","vintage","violin","virtual","virus","visa","visit","visual","vital","vivid","vocal","voice","void","volcano","volume","vote","voyage","wage","wagon","wait","walk","wall","walnut","want","warfare","warm","warrior","wash","wasp","waste","water","wave","way","wealth","weapon","wear","weasel","weather","web","wedding","weekend","weird","welcome","west","wet","whale","what","wheat","wheel","when","where","whip","whisper","wide","width","wife","wild","will","win","window","wine","wing","wink","winner","winter","wire","wisdom","wise","wish","witness","wolf","woman","wonder","wood","wool","word","work","world","worry","worth","wrap","wreck","wrestle","wrist","write","wrong","yard","year","yellow","you","young","youth","zebra","zero","zone","zoo"];
 const SHA = "2f5eed53a4727b4bf8880d8f3f199efc90e58503646d9ff8eff3a2ed3b24dbda", SHA_SHORT = "2f5eed53…3b24dbda";
 const MM = 96 / 25.4, PT = 2.83465;
+
+// The word the decoder legend explains, on screen and in the PDF.
+const LEGEND_INDEX = 837;
 
 const PAPER = {
   A1:[594,841], A2:[420,594], A3:[297,420], A4:[210,297],
@@ -523,7 +976,7 @@ function masthead(s, colStart, rowStart){
 
   const right = document.createElement("div");
   right.className = "mh-r";
-  right.appendChild(decoder(837, L.tight || !L.solo));
+  right.appendChild(decoder(LEGEND_INDEX, L.tight || !L.solo));
 
   if (L.sheets > 1){
     const tag = document.createElement("div");
@@ -793,7 +1246,8 @@ const SEED = (() => {
 
   const bitsToBytes = bits => {
     if (!/^[01]*$/.test(bits)) throw new Error("bitsToBytes: not a bit string");
-    if (bits.length % 8) throw new Error("bitsToBytes: " + bits.length + " bits is not a whole number of bytes");
+    if (bits.length % 8)
+      throw new Error("bitsToBytes: " + bits.length + " bits is not a whole number of bytes");
     const out = new Uint8Array(bits.length / 8);
     for (let i = 0; i < out.length; i++) out[i] = parseInt(bits.substr(i * 8, 8), 2);
     return out;
@@ -1116,6 +1570,220 @@ const PDF = (() => {
 
   return { doc, save };
 })();
+
+/* src/js/75-poster-pdf.js */
+/* ── poster as PDF ──────────────────────────────────────────────── */
+// The same solved layout the screen uses, drawn through PDF.doc instead of the
+// DOM. Everything in L is already in millimetres, which is what the writer
+// wants, so this is a transcription rather than a second layout engine.
+const PDF_INK = [0.078, 0.086, 0.110];
+const PDF_GHOST = [0.643, 0.667, 0.702];
+const PDF_VERD = [0.180, 0.420, 0.369];
+const PDF_RULE = [0.875, 0.890, 0.902];
+const PDF_RULE_STRONG = [0.655, 0.690, 0.706];
+const PDF_SUB = [0.353, 0.380, 0.412];
+
+const PT_PER_MM = 72 / 25.4;
+const pdfSize = mm => mm * PT_PER_MM;
+
+// Text is centred in its row box on screen; in PDF it is placed on a baseline.
+// Half the cap height below the middle puts lowercase-heavy words on the same
+// optical line the browser lands on.
+const pdfBase = (top, boxH, fs) => top + boxH / 2 + fs * 0.36;
+
+function pdfDecoder(d, idx, x2, bottom){
+  const col = Math.floor(idx / L.TR), row = idx % L.TR;
+  const bits = bin(col, L.colBits) + bin(row, L.rowBits);
+  const compact = L.tight || !L.solo;
+
+  const bw = L.fs * 1.05, bh = L.fs * 1.25, gap = L.fs * 0.16, lead = L.fs * 0.85;
+  const padX = L.fs * 1.1, padY = L.fs * 0.9, vgap = L.fs * 0.62;
+  const bitsW = bits.length * bw + (bits.length - 1) * gap + lead;
+
+  const label = "HOW TO READ A WORD";
+  const math = "column " + (col * L.TR) + " + row " + row + " = " + idx;
+  const word = WORDS[idx];
+
+  const wLab = d.width(label, pdfSize(L.fs * 0.6), "cour") +
+                 (label.length - 1) * 0.18 * L.fs * 0.6;
+  const wMath = d.width(math, pdfSize(L.fs * 0.7), "cour");
+  const wWord = compact ? 0 : d.width(word, pdfSize(L.fs * 1.85), "helvB");
+  const boxW = Math.max(bitsW, wLab, wMath, wWord) + padX * 2;
+
+  const lines = compact ? 3 : 4;
+  const boxH = padY * 2 + L.fs * 0.6 + bh + L.fs * 0.7 +
+               (compact ? 0 : L.fs * 1.85) + vgap * (lines - 1);
+  const x = x2 - boxW, y = bottom - boxH;
+
+  d.rect(x, y, boxW, boxH, { stroke: PDF_RULE_STRONG, lw: 0.2 });
+
+  let cy = y + padY;
+  d.text(x + padX, cy + L.fs * 0.6, label,
+         { size: pdfSize(L.fs * 0.6), font: "cour", rgb: PDF_VERD, tracking: 0.18 });
+  cy += L.fs * 0.6 + vgap;
+
+  let bx = x + padX;
+  [...bits].forEach((b, k) => {
+    if (k === L.colBits) bx += lead;
+    const on = b === "1";
+    d.rect(bx, cy, bw, bh,
+           on ? { fill: PDF_VERD, stroke: PDF_VERD, lw: 0.2 }
+              : { stroke: PDF_RULE_STRONG, lw: 0.2 });
+    d.text(bx + bw / 2, pdfBase(cy, bh, L.fs * 0.66), b,
+           { size: pdfSize(L.fs * 0.66), font: "cour", align: "c",
+             rgb: on ? [1, 1, 1] : PDF_INK });
+    bx += bw + gap;
+  });
+  cy += bh + vgap;
+
+  d.text(x + padX, cy + L.fs * 0.7, math,
+         { size: pdfSize(L.fs * 0.7), font: "cour", rgb: PDF_SUB });
+  cy += L.fs * 0.7 + vgap;
+
+  if (!compact)
+    d.text(x + padX, cy + L.fs * 1.85, word,
+           { size: pdfSize(L.fs * 1.85), font: "helvB", rgb: PDF_INK });
+}
+
+function pdfMasthead(d, s, colStart, rowStart){
+  const top = L.M, x = L.M;
+  const titleMM = L.headH * (L.tight ? 0.27 : (L.solo ? 0.26 : 0.30));
+
+  d.text(x, top + L.fs * 0.72, "BIP-39 · ENGLISH · 2048 WORDS",
+         { size: pdfSize(L.fs * (L.tight ? 0.78 : 0.72)), font: "cour",
+           rgb: PDF_VERD, tracking: 0.3 });
+
+  let ty = top + L.fs * 0.72 + L.fs * 0.45 + titleMM;
+  const lines = L.tight
+    ? [["THE ELEVEN-BIT ADDRESS ", "SPACE"]]
+    : [["THE ELEVEN-BIT", ""], ["ADDRESS ", "SPACE"]];
+  for (const [dark, green] of lines){
+    d.text(x, ty, dark, { size: pdfSize(titleMM), font: "courB", rgb: PDF_INK });
+    if (green)
+      d.text(x + d.width(dark, pdfSize(titleMM), "courB"), ty, green,
+             { size: pdfSize(titleMM), font: "courB", rgb: PDF_VERD });
+    ty += titleMM * 0.95;
+  }
+
+  if (L.headH >= 15){
+    const size = pdfSize(L.fs * (L.tight ? 0.95 : 0.86));
+    const text = "The high " + L.colBits + " bits pick a column, the low " + L.rowBits +
+      " pick a row, so every word's index is its coordinate on this sheet. The first " +
+      "four letters, set in black, are unique across all 2048; the grey tail is redundant.";
+    const maxW = L.CW * 0.52;
+    let line = "", ly = ty + L.fs * 0.6;
+    for (const word of text.split(" ")){
+      const next = line ? line + " " + word : word;
+      if (d.width(next, size, "helv") > maxW){
+        d.text(x, ly, line, { size, font: "helv", rgb: PDF_SUB });
+        ly += L.fs * 1.13;
+        line = word;
+      } else line = next;
+    }
+    if (line) d.text(x, ly, line, { size, font: "helv", rgb: PDF_SUB });
+  }
+
+  pdfDecoder(d, LEGEND_INDEX, L.W - L.M, L.M + L.headH - (L.sheets > 1 ? L.fs * 1.6 : 0));
+
+  if (L.sheets > 1){
+    const lo = colStart * L.TR + rowStart;
+    const hi = (colStart + L.cols - 1) * L.TR + rowStart + L.rows - 1;
+    d.text(L.W - L.M, L.M + L.headH,
+           "SHEET " + (s + 1) + " / " + L.sheets + " · " + lo + "-" + hi,
+           { size: pdfSize(L.fs * 0.64), font: "cour", align: "r",
+             rgb: PDF_VERD, tracking: 0.18 });
+  }
+}
+
+function pdfSheet(d, s){
+  const colStart = (s % L.colSheets) * L.cols;
+  const rowStart = Math.floor(s / L.colSheets) * L.rows;
+  const gridTop = L.M + L.headH;
+  const gridLeft = L.M + L.gut;
+  const gridRight = gridLeft + L.cols * L.colW;
+  const bodyTop = gridTop + L.axisH;
+  const bodyBottom = bodyTop + L.rows * L.rowH;
+
+  pdfMasthead(d, s, colStart, rowStart);
+
+  /* column axis */
+  d.line(L.M, bodyTop, L.W - L.M, bodyTop, { rgb: PDF_INK, lw: 0.3 });
+  for (let c = 0; c < L.cols; c++){
+    const gc = colStart + c;
+    const x = gridLeft + c * L.colW;
+    d.text(x, bodyTop - 0.8 - L.fs * 1.15, bin(gc, L.colBits),
+           { size: pdfSize(L.fs * 0.6), font: "cour", rgb: PDF_VERD, tracking: 0.1 });
+    d.text(x, bodyTop - 0.8, String(gc * L.TR),
+           { size: pdfSize(L.fs * 1.0), font: "courB", rgb: PDF_INK });
+  }
+
+  /* vertical separators */
+  if (L.rules)
+    for (let c = 0; c < L.cols; c += L.vsep){
+      const x = gridLeft + c * L.colW;
+      d.line(x, bodyTop, x, bodyBottom, { rgb: PDF_RULE, lw: 0.12 });
+    }
+
+  const labSize = pdfSize(L.dense ? L.fs * 1.02 : L.fs * 0.72);
+  const wordSize = pdfSize(L.fs);
+
+  for (let r = 0; r < L.rows; r++){
+    const gr = rowStart + r;
+    const top = bodyTop + r * L.rowH;
+    const base = pdfBase(top, L.rowH, L.fs);
+
+    if (L.rules && r !== 0 && gr % 8 === 0){
+      const strong = gr % L.major === 0;
+      d.line(L.M, top, L.W - L.M, top,
+             { rgb: strong ? PDF_RULE_STRONG : PDF_RULE, lw: strong ? 0.2 : 0.12 });
+    }
+
+    if (!L.dense || gr % 8 === 0){
+      const lab = String(gr);
+      const oct = gr % 8 === 0;
+      const grey = oct ? [0.247, 0.278, 0.302] : [0.545, 0.576, 0.604];
+      d.text(gridLeft - 1, pdfBase(top, L.rowH, L.fs * 0.72), lab,
+             { size: labSize, font: oct ? "courB" : "cour", align: "r", rgb: grey });
+      d.text(gridRight + 1, pdfBase(top, L.rowH, L.fs * 0.72), lab,
+             { size: labSize, font: oct ? "courB" : "cour", rgb: grey });
+    }
+
+    for (let c = 0; c < L.cols; c++){
+      const gc = colStart + c;
+      const word = WORDS[gc * L.TR + gr];
+      const x = gridLeft + c * L.colW;
+      const head = word.slice(0, 4), tail = word.slice(4);
+      const plain = !$("prefix").checked;
+      d.text(x, base, head, { size: wordSize, font: "helv", rgb: PDF_INK });
+      if (tail)
+        d.text(x + d.width(head, wordSize, "helv"), base, tail,
+               { size: wordSize, font: "helv", rgb: plain ? PDF_INK : PDF_GHOST });
+    }
+  }
+
+  /* colophon */
+  const fy = L.H - L.M - L.footH;
+  d.line(L.M, fy, L.W - L.M, fy, { rgb: PDF_INK, lw: 0.3 });
+  const fsz = pdfSize(L.fs * (L.tight ? 0.72 : 0.68));
+  const fb = fy + L.footH * 0.2 + L.fs * 0.6;
+  d.text(L.M, fb, "FIRST FOUR LETTERS ARE UNIQUE",
+         { size: fsz, font: "courB", rgb: PDF_INK, tracking: 0.14 });
+  d.text(L.W / 2, fb, "sha256 " + SHA_SHORT,
+         { size: fsz, font: "cour", align: "c", rgb: PDF_SUB, tracking: 0.03 });
+  d.text(L.W - L.M, fb, "bitcoin/bips · bip-0039 · english.txt",
+         { size: fsz, font: "cour", align: "r", rgb: PDF_SUB, tracking: 0.03 });
+}
+
+function posterPDF(){
+  const d = PDF.doc({ w: L.W, h: L.H });
+  for (let s = 0; s < L.sheets; s++){
+    if (s) d.page();
+    pdfSheet(d, s);
+  }
+  const name = "bip39-" + L.paper.toLowerCase() + "-" + (L.land ? "landscape" : "portrait") +
+               "-" + L.cols + "x" + L.rows + ".pdf";
+  PDF.save(d.blob(), name);
+}
 
 /* src/js/80-roll.js */
 /* ── roll your own entropy ──────────────────────────────────────── */

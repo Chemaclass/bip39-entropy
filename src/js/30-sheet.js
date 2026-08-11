@@ -82,7 +82,7 @@ function masthead(s, colStart, rowStart){
 
   const right = document.createElement("div");
   right.className = "mh-r";
-  right.appendChild(decoder(837, L.tight || !L.solo));
+  right.appendChild(decoder(LEGEND_INDEX, L.tight || !L.solo));
 
   if (L.sheets > 1){
     const tag = document.createElement("div");

@@ -2,6 +2,9 @@ const WORDS = __WORDS__;
 const SHA = "__SHA__", SHA_SHORT = "__SHA_SHORT__";
 const MM = 96 / 25.4, PT = 2.83465;
 
+// The word the decoder legend explains, on screen and in the PDF.
+const LEGEND_INDEX = 837;
+
 const PAPER = {
   A1:[594,841], A2:[420,594], A3:[297,420], A4:[210,297],
   Letter:[215.9,279.4], Tabloid:[279.4,431.8]
