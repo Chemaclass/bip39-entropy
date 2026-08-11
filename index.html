@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIP-39 · The Eleven-Bit Address Space</title>
+<style id="pagestyle">@page { size: 210mm 297mm; margin: 0; }</style>
+<style>
+:root{
+  --paper:#ffffff;
+  --ink:#14161c;
+  --ghost:#a4aab3;
+  --verdigris:#2e6b5e;
+  --rule:#dfe3e6;
+  --rule-strong:#a7b0b4;
+  --hair:0.2mm;
+
+  --chrome:#191d1f;
+  --chrome-2:#23292b;
+  --chrome-3:#2f3639;
+  --chrome-ink:#e8edea;
+  --chrome-dim:#8d9793;
+  --patina:#6fbfa8;
+  --amber:#d8a657;
+
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --grot:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",system-ui,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Liberation Serif",serif;
+  --face:var(--grot);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--chrome);color:var(--chrome-ink);
+  font-family:var(--mono);
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+
+/* ─────────── control bar ─────────── */
+.bar{position:sticky;top:0;z-index:20;background:rgba(25,29,31,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--chrome-3);padding:10px 18px 12px}
+.bar-in{max-width:1500px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end}
+.brand{display:flex;flex-direction:column;gap:2px;margin-right:6px}
+.brand b{font:600 13px/1 var(--mono);letter-spacing:.16em}
+.brand span{font:400 10px/1 var(--mono);letter-spacing:.14em;color:var(--patina);text-transform:uppercase}
+.ctl{display:flex;flex-direction:column;gap:5px}
+.ctl>label{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--chrome-dim)}
+select,input[type=search],button{font:500 12px/1 var(--mono);color:var(--chrome-ink);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;padding:7px 9px;min-height:32px}
+select{padding-right:22px}
+input[type=search]{width:180px}
+input[type=search]::placeholder{color:#697471}
+button{cursor:pointer}
+button:hover{border-color:var(--patina);color:var(--patina)}
+.btn-print{background:var(--patina);border-color:var(--patina);color:#0e1413;font-weight:700;letter-spacing:.08em}
+.btn-print:hover{background:#8ad3bd;border-color:#8ad3bd;color:#0e1413}
+.toggles{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.tg{display:flex;align-items:center;gap:6px;font:400 11px/1 var(--mono);color:var(--chrome-dim);cursor:pointer}
+.tg input{accent-color:var(--patina);width:14px;height:14px;margin:0}
+.tg:hover{color:var(--chrome-ink)}
+:focus-visible{outline:2px solid var(--patina);outline-offset:2px}
+
+.readout{max-width:1500px;margin:9px auto 0;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
+  font:400 10.5px/1.5 var(--mono);color:#69736f;letter-spacing:.02em}
+.readout .spec{color:var(--chrome-ink);font-weight:600;letter-spacing:.06em}
+.readout .pt{color:var(--patina);font-weight:700}
+.readout .pt.small{color:var(--amber)}
+.readout .hit{color:var(--patina)}
+
+/* ─────────── sheets ─────────── */
+.stage{padding:26px 16px 60px;display:flex;flex-direction:column;align-items:center;gap:26px}
+.sheetwrap{display:flex;justify-content:center;width:100%}
+.sheet{background:var(--paper);color:var(--ink);transform-origin:top center;
+  box-shadow:0 12px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;
+  font-family:var(--face);overflow:hidden}
+
+.masthead{overflow:hidden;display:flex;justify-content:space-between;align-items:flex-end;gap:5mm;flex:0 0 auto}
+.mh-l{display:flex;flex-direction:column;min-width:0}
+.eyebrow{font-family:var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--verdigris)}
+.title{font-family:var(--mono);font-weight:700;letter-spacing:-.015em;line-height:.95;text-transform:uppercase}
+.title em{font-style:normal;color:var(--verdigris)}
+.subtitle{font-family:var(--face);color:#5a6169;line-height:1.32}
+.mh-r{display:flex;flex-direction:column;align-items:flex-end;gap:1.4mm;text-align:right;flex:0 0 auto}
+
+.decoder{border:var(--hair) solid var(--rule-strong);display:flex;flex-direction:column}
+.dec-label{font-family:var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--verdigris)}
+.bits{display:flex;align-items:center;font-family:var(--mono)}
+.bit{border:var(--hair) solid var(--rule-strong);display:flex;align-items:center;justify-content:center;
+  font-variant-numeric:tabular-nums}
+.bit.on{background:var(--verdigris);color:#fff;border-color:var(--verdigris)}
+.dec-math{font-family:var(--mono);color:#5a6169;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dec-math b{color:var(--ink);font-weight:700}
+.dec-word{font-family:var(--face);font-weight:700;letter-spacing:-.01em}
+
+.grid{flex:1 1 auto;display:grid;align-content:stretch;min-height:0}
+.cell{display:flex;align-items:center;overflow:hidden;white-space:nowrap}
+.w{padding-right:.5mm;letter-spacing:-.005em;color:var(--ghost)}
+.w b{font-weight:inherit;color:var(--ink)}
+body.plain .w{color:var(--ink)}
+.rl{font-family:var(--mono);color:#8b939a;justify-content:flex-end;
+  font-variant-numeric:tabular-nums;padding:0 1mm}
+.rl.oct{color:#3f474d;font-weight:600}
+.rule8{border-top:var(--hair) solid var(--rule)}
+.rule64{border-top:var(--hair) solid var(--rule-strong)}
+.vsep{border-left:var(--hair) solid var(--rule)}
+.axis{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
+  padding-bottom:.8mm;border-bottom:0.3mm solid var(--ink)}
+.axis .base{font-family:var(--mono);font-weight:700;color:var(--ink);
+  font-variant-numeric:tabular-nums;line-height:1.05}
+.axis .nib{font-family:var(--mono);color:var(--verdigris);letter-spacing:.1em;line-height:1.2}
+
+.colophon{flex:0 0 auto;display:flex;justify-content:space-between;gap:4mm;
+  border-top:0.3mm solid var(--ink);font-family:var(--mono);color:#5a6169;letter-spacing:.03em}
+.colophon span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.colophon .lead{color:var(--ink);font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+
+.w.found{background:#d9f0e6;color:var(--ink);box-shadow:0 0 0 .3mm var(--verdigris)}
+.w.found b{color:var(--verdigris)}
+.w.pinned{background:var(--verdigris);color:#fff}
+.w.pinned b{color:#fff}
+@media (prefers-reduced-motion:no-preference){ .w{transition:background-color .12s ease} }
+
+@media print{
+  body{background:#fff}
+  .bar,.readout{display:none !important}
+  .stage{padding:0;gap:0;display:block}
+  .sheetwrap{display:block;height:auto !important}
+  .sheet{transform:none !important;box-shadow:none;break-after:page;page-break-after:always}
+  .sheet:last-child{break-after:auto;page-break-after:auto}
+  .w.found,.w.pinned{background:none;color:var(--ghost);box-shadow:none}
+  body.plain .w.found,body.plain .w.pinned{color:var(--ink)}
+  .w.found b,.w.pinned b{color:var(--ink)}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="brand"><b>BIP-39</b><span>2048 · english · print</span></div>
+
+    <div class="ctl">
+      <label for="paper">Paper</label>
+      <select id="paper">
+        <option value="A4" selected>A4 — 210 × 297</option>
+        <option value="A3">A3 — 297 × 420</option>
+        <option value="A2">A2 — 420 × 594</option>
+        <option value="A1">A1 — 594 × 841</option>
+        <option value="Letter">Letter — 8.5 × 11</option>
+        <option value="Tabloid">Tabloid — 11 × 17</option>
+      </select>
+    </div>
+
+    <div class="ctl">
+      <label for="orient">Orientation</label>
+      <select id="orient">
+        <option value="p" selected>Portrait</option>
+        <option value="l">Landscape</option>
+      </select>
+    </div>
+
+    <div class="ctl">
+      <label for="split">Grid</label>
+      <select id="split">
+        <option value="auto" selected>Auto — largest type, one sheet</option>
+        <option value="16x128:16x128">16 × 128 — one sheet (4+7 bits)</option>
+        <option value="32x64:32x64">32 × 64 — one sheet (5+6 bits)</option>
+        <option value="16x128:16x64">16 × 64 — two sheets</option>
+        <option value="16x128:8x128">8 × 128 — two sheets</option>
+        <option value="16x128:8x64">8 × 64 — four sheets</option>
+        <option value="16x128:4x64">4 × 64 — eight sheets</option>
+      </select>
+    </div>
+
+    <div class="ctl">
+      <label for="face">Word face</label>
+      <select id="face">
+        <option value="grot" selected>Grotesque</option>
+        <option value="serif">Serif</option>
+        <option value="mono">Monospace</option>
+      </select>
+    </div>
+
+    <div class="ctl">
+      <label for="find">Find word or index</label>
+      <input id="find" type="search" placeholder="abandon · 1024" autocomplete="off" spellcheck="false">
+    </div>
+
+    <div class="ctl">
+      <label>&nbsp;</label>
+      <div class="toggles">
+        <label class="tg"><input type="checkbox" id="prefix" checked> Prefix emphasis</label>
+        <label class="tg"><input type="checkbox" id="rules" checked> Row rules</label>
+        <button class="btn-print" id="print">PRINT</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+</div>
+
+<main class="stage" id="stage"></main>
+
+<script>
+const WORDS = ["abandon","ability","able","about","above","absent","absorb","abstract","absurd","abuse","access","accident","account","accuse","achieve","acid","acoustic","acquire","across","act","action","actor","actress","actual","adapt","add","addict","address","adjust","admit","adult","advance","advice","aerobic","affair","afford","afraid","again","age","agent","agree","ahead","aim","air","airport","aisle","alarm","album","alcohol","alert","alien","all","alley","allow","almost","alone","alpha","already","also","alter","always","amateur","amazing","among","amount","amused","analyst","anchor","ancient","anger","angle","angry","animal","ankle","announce","annual","another","answer","antenna","antique","anxiety","any","apart","apology","appear","apple","approve","april","arch","arctic","area","arena","argue","arm","armed","armor","army","around","arrange","arrest","arrive","arrow","art","artefact","artist","artwork","ask","aspect","assault","asset","assist","assume","asthma","athlete","atom","attack","attend","attitude","attract","auction","audit","august","aunt","author","auto","autumn","average","avocado","avoid","awake","aware","away","awesome","awful","awkward","axis","baby","bachelor","bacon","badge","bag","balance","balcony","ball","bamboo","banana","banner","bar","barely","bargain","barrel","base","basic","basket","battle","beach","bean","beauty","because","become","beef","before","begin","behave","behind","believe","below","belt","bench","benefit","best","betray","better","between","beyond","bicycle","bid","bike","bind","biology","bird","birth","bitter","black","blade","blame","blanket","blast","bleak","bless","blind","blood","blossom","blouse","blue","blur","blush","board","boat","body","boil","bomb","bone","bonus","book","boost","border","boring","borrow","boss","bottom","bounce","box","boy","bracket","brain","brand","brass","brave","bread","breeze","brick","bridge","brief","bright","bring","brisk","broccoli","broken","bronze","broom","brother","brown","brush","bubble","buddy","budget","buffalo","build","bulb","bulk","bullet","bundle","bunker","burden","burger","burst","bus","business","busy","butter","buyer","buzz","cabbage","cabin","cable","cactus","cage","cake","call","calm","camera","camp","can","canal","cancel","candy","cannon","canoe","canvas","canyon","capable","capital","captain","car","carbon","card","cargo","carpet","carry","cart","case","cash","casino","castle","casual","cat","catalog","catch","category","cattle","caught","cause","caution","cave","ceiling","celery","cement","census","century","cereal","certain","chair","chalk","champion","change","chaos","chapter","charge","chase","chat","cheap","check","cheese","chef","cherry","chest","chicken","chief","child","chimney","choice","choose","chronic","chuckle","chunk","churn","cigar","cinnamon","circle","citizen","city","civil","claim","clap","clarify","claw","clay","clean","clerk","clever","click","client","cliff","climb","clinic","clip","clock","clog","close","cloth","cloud","clown","club","clump","cluster","clutch","coach","coast","coconut","code","coffee","coil","coin","collect","color","column","combine","come","comfort","comic","common","company","concert","conduct","confirm","congress","connect","consider","control","convince","cook","cool","copper","copy","coral","core","corn","correct","cost","cotton","couch","country","couple","course","cousin","cover","coyote","crack","cradle","craft","cram","crane","crash","crater","crawl","crazy","cream","credit","creek","crew","cricket","crime","crisp","critic","crop","cross","crouch","crowd","crucial","cruel","cruise","crumble","crunch","crush","cry","crystal","cube","culture","cup","cupboard","curious","current","curtain","curve","cushion","custom","cute","cycle","dad","damage","damp","dance","danger","daring","dash","daughter","dawn","day","deal","debate","debris","decade","december","decide","decline","decorate","decrease","deer","defense","define","defy","degree","delay","deliver","demand","demise","denial","dentist","deny","depart","depend","deposit","depth","deputy","derive","describe","desert","design","desk","despair","destroy","detail","detect","develop","device","devote","diagram","dial","diamond","diary","dice","diesel","diet","differ","digital","dignity","dilemma","dinner","dinosaur","direct","dirt","disagree","discover","disease","dish","dismiss","disorder","display","distance","divert","divide","divorce","dizzy","doctor","document","dog","doll","dolphin","domain","donate","donkey","donor","door","dose","double","dove","draft","dragon","drama","drastic","draw","dream","dress","drift","drill","drink","drip","drive","drop","drum","dry","duck","dumb","dune","during","dust","dutch","duty","dwarf","dynamic","eager","eagle","early","earn","earth","easily","east","easy","echo","ecology","economy","edge","edit","educate","effort","egg","eight","either","elbow","elder","electric","elegant","element","elephant","elevator","elite","else","embark","embody","embrace","emerge","emotion","employ","empower","empty","enable","enact","end","endless","endorse","enemy","energy","enforce","engage","engine","enhance","enjoy","enlist","enough","enrich","enroll","ensure","enter","entire","entry","envelope","episode","equal","equip","era","erase","erode","erosion","error","erupt","escape","essay","essence","estate","eternal","ethics","evidence","evil","evoke","evolve","exact","example","excess","exchange","excite","exclude","excuse","execute","exercise","exhaust","exhibit","exile","exist","exit","exotic","expand","expect","expire","explain","expose","express","extend","extra","eye","eyebrow","fabric","face","faculty","fade","faint","faith","fall","false","fame","family","famous","fan","fancy","fantasy","farm","fashion","fat","fatal","father","fatigue","fault","favorite","feature","february","federal","fee","feed","feel","female","fence","festival","fetch","fever","few","fiber","fiction","field","figure","file","film","filter","final","find","fine","finger","finish","fire","firm","first","fiscal","fish","fit","fitness","fix","flag","flame","flash","flat","flavor","flee","flight","flip","float","flock","floor","flower","fluid","flush","fly","foam","focus","fog","foil","fold","follow","food","foot","force","forest","forget","fork","fortune","forum","forward","fossil","foster","found","fox","fragile","frame","frequent","fresh","friend","fringe","frog","front","frost","frown","frozen","fruit","fuel","fun","funny","furnace","fury","future","gadget","gain","galaxy","gallery","game","gap","garage","garbage","garden","garlic","garment","gas","gasp","gate","gather","gauge","gaze","general","genius","genre","gentle","genuine","gesture","ghost","giant","gift","giggle","ginger","giraffe","girl","give","glad","glance","glare","glass","glide","glimpse","globe","gloom","glory","glove","glow","glue","goat","goddess","gold","good","goose","gorilla","gospel","gossip","govern","gown","grab","grace","grain","grant","grape","grass","gravity","great","green","grid","grief","grit","grocery","group","grow","grunt","guard","guess","guide","guilt","guitar","gun","gym","habit","hair","half","hammer","hamster","hand","happy","harbor","hard","harsh","harvest","hat","have","hawk","hazard","head","health","heart","heavy","hedgehog","height","hello","helmet","help","hen","hero","hidden","high","hill","hint","hip","hire","history","hobby","hockey","hold","hole","holiday","hollow","home","honey","hood","hope","horn","horror","horse","hospital","host","hotel","hour","hover","hub","huge","human","humble","humor","hundred","hungry","hunt","hurdle","hurry","hurt","husband","hybrid","ice","icon","idea","identify","idle","ignore","ill","illegal","illness","image","imitate","immense","immune","impact","impose","improve","impulse","inch","include","income","increase","index","indicate","indoor","industry","infant","inflict","inform","inhale","inherit","initial","inject","injury","inmate","inner","innocent","input","inquiry","insane","insect","inside","inspire","install","intact","interest","into","invest","invite","involve","iron","island","isolate","issue","item","ivory","jacket","jaguar","jar","jazz","jealous","jeans","jelly","jewel","job","join","joke","journey","joy","judge","juice","jump","jungle","junior","junk","just","kangaroo","keen","keep","ketchup","key","kick","kid","kidney","kind","kingdom","kiss","kit","kitchen","kite","kitten","kiwi","knee","knife","knock","know","lab","label","labor","ladder","lady","lake","lamp","language","laptop","large","later","latin","laugh","laundry","lava","law","lawn","lawsuit","layer","lazy","leader","leaf","learn","leave","lecture","left","leg","legal","legend","leisure","lemon","lend","length","lens","leopard","lesson","letter","level","liar","liberty","library","license","life","lift","light","like","limb","limit","link","lion","liquid","list","little","live","lizard","load","loan","lobster","local","lock","logic","lonely","long","loop","lottery","loud","lounge","love","loyal","lucky","luggage","lumber","lunar","lunch","luxury","lyrics","machine","mad","magic","magnet","maid","mail","main","major","make","mammal","man","manage","mandate","mango","mansion","manual","maple","marble","march","margin","marine","market","marriage","mask","mass","master","match","material","math","matrix","matter","maximum","maze","meadow","mean","measure","meat","mechanic","medal","media","melody","melt","member","memory","mention","menu","mercy","merge","merit","merry","mesh","message","metal","method","middle","midnight","milk","million","mimic","mind","minimum","minor","minute","miracle","mirror","misery","miss","mistake","mix","mixed","mixture","mobile","model","modify","mom","moment","monitor","monkey","monster","month","moon","moral","more","morning","mosquito","mother","motion","motor","mountain","mouse","move","movie","much","muffin","mule","multiply","muscle","museum","mushroom","music","must","mutual","myself","mystery","myth","naive","name","napkin","narrow","nasty","nation","nature","near","neck","need","negative","neglect","neither","nephew","nerve","nest","net","network","neutral","never","news","next","nice","night","noble","noise","nominee","noodle","normal","north","nose","notable","note","nothing","notice","novel","now","nuclear","number","nurse","nut","oak","obey","object","oblige","obscure","observe","obtain","obvious","occur","ocean","october","odor","off","offer","office","often","oil","okay","old","olive","olympic","omit","once","one","onion","online","only","open","opera","opinion","oppose","option","orange","orbit","orchard","order","ordinary","organ","orient","original","orphan","ostrich","other","outdoor","outer","output","outside","oval","oven","over","own","owner","oxygen","oyster","ozone","pact","paddle","page","pair","palace","palm","panda","panel","panic","panther","paper","parade","parent","park","parrot","party","pass","patch","path","patient","patrol","pattern","pause","pave","payment","peace","peanut","pear","peasant","pelican","pen","penalty","pencil","people","pepper","perfect","permit","person","pet","phone","photo","phrase","physical","piano","picnic","picture","piece","pig","pigeon","pill","pilot","pink","pioneer","pipe","pistol","pitch","pizza","place","planet","plastic","plate","play","please","pledge","pluck","plug","plunge","poem","poet","point","polar","pole","police","pond","pony","pool","popular","portion","position","possible","post","potato","pottery","poverty","powder","power","practice","praise","predict","prefer","prepare","present","pretty","prevent","price","pride","primary","print","priority","prison","private","prize","problem","process","produce","profit","program","project","promote","proof","property","prosper","protect","proud","provide","public","pudding","pull","pulp","pulse","pumpkin","punch","pupil","puppy","purchase","purity","purpose","purse","push","put","puzzle","pyramid","quality","quantum","quarter","question","quick","quit","quiz","quote","rabbit","raccoon","race","rack","radar","radio","rail","rain","raise","rally","ramp","ranch","random","range","rapid","rare","rate","rather","raven","raw","razor","ready","real","reason","rebel","rebuild","recall","receive","recipe","record","recycle","reduce","reflect","reform","refuse","region","regret","regular","reject","relax","release","relief","rely","remain","remember","remind","remove","render","renew","rent","reopen","repair","repeat","replace","report","require","rescue","resemble","resist","resource","response","result","retire","retreat","return","reunion","reveal","review","reward","rhythm","rib","ribbon","rice","rich","ride","ridge","rifle","right","rigid","ring","riot","ripple","risk","ritual","rival","river","road","roast","robot","robust","rocket","romance","roof","rookie","room","rose","rotate","rough","round","route","royal","rubber","rude","rug","rule","run","runway","rural","sad","saddle","sadness","safe","sail","salad","salmon","salon","salt","salute","same","sample","sand","satisfy","satoshi","sauce","sausage","save","say","scale","scan","scare","scatter","scene","scheme","school","science","scissors","scorpion","scout","scrap","screen","script","scrub","sea","search","season","seat","second","secret","section","security","seed","seek","segment","select","sell","seminar","senior","sense","sentence","series","service","session","settle","setup","seven","shadow","shaft","shallow","share","shed","shell","sheriff","shield","shift","shine","ship","shiver","shock","shoe","shoot","shop","short","shoulder","shove","shrimp","shrug","shuffle","shy","sibling","sick","side","siege","sight","sign","silent","silk","silly","silver","similar","simple","since","sing","siren","sister","situate","six","size","skate","sketch","ski","skill","skin","skirt","skull","slab","slam","sleep","slender","slice","slide","slight","slim","slogan","slot","slow","slush","small","smart","smile","smoke","smooth","snack","snake","snap","sniff","snow","soap","soccer","social","sock","soda","soft","solar","soldier","solid","solution","solve","someone","song","soon","sorry","sort","soul","sound","soup","source","south","space","spare","spatial","spawn","speak","special","speed","spell","spend","sphere","spice","spider","spike","spin","spirit","split","spoil","sponsor","spoon","sport","spot","spray","spread","spring","spy","square","squeeze","squirrel","stable","stadium","staff","stage","stairs","stamp","stand","start","state","stay","steak","steel","stem","step","stereo","stick","still","sting","stock","stomach","stone","stool","story","stove","strategy","street","strike","strong","struggle","student","stuff","stumble","style","subject","submit","subway","success","such","sudden","suffer","sugar","suggest","suit","summer","sun","sunny","sunset","super","supply","supreme","sure","surface","surge","surprise","surround","survey","suspect","sustain","swallow","swamp","swap","swarm","swear","sweet","swift","swim","swing","switch","sword","symbol","symptom","syrup","system","table","tackle","tag","tail","talent","talk","tank","tape","target","task","taste","tattoo","taxi","teach","team","tell","ten","tenant","tennis","tent","term","test","text","thank","that","theme","then","theory","there","they","thing","this","thought","three","thrive","throw","thumb","thunder","ticket","tide","tiger","tilt","timber","time","tiny","tip","tired","tissue","title","toast","tobacco","today","toddler","toe","together","toilet","token","tomato","tomorrow","tone","tongue","tonight","tool","tooth","top","topic","topple","torch","tornado","tortoise","toss","total","tourist","toward","tower","town","toy","track","trade","traffic","tragic","train","transfer","trap","trash","travel","tray","treat","tree","trend","trial","tribe","trick","trigger","trim","trip","trophy","trouble","truck","true","truly","trumpet","trust","truth","try","tube","tuition","tumble","tuna","tunnel","turkey","turn","turtle","twelve","twenty","twice","twin","twist","two","type","typical","ugly","umbrella","unable","unaware","uncle","uncover","under","undo","unfair","unfold","unhappy","uniform","unique","unit","universe","unknown","unlock","until","unusual","unveil","update","upgrade","uphold","upon","upper","upset","urban","urge","usage","use","used","useful","useless","usual","utility","vacant","vacuum","vague","valid","valley","valve","van","vanish","vapor","various","vast","vault","vehicle","velvet","vendor","venture","venue","verb","verify","version","very","vessel","veteran","viable","vibrant","vicious","victory","video","view","village","vintage","violin","virtual","virus","visa","visit","visual","vital","vivid","vocal","voice","void","volcano","volume","vote","voyage","wage","wagon","wait","walk","wall","walnut","want","warfare","warm","warrior","wash","wasp","waste","water","wave","way","wealth","weapon","wear","weasel","weather","web","wedding","weekend","weird","welcome","west","wet","whale","what","wheat","wheel","when","where","whip","whisper","wide","width","wife","wild","will","win","window","wine","wing","wink","winner","winter","wire","wisdom","wise","wish","witness","wolf","woman","wonder","wood","wool","word","work","world","worry","worth","wrap","wreck","wrestle","wrist","write","wrong","yard","year","yellow","you","young","youth","zebra","zero","zone","zoo"];
+const SHA = "2f5eed53a4727b4bf8880d8f3f199efc90e58503646d9ff8eff3a2ed3b24dbda", SHA_SHORT = "2f5eed53…3b24dbda";
+const MM = 96 / 25.4, PT = 2.83465;
+
+const PAPER = {
+  A1:[594,841], A2:[420,594], A3:[297,420], A4:[210,297],
+  Letter:[215.9,279.4], Tabloid:[279.4,431.8]
+};
+const FACES = { grot:"var(--grot)", serif:"var(--serif)", mono:"var(--mono)" };
+const NEED = 8 * 0.53;   // widest word (8 glyphs) in em
+
+const $ = id => document.getElementById(id);
+const stage = $("stage");
+let L = null;
+
+const bin = (n, w) => n.toString(2).padStart(w, "0");
+const log2 = n => Math.round(Math.log2(n));
+
+/* ── layout solver, millimetres throughout ──────────────────────── */
+function fit(paper, land, TC, TR, cols, rows){
+  const [pw, ph] = PAPER[paper];
+  const W = land ? ph : pw, H = land ? pw : ph;
+
+  const colSheets = TC / cols, rowSheets = TR / rows;
+  const sheets = colSheets * rowSheets, solo = sheets === 1;
+
+  // Small paper gets tight chrome — every millimetre goes to the words.
+  const tight = Math.min(W, H) <= 230;
+  const M = tight ? 8 : Math.max(9, Math.round(W * 0.05));
+  const headH = Math.round(H * (tight ? 0.058 : (solo ? 0.095 : 0.075)));
+  const footH = Math.round(H * (tight ? 0.019 : 0.026));
+
+  const CW = W - 2 * M;
+  const gridH = H - 2 * M - headH - footH;
+  const axisRatio = tight ? 2.0 : 2.3;
+  const rowH = gridH / (rows + axisRatio);
+
+  const digits = TR > 100 ? 3 : 2;
+  const gutK = digits * 0.78 + 1.15;
+
+  let fs = rowH * 0.86;                                  // vertical bound
+  if (fs * NEED > ((CW - 2 * fs * gutK) / cols) * 0.95)  // horizontal bound
+    fs = 0.95 * CW / (cols * NEED + 1.9 * gutK);
+
+  const gut = fs * gutK;
+  const colW = (CW - 2 * gut) / cols;
+  const dense = rowH < 2.4;
+
+  return { paper, land, W, H, M, CW, TC, TR, cols, rows, colSheets, rowSheets,
+           sheets, solo, tight, dense, headH, footH, gridH, rowH,
+           axisH: rowH * axisRatio, fs, gut, colW,
+           colBits: log2(TC), rowBits: log2(TR),
+           major: TR >= 128 ? 64 : 32, vsep: TC >= 32 ? 8 : 4 };
+}
+
+function computeLayout(){
+  const paper = $("paper").value, land = $("orient").value === "l";
+  const v = $("split").value;
+  if (v === "auto"){
+    const a = fit(paper, land, 16, 128, 16, 128);
+    const b = fit(paper, land, 32, 64, 32, 64);
+    return b.fs > a.fs ? b : a;
+  }
+  const [g, s] = v.split(":");
+  const [TC, TR] = g.split("x").map(Number);
+  const [cols, rows] = s.split("x").map(Number);
+  return fit(paper, land, TC, TR, cols, rows);
+}
+
+/* ── decoder legend ─────────────────────────────────────────────── */
+function decoder(idx, compact){
+  const col = Math.floor(idx / L.TR), row = idx % L.TR;
+  const box = document.createElement("div");
+  box.className = "decoder";
+  box.style.padding = (L.fs * 0.9) + "mm " + (L.fs * 1.1) + "mm";
+  box.style.gap = (L.fs * 0.62) + "mm";
+
+  const lab = document.createElement("div");
+  lab.className = "dec-label";
+  lab.style.fontSize = (L.fs * 0.6) + "mm";
+  lab.textContent = "how to read a word";
+
+  const bits = document.createElement("div");
+  bits.className = "bits";
+  bits.style.gap = (L.fs * 0.16) + "mm";
+  const mk = (b, lead) => {
+    const s = document.createElement("span");
+    s.className = "bit" + (b === "1" ? " on" : "");
+    s.style.width = (L.fs * 1.05) + "mm";
+    s.style.height = (L.fs * 1.25) + "mm";
+    s.style.fontSize = (L.fs * 0.66) + "mm";
+    if (lead) s.style.marginLeft = (L.fs * 0.85) + "mm";
+    s.textContent = b;
+    return s;
+  };
+  bin(col, L.colBits).split("").forEach(b => bits.appendChild(mk(b, false)));
+  bin(row, L.rowBits).split("").forEach((b, k) => bits.appendChild(mk(b, k === 0)));
+
+  const math = document.createElement("div");
+  math.className = "dec-math";
+  math.style.fontSize = (L.fs * 0.7) + "mm";
+  math.innerHTML = "column <b>" + (col * L.TR) + "</b> + row <b>" + row +
+                   "</b> = <b>" + idx + "</b>";
+
+  box.append(lab, bits, math);
+  if (!compact){
+    const word = document.createElement("div");
+    word.className = "dec-word";
+    word.style.fontSize = (L.fs * 1.85) + "mm";
+    word.textContent = WORDS[idx];
+    box.appendChild(word);
+  }
+  return box;
+}
+
+/* ── masthead ───────────────────────────────────────────────────── */
+function masthead(s, colStart, rowStart){
+  const h = document.createElement("header");
+  h.className = "masthead";
+  h.style.height = L.headH + "mm";
+  h.style.paddingBottom = (L.headH * 0.14) + "mm";
+
+  const left = document.createElement("div");
+  left.className = "mh-l";
+
+  const eb = document.createElement("div");
+  eb.className = "eyebrow";
+  eb.style.fontSize = (L.fs * (L.tight ? 0.78 : 0.72)) + "mm";
+  eb.style.marginBottom = (L.fs * 0.45) + "mm";
+  eb.textContent = "BIP-39 · English · 2048 words";
+
+  const t = document.createElement("div");
+  t.className = "title";
+  t.style.fontSize = (L.headH * (L.tight ? 0.27 : (L.solo ? 0.26 : 0.30))) + "mm";
+  t.innerHTML = L.tight
+    ? "The Eleven-Bit Address <em>Space</em>"
+    : "The Eleven-Bit<br>Address <em>Space</em>";
+  left.append(eb, t);
+
+  if (L.headH >= 15){
+    const sub = document.createElement("p");
+    sub.className = "subtitle";
+    sub.style.fontSize = (L.fs * (L.tight ? 0.95 : 0.86)) + "mm";
+    sub.style.margin = (L.fs * 0.6) + "mm 0 0";
+    sub.style.maxWidth = (L.CW * 0.52) + "mm";
+    sub.textContent = "The high " + L.colBits + " bits pick a column, the low " +
+      L.rowBits + " pick a row, so every word's index is its coordinate on this sheet. " +
+      "The first four letters, set in black, are unique across all 2048; the grey tail is redundant.";
+    left.appendChild(sub);
+  }
+
+  const right = document.createElement("div");
+  right.className = "mh-r";
+  right.appendChild(decoder(837, L.tight || !L.solo));
+
+  if (L.sheets > 1){
+    const tag = document.createElement("div");
+    tag.className = "dec-label";
+    tag.style.fontSize = (L.fs * 0.64) + "mm";
+    const lo = colStart * L.TR + rowStart;
+    const hi = (colStart + L.cols - 1) * L.TR + rowStart + L.rows - 1;
+    tag.textContent = "sheet " + (s + 1) + " / " + L.sheets + " · " + lo + "–" + hi;
+    right.appendChild(tag);
+  }
+
+  h.append(left, right);
+  return h;
+}
+
+/* ── one sheet ──────────────────────────────────────────────────── */
+function buildSheet(s, scale){
+  const colStart = (s % L.colSheets) * L.cols;
+  const rowStart = Math.floor(s / L.colSheets) * L.rows;
+
+  const wrap = document.createElement("div");
+  wrap.className = "sheetwrap";
+  wrap.style.height = (L.H * MM * scale) + "px";
+
+  const sheet = document.createElement("section");
+  sheet.className = "sheet";
+  sheet.style.width = L.W + "mm";
+  sheet.style.height = L.H + "mm";
+  sheet.style.padding = L.M + "mm";
+  sheet.style.transform = "scale(" + scale + ")";
+  sheet.appendChild(masthead(s, colStart, rowStart));
+
+  const g = document.createElement("div");
+  g.className = "grid";
+  g.style.gridTemplateColumns = L.gut + "mm repeat(" + L.cols + "," + L.colW + "mm) " + L.gut + "mm";
+  g.style.gridTemplateRows = L.axisH + "mm repeat(" + L.rows + "," + L.rowH + "mm)";
+
+  const blank = () => { const d = document.createElement("div"); d.className = "cell axis"; return d; };
+
+  g.appendChild(blank());
+  for (let c = 0; c < L.cols; c++){
+    const gc = colStart + c;
+    const d = document.createElement("div");
+    d.className = "cell axis" + (c % L.vsep === 0 ? " vsep" : "");
+    d.innerHTML =
+      '<div><div class="nib" style="font-size:' + (L.fs * 0.6) + 'mm">' + bin(gc, L.colBits) + '</div>' +
+      '<div class="base" style="font-size:' + (L.fs * 1.0) + 'mm">' + (gc * L.TR) + '</div></div>';
+    g.appendChild(d);
+  }
+  g.appendChild(blank());
+
+  const labSize = (L.dense ? L.fs * 1.02 : L.fs * 0.72) + "mm";
+
+  for (let r = 0; r < L.rows; r++){
+    const gr = rowStart + r;
+    const oct = gr % 8 === 0;
+    let rule = "";
+    if (L.rules && oct && r !== 0) rule = " rule8";
+    if (L.rules && gr % L.major === 0 && r !== 0) rule = " rule64";
+
+    const lab = document.createElement("div");
+    lab.className = "cell rl" + rule + (oct ? " oct" : "");
+    lab.style.fontSize = labSize;
+    lab.textContent = (!L.dense || oct) ? String(gr) : "";
+    g.appendChild(lab);
+
+    for (let c = 0; c < L.cols; c++){
+      const gc = colStart + c;
+      const idx = gc * L.TR + gr;
+      const word = WORDS[idx];
+      const d = document.createElement("div");
+      d.className = "cell w" + rule + (c % L.vsep === 0 ? " vsep" : "");
+      d.dataset.i = idx;
+      d.style.fontSize = L.fs + "mm";
+      d.innerHTML = "<b>" + word.slice(0, 4) + "</b>" + word.slice(4);
+      g.appendChild(d);
+    }
+
+    const labR = lab.cloneNode(true);
+    labR.style.justifyContent = "flex-start";
+    g.appendChild(labR);
+  }
+  sheet.appendChild(g);
+
+  const f = document.createElement("footer");
+  f.className = "colophon";
+  f.style.height = L.footH + "mm";
+  f.style.fontSize = (L.fs * (L.tight ? 0.72 : 0.68)) + "mm";
+  f.style.paddingTop = (L.footH * 0.2) + "mm";
+  f.innerHTML =
+    '<span class="lead">First four letters are unique</span>' +
+    '<span>sha256 ' + SHA_SHORT + '</span>' +
+    '<span>bitcoin/bips · bip-0039 · english.txt</span>';
+  sheet.appendChild(f);
+
+  wrap.appendChild(sheet);
+  return wrap;
+}
+
+/* ── render ─────────────────────────────────────────────────────── */
+function render(){
+  L = computeLayout();
+  L.rules = $("rules").checked;
+
+  const root = document.documentElement.style;
+  root.setProperty("--face", FACES[$("face").value]);
+  root.setProperty("--hair", L.dense ? "0.12mm" : "0.2mm");
+  root.setProperty("--ghost", L.dense ? "#7d858d" : "#a4aab3");
+  document.body.classList.toggle("plain", !$("prefix").checked);
+
+  const avail = Math.min(stage.clientWidth || window.innerWidth, 1500) - 32;
+  const scale = Math.min(1, avail / (L.W * MM));
+
+  $("pagestyle").textContent = "@page { size: " + L.W + "mm " + L.H + "mm; margin: 0; }";
+
+  stage.replaceChildren();
+  const frag = document.createDocumentFragment();
+  for (let s = 0; s < L.sheets; s++) frag.appendChild(buildSheet(s, scale));
+  stage.appendChild(frag);
+
+  writeReadout();
+  applyFind();
+}
+
+function writeReadout(){
+  const pt = L.fs * PT;
+  const r = $("readout");
+  r.replaceChildren();
+  const spec = document.createElement("span");
+  spec.className = "spec";
+  spec.textContent = L.paper + " " + (L.land ? "landscape" : "portrait") + " · " +
+    L.cols + " × " + L.rows + " · " +
+    (L.sheets === 1 ? "one sheet" : L.sheets + " sheets") + " · " +
+    L.colBits + "+" + L.rowBits + " bit split";
+  const size = document.createElement("span");
+  size.className = "pt" + (pt < 4.6 ? " small" : "");
+  size.textContent = "word type " + pt.toFixed(1) + " pt";
+  const tip = document.createElement("span");
+  tip.textContent = pt < 4.6
+    ? "Small. Try landscape, or A3, or split across sheets."
+    : "Print at 100 % scale with background graphics on.";
+  const warn = document.createElement("span");
+  warn.textContent = "Public standard list — never mark your own recovery words on it.";
+  r.append(spec, size, tip, warn);
+}
+
+/* ── find ───────────────────────────────────────────────────────── */
+function applyFind(){
+  const q = $("find").value.trim().toLowerCase();
+  document.querySelectorAll(".w.found,.w.pinned").forEach(e => e.classList.remove("found", "pinned"));
+  $("readout").querySelectorAll(".hit").forEach(e => e.remove());
+  if (!q) return;
+
+  let hits = [];
+  if (/^\d+$/.test(q) && +q >= 0 && +q <= 2047) hits = [+q];
+  else WORDS.forEach((w, i) => { if (w.includes(q)) hits.push(i); });
+
+  hits.forEach(i => {
+    const el = document.querySelector('.w[data-i="' + i + '"]');
+    if (el) el.classList.add("found");
+  });
+  if (hits.length === 1){
+    const el = document.querySelector('.w[data-i="' + hits[0] + '"]');
+    if (el){ el.classList.add("pinned"); el.scrollIntoView({ block:"center", behavior:"smooth" }); }
+    updateDecoders(hits[0]);
+  }
+  const tag = document.createElement("span");
+  tag.className = "hit";
+  tag.textContent = hits.length + " match" + (hits.length === 1 ? "" : "es") +
+    (hits.length === 1 ? " — index " + hits[0] + " · " + WORDS[hits[0]] : "");
+  $("readout").appendChild(tag);
+}
+
+function updateDecoders(idx){
+  const col = Math.floor(idx / L.TR), row = idx % L.TR;
+  const b = bin(col, L.colBits) + bin(row, L.rowBits);
+  document.querySelectorAll(".decoder").forEach(d => {
+    d.querySelectorAll(".bit").forEach((c, k) => {
+      c.textContent = b[k];
+      c.classList.toggle("on", b[k] === "1");
+    });
+    d.querySelector(".dec-math").innerHTML =
+      "column <b>" + (col * L.TR) + "</b> + row <b>" + row + "</b> = <b>" + idx + "</b>";
+    const w = d.querySelector(".dec-word");
+    if (w) w.textContent = WORDS[idx];
+  });
+}
+
+/* ── events ─────────────────────────────────────────────────────── */
+["paper","orient","split","face","prefix","rules"].forEach(id => $(id).addEventListener("change", render));
+$("find").addEventListener("input", applyFind);
+$("print").addEventListener("click", () => window.print());
+
+stage.addEventListener("click", e => {
+  const w = e.target.closest(".w");
+  if (!w) return;
+  document.querySelectorAll(".w.pinned").forEach(x => x.classList.remove("pinned"));
+  w.classList.add("pinned");
+  updateDecoders(+w.dataset.i);
+});
+
+let t;
+window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(render, 140); });
+render();
+</script>
+</body>
+</html>

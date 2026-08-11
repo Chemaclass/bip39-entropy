@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIP-39 · The Eleven-Bit Address Space</title>
+<style id="pagestyle">@page { size: 210mm 297mm; margin: 0; }</style>
+<style>
+:root{
+  --paper:#ffffff;
+  --ink:#14161c;
+  --ghost:#a4aab3;
+  --verdigris:#2e6b5e;
+  --rule:#dfe3e6;
+  --rule-strong:#a7b0b4;
+  --hair:0.2mm;
+
+  --chrome:#191d1f;
+  --chrome-2:#23292b;
+  --chrome-3:#2f3639;
+  --chrome-ink:#e8edea;
+  --chrome-dim:#8d9793;
+  --patina:#6fbfa8;
+  --amber:#d8a657;
+
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --grot:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",system-ui,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Liberation Serif",serif;
+  --face:var(--grot);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--chrome);color:var(--chrome-ink);
+  font-family:var(--mono);
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+
+/* ─────────── control bar ─────────── */
+.bar{position:sticky;top:0;z-index:20;background:rgba(25,29,31,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--chrome-3);padding:10px 18px 12px}
+.bar-in{max-width:1500px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end}
+.brand{display:flex;flex-direction:column;gap:2px;margin-right:6px}
+.brand b{font:600 13px/1 var(--mono);letter-spacing:.16em}
+.brand span{font:400 10px/1 var(--mono);letter-spacing:.14em;color:var(--patina);text-transform:uppercase}
+.ctl{display:flex;flex-direction:column;gap:5px}
+.ctl>label{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--chrome-dim)}
+select,input[type=search],button{font:500 12px/1 var(--mono);color:var(--chrome-ink);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;padding:7px 9px;min-height:32px}
+select{padding-right:22px}
+input[type=search]{width:180px}
+input[type=search]::placeholder{color:#697471}
+button{cursor:pointer}
+button:hover{border-color:var(--patina);color:var(--patina)}
+.btn-print{background:var(--patina);border-color:var(--patina);color:#0e1413;font-weight:700;letter-spacing:.08em}
+.btn-print:hover{background:#8ad3bd;border-color:#8ad3bd;color:#0e1413}
+.toggles{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.tg{display:flex;align-items:center;gap:6px;font:400 11px/1 var(--mono);color:var(--chrome-dim);cursor:pointer}
+.tg input{accent-color:var(--patina);width:14px;height:14px;margin:0}
+.tg:hover{color:var(--chrome-ink)}
+:focus-visible{outline:2px solid var(--patina);outline-offset:2px}
+
+.readout{max-width:1500px;margin:9px auto 0;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
+  font:400 10.5px/1.5 var(--mono);color:#69736f;letter-spacing:.02em}
+.readout .spec{color:var(--chrome-ink);font-weight:600;letter-spacing:.06em}
+.readout .pt{color:var(--patina);font-weight:700}
+.readout .pt.small{color:var(--amber)}
+.readout .hit{color:var(--patina)}
+
+/* ─────────── sheets ─────────── */
+.stage{padding:26px 16px 60px;display:flex;flex-direction:column;align-items:center;gap:26px}
+.sheetwrap{display:flex;justify-content:center;width:100%}
+.sheet{background:var(--paper);color:var(--ink);transform-origin:top center;
+  box-shadow:0 12px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;
+  font-family:var(--face);overflow:hidden}
+
+.masthead{overflow:hidden;display:flex;justify-content:space-between;align-items:flex-end;gap:5mm;flex:0 0 auto}
+.mh-l{display:flex;flex-direction:column;min-width:0}
+.eyebrow{font-family:var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--verdigris)}
+.title{font-family:var(--mono);font-weight:700;letter-spacing:-.015em;line-height:.95;text-transform:uppercase}
+.title em{font-style:normal;color:var(--verdigris)}
+.subtitle{font-family:var(--face);color:#5a6169;line-height:1.32}
+.mh-r{display:flex;flex-direction:column;align-items:flex-end;gap:1.4mm;text-align:right;flex:0 0 auto}
+
+.decoder{border:var(--hair) solid var(--rule-strong);display:flex;flex-direction:column}
+.dec-label{font-family:var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--verdigris)}
+.bits{display:flex;align-items:center;font-family:var(--mono)}
+.bit{border:var(--hair) solid var(--rule-strong);display:flex;align-items:center;justify-content:center;
+  font-variant-numeric:tabular-nums}
+.bit.on{background:var(--verdigris);color:#fff;border-color:var(--verdigris)}
+.dec-math{font-family:var(--mono);color:#5a6169;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dec-math b{color:var(--ink);font-weight:700}
+.dec-word{font-family:var(--face);font-weight:700;letter-spacing:-.01em}
+
+.grid{flex:1 1 auto;display:grid;align-content:stretch;min-height:0}
+.cell{display:flex;align-items:center;overflow:hidden;white-space:nowrap}
+.w{padding-right:.5mm;letter-spacing:-.005em;color:var(--ghost)}
+.w b{font-weight:inherit;color:var(--ink)}
+body.plain .w{color:var(--ink)}
+.rl{font-family:var(--mono);color:#8b939a;justify-content:flex-end;
+  font-variant-numeric:tabular-nums;padding:0 1mm}
+.rl.oct{color:#3f474d;font-weight:600}
+.rule8{border-top:var(--hair) solid var(--rule)}
+.rule64{border-top:var(--hair) solid var(--rule-strong)}
+.vsep{border-left:var(--hair) solid var(--rule)}
+.axis{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
+  padding-bottom:.8mm;border-bottom:0.3mm solid var(--ink)}
+.axis .base{font-family:var(--mono);font-weight:700;color:var(--ink);
+  font-variant-numeric:tabular-nums;line-height:1.05}
+.axis .nib{font-family:var(--mono);color:var(--verdigris);letter-spacing:.1em;line-height:1.2}
+
+.colophon{flex:0 0 auto;display:flex;justify-content:space-between;gap:4mm;
+  border-top:0.3mm solid var(--ink);font-family:var(--mono);color:#5a6169;letter-spacing:.03em}
+.colophon span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.colophon .lead{color:var(--ink);font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+
+.w.found{background:#d9f0e6;color:var(--ink);box-shadow:0 0 0 .3mm var(--verdigris)}
+.w.found b{color:var(--verdigris)}
+.w.pinned{background:var(--verdigris);color:#fff}
+.w.pinned b{color:#fff}
+@media (prefers-reduced-motion:no-preference){ .w{transition:background-color .12s ease} }
+
+@media print{
+  body{background:#fff}
+  .bar,.readout{display:none !important}
+  .stage{padding:0;gap:0;display:block}
+  .sheetwrap{display:block;height:auto !important}
+  .sheet{transform:none !important;box-shadow:none;break-after:page;page-break-after:always}
+  .sheet:last-child{break-after:auto;page-break-after:auto}
+  .w.found,.w.pinned{background:none;color:var(--ghost);box-shadow:none}
+  body.plain .w.found,body.plain .w.pinned{color:var(--ink)}
+  .w.found b,.w.pinned b{color:var(--ink)}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="brand"><b>BIP-39</b><span>2048 · english · print</span></div>
+
+    <div class="ctl">
+      <label for="paper">Paper</label>
+      <select id="paper">
+        <option value="A4" selected>A4 — 210 × 297</option>
+        <option value="A3">A3 — 297 × 420</option>
+        <option value="A2">A2 — 420 × 594</option>
+        <option value="A1">A1 — 594 × 841</option>
+        <option value="Letter">Letter — 8.5 × 11</option>
+        <option value="Tabloid">Tabloid — 11 × 17</option>
+      </select>
+    </div>
+
+    <div class="ctl">
+      <label for="orient">Orientation</label>
+      <select id="orient">
+        <option value="p" selected>Portrait</option>
+        <option value="l">Landscape</option>
+      </select>
+    </div>
+
+    <div class="ctl">
+      <label for="split">Grid</label>
+      <select id="split">
+        <option value="auto" selected>Auto — largest type, one sheet</option>
+        <option value="16x128:16x128">16 × 128 — one sheet (4+7 bits)</option>
+        <option value="32x64:32x64">32 × 64 — one sheet (5+6 bits)</option>
+        <option value="16x128:16x64">16 × 64 — two sheets</option>
+        <option value="16x128:8x128">8 × 128 — two sheets</option>
+        <option value="16x128:8x64">8 × 64 — four sheets</option>
+        <option value="16x128:4x64">4 × 64 — eight sheets</option>
+      </select>
+    </div>
+
+    <div class="ctl">
+      <label for="face">Word face</label>
+      <select id="face">
+        <option value="grot" selected>Grotesque</option>
+        <option value="serif">Serif</option>
+        <option value="mono">Monospace</option>
+      </select>
+    </div>
+
+    <div class="ctl">
+      <label for="find">Find word or index</label>
+      <input id="find" type="search" placeholder="abandon · 1024" autocomplete="off" spellcheck="false">
+    </div>
+
+    <div class="ctl">
+      <label>&nbsp;</label>
+      <div class="toggles">
+        <label class="tg"><input type="checkbox" id="prefix" checked> Prefix emphasis</label>
+        <label class="tg"><input type="checkbox" id="rules" checked> Row rules</label>
+        <button class="btn-print" id="print">PRINT</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+</div>
+
+<main class="stage" id="stage"></main>
+
+<script>
+const WORDS = __WORDS__;
+const SHA = "__SHA__", SHA_SHORT = "__SHA_SHORT__";
+const MM = 96 / 25.4, PT = 2.83465;
+
+const PAPER = {
+  A1:[594,841], A2:[420,594], A3:[297,420], A4:[210,297],
+  Letter:[215.9,279.4], Tabloid:[279.4,431.8]
+};
+const FACES = { grot:"var(--grot)", serif:"var(--serif)", mono:"var(--mono)" };
+const NEED = 8 * 0.53;   // widest word (8 glyphs) in em
+
+const $ = id => document.getElementById(id);
+const stage = $("stage");
+let L = null;
+
+const bin = (n, w) => n.toString(2).padStart(w, "0");
+const log2 = n => Math.round(Math.log2(n));
+
+/* ── layout solver, millimetres throughout ──────────────────────── */
+function fit(paper, land, TC, TR, cols, rows){
+  const [pw, ph] = PAPER[paper];
+  const W = land ? ph : pw, H = land ? pw : ph;
+
+  const colSheets = TC / cols, rowSheets = TR / rows;
+  const sheets = colSheets * rowSheets, solo = sheets === 1;
+
+  // Small paper gets tight chrome — every millimetre goes to the words.
+  const tight = Math.min(W, H) <= 230;
+  const M = tight ? 8 : Math.max(9, Math.round(W * 0.05));
+  const headH = Math.round(H * (tight ? 0.058 : (solo ? 0.095 : 0.075)));
+  const footH = Math.round(H * (tight ? 0.019 : 0.026));
+
+  const CW = W - 2 * M;
+  const gridH = H - 2 * M - headH - footH;
+  const axisRatio = tight ? 2.0 : 2.3;
+  const rowH = gridH / (rows + axisRatio);
+
+  const digits = TR > 100 ? 3 : 2;
+  const gutK = digits * 0.78 + 1.15;
+
+  let fs = rowH * 0.86;                                  // vertical bound
+  if (fs * NEED > ((CW - 2 * fs * gutK) / cols) * 0.95)  // horizontal bound
+    fs = 0.95 * CW / (cols * NEED + 1.9 * gutK);
+
+  const gut = fs * gutK;
+  const colW = (CW - 2 * gut) / cols;
+  const dense = rowH < 2.4;
+
+  return { paper, land, W, H, M, CW, TC, TR, cols, rows, colSheets, rowSheets,
+           sheets, solo, tight, dense, headH, footH, gridH, rowH,
+           axisH: rowH * axisRatio, fs, gut, colW,
+           colBits: log2(TC), rowBits: log2(TR),
+           major: TR >= 128 ? 64 : 32, vsep: TC >= 32 ? 8 : 4 };
+}
+
+function computeLayout(){
+  const paper = $("paper").value, land = $("orient").value === "l";
+  const v = $("split").value;
+  if (v === "auto"){
+    const a = fit(paper, land, 16, 128, 16, 128);
+    const b = fit(paper, land, 32, 64, 32, 64);
+    return b.fs > a.fs ? b : a;
+  }
+  const [g, s] = v.split(":");
+  const [TC, TR] = g.split("x").map(Number);
+  const [cols, rows] = s.split("x").map(Number);
+  return fit(paper, land, TC, TR, cols, rows);
+}
+
+/* ── decoder legend ─────────────────────────────────────────────── */
+function decoder(idx, compact){
+  const col = Math.floor(idx / L.TR), row = idx % L.TR;
+  const box = document.createElement("div");
+  box.className = "decoder";
+  box.style.padding = (L.fs * 0.9) + "mm " + (L.fs * 1.1) + "mm";
+  box.style.gap = (L.fs * 0.62) + "mm";
+
+  const lab = document.createElement("div");
+  lab.className = "dec-label";
+  lab.style.fontSize = (L.fs * 0.6) + "mm";
+  lab.textContent = "how to read a word";
+
+  const bits = document.createElement("div");
+  bits.className = "bits";
+  bits.style.gap = (L.fs * 0.16) + "mm";
+  const mk = (b, lead) => {
+    const s = document.createElement("span");
+    s.className = "bit" + (b === "1" ? " on" : "");
+    s.style.width = (L.fs * 1.05) + "mm";
+    s.style.height = (L.fs * 1.25) + "mm";
+    s.style.fontSize = (L.fs * 0.66) + "mm";
+    if (lead) s.style.marginLeft = (L.fs * 0.85) + "mm";
+    s.textContent = b;
+    return s;
+  };
+  bin(col, L.colBits).split("").forEach(b => bits.appendChild(mk(b, false)));
+  bin(row, L.rowBits).split("").forEach((b, k) => bits.appendChild(mk(b, k === 0)));
+
+  const math = document.createElement("div");
+  math.className = "dec-math";
+  math.style.fontSize = (L.fs * 0.7) + "mm";
+  math.innerHTML = "column <b>" + (col * L.TR) + "</b> + row <b>" + row +
+                   "</b> = <b>" + idx + "</b>";
+
+  box.append(lab, bits, math);
+  if (!compact){
+    const word = document.createElement("div");
+    word.className = "dec-word";
+    word.style.fontSize = (L.fs * 1.85) + "mm";
+    word.textContent = WORDS[idx];
+    box.appendChild(word);
+  }
+  return box;
+}
+
+/* ── masthead ───────────────────────────────────────────────────── */
+function masthead(s, colStart, rowStart){
+  const h = document.createElement("header");
+  h.className = "masthead";
+  h.style.height = L.headH + "mm";
+  h.style.paddingBottom = (L.headH * 0.14) + "mm";
+
+  const left = document.createElement("div");
+  left.className = "mh-l";
+
+  const eb = document.createElement("div");
+  eb.className = "eyebrow";
+  eb.style.fontSize = (L.fs * (L.tight ? 0.78 : 0.72)) + "mm";
+  eb.style.marginBottom = (L.fs * 0.45) + "mm";
+  eb.textContent = "BIP-39 · English · 2048 words";
+
+  const t = document.createElement("div");
+  t.className = "title";
+  t.style.fontSize = (L.headH * (L.tight ? 0.27 : (L.solo ? 0.26 : 0.30))) + "mm";
+  t.innerHTML = L.tight
+    ? "The Eleven-Bit Address <em>Space</em>"
+    : "The Eleven-Bit<br>Address <em>Space</em>";
+  left.append(eb, t);
+
+  if (L.headH >= 15){
+    const sub = document.createElement("p");
+    sub.className = "subtitle";
+    sub.style.fontSize = (L.fs * (L.tight ? 0.95 : 0.86)) + "mm";
+    sub.style.margin = (L.fs * 0.6) + "mm 0 0";
+    sub.style.maxWidth = (L.CW * 0.52) + "mm";
+    sub.textContent = "The high " + L.colBits + " bits pick a column, the low " +
+      L.rowBits + " pick a row, so every word's index is its coordinate on this sheet. " +
+      "The first four letters, set in black, are unique across all 2048; the grey tail is redundant.";
+    left.appendChild(sub);
+  }
+
+  const right = document.createElement("div");
+  right.className = "mh-r";
+  right.appendChild(decoder(837, L.tight || !L.solo));
+
+  if (L.sheets > 1){
+    const tag = document.createElement("div");
+    tag.className = "dec-label";
+    tag.style.fontSize = (L.fs * 0.64) + "mm";
+    const lo = colStart * L.TR + rowStart;
+    const hi = (colStart + L.cols - 1) * L.TR + rowStart + L.rows - 1;
+    tag.textContent = "sheet " + (s + 1) + " / " + L.sheets + " · " + lo + "–" + hi;
+    right.appendChild(tag);
+  }
+
+  h.append(left, right);
+  return h;
+}
+
+/* ── one sheet ──────────────────────────────────────────────────── */
+function buildSheet(s, scale){
+  const colStart = (s % L.colSheets) * L.cols;
+  const rowStart = Math.floor(s / L.colSheets) * L.rows;
+
+  const wrap = document.createElement("div");
+  wrap.className = "sheetwrap";
+  wrap.style.height = (L.H * MM * scale) + "px";
+
+  const sheet = document.createElement("section");
+  sheet.className = "sheet";
+  sheet.style.width = L.W + "mm";
+  sheet.style.height = L.H + "mm";
+  sheet.style.padding = L.M + "mm";
+  sheet.style.transform = "scale(" + scale + ")";
+  sheet.appendChild(masthead(s, colStart, rowStart));
+
+  const g = document.createElement("div");
+  g.className = "grid";
+  g.style.gridTemplateColumns = L.gut + "mm repeat(" + L.cols + "," + L.colW + "mm) " + L.gut + "mm";
+  g.style.gridTemplateRows = L.axisH + "mm repeat(" + L.rows + "," + L.rowH + "mm)";
+
+  const blank = () => { const d = document.createElement("div"); d.className = "cell axis"; return d; };
+
+  g.appendChild(blank());
+  for (let c = 0; c < L.cols; c++){
+    const gc = colStart + c;
+    const d = document.createElement("div");
+    d.className = "cell axis" + (c % L.vsep === 0 ? " vsep" : "");
+    d.innerHTML =
+      '<div><div class="nib" style="font-size:' + (L.fs * 0.6) + 'mm">' + bin(gc, L.colBits) + '</div>' +
+      '<div class="base" style="font-size:' + (L.fs * 1.0) + 'mm">' + (gc * L.TR) + '</div></div>';
+    g.appendChild(d);
+  }
+  g.appendChild(blank());
+
+  const labSize = (L.dense ? L.fs * 1.02 : L.fs * 0.72) + "mm";
+
+  for (let r = 0; r < L.rows; r++){
+    const gr = rowStart + r;
+    const oct = gr % 8 === 0;
+    let rule = "";
+    if (L.rules && oct && r !== 0) rule = " rule8";
+    if (L.rules && gr % L.major === 0 && r !== 0) rule = " rule64";
+
+    const lab = document.createElement("div");
+    lab.className = "cell rl" + rule + (oct ? " oct" : "");
+    lab.style.fontSize = labSize;
+    lab.textContent = (!L.dense || oct) ? String(gr) : "";
+    g.appendChild(lab);
+
+    for (let c = 0; c < L.cols; c++){
+      const gc = colStart + c;
+      const idx = gc * L.TR + gr;
+      const word = WORDS[idx];
+      const d = document.createElement("div");
+      d.className = "cell w" + rule + (c % L.vsep === 0 ? " vsep" : "");
+      d.dataset.i = idx;
+      d.style.fontSize = L.fs + "mm";
+      d.innerHTML = "<b>" + word.slice(0, 4) + "</b>" + word.slice(4);
+      g.appendChild(d);
+    }
+
+    const labR = lab.cloneNode(true);
+    labR.style.justifyContent = "flex-start";
+    g.appendChild(labR);
+  }
+  sheet.appendChild(g);
+
+  const f = document.createElement("footer");
+  f.className = "colophon";
+  f.style.height = L.footH + "mm";
+  f.style.fontSize = (L.fs * (L.tight ? 0.72 : 0.68)) + "mm";
+  f.style.paddingTop = (L.footH * 0.2) + "mm";
+  f.innerHTML =
+    '<span class="lead">First four letters are unique</span>' +
+    '<span>sha256 ' + SHA_SHORT + '</span>' +
+    '<span>bitcoin/bips · bip-0039 · english.txt</span>';
+  sheet.appendChild(f);
+
+  wrap.appendChild(sheet);
+  return wrap;
+}
+
+/* ── render ─────────────────────────────────────────────────────── */
+function render(){
+  L = computeLayout();
+  L.rules = $("rules").checked;
+
+  const root = document.documentElement.style;
+  root.setProperty("--face", FACES[$("face").value]);
+  root.setProperty("--hair", L.dense ? "0.12mm" : "0.2mm");
+  root.setProperty("--ghost", L.dense ? "#7d858d" : "#a4aab3");
+  document.body.classList.toggle("plain", !$("prefix").checked);
+
+  const avail = Math.min(stage.clientWidth || window.innerWidth, 1500) - 32;
+  const scale = Math.min(1, avail / (L.W * MM));
+
+  $("pagestyle").textContent = "@page { size: " + L.W + "mm " + L.H + "mm; margin: 0; }";
+
+  stage.replaceChildren();
+  const frag = document.createDocumentFragment();
+  for (let s = 0; s < L.sheets; s++) frag.appendChild(buildSheet(s, scale));
+  stage.appendChild(frag);
+
+  writeReadout();
+  applyFind();
+}
+
+function writeReadout(){
+  const pt = L.fs * PT;
+  const r = $("readout");
+  r.replaceChildren();
+  const spec = document.createElement("span");
+  spec.className = "spec";
+  spec.textContent = L.paper + " " + (L.land ? "landscape" : "portrait") + " · " +
+    L.cols + " × " + L.rows + " · " +
+    (L.sheets === 1 ? "one sheet" : L.sheets + " sheets") + " · " +
+    L.colBits + "+" + L.rowBits + " bit split";
+  const size = document.createElement("span");
+  size.className = "pt" + (pt < 4.6 ? " small" : "");
+  size.textContent = "word type " + pt.toFixed(1) + " pt";
+  const tip = document.createElement("span");
+  tip.textContent = pt < 4.6
+    ? "Small. Try landscape, or A3, or split across sheets."
+    : "Print at 100 % scale with background graphics on.";
+  const warn = document.createElement("span");
+  warn.textContent = "Public standard list — never mark your own recovery words on it.";
+  r.append(spec, size, tip, warn);
+}
+
+/* ── find ───────────────────────────────────────────────────────── */
+function applyFind(){
+  const q = $("find").value.trim().toLowerCase();
+  document.querySelectorAll(".w.found,.w.pinned").forEach(e => e.classList.remove("found", "pinned"));
+  $("readout").querySelectorAll(".hit").forEach(e => e.remove());
+  if (!q) return;
+
+  let hits = [];
+  if (/^\d+$/.test(q) && +q >= 0 && +q <= 2047) hits = [+q];
+  else WORDS.forEach((w, i) => { if (w.includes(q)) hits.push(i); });
+
+  hits.forEach(i => {
+    const el = document.querySelector('.w[data-i="' + i + '"]');
+    if (el) el.classList.add("found");
+  });
+  if (hits.length === 1){
+    const el = document.querySelector('.w[data-i="' + hits[0] + '"]');
+    if (el){ el.classList.add("pinned"); el.scrollIntoView({ block:"center", behavior:"smooth" }); }
+    updateDecoders(hits[0]);
+  }
+  const tag = document.createElement("span");
+  tag.className = "hit";
+  tag.textContent = hits.length + " match" + (hits.length === 1 ? "" : "es") +
+    (hits.length === 1 ? " — index " + hits[0] + " · " + WORDS[hits[0]] : "");
+  $("readout").appendChild(tag);
+}
+
+function updateDecoders(idx){
+  const col = Math.floor(idx / L.TR), row = idx % L.TR;
+  const b = bin(col, L.colBits) + bin(row, L.rowBits);
+  document.querySelectorAll(".decoder").forEach(d => {
+    d.querySelectorAll(".bit").forEach((c, k) => {
+      c.textContent = b[k];
+      c.classList.toggle("on", b[k] === "1");
+    });
+    d.querySelector(".dec-math").innerHTML =
+      "column <b>" + (col * L.TR) + "</b> + row <b>" + row + "</b> = <b>" + idx + "</b>";
+    const w = d.querySelector(".dec-word");
+    if (w) w.textContent = WORDS[idx];
+  });
+}
+
+/* ── events ─────────────────────────────────────────────────────── */
+["paper","orient","split","face","prefix","rules"].forEach(id => $(id).addEventListener("change", render));
+$("find").addEventListener("input", applyFind);
+$("print").addEventListener("click", () => window.print());
+
+stage.addEventListener("click", e => {
+  const w = e.target.closest(".w");
+  if (!w) return;
+  document.querySelectorAll(".w.pinned").forEach(x => x.classList.remove("pinned"));
+  w.classList.add("pinned");
+  updateDecoders(+w.dataset.i);
+});
+
+let t;
+window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(render, 140); });
+render();
+</script>
+</body>
+</html>

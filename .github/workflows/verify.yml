@@ -1,0 +1,30 @@
+name: Verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Fails if the word list has drifted from the canonical BIP-39 file,
+      # or if index.html is not exactly what scripts/build.py produces.
+      - name: Verify word list and reproducible build
+        run: ./scripts/verify.sh
+
+      - name: Confirm the deployed page needs no network
+        run: |
+          if grep -Eqi '<(script|link|img)[^>]+(src|href)="https?://' index.html; then
+            echo "index.html loads a remote asset — it must stay fully self-contained"
+            exit 1
+          fi
+          echo "no remote assets"
