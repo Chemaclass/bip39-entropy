@@ -105,7 +105,7 @@ like.
 
 ## License
 
-[MIT](LICENSE) © Jose Maria Valera Reales
+[MIT](LICENSE) © Chemaclass
 
 The BIP-39 word list itself is from
 [bitcoin/bips](https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt).
