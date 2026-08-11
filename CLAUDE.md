@@ -1,12 +1,15 @@
 # bip39-poster
 
-A printable poster of the 2048-word BIP-39 English list, laid out as an eleven-bit
-address space. The deliverable is `index.html`: one self-contained file, no build
-step to view it, no dependencies, no network.
+Three things about BIP-39 seed phrases — a printable poster of the 2048-word
+English list laid out as an eleven-bit address space, a field guide to entropy,
+and a dice/coin roller — in one `index.html`: self-contained, no build step to
+view it, no dependencies, **no network code of any kind**. The page tells readers
+that nothing they type or throw leaves it, so that has to stay literally true:
+no fetch, no XHR, no beacons, no remote fonts, no analytics, ever.
 
 ## The one rule
 
-`index.html` is **generated**. Edit `src/template.html` and run the build:
+`index.html` is **generated**. Edit the sources under `src/` and run the build:
 
 ```bash
 python3 scripts/build.py
@@ -14,7 +17,12 @@ python3 scripts/build.py
 
 Never hand-edit `index.html` — CI fails the moment it stops being byte-identical to
 a fresh build. Permission rules in `.claude/settings.json` deny writes to it, and a
-hook rebuilds it whenever `src/template.html` or `data/english.txt` changes.
+hook rebuilds it whenever anything under `src/` or `data/` changes.
+
+`build.py` concatenates `src/css/*.css`, `src/js/*.js` and `src/content/*.html` in
+filename order into one `<style>`, one `<script>` and the body. Numbering is load
+order: `10-data.js` defines `WORDS` before `90-boot.js` first renders, so a new
+module's prefix decides when it runs. Everything shares one top-level scope.
 
 ## Layout
 
@@ -39,6 +47,10 @@ prefixes are unique. `scripts/build.py` asserts that invariant at build time.
   fails CI. Everything inlines: CSS, JS, fonts fall back to system stacks
 - print correctness depends on `print-color-adjust: exact` and `@page { margin: 0 }`;
   changing either prints the decoder legend blank
+- the BIP-39 encoder must keep passing `SEED.selfTest()` — official vectors plus a
+  deterministic property test. Never weaken it to make a change pass
+- never write a generated phrase into a downloaded file; the worksheet PDF records
+  throws, never results
 
 ## Commands
 
@@ -55,8 +67,13 @@ or `scripts/`.
 ## Files
 
 ```
-index.html            the poster, self-contained and committed (generated)
-src/template.html     source, with __WORDS__ / __SHA__ / __SHA_SHORT__ placeholders
+index.html            the site, self-contained and committed (generated)
+src/template.html     HTML shell: __CSS__ / __JS__ / __CONTENT__ placeholders
+src/css/*.css         10 poster · 20 site chrome · 30 roller · 40 explainer · 90 print
+src/js/*.js           10 data · 20 layout · 30 sheet · 40 render · 50 find
+                      60 sha256+bip39 · 70 pdf · 75 poster pdf · 76 worksheet
+                      80 roller · 85 views · 90 boot
+src/content/*.html    long-form prose (__WORDS__ / __SHA__ live in the JS)
 data/english.txt      canonical BIP-39 English word list
 scripts/build.py      render index.html
 scripts/verify.sh     audit the word list and the build

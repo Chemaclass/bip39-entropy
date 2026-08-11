@@ -1,0 +1,160 @@
+#!/usr/bin/env python3
+"""Drive index.html in headless Chrome and fail on anything the eye would miss.
+
+Three classes of defect this catches, all of which have actually shipped here:
+
+  * a word clipped inside its cell, because the type solver over-estimated how
+    much room a column has
+  * a whole sheet cut off, because .sheet{overflow:hidden} zeroes the automatic
+    minimum size of a flex item and lets it shrink below its own grid
+  * a JS error or a failing BIP-39 self-test, which the page cannot report itself
+
+Needs Chrome (set CHROME to override the path). Not part of verify.sh or CI,
+both of which stay dependency-free; run this after touching layout or the
+entropy engine.
+
+    python3 scripts/probe.py            # full sweep, 252 combinations
+    python3 scripts/probe.py --quick    # smoke test only
+"""
+import json
+import os
+import pathlib
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+PAGE = ROOT / "index.html"
+
+CANDIDATES = [
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
+    "google-chrome", "chromium", "chromium-browser",
+]
+
+SMOKE = """
+<script>
+(function(){
+  const say = { errors: window.__errs, seed: null, views: {} };
+  try { say.seed = SEED.selfTest(); } catch (e){ say.seed = { pass:false, failures:[e.message] }; }
+  for (const v of VIEWS){
+    location.hash = "#" + v;
+    showView(v);
+    say.views[v] = !document.getElementById("view-" + v).hidden;
+  }
+  showView("poster");
+  say.sheets = document.querySelectorAll(".sheet").length;
+  say.words = document.querySelectorAll(".w").length;
+  document.title = "PROBE" + JSON.stringify(say);
+})();
+</script>
+"""
+
+SWEEP = """
+<script>
+(function(){
+  const out = [];
+  const splits = [...document.getElementById("split").options].map(o => o.value);
+  for (const paper of ["A4","A3","A2","A1","Letter","Tabloid"])
+    for (const o of ["p","l"])
+      for (const s of splits)
+        for (const face of ["grot","serif","mono"]){
+          document.getElementById("paper").value = paper;
+          document.getElementById("orient").value = o;
+          document.getElementById("split").value = s;
+          document.getElementById("face").value = face;
+          render();
+          const sheet = document.querySelector(".sheet");
+          const doc = document.documentElement;
+          let clipped = 0, worst = "";
+          for (const el of document.querySelectorAll(".w"))
+            if (el.scrollWidth - el.clientWidth > 1){ clipped++; worst = el.textContent; }
+          out.push({
+            combo: [paper, o, s, face].join(" "),
+            pt: +(L.fs * 2.83465).toFixed(1),
+            cut: sheet.scrollWidth - sheet.clientWidth,
+            scroll: doc.scrollWidth - doc.clientWidth,
+            clipped, worst
+          });
+        }
+  document.title = "PROBE" + JSON.stringify(out);
+})();
+</script>
+"""
+
+CATCH = ('<script>window.__errs=[];'
+         'addEventListener("error",e=>window.__errs.push(e.message+" @"+e.lineno));'
+         '</script>')
+
+
+def chrome() -> str:
+    if os.environ.get("CHROME"):
+        return os.environ["CHROME"]
+    for c in CANDIDATES:
+        if pathlib.Path(c).exists() or shutil.which(c):
+            return c
+    sys.exit("no Chrome found — set CHROME=/path/to/chrome")
+
+
+def run(script: str) -> object:
+    html = PAGE.read_text().replace("<body>", "<body>" + CATCH, 1)
+    html = html.replace("</body>", script + "</body>")
+    with tempfile.TemporaryDirectory() as td:
+        page = pathlib.Path(td) / "probe.html"
+        page.write_text(html)
+        dom = subprocess.run(
+            [chrome(), "--headless=new", "--disable-gpu", "--no-sandbox", "--dump-dom",
+             "--window-size=1400,1000", "--virtual-time-budget=120000", page.as_uri()],
+            capture_output=True, text=True, timeout=600).stdout
+    m = re.search(r"<title>PROBE(.*?)</title>", dom, re.S)
+    if not m:
+        sys.exit("the page did not finish running — no PROBE title in the dumped DOM")
+    return json.loads(m.group(1).replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">"))
+
+
+def main() -> None:
+    fail = 0
+    smoke = run(SMOKE)
+
+    if smoke["errors"]:
+        print(f"  FAIL  {len(smoke['errors'])} JS error(s): {smoke['errors'][:3]}")
+        fail += 1
+    else:
+        print("  ok    no JS errors")
+
+    if smoke["seed"]["pass"]:
+        print("  ok    BIP-39 self-test")
+    else:
+        print(f"  FAIL  BIP-39 self-test: {smoke['seed']['failures'][:3]}")
+        fail += 1
+
+    missing = [v for v, shown in smoke["views"].items() if not shown]
+    print(f"  {'ok   ' if not missing else 'FAIL '} views render: {list(smoke['views'])}")
+    fail += bool(missing)
+
+    if smoke["words"] != 2048:
+        print(f"  FAIL  {smoke['words']} word cells on the default sheet, expected 2048")
+        fail += 1
+    else:
+        print("  ok    2048 word cells")
+
+    if "--quick" not in sys.argv:
+        rows = run(SWEEP)
+        bad = [r for r in rows if r["clipped"] or r["cut"] > 1 or r["scroll"] > 0]
+        print(f"  {'ok   ' if not bad else 'FAIL '} {len(rows)} paper/orientation/grid/face combinations")
+        for r in bad[:12]:
+            print(f"        {r['combo']:34} {r['pt']:>5}pt  clipped={r['clipped']} "
+                  f"({r['worst']}) sheetcut={r['cut']} scroll={r['scroll']}")
+        if len(bad) > 12:
+            print(f"        … {len(bad) - 12} more")
+        fail += bool(bad)
+
+    print("probe failed." if fail else "probe passed.")
+    sys.exit(1 if fail else 0)
+
+
+if __name__ == "__main__":
+    main()

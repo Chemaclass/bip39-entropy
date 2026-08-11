@@ -1,38 +1,42 @@
 ---
 name: poster
-description: Build, preview and audit the BIP-39 poster. Use when changing src/template.html, the grid/typography/print layout, the word list, or when asked to run, open, screenshot or print-check the page.
+description: Build, preview and audit the BIP-39 site — poster layout, entropy explainer, dice/coin roller, PDF output. Use when changing anything under src/, the grid or typography, the word list, the seed engine, or when asked to run, open, screenshot or print-check the page.
 ---
 
-# Working on the poster
+# Working on the site
 
-`index.html` is generated from `src/template.html` + `data/english.txt`. Everything
-below assumes the repo root as the working directory.
+`index.html` is generated from `src/` + `data/english.txt`. Three views behind
+hash routing — `#poster`, `#learn`, `#roll` — in one offline file.
 
 ## Loop
 
 ```bash
-python3 scripts/build.py    # after every template change (a hook also does this)
-open index.html             # preview in the default browser
-./scripts/verify.sh         # ~4s full audit, before committing
+python3 scripts/build.py    # after every source change (a hook also does this)
+open index.html             # preview
+./scripts/verify.sh         # ~4s: word-list hash, reproducible build, 2048 words
+python3 scripts/probe.py    # ~90s: headless Chrome, all 252 layout combinations
 ```
 
-There is no dev server and nothing to install — `index.html` is a file URL and the
-page has no network dependencies. Reload the browser tab after a rebuild.
+No dev server, nothing to install. Reload the tab after a rebuild.
 
-## Preview checklist
+`build.py` concatenates `src/css/*.css`, `src/js/*.js`, `src/content/*.html` in
+filename order into one scope. The number prefix is load order — `10-data.js`
+defines `WORDS` before `90-boot.js` renders. New module, new prefix.
 
-The page is a print artifact, so screen appearance is not the deliverable. After a
-layout change, check in the browser:
+## What breaks, and how it hides
 
-1. **Control bar** — Paper, Orientation, Grid and the toggles all still apply live.
-2. **Readout** — reports the resulting type size, and turns amber below 4.6 pt.
-3. **Search** — typing a word highlights it; the decoder legend follows the pin.
-4. **Print preview** (⌘P) — one sheet per selected grid slice, no blank trailing
-   page, legend rendered (needs *background graphics* on, 100 % scale).
+Both of these shipped, and neither is visible on A4:
 
-Both bit splits must stay reachable: 4+7 → 16 × 128, 5+6 → 32 × 64. The page
-measures both and keeps whichever gives larger type on the selected paper, so a
-change that only looks right on A3 landscape is not done.
+- **`.sheet{overflow:hidden}` zeroes a flex item's automatic minimum size.** On
+  paper wider than the viewport the sheet flex-shrinks and silently cuts off its
+  right-hand columns. Invariant: no `.sheet` has `scrollWidth > clientWidth`.
+- **The type solver's word-width estimate.** A column must fit the widest word,
+  8 glyphs at 4.8 em in the monospace face, plus the 0.5 mm cell padding.
+  Invariant: no `.w` cell has `scrollWidth > clientWidth`.
+
+`scripts/probe.py` asserts both across every paper × orientation × grid × face,
+plus no JS errors and a passing `SEED.selfTest()`. Run it after any layout or
+engine change. It needs Chrome, which is why it is not in `verify.sh` or CI.
 
 ## Reference type sizes
 
@@ -47,28 +51,44 @@ Portrait / landscape, in points, at 100 % scale:
 | Letter | 4.5 | 4.4 |
 | Tabloid | 6.6 | 6.6 |
 
-Type is bounded by the row height *or* the column width, whichever is smaller —
-a column must fit the widest word (8 glyphs, 4.8 em in the monospace face)
-without clipping. Two invariants worth re-checking after any layout change:
-no `.w` cell has `scrollWidth > clientWidth`, and no `.sheet` does either
-(`overflow:hidden` on a flex item zeroes its automatic minimum size, so a sheet
-wider than the viewport will silently flex-shrink and cut off its right columns).
+Both bit splits must stay reachable: 4+7 → 16 × 128, 5+6 → 32 × 64. If these
+numbers move, update `README.md` too.
 
-If a change moves these numbers, update the table in `README.md` too.
+## Preview checklist
+
+The page is a print artifact, so screen appearance is not the deliverable.
+
+1. **Control bar** — Paper, Orientation, Grid, faces and toggles all apply live.
+2. **Readout** — type size, amber below 4.6 pt, and the preview scale when the
+   sheet is shrunk to fit the window.
+3. **Search** — highlights, and the decoder legend follows the pin.
+4. **PDF** — the reliable output path; `Print` depends on the user setting 100 %
+   scale and background graphics.
+5. **Roller** — dice and coin, 12 and 24 words, Undo, keyboard entry, worksheet.
+
+## Verifying PDFs
+
+The writer is hand-rolled, so a broken xref shows up as a file that opens
+nowhere. Generate in headless Chrome with `PDF.save` stubbed to capture the
+blob, read it back with `FileReader`, then check the bytes (`%PDF-1.4`, `xref`,
+`%%EOF`) and render with `qlmanage -t -s 1200 -o . file.pdf` and *look* at it.
+For the worksheet, wrap `d.text`/`d.rect`/`d.line` to assert nothing is drawn
+outside the margins — `qlmanage` only ever renders page one.
 
 ## Things that break the build
 
-- Hand-editing `index.html` — it is regenerated and CI diffs it against a fresh build.
-- Dropping any of `__WORDS__`, `__SHA__`, `__SHA_SHORT__` from the template;
-  `scripts/build.py` exits non-zero if a placeholder goes missing.
-- Any `<script src=…>`, `<link href=…>` or `<img src=…>` on `http(s)://`. CI greps
-  for it. Fonts must resolve through the system stacks already in `:root`.
-- Removing `print-color-adjust: exact` or `@page { margin: 0 }` — the decoder legend
-  then prints blank and the sheet gains printer margins.
+- Hand-editing `index.html` — generated, and CI diffs it against a fresh build.
+- Dropping `__CSS__`, `__JS__`, `__CONTENT__` from the template, or `__WORDS__`,
+  `__SHA__`, `__SHA_SHORT__` from the sources. `build.py` exits non-zero.
+- Any `http(s)://` asset. CI greps for it, and the page's central claim is that
+  it has no network code at all.
+- Removing `print-color-adjust: exact` or `@page { margin: 0 }`.
 
-## Touching the word list
+## Touching the word list or the seed engine
 
-Don't, unless BIP-39 itself changed. `data/english.txt` is pinned by SHA-256
-(`2f5eed53…3b24dbda`) in both `scripts/build.py` and `scripts/verify.sh`, and the
-digest is printed in the poster's colophon. Changing the file means updating both
-constants and re-checking the four-letter-prefix uniqueness the layout depends on.
+Don't touch `data/english.txt` unless BIP-39 itself changed: it is pinned by
+SHA-256 in `build.py`, in `verify.sh`, and in the poster's colophon.
+
+`src/js/60-seed.js` carries the official BIP-39 vectors plus a deterministic
+property test. If a change makes `SEED.selfTest()` fail, the change is wrong —
+never adjust the vectors to suit it.

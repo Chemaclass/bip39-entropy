@@ -142,6 +142,12 @@ body.plain .w{color:var(--ink)}
 
 .view[hidden]{display:none}
 
+/* Prose links, in both long-form sections. */
+.learn-sec a,.roll-lead a{color:var(--patina);text-decoration:none;
+  border-bottom:1px solid rgba(111,191,168,.35)}
+.learn-sec a:hover,.roll-lead a:hover{border-bottom-color:var(--patina)}
+.roll-lead em{font-style:normal;color:var(--chrome-ink)}
+
 @media (max-width:560px){
   .top-in{gap:8px 14px}
   .tabs a{padding:9px 8px;letter-spacing:.1em}
@@ -349,8 +355,8 @@ p.learn-lead em{color:var(--patina)}
   /* the six-column table only just fits 375px; the wrapper still scrolls if a
      different monospace stack pushes it wider */
   .learn-tbl{font-size:12px}
-  .learn-tbl th,.learn-tbl td{padding:8px 9px}
-  .learn-tbl caption{padding:11px 9px}
+  .learn-tbl th,.learn-tbl td{padding:8px 8px}
+  .learn-tbl caption{padding:11px 8px}
 }
 
 /* The explainer is screen furniture; the sheets are the printed artefact. */
@@ -790,6 +796,15 @@ p.learn-lead em{color:var(--patina)}
   <section class="learn-sec" id="learn-byhand">
     <h2><span class="learn-num" aria-hidden="true">06</span> Doing it by hand</h2>
 
+    <p class="learn-note">
+      Two things on this page put this section into practice:
+      <a href="#roll">Roll your own</a> walks the throws in and shows the bits
+      becoming words, and the worksheet it prints lets you do the same at a table
+      with no computer at all. With a 12-word phrase only the last word needs a
+      machine — the other eleven you can read straight off
+      <a href="#poster">the poster</a>.
+    </p>
+
     <p>
       <b>Dice.</b> A six-sided die does not produce whole bits, so use rejection
       sampling: read <code>1 2 3 4</code> as <code>00 01 10 11</code> and reroll
@@ -916,7 +931,8 @@ p.learn-lead em{color:var(--patina)}
       <p class="roll-lead">Twelve words are a 128-bit number plus a 4-bit checksum.
         Below you make that number yourself, one throw at a time, and watch it turn
         into words. Nothing here leaves the page — there is no network code in this
-        file at all.</p>
+        file at all. If the words <em>entropy</em> and <em>checksum</em> are doing
+        no work for you yet, read <a href="#learn">the field guide</a> first.</p>
 
       <aside class="roll-warn">
         <b>Read this first.</b> A phrase generated in a browser is for

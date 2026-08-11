@@ -15,6 +15,12 @@
 
 .view[hidden]{display:none}
 
+/* Prose links, in both long-form sections. */
+.learn-sec a,.roll-lead a{color:var(--patina);text-decoration:none;
+  border-bottom:1px solid rgba(111,191,168,.35)}
+.learn-sec a:hover,.roll-lead a:hover{border-bottom-color:var(--patina)}
+.roll-lead em{font-style:normal;color:var(--chrome-ink)}
+
 @media (max-width:560px){
   .top-in{gap:8px 14px}
   .tabs a{padding:9px 8px;letter-spacing:.1em}
