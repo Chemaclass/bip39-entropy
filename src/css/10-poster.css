@@ -1,0 +1,116 @@
+:root{
+  --paper:#ffffff;
+  --ink:#14161c;
+  --ghost:#a4aab3;
+  --verdigris:#2e6b5e;
+  --rule:#dfe3e6;
+  --rule-strong:#a7b0b4;
+  --hair:0.2mm;
+
+  --chrome:#191d1f;
+  --chrome-2:#23292b;
+  --chrome-3:#2f3639;
+  --chrome-ink:#e8edea;
+  --chrome-dim:#8d9793;
+  --patina:#6fbfa8;
+  --amber:#d8a657;
+
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --grot:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",system-ui,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Liberation Serif",serif;
+  --face:var(--grot);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--chrome);color:var(--chrome-ink);
+  font-family:var(--mono);
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+
+/* ─────────── control bar ─────────── */
+.bar{position:sticky;top:0;z-index:20;background:rgba(25,29,31,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--chrome-3);padding:10px 18px 12px}
+.bar-in{max-width:1500px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end}
+.brand{display:flex;flex-direction:column;gap:2px;margin-right:6px}
+.brand b{font:600 13px/1 var(--mono);letter-spacing:.16em}
+.brand span{font:400 10px/1 var(--mono);letter-spacing:.14em;color:var(--patina);text-transform:uppercase}
+.ctl{display:flex;flex-direction:column;gap:5px}
+.ctl>label{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--chrome-dim)}
+select,input[type=search],button{font:500 12px/1 var(--mono);color:var(--chrome-ink);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;padding:7px 9px;min-height:32px}
+select{padding-right:22px}
+input[type=search]{width:180px}
+input[type=search]::placeholder{color:#697471}
+button{cursor:pointer}
+button:hover{border-color:var(--patina);color:var(--patina)}
+.btn-print{background:var(--patina);border-color:var(--patina);color:#0e1413;font-weight:700;letter-spacing:.08em}
+.btn-print:hover{background:#8ad3bd;border-color:#8ad3bd;color:#0e1413}
+.toggles{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.tg{display:flex;align-items:center;gap:6px;font:400 11px/1 var(--mono);color:var(--chrome-dim);cursor:pointer}
+.tg input{accent-color:var(--patina);width:14px;height:14px;margin:0}
+.tg:hover{color:var(--chrome-ink)}
+:focus-visible{outline:2px solid var(--patina);outline-offset:2px}
+
+.readout{max-width:1500px;margin:9px auto 0;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
+  font:400 10.5px/1.5 var(--mono);color:#69736f;letter-spacing:.02em}
+.readout .spec{color:var(--chrome-ink);font-weight:600;letter-spacing:.06em}
+.readout .pt{color:var(--patina);font-weight:700}
+.readout .pt.small{color:var(--amber)}
+.readout .hit{color:var(--patina)}
+
+/* ─────────── sheets ─────────── */
+.stage{padding:26px 16px 60px;display:flex;flex-direction:column;align-items:center;gap:26px}
+/* Sized in px to the sheet's *scaled* footprint: a transform does not shrink the
+   layout box, so without this the document is as wide as the unscaled sheet and
+   large paper scrolls sideways. */
+.sheetwrap{flex:0 0 auto}
+.sheet{background:var(--paper);color:var(--ink);transform-origin:top left;
+  box-shadow:0 12px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;
+  font-family:var(--face);overflow:hidden}
+
+.masthead{overflow:hidden;display:flex;justify-content:space-between;align-items:flex-end;gap:5mm;flex:0 0 auto}
+.mh-l{display:flex;flex-direction:column;min-width:0}
+.eyebrow{font-family:var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--verdigris)}
+.title{font-family:var(--mono);font-weight:700;letter-spacing:-.015em;line-height:.95;text-transform:uppercase}
+.title em{font-style:normal;color:var(--verdigris)}
+.subtitle{font-family:var(--face);color:#5a6169;line-height:1.32}
+.mh-r{display:flex;flex-direction:column;align-items:flex-end;gap:1.4mm;text-align:right;flex:0 0 auto}
+
+.decoder{border:var(--hair) solid var(--rule-strong);display:flex;flex-direction:column}
+.dec-label{font-family:var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--verdigris)}
+.bits{display:flex;align-items:center;font-family:var(--mono)}
+.bit{border:var(--hair) solid var(--rule-strong);display:flex;align-items:center;justify-content:center;
+  font-variant-numeric:tabular-nums}
+.bit.on{background:var(--verdigris);color:#fff;border-color:var(--verdigris)}
+.dec-math{font-family:var(--mono);color:#5a6169;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dec-math b{color:var(--ink);font-weight:700}
+.dec-word{font-family:var(--face);font-weight:700;letter-spacing:-.01em}
+
+.grid{flex:1 1 auto;display:grid;align-content:stretch;min-height:0}
+.cell{display:flex;align-items:center;overflow:hidden;white-space:nowrap}
+.w{padding-right:.5mm;letter-spacing:-.005em;color:var(--ghost)}
+.w b{font-weight:inherit;color:var(--ink)}
+body.plain .w{color:var(--ink)}
+.rl{font-family:var(--mono);color:#8b939a;justify-content:flex-end;
+  font-variant-numeric:tabular-nums;padding:0 1mm}
+.rl.oct{color:#3f474d;font-weight:600}
+.rule8{border-top:var(--hair) solid var(--rule)}
+.rule64{border-top:var(--hair) solid var(--rule-strong)}
+.vsep{border-left:var(--hair) solid var(--rule)}
+.axis{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
+  padding-bottom:.8mm;border-bottom:0.3mm solid var(--ink)}
+.axis .base{font-family:var(--mono);font-weight:700;color:var(--ink);
+  font-variant-numeric:tabular-nums;line-height:1.05}
+.axis .nib{font-family:var(--mono);color:var(--verdigris);letter-spacing:.1em;line-height:1.2}
+
+.colophon{flex:0 0 auto;display:flex;justify-content:space-between;gap:4mm;
+  border-top:0.3mm solid var(--ink);font-family:var(--mono);color:#5a6169;letter-spacing:.03em}
+.colophon span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.colophon .lead{color:var(--ink);font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+
+.w.found{background:#d9f0e6;color:var(--ink);box-shadow:0 0 0 .3mm var(--verdigris)}
+.w.found b{color:var(--verdigris)}
+.w.pinned{background:var(--verdigris);color:#fff}
+.w.pinned b{color:#fff}
+@media (prefers-reduced-motion:no-preference){ .w{transition:background-color .12s ease} }

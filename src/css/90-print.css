@@ -1,0 +1,11 @@
+@media print{
+  body{background:#fff}
+  .bar,.readout{display:none !important}
+  .stage{padding:0;gap:0;display:block}
+  .sheetwrap{display:block;width:auto !important;height:auto !important}
+  .sheet{transform:none !important;box-shadow:none;break-after:page;page-break-after:always}
+  .sheet:last-child{break-after:auto;page-break-after:auto}
+  .w.found,.w.pinned{background:none;color:var(--ghost);box-shadow:none}
+  body.plain .w.found,body.plain .w.pinned{color:var(--ink)}
+  .w.found b,.w.pinned b{color:var(--ink)}
+}

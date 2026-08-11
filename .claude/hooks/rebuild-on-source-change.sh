@@ -11,7 +11,7 @@ file="$(jq -r '.tool_input.file_path // .tool_response.filePath // empty')"
 [[ -n "$file" ]] || exit 0
 
 case "$file" in
-  *src/template.html|*data/english.txt) ;;
+  "$ROOT"/src/*|"$ROOT"/data/*) ;;
   *) exit 0 ;;
 esac
 

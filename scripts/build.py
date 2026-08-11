@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Render index.html from src/template.html and data/english.txt.
+"""Render index.html from src/ and data/english.txt.
 
-The word list is embedded at build time so the poster is a single
-self-contained file that works offline, with no network and no
-dependencies. Run scripts/verify.sh to confirm the committed
-index.html is exactly what this script produces.
+src/css/*.css and src/js/*.js are concatenated in filename order and
+inlined into src/template.html, along with the word list and its hash.
+The output is a single self-contained file that works offline, with no
+network and no dependencies. Run scripts/verify.sh to confirm the
+committed index.html is exactly what this script produces.
 """
 import argparse
 import hashlib
@@ -15,6 +16,8 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 WORDLIST = ROOT / "data" / "english.txt"
 TEMPLATE = ROOT / "src" / "template.html"
+CSS_DIR = ROOT / "src" / "css"
+JS_DIR = ROOT / "src" / "js"
 DEFAULT_OUTPUT = ROOT / "index.html"
 
 # SHA-256 of bip-0039/english.txt from github.com/bitcoin/bips
@@ -41,6 +44,22 @@ def load_words() -> tuple[list[str], str]:
     return words, digest
 
 
+def concat(directory: pathlib.Path, suffix: str) -> tuple[str, list[str]]:
+    """Join every file in the directory, in filename order.
+
+    Filenames are numbered because concatenation order is load order:
+    10-data.js has to define WORDS before 90-boot.js first renders.
+    """
+    parts = sorted(directory.glob(f"*{suffix}"))
+    if not parts:
+        sys.exit(f"no {suffix} files in {directory.relative_to(ROOT)}")
+
+    chunks = []
+    for p in parts:
+        chunks.append(f"/* {p.relative_to(ROOT)} */\n{p.read_text().strip()}")
+    return "\n\n".join(chunks), [p.name for p in parts]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -52,9 +71,19 @@ def main() -> None:
     words, digest = load_words()
     html = TEMPLATE.read_text()
 
+    for placeholder in ("__CSS__", "__JS__"):
+        if placeholder not in html:
+            sys.exit(f"src/template.html is missing placeholder {placeholder}")
+
+    css, css_parts = concat(CSS_DIR, ".css")
+    js, js_parts = concat(JS_DIR, ".js")
+
+    # CSS and JS first: __WORDS__ and the hashes live inside the JS sources.
+    html = html.replace("__CSS__", css).replace("__JS__", js)
+
     for placeholder in ("__WORDS__", "__SHA__", "__SHA_SHORT__"):
         if placeholder not in html:
-            sys.exit(f"template is missing placeholder {placeholder}")
+            sys.exit(f"no source file uses placeholder {placeholder}")
 
     html = html.replace("__WORDS__", json.dumps(words, separators=(",", ":")))
     html = html.replace("__SHA__", digest)
@@ -62,6 +91,8 @@ def main() -> None:
 
     out.write_text(html)
     print(f"built {out}  {len(words)} words  {out.stat().st_size:,} bytes")
+    print(f"  css: {' '.join(css_parts)}")
+    print(f"  js:  {' '.join(js_parts)}")
     print(f"legend word: {words[LEGEND_INDEX]} (index {LEGEND_INDEX})")
 
 
