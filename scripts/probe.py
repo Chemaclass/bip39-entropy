@@ -89,6 +89,61 @@ CATCH = ('<script>window.__errs=[];'
          'addEventListener("error",e=>window.__errs.push(e.message+" @"+e.lineno));'
          '</script>')
 
+# Headless Chrome refuses to size its window below ~500px, so a narrow viewport
+# has to come from an iframe. Anything else screenshots at 500 and crops, which
+# looks exactly like a layout bug and is not one.
+MOBILE = """<!doctype html><meta charset=utf-8><body style="margin:0">
+<iframe id="f" src="__PAGE__" style="width:375px;height:1600px;border:0"></iframe>
+<script>
+addEventListener("load", () => setTimeout(() => {
+  const out = [];
+  for (const w of [375, 320]){
+    f.style.width = w + "px";
+    for (const view of ["poster", "learn", "roll"]){
+      f.contentWindow.showView(view);
+      const d = f.contentDocument, vw = d.documentElement.clientWidth;
+      // Content inside a deliberate scroll container (wide tables) is allowed to
+      // exceed the viewport — that is what the container is for. Only content
+      // that widens the page itself counts.
+      const scrolls = el => {
+        for (let n = el.parentElement; n && n !== d.body; n = n.parentElement){
+          const ox = f.contentWindow.getComputedStyle(n).overflowX;
+          if (ox === "auto" || ox === "scroll") return true;
+        }
+        return false;
+      };
+      const over = [];
+      for (const el of d.querySelectorAll("body *")){
+        const r = el.getBoundingClientRect();
+        if (r.right > vw + 1 && !scrolls(el))
+          over.push(el.tagName + "." + (el.className || "-") +
+                    " +" + Math.round(r.right - vw) + "px");
+      }
+      out.push({ w, view, vw, scroll: d.documentElement.scrollWidth, over: over.slice(0, 4),
+                 count: over.length });
+    }
+  }
+  document.title = "PROBE" + JSON.stringify(out);
+}, 800));
+</script>"""
+
+
+def run_mobile() -> object:
+    with tempfile.TemporaryDirectory() as td:
+        page = pathlib.Path(td) / "page.html"
+        page.write_text(PAGE.read_text())
+        harness = pathlib.Path(td) / "mobile.html"
+        harness.write_text(MOBILE.replace("__PAGE__", page.name))
+        dom = subprocess.run(
+            [chrome(), "--headless=new", "--disable-gpu", "--no-sandbox",
+             "--allow-file-access-from-files", "--dump-dom",
+             "--window-size=900,1700", "--virtual-time-budget=60000", harness.as_uri()],
+            capture_output=True, text=True, timeout=300).stdout
+    m = re.search(r"<title>PROBE(.*?)</title>", dom, re.S)
+    if not m:
+        sys.exit("the narrow-viewport harness did not run")
+    return json.loads(m.group(1).replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">"))
+
 
 def chrome() -> str:
     if os.environ.get("CHROME"):
@@ -140,6 +195,15 @@ def main() -> None:
         fail += 1
     else:
         print("  ok    2048 word cells")
+
+    narrow = run_mobile()
+    spill = [r for r in narrow if r["count"] or r["scroll"] > r["vw"]]
+    print(f"  {'ok   ' if not spill else 'FAIL '} narrow viewports: "
+          f"{sorted({r['w'] for r in narrow})} px, all three views")
+    for r in spill:
+        print(f"        {r['w']}px {r['view']}: scrollWidth={r['scroll']} "
+              f"{r['count']} element(s) past the edge {r['over']}")
+    fail += bool(spill)
 
     if "--quick" not in sys.argv:
         rows = run(SWEEP)
