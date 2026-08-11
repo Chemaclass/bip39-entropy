@@ -137,6 +137,9 @@ function rollInit(){
   });
   $("rollundo").addEventListener("click", () => { ROLL.throws.pop(); rollRender(); });
   $("rollclear").addEventListener("click", rollReset);
+  if (typeof worksheetPDF === "function")
+    $("rollsheet").addEventListener("click", worksheetPDF);
+  else $("rollsheet").hidden = true;
 
   document.addEventListener("keydown", e => {
     if ($("view-roll").hidden) return;
