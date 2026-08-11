@@ -199,6 +199,157 @@ body.plain .w{color:var(--ink)}
   .roll-key{width:54px;height:54px;font-size:18px}
 }
 
+/* src/css/40-learn.css */
+/* ─────────── learn: entropy explainer ───────────
+   Screen-only long-form section that sits below the sheets. Every selector is
+   scoped under .learn so nothing here can reach the poster, and every colour
+   comes from the tokens in 10-poster.css — none are redefined.
+   Margins are reset once at element level; the rules that follow match that
+   specificity, so source order alone decides. */
+
+.learn{
+  max-width:1500px;
+  margin:0 auto;
+  padding:64px 18px 110px;
+  border-top:1px solid var(--chrome-3);
+  font-family:var(--grot);
+  color:var(--chrome-ink);
+}
+.learn h1,.learn h2,.learn p,.learn ol,.learn ul,.learn li{margin:0;padding:0}
+
+/* One centred column, so the hairline rules stack instead of stepping. */
+.learn-head,.learn-warn,.learn-toc,.learn-sec{
+  max-width:68ch;margin-left:auto;margin-right:auto;
+}
+
+/* ─────────── masthead ─────────── */
+.learn-eyebrow{
+  font:500 10px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;
+  color:var(--patina);
+}
+h1.learn-title{
+  margin-top:16px;
+  font:700 clamp(28px,5.4vw,46px)/.98 var(--mono);
+  letter-spacing:-.02em;text-transform:uppercase;
+}
+p.learn-lead{
+  margin-top:22px;
+  font-size:clamp(15px,1.5vw,17.5px);line-height:1.68;
+}
+p.learn-lead em{color:var(--patina)}
+
+/* ─────────── warning ─────────── */
+.learn-warn{
+  margin-top:34px;padding:18px 20px;
+  background:var(--chrome-2);
+  border:1px solid var(--chrome-3);border-left:3px solid var(--amber);
+}
+.learn-warn p{font-size:14.5px;line-height:1.62}
+.learn-warn p+p{margin-top:13px}
+.learn-warn .learn-warn-label{
+  font:600 10px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;
+  color:var(--amber);
+}
+
+/* ─────────── contents ─────────── */
+.learn-toc{
+  margin-top:44px;padding:16px 0;
+  border-top:1px solid var(--chrome-3);border-bottom:1px solid var(--chrome-3);
+}
+.learn-toc ol{
+  list-style:none;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:9px 26px;
+  counter-reset:learn-toc;
+}
+.learn-toc li{counter-increment:learn-toc;font:400 12px/1.5 var(--mono)}
+.learn-toc li::before{
+  content:counter(learn-toc,decimal-leading-zero) "  ";
+  color:var(--chrome-dim);font-variant-numeric:tabular-nums;
+}
+.learn-toc a{color:var(--chrome-dim);text-decoration:none}
+.learn-toc a:hover,.learn-toc a:focus-visible{color:var(--patina)}
+
+/* ─────────── sections ─────────── */
+.learn-sec{margin-top:64px;scroll-margin-top:120px}
+.learn-sec h2{
+  padding-top:18px;border-top:1px solid var(--chrome-3);
+  font:600 clamp(13px,1.5vw,15px)/1.35 var(--mono);
+  letter-spacing:.16em;text-transform:uppercase;
+}
+.learn-num{
+  color:var(--patina);font-weight:700;letter-spacing:.1em;margin-right:.7em;
+  font-variant-numeric:tabular-nums;
+}
+.learn-sec p{margin-top:18px;font-size:15px;line-height:1.75}
+
+/* Secondary asides: caveats, honest counterweights, footnotes. */
+.learn-sec .learn-note{
+  margin-top:26px;padding-left:16px;
+  border-left:1px solid var(--chrome-3);
+  font-size:13.5px;line-height:1.7;color:var(--chrome-dim);
+}
+
+/* ─────────── magnitude / consequence lists ─────────── */
+.learn .learn-mag{
+  list-style:none;margin-top:22px;
+  border-top:1px solid var(--chrome-3);
+}
+.learn-mag li{
+  padding:15px 0;border-bottom:1px solid var(--chrome-3);
+  font-size:14.5px;line-height:1.7;
+}
+
+/* ─────────── code ─────────── */
+.learn code{
+  font:500 .9em/1.4 var(--mono);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:2px;
+  padding:.08em .34em;
+  font-variant-numeric:tabular-nums;
+  /* the 39-digit value of 2^128 has to break, not widen the page */
+  overflow-wrap:anywhere;
+}
+
+/* ─────────── tables ─────────── */
+.learn-tblwrap{
+  margin-top:28px;max-width:100%;overflow-x:auto;
+  border:1px solid var(--chrome-3);background:var(--chrome-2);
+  -webkit-overflow-scrolling:touch;
+}
+.learn-tblwrap:focus-visible{outline:2px solid var(--patina);outline-offset:2px}
+.learn-tbl{
+  width:100%;border-collapse:collapse;
+  font:400 12.5px/1.4 var(--mono);font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.learn-tbl caption{
+  text-align:left;padding:12px 14px;border-bottom:1px solid var(--chrome-3);
+  font:500 10px/1.3 var(--mono);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--patina);
+}
+.learn-tbl th,.learn-tbl td{padding:9px 14px;text-align:right}
+.learn-tbl thead th{
+  font:500 9.5px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--chrome-dim);border-bottom:1px solid var(--chrome-3);
+  vertical-align:bottom;
+}
+.learn-tbl tbody th[scope=row]{text-align:left;font-weight:700;color:var(--patina)}
+.learn-tbl tbody tr+tr th,.learn-tbl tbody tr+tr td{border-top:1px solid var(--chrome-3)}
+
+/* ─────────── narrow viewports ─────────── */
+@media (max-width:560px){
+  .learn{padding:44px 14px 72px}
+  .learn-toc ol{grid-template-columns:1fr}
+  .learn-sec{margin-top:46px}
+  .learn-sec p{font-size:14.5px;line-height:1.72}
+  .learn-warn{padding:16px}
+  .learn-tbl th,.learn-tbl td{padding:8px 11px}
+}
+
+/* The explainer is screen furniture; the sheets are the printed artefact. */
+@media print{
+  .learn{display:none}
+}
+
 /* src/css/90-print.css */
 @media print{
   body{background:#fff}
@@ -300,11 +451,6 @@ body.plain .w{color:var(--ink)}
   </div>
 
   <div class="view" id="view-learn" hidden>
-<!-- src/content/00-placeholder.html -->
-<section class="learn">
-  <p>Placeholder — the entropy explainer lands here.</p>
-</section>
-
 <!-- src/content/learn.html -->
 <section id="learn" class="learn">
 
@@ -1396,9 +1542,11 @@ const SEED = (() => {
 const PDF = (() => {
   const K = 72 / 25.4;      // millimetres -> PostScript points
 
-  /* Adobe AFM advance widths, 1/1000 em, ASCII 32..126 in order. */
+  /* Adobe AFM advance widths, 1/1000 em, ASCII 32..126 in order. Codes 39 and
+     96 are quotesingle and grave, not StandardEncoding's quoteright and
+     quoteleft — the fonts below are declared /WinAnsiEncoding. */
   const HELV = [
-    278, 278, 355, 556, 556, 889, 667, 222, 333, 333, 389, 584, 278, 333, 278, 278,
+    278, 278, 355, 556, 556, 889, 667, 191, 333, 333, 389, 584, 278, 333, 278, 278,
     556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 278, 278, 584, 584, 584, 556,
     1015, 667, 667, 722, 722, 667, 611, 778, 722, 278, 500, 667, 556, 833, 722, 778,
     667, 778, 722, 667, 611, 722, 667, 944, 667, 667, 611, 278, 278, 278, 469, 556,

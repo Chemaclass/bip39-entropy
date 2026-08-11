@@ -15,8 +15,12 @@
 }
 .learn h1,.learn h2,.learn p,.learn ol,.learn ul,.learn li{margin:0;padding:0}
 
+/* One centred column, so the hairline rules stack instead of stepping. */
+.learn-head,.learn-warn,.learn-toc,.learn-sec{
+  max-width:68ch;margin-left:auto;margin-right:auto;
+}
+
 /* ─────────── masthead ─────────── */
-.learn-head{max-width:68ch}
 .learn-eyebrow{
   font:500 10px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;
   color:var(--patina);
@@ -34,7 +38,7 @@ p.learn-lead em{color:var(--patina)}
 
 /* ─────────── warning ─────────── */
 .learn-warn{
-  max-width:68ch;margin-top:34px;padding:18px 20px;
+  margin-top:34px;padding:18px 20px;
   background:var(--chrome-2);
   border:1px solid var(--chrome-3);border-left:3px solid var(--amber);
 }
@@ -64,7 +68,7 @@ p.learn-lead em{color:var(--patina)}
 .learn-toc a:hover,.learn-toc a:focus-visible{color:var(--patina)}
 
 /* ─────────── sections ─────────── */
-.learn-sec{max-width:68ch;margin-top:64px;scroll-margin-top:120px}
+.learn-sec{margin-top:64px;scroll-margin-top:120px}
 .learn-sec h2{
   padding-top:18px;border-top:1px solid var(--chrome-3);
   font:600 clamp(13px,1.5vw,15px)/1.35 var(--mono);
