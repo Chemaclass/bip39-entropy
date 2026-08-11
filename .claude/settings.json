@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(python3 scripts/build.py:*)",
+      "Bash(./scripts/verify.sh:*)",
+      "Bash(open index.html)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(shasum:*)",
+      "Bash(sha256sum:*)",
+      "Bash(wc:*)",
+      "Bash(diff:*)",
+      "Bash(cmp:*)"
+    ],
+    "deny": [
+      "Edit(index.html)",
+      "Write(index.html)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/rebuild-on-source-change.sh\"",
+            "statusMessage": "Rebuilding index.html",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/heal-stale-index.sh\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

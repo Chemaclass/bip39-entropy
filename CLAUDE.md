@@ -1,0 +1,70 @@
+# bip39-poster
+
+A printable poster of the 2048-word BIP-39 English list, laid out as an eleven-bit
+address space. The deliverable is `index.html`: one self-contained file, no build
+step to view it, no dependencies, no network.
+
+## The one rule
+
+`index.html` is **generated**. Edit `src/template.html` and run the build:
+
+```bash
+python3 scripts/build.py
+```
+
+Never hand-edit `index.html` — CI fails the moment it stops being byte-identical to
+a fresh build. Permission rules in `.claude/settings.json` deny writes to it, and a
+hook rebuilds it whenever `src/template.html` or `data/english.txt` changes.
+
+## Layout
+
+```
+index 837  =  column 768  +  row 69  =  hamster
+              high 4 bits    low 7 bits
+```
+
+Eleven bits split either 4+7 (16 × 128 grid) or 5+6 (32 × 64). Both are correct;
+the page computes both and picks whichever yields larger type for the chosen paper.
+Do not hardcode one split.
+
+The first four letters of every word are `<b>`-wrapped because all 2048 four-letter
+prefixes are unique. `scripts/build.py` asserts that invariant at build time.
+
+## Invariants the build and CI enforce
+
+- `data/english.txt` matches `bip-0039/english.txt` from bitcoin/bips by SHA-256
+  (`2f5eed53…3b24dbda`), is 2048 words, lexicographically sorted, unique 4-prefixes
+- the committed `index.html` reproduces exactly from `scripts/build.py`
+- **no remote assets** — a `<script>`, `<link>` or `<img>` pointing at `http(s)://`
+  fails CI. Everything inlines: CSS, JS, fonts fall back to system stacks
+- print correctness depends on `print-color-adjust: exact` and `@page { margin: 0 }`;
+  changing either prints the decoder legend blank
+
+## Commands
+
+```bash
+python3 scripts/build.py              # regenerate index.html
+python3 scripts/build.py -o /tmp/x.html
+./scripts/verify.sh                   # full audit (~4s): hash, reproducibility, 2048 words
+open index.html                       # preview
+```
+
+Run `./scripts/verify.sh` before committing anything that touches `src/`, `data/`
+or `scripts/`.
+
+## Files
+
+```
+index.html            the poster, self-contained and committed (generated)
+src/template.html     source, with __WORDS__ / __SHA__ / __SHA_SHORT__ placeholders
+data/english.txt      canonical BIP-39 English word list
+scripts/build.py      render index.html
+scripts/verify.sh     audit the word list and the build
+```
+
+## Style
+
+- No build tooling, no bundler, no minifier, no package manager. Keep it that way.
+- Vanilla JS in the template, no framework, no polyfills.
+- Two-space indent everywhere except Python (four) — see `.editorconfig`.
+- Conventional commits. `ref:` rather than `refactor:`.
