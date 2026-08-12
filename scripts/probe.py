@@ -80,6 +80,67 @@ LANGS = """
 </script>
 """
 
+PDFS = """
+<script>
+(function(){
+  // A translated string is longer than the English it replaced, and an
+  // unwrapped line simply walks off the paper. Measure every drawn string.
+  const out = [];
+  const MM = 25.4 / 72;
+  PDF.save = () => {};
+  const realDoc = PDF.doc;
+  for (const l of LANGS){
+    setLang(l.code); route();
+    for (const job of ["poster", "dice12", "dice24", "coin12", "coin24"]){
+      let box = null;
+      PDF.doc = (o) => {
+        const d = realDoc(o);
+        box = { w: o.w, h: o.h, minX: 1e9, maxX: -1e9, maxY: -1e9, worst: "" };
+        const text = d.text, rect = d.rect, line = d.line;
+        d.text = (x, y, s, op = {}) => {
+          const size = op.size || 10;
+          const w = d.width(s, size, op.font) +
+                    (op.tracking || 0) * size * MM * Math.max(0, s.length - 1);
+          const l0 = op.align === "c" ? x - w / 2 : op.align === "r" ? x - w : x;
+          if (l0 + w > box.maxX){ box.maxX = l0 + w; box.worst = s.slice(0, 46); }
+          box.minX = Math.min(box.minX, l0);
+          box.maxY = Math.max(box.maxY, y);
+          return text(x, y, s, op);
+        };
+        d.rect = (x, y, w, h, op) => {
+          box.maxX = Math.max(box.maxX, x + w); box.minX = Math.min(box.minX, x);
+          box.maxY = Math.max(box.maxY, y + h);
+          return rect(x, y, w, h, op);
+        };
+        d.line = (a, b, c, e, op) => {
+          box.maxX = Math.max(box.maxX, a, c); box.minX = Math.min(box.minX, a, c);
+          box.maxY = Math.max(box.maxY, b, e);
+          return line(a, b, c, e, op);
+        };
+        return d;
+      };
+      if (job === "poster"){
+        document.getElementById("paper").value = "A4";
+        document.getElementById("orient").value = "p";
+        document.getElementById("split").value = "auto";
+        render();
+        posterPDF();
+      } else {
+        ROLL.method = job.startsWith("coin") ? "coin" : "dice";
+        ROLL.strength = job.endsWith("24") ? 24 : 12;
+        worksheetPDF();
+      }
+      out.push({ lang: l.code, job, w: box.w, h: box.h,
+                 minX: +box.minX.toFixed(1), maxX: +box.maxX.toFixed(1),
+                 maxY: +box.maxY.toFixed(1), worst: box.worst });
+    }
+  }
+  PDF.doc = realDoc;
+  document.title = "PROBE" + JSON.stringify(out);
+})();
+</script>
+"""
+
 SWEEP = """
 <script>
 (function(){
@@ -233,6 +294,16 @@ def main() -> None:
         if row["missingCount"]:
             print(f"        missing keys: {row['missing']}")
         fail += bool(bad)
+
+    for row in run(PDFS):
+        # 5 mm of slack: the worksheet margin is 15 mm and the poster's is its own
+        over = row["maxX"] > row["w"] - 5 or row["minX"] < 5 or row["maxY"] > row["h"] - 5
+        print(f"  {'ok   ' if not over else 'FAIL '} pdf {row['lang']}/{row['job']}: "
+              f"x [{row['minX']}, {row['maxX']}] of {row['w']}mm, "
+              f"lowest ink {row['maxY']} of {row['h']}mm")
+        if over:
+            print(f"        widest string: {row['worst']!r}")
+        fail += bool(over)
 
     narrow = run_mobile()
     spill = [r for r in narrow if r["count"] or r["scroll"] > r["vw"]]

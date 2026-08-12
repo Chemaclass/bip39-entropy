@@ -29,11 +29,28 @@ function wsHead(d, title, sub){
   d.line(15, 41, 195, 41, { rgb: WS_INK, lw: 0.3 });
 }
 
+// The notes are the only running prose on the sheet. They wrap to the content
+// width rather than trusting one line to fit: Spanish runs a fifth longer than
+// English, and an unwrapped line simply walks off the right edge of the paper.
+function wsWrap(d, x, y, maxW, text, size, lead){
+  let line = "";
+  for (const word of text.split(" ")){
+    const next = line ? line + " " + word : word;
+    if (line && d.width(next, size, "helv") > maxW){
+      d.text(x, y, line, { size, font: "helv", rgb: WS_SUB });
+      y += lead;
+      line = word;
+    } else line = next;
+  }
+  if (line){ d.text(x, y, line, { size, font: "helv", rgb: WS_SUB }); y += lead; }
+  return y;
+}
+
 function wsSection(d, y, n, title, note){
   d.text(15, y, n, { size: 8, font: "courB", rgb: WS_VERD, tracking: 0.1 });
   d.text(24, y, title, { size: 8, font: "courB", rgb: WS_INK, tracking: 0.1 });
-  if (note) d.text(15, y + 5.5, note, { size: 7.4, font: "helv", rgb: WS_SUB });
-  return y + (note ? 11 : 6);
+  if (!note) return y + 6;
+  return wsWrap(d, 15, y + 5.5, 180, note, 7.4, 4.2) + 1.5;
 }
 
 function worksheetPDF(){
@@ -73,7 +90,7 @@ function worksheetPDF(){
 
   // 24 rows plus the closing notes do not fit at a comfortable row height, so
   // the rows give way rather than the notes: the notes are the safety warning.
-  const FOOT = 34, BOTTOM = 282;
+  const FOOT = 46, BOTTOM = 282;   // room for the closing notes once they wrap
   const rowH = Math.min(9.4, (BOTTOM - FOOT - y) / spec.words);
   for (let i = 0; i < spec.words; i++){
     const ry = y + i * rowH;
@@ -96,10 +113,9 @@ function worksheetPDF(){
   y += spec.words * rowH + 6;
 
   d.line(15, y, 195, y, { rgb: WS_INK, lw: 0.3 });
-  d.text(15, y + 5, t("ws.foot1", { n: spec.words - 1 }),
-         { size: 7.2, font: "helv", rgb: WS_SUB });
-  d.text(15, y + 10, t("ws.foot2"), { size: 7.2, font: "helv", rgb: WS_SUB });
-  d.text(15, y + 16.5, t("ws.foot3"), { size: 7, font: "courB", rgb: WS_INK, tracking: 0.06 });
+  let fy = wsWrap(d, 15, y + 5, 180, t("ws.foot1", { n: spec.words - 1 }), 7.2, 4);
+  fy = wsWrap(d, 15, fy + 1, 180, t("ws.foot2"), 7.2, 4);
+  d.text(15, fy + 4, t("ws.foot3"), { size: 7, font: "courB", rgb: WS_INK, tracking: 0.06 });
 
   PDF.save(d.blob(), "bip39-" + (coin ? "coin" : "dice") + "-worksheet-" + spec.words + "w.pdf");
 }

@@ -934,6 +934,491 @@ p.learn-lead em{color:var(--patina)}
 
 </section>
 </div>
+
+<!-- src/content/learn.es.html -->
+<div class="pane" data-pane="learn" data-lang="es" hidden>
+<section id="learn" class="learn">
+
+  <header class="learn-head">
+    <p class="learn-eyebrow">Entropía · una guía de campo</p>
+    <h1 class="learn-title">Doce palabras son<br>un número</h1>
+    <p class="learn-lead">
+      Todo lo que hace que ese número siga siendo tuyo se decide en el instante en
+      que se genera, antes de que escribas nada, antes de que elijas un monedero,
+      antes de que pienses en acero ignífugo. Esta página explica qué tiene que
+      lograr ese instante, con la aritmética mostrada en lugar de afirmada. Está
+      escrita para alguien que tiene bitcoin, está a punto de anotar una frase de
+      recuperación y ha oído la palabra <em>entropía</em> sin que nadie le haya
+      dicho qué mide.
+    </p>
+  </header>
+
+  <aside class="learn-warn">
+    <p class="learn-warn-label">Advertencia</p>
+    <p>
+      Nunca marques tus propias palabras en una lista de palabras impresa. Doce
+      marcas en una cuadrícula de 2048 son una copia en texto plano de tu frase de
+      recuperación, y más fácil de leer que tu letra.
+    </p>
+    <p>
+      Nunca escribas una frase de recuperación real en ningún sitio web, incluido
+      este. Esta página no tiene ningún campo que acepte una frase, no hace
+      peticiones de red y no guarda nada. Puedes comprobarlo leyendo el código
+      fuente y tirando del cable. Cualquier cosa que se ofrezca a “validar” o
+      “recuperar” tu frase en línea es un patrón de robo, no un servicio.
+    </p>
+  </aside>
+
+  <nav class="learn-toc" aria-label="Secciones de esta página">
+    <ol>
+      <li><a href="#learn-what">Qué es realmente una frase semilla</a></li>
+      <li><a href="#learn-entropy">La entropía, bien definida</a></li>
+      <li><a href="#learn-2048">Por qué 2048 palabras</a></li>
+      <li><a href="#learn-checksum">La suma de verificación</a></li>
+      <li><a href="#learn-source">De dónde viene la aleatoriedad</a></li>
+      <li><a href="#learn-byhand">Hacerlo a mano</a></li>
+      <li><a href="#learn-threat">Modelo de amenazas e higiene</a></li>
+    </ol>
+  </nav>
+
+  <section class="learn-sec" id="learn-what">
+    <h2><span class="learn-num" aria-hidden="true">01</span> Qué es realmente una frase semilla</h2>
+
+    <p>
+      Una frase BIP-39 es un número escrito en palabras. Cada palabra es un índice
+      dentro de una lista fija, pública y ordenada de 2048 entradas:
+      <code>abandon</code> es <code>0</code>, <code>length</code> es
+      <code>1024</code>, <code>zoo</code> es <code>2047</code>. Nada más de una
+      palabra importa. Ni su significado, ni su longitud, ni si suena como una
+      contraseña fuerte. La lista es un esquema de numeración para humanos, y ese
+      es todo su trabajo.
+    </p>
+
+    <p>
+      Tu monedero no guarda las palabras. Las une en una cadena, ejecuta
+      <code>PBKDF2-HMAC-SHA-512</code> sobre ella durante 2048 iteraciones y
+      obtiene una semilla de 512 bits de la que se deriva de forma determinista
+      cada clave del monedero. Las mismas palabras producen las mismas claves en
+      cualquier monedero que cumpla el estándar, para siempre. Esa portabilidad es
+      la razón de que el estándar exista.
+    </p>
+
+    <p>
+      Así que una frase vale exactamente lo que de impredecible tenga su número. No
+      hay un segundo factor escondido dentro. La lista de palabras, la derivación,
+      la aritmética y este póster son todos públicos; solo el número fue alguna vez
+      secreto. Quien pueda producir ese número posee las monedas, y ninguna
+      propiedad de las palabras en sí se lo impedirá.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="learn-entropy">
+    <h2><span class="learn-num" aria-hidden="true">02</span> La entropía, bien definida</h2>
+
+    <p>
+      La entropía no mide lo aleatorio que parece algo. Mide de cuántas
+      posibilidades igual de probables se extrajo un secreto, expresado como
+      logaritmo en base 2 para poder contarlo en bits. <code>n</code> bits de
+      entropía significan <code>2^n</code> candidatos igual de probables; cada bit
+      adicional duplica el trabajo que tiene que hacer un atacante.
+    </p>
+
+    <p>
+      Una frase de 12 palabras generada correctamente lleva 128 bits, así que se
+      extrajo de <code>2^128</code> candidatos, es decir
+      <code>340282366920938463463374607431768211456</code>, unos
+      <code>3.4 × 10^38</code>. Ese número es difícil de sostener en la cabeza, así
+      que aquí van cuatro asideros, cada uno con su cálculo a la vista.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>Toda la red de minería de Bitcoin.</b> El mayor esfuerzo de computación
+        construido para un solo fin que ha existido jamás funciona al orden de
+        <code>10^21</code> hashes por segundo. A ese ritmo, solo contar hasta
+        <code>2^128</code> lleva <code>3.4 × 10^17</code> segundos, o sea unos
+        <b>11 mil millones de años</b>, aproximadamente la edad actual del
+        universo, que es de unos 13.8 mil millones de años. Y un hash pelado es
+        mucho más barato que una prueba completa de una frase candidata, así que
+        esto subestima con generosidad el coste real.
+      </li>
+      <li>
+        <b>Todas las computadoras de la Tierra.</b> Supón diez mil millones de
+        dispositivos (<code>10^10</code>), cada uno probando mil millones de
+        candidatos por segundo (<code>10^9</code>). Eso son <code>10^19</code> por
+        segundo, y <code>2^128</code> sigue llevando <b>unos 1.1 billones de
+        años</b>, unas 78 veces la edad del universo.
+      </li>
+      <li>
+        <b>Desde el Big Bang.</b> Para haber terminado la búsqueda hoy habrías
+        tenido que probar unos <code>7.8 × 10^20</code> candidatos cada segundo sin
+        pausa desde que empezó el universo. Eso son unos 780 trillones por segundo,
+        durante 13.8 mil millones de años.
+      </li>
+      <li>
+        <b>Granos de arena, al cuadrado.</b> La estimación que suele citarse para
+        la arena de las playas y los desiertos de la Tierra ronda los
+        <code>7.5 × 10^18</code> granos; tómala como muy aproximada. Sustituye cada
+        uno de esos granos por toda la arena de una Tierra entera, lo que eleva la
+        cifra al cuadrado, y el total sigue siendo menor que <code>2^128</code>.
+      </li>
+    </ul>
+
+    <p class="learn-note">
+      Por honestidad, <code>2^128</code> no es enorme según cualquier medida.
+      <code>2^128</code> moléculas de agua equivalen a unos diez kilómetros cúbicos
+      de agua, un cubo de poco más de dos kilómetros de arista, y la Tierra contiene
+      muchísimos más átomos que eso. Lo que hace que 128 bits basten no es que
+      <code>2^128</code> cuente más cosas de las que existen, sino que ningún
+      proceso físico puede <em>visitar</em> esa cantidad de estados de uno en uno.
+    </p>
+
+    <p>
+      De ahí se siguen dos consecuencias, y las dos se pasan por alto una y otra vez.
+    </p>
+
+    <p>
+      <b>La aleatoriedad es una propiedad del proceso, no del resultado.</b> Desde
+      una fuente justa, la cadena de bits <code>0000…0000</code> es exactamente tan
+      probable como cualquier otra cadena de 128 bits. Una frase que “parece
+      aleatoria” no te dice nada, y una frase que parece tener sentido no es por
+      ello débil. No puedes inspeccionar doce palabras y ponerles nota; solo puedes
+      preguntar de dónde salieron.
+    </p>
+
+    <p>
+      <b>La entropía se mide frente a lo que un atacante sabe de tu proceso.</b>
+      Si tiraste dados, la respuesta es 128 bits. Si elegiste palabras que
+      significan algo para ti, la respuesta honesta son los bits que hagan falta
+      para describir tu manera de elegir, y ese número es pequeño, por muy
+      arbitrario que te parezca el resultado desde dentro.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="learn-2048">
+    <h2><span class="learn-num" aria-hidden="true">03</span> Por qué 2048 palabras</h2>
+
+    <p>
+      2048 es <code>2^11</code>. Esa es toda la razón del número. Once bits
+      direccionan exactamente 2048 entradas sin que sobre nada, así que convertir
+      bits en palabras es un corte limpio de la cadena de bits: coge once bits, lee
+      una palabra, repite. Una lista de, digamos, 2000 palabras no dividiría el
+      espacio de forma pareja, y seleccionar de ella sin sesgo exigiría muestreo
+      por rechazo.
+    </p>
+
+    <p>
+      Por eso también este póster puede ser una cuadrícula cuyas coordenadas
+      <em>son</em> el índice. <code>hamster</code> es el índice <code>837</code>,
+      que en once bits es <code>01101000101</code>: los cuatro bits altos eligen la
+      columna y los siete bajos eligen la fila.
+    </p>
+
+    <p>
+      Doce palabras llevan por tanto <code>12 × 11 = 132</code> bits. BIP-39 no
+      gasta los 132 en entropía. Genera <code>ENT</code> bits de aleatoriedad,
+      añade <code>ENT ÷ 32</code> bits de verificación y parte el resultado en
+      grupos de once bits. Para doce palabras eso son 128 bits de entropía más una
+      suma de verificación de 4 bits; para veinticuatro, 256 más 8.
+    </p>
+
+    <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Longitud de la frase, entropía y suma de verificación, tabla desplazable">
+      <table class="learn-tbl">
+        <caption>Longitud de la frase frente a entropía</caption>
+        <thead>
+          <tr>
+            <th scope="col">Palabras</th>
+            <th scope="col">Bits de entropía</th>
+            <th scope="col">Bits de verificación</th>
+            <th scope="col">Bits totales</th>
+            <th scope="col">Palabras finales válidas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">12</th><td>128</td><td>4</td><td>132</td><td>128</td></tr>
+          <tr><th scope="row">15</th><td>160</td><td>5</td><td>165</td><td>64</td></tr>
+          <tr><th scope="row">18</th><td>192</td><td>6</td><td>198</td><td>32</td></tr>
+          <tr><th scope="row">21</th><td>224</td><td>7</td><td>231</td><td>16</td></tr>
+          <tr><th scope="row">24</th><td>256</td><td>8</td><td>264</td><td>8</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      La última columna es una consecuencia que conviene conocer: la palabra final
+      de una frase nunca es libre. Con las once primeras palabras fijadas, solo
+      <code>2048 ÷ 16 = 128</code> de las 2048 palabras completan una frase válida
+      de 12 palabras; con veintitrés fijadas, solo <code>2048 ÷ 256 = 8</code>
+      completan una de 24. Dicho de otro modo, una secuencia de 12 palabras escrita
+      al azar es una frase válida una vez de cada dieciséis.
+    </p>
+
+    <p class="learn-note">
+      Si 12 o 24 palabras es la mejor elección no lo decide la entropía por sí
+      sola. 128 bits ya quedan fuera del alcance de la fuerza bruta por los
+      márgenes de arriba; 24 palabras son sobre todo una cobertura frente al
+      criptoanálisis futuro y frente a la búsqueda cuántica al estilo de Grover,
+      que en teoría reduce a la mitad la fuerza efectiva de un secreto simétrico.
+      128 bits pasarían a ser 64, y 256 pasarían a ser 128. Que esa aceleración
+      llegue a ser práctica alguna vez está genuinamente en disputa. Las dos
+      longitudes están soportadas en todas partes, y las frases más largas te
+      cuestan más de anotar y más de comprobar.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="learn-checksum">
+    <h2><span class="learn-num" aria-hidden="true">04</span> La suma de verificación</h2>
+
+    <p>
+      Los bits de verificación son los primeros <code>ENT ÷ 32</code> bits del
+      <code>SHA-256</code> de la entropía en bruto. Se añaden antes de cortar la
+      frase en palabras, y por eso la última palabra lleva una mezcla de entropía y
+      de suma de verificación en lugar de quedar aparte del resto.
+    </p>
+
+    <p>
+      <b>Qué detecta.</b> Una palabra que tecleaste mal y resultó ser otra palabra
+      real. Dos palabras escritas en el orden equivocado. Una palabra leída en la
+      fila equivocada de una cuadrícula. En una frase de 12 palabras, cualquier
+      error así sobrevive a la comprobación solo si por casualidad produce los
+      cuatro bits correctos. Eso pasa una vez de cada dieciséis, así que se
+      detectan aproximadamente quince errores de cada dieciséis. Para 24 palabras
+      la cifra es 255 de cada 256. Es una propiedad genuinamente útil; es la razón
+      de que los monederos puedan rechazar una errata en lugar de restaurar en
+      silencio una cuenta vacía.
+    </p>
+
+    <p>
+      <b>Qué no detecta.</b> Tres cosas, y las tres importan más que la primera
+      lista.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>No es una comprobación de seguridad.</b> Una frase montada con doce
+        palabras que elegiste tú pasa exactamente igual de fácil que una salida de
+        los dados, siempre que la última palabra sea la correcta. La suma de
+        verificación mide la transcripción, nunca la entropía. “Mi monedero la
+        aceptó” no dice absolutamente nada sobre lo adivinable que es.
+      </li>
+      <li>
+        <b>No frena a un atacante.</b> Un atacante no adivina palabras y comprueba
+        la suma de verificación; enumera valores de entropía y calcula la suma de
+        verificación exactamente como prescribe el estándar. Esos cuatro bits no le
+        cuestan nada.
+      </li>
+      <li>
+        <b>No te dice que la frase sea tuya.</b> Existen muchas frases válidas. Una
+        frase válida que no es la tuya restaura un monedero real y vacío sin
+        quejarse. Solo restaurar y ver tu propio historial prueba algo.
+      </li>
+    </ul>
+  </section>
+
+  <section class="learn-sec" id="learn-source">
+    <h2><span class="learn-num" aria-hidden="true">05</span> De dónde viene la aleatoriedad</h2>
+
+    <p>
+      Hay tres fuentes de uso común, y fallan en direcciones distintas.
+    </p>
+
+    <p>
+      <b>Un generador de números aleatorios por hardware</b>, en un monedero o en
+      un teléfono, es rápido. Cuando el dispositivo y su firmware son sólidos, es
+      genuinamente impredecible. Su debilidad es que no puedes auditarlo. Estás
+      confiando en un chip, en una compilación de firmware y en una cadena de
+      suministro, y hay un historial real de generadores rotos, debilitados o
+      simplemente mal usados por el software que tenían encima.
+    </p>
+
+    <p>
+      <b>Los dados y las monedas</b> son lentos, físicos y verificables. Puedes ver
+      llegar cada bit. Su debilidad es de procedimiento: un dado sesgado, un bit
+      mal transcrito, una fotografía de la hoja de trabajo. La entropía generada a
+      mano no es <em>más</em> aleatoria que una buena fuente de hardware. La razón
+      para hacerlo es que puedes comprobarla, no que sea más fuerte.
+    </p>
+
+    <p>
+      <b>Una persona</b> no es un generador de números aleatorios, y esto no es
+      cuestión de esforzarse más. Si les pides un dígito al azar, las personas
+      eligen el 7 en exceso y rehúyen el 0 y el 5. Si les pides una secuencia,
+      evitan las repeticiones y las rachas largas, porque la repetición no parece
+      aleatoria. Si les pides palabras, tiran de sustantivos concretos, de cosas
+      que hay en la habitación, de nombres y fechas y temas. Cada una de esas
+      tendencias es un patrón por el que un atacante puede ordenar candidatos, y un
+      atacante que ordena no tiene que enumerar.
+    </p>
+
+    <p>
+      La aritmética es cruda. Supón que lo hicieras con una disciplina inusual y
+      eligieras cada una de tus doce palabras de forma uniforme al azar dentro de
+      una lista corta de las 16 palabras que te resulten más memorables. Eso son 4
+      bits por palabra, <code>16^12 = 2^48</code> en total. A aproximadamente un
+      millón de derivaciones candidatas por segundo y por GPU, mil GPU recorren
+      <code>2^48</code> en unos <b>tres días</b>. Amplía la lista corta a 32
+      palabras y tienes <code>2^60</code>: unos 36 años para esas mil GPU, o cuatro
+      meses para cien mil de ellas. Eso es un presupuesto de hardware, no un
+      problema de física. Y estas son cotas superiores que suponen uniformidad
+      perfecta dentro de tu lista corta, cosa que ninguna persona logra; la cifra
+      real es más baja.
+    </p>
+
+    <p>
+      Para dar escala en el extremo bajo: <code>2^40</code> son alrededor de un
+      billón de candidatos, que una sola máquina tritura en dos semanas. “Unas
+      pocas docenas de bits” no es una versión más débil de la seguridad. Es su
+      ausencia.
+    </p>
+
+    <p class="learn-note">
+      Las 2048 iteraciones de PBKDF2 de la derivación hacen que cada intento sea
+      unas dos mil veces más caro que un hash pelado, lo que equivale a unos once
+      bits. Eso es un freno apreciable frente a una frase de contraseña débil y una
+      irrelevancia frente a 128 bits de entropía real. No puede rescatar una frase
+      que elegiste tú.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="learn-byhand">
+    <h2><span class="learn-num" aria-hidden="true">06</span> Hacerlo a mano</h2>
+
+    <p class="learn-note">
+      Dos cosas de esta página llevan esta sección a la práctica:
+      <a href="#roll">Genera la tuya</a> va recogiendo las tiradas y muestra cómo
+      los bits se convierten en palabras, y la hoja de trabajo que imprime te deja
+      hacer lo mismo en una mesa sin ninguna computadora. Con una frase de 12
+      palabras solo la última palabra necesita una máquina. Las otras once puedes
+      leerlas directamente en <a href="#poster">el póster</a>.
+    </p>
+
+    <p>
+      <b>Dados.</b> Un dado de seis caras no produce bits enteros, así que usa
+      muestreo por rechazo: lee <code>1 2 3 4</code> como <code>00 01 10 11</code>
+      y vuelve a tirar el <code>5</code> y el <code>6</code>. Cada tirada aceptada
+      son exactamente dos bits, sin sesgo introducido por la correspondencia. 128
+      bits necesitan por tanto 64 tiradas aceptadas; como se descarta un tercio de
+      las tiradas, cuenta con tirar unas 96 veces.
+    </p>
+
+    <p>
+      <b>Monedas.</b> Un lanzamiento, un bit, con cara <code>1</code> y cruz
+      <code>0</code>, así que 128 lanzamientos para una frase de 12 palabras. Si
+      dudas de que la moneda sea justa, usa el truco de von Neumann: lanza por
+      parejas, lee <code>HT</code> como <code>1</code> y <code>TH</code> como
+      <code>0</code>, y descarta <code>HH</code> y <code>TT</code>. Eso elimina
+      cualquier sesgo fijo a un coste de unos cuatro lanzamientos por bit, o sea
+      unos 512 lanzamientos para 128 bits.
+    </p>
+
+    <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Tiradas de dado y lanzamientos de moneda por longitud de frase, tabla desplazable">
+      <table class="learn-tbl">
+        <caption>Trabajo físico por frase</caption>
+        <thead>
+          <tr>
+            <th scope="col">Palabras</th>
+            <th scope="col">Bits de entropía</th>
+            <th scope="col">Tiradas d6 aceptadas</th>
+            <th scope="col">Tiradas d6 totales (media)</th>
+            <th scope="col">Lanzamientos de moneda</th>
+            <th scope="col">Lanzamientos sin sesgo (media)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">12</th><td>128</td><td>64</td><td>96</td><td>128</td><td>512</td></tr>
+          <tr><th scope="row">15</th><td>160</td><td>80</td><td>120</td><td>160</td><td>640</td></tr>
+          <tr><th scope="row">18</th><td>192</td><td>96</td><td>144</td><td>192</td><td>768</td></tr>
+          <tr><th scope="row">21</th><td>224</td><td>112</td><td>168</td><td>224</td><td>896</td></tr>
+          <tr><th scope="row">24</th><td>256</td><td>128</td><td>192</td><td>256</td><td>1024</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Escribe los bits en grupos de once. Cada grupo es un índice de palabra de
+      <code>0</code> a <code>2047</code>, y en este póster lo lees directamente:
+      los bits altos seleccionan la columna y los bajos, la fila. Las once primeras
+      palabras de una frase de 12 salen directamente de tus primeros 121 bits.
+    </p>
+
+    <p>
+      <b>La última palabra es donde se detiene un proceso a mano.</b> Siete de los
+      bits de entropía que te quedan y cuatro bits de verificación comparten la
+      palabra final, y esos cuatro bits son salida de <code>SHA-256</code>. No
+      puedes calcular SHA-256 a mano en ningún sentido práctico. Así que el
+      procedimiento honesto es: genera la entropía físicamente y después usa una
+      máquina sin conexión o un monedero hardware que acepte entropía en bruto o
+      entrada de dados para calcular la palabra final. Varios monederos admiten
+      justo esto. La máquina se entera de tu entropía en cualquier caso. La gracia
+      de hacerlo a mano es que la máquina no la <em>eligió</em>.
+    </p>
+
+    <p class="learn-note">
+      Aquello en lo que escribiste los bits es la frase. Trata esa hoja de trabajo
+      como el secreto que es: destrúyela una vez que la frase esté anotada y
+      verificada, y nunca la fotografíes. No reutilices un conjunto de tiradas para
+      un segundo monedero.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="learn-threat">
+    <h2><span class="learn-num" aria-hidden="true">07</span> Modelo de amenazas e higiene</h2>
+
+    <p>
+      <b>Qué es una lista de palabras impresa.</b> La lista pública de BIP-39 en
+      inglés, idéntica en todos los monederos que implementan el estándar y
+      descargable del repositorio bitcoin/bips. No tiene nada de sensible. Colgarla
+      en una pared no revela más que colgar un diccionario, y es genuinamente útil:
+      convierte bits en palabras, te dice los prefijos de cuatro letras que piden
+      los monederos hardware y te deja confirmar que una palabra existe antes de
+      confiársela a una placa de metal.
+    </p>
+
+    <p>
+      <b>Qué no es.</b> No es una copia de seguridad, no es un secreto y no es una
+      herramienta de verificación. No puede decirte si una frase es válida, porque
+      eso necesita un hash, y no puede decirte si una frase es tuya.
+    </p>
+
+    <p>
+      Marcarla cambia todo eso de golpe. Un póster con doce marcas de lápiz es tu
+      frase de recuperación en texto plano, legible desde el otro lado de la
+      habitación, inmune a la excusa habitual de que la fotografía era “solo de la
+      pared”. Si necesitas seguir las palabras mientras transcribes, usa una hoja
+      aparte que destruyas después.
+    </p>
+
+    <p>
+      Nunca escribas una frase real en nada que no sea tu monedero, restaurando en
+      un dispositivo que controles. No en un sitio web que se ofrezca a
+      comprobarla. No en un chat de soporte, un formulario de un exchange, una
+      página de “migración” o un correo. No en una aplicación de notas que
+      sincroniza, un gestor de contraseñas respaldado por un servidor o una
+      fotografía en un teléfono que hace copia de sí mismo. Ninguna parte legítima
+      necesita jamás tu frase de recuperación. Ni un fabricante de monederos, ni un
+      exchange, ni un desarrollador. La petición en sí es el ataque.
+    </p>
+
+    <p>
+      <b>Verifica sin conexión.</b> La única comprobación que merece la pena es
+      restaurar la frase en un dispositivo que controles, sin conexión, y ver
+      aparecer tus propias direcciones. Hazlo una vez, a conciencia, poco después
+      de anotar la frase. Una copia de seguridad sin verificar es una suposición
+      sobre el futuro.
+    </p>
+
+    <p class="learn-note">
+      Esta página no pide nada y no transmite nada. No tiene ninguna entrada que
+      acepte una frase de recuperación, no contiene analítica, no carga tipografías,
+      imágenes, scripts ni estilos de ningún sitio, y funciona con la red
+      desconectada. Eso es una restricción de diseño que impone la compilación, no
+      una promesa: lee el código fuente, o ábrela en una máquina sin ninguna
+      conexión.
+    </p>
+  </section>
+
+</section>
+</div>
   </div>
 
   <div class="view" id="view-roll" hidden>
@@ -987,8 +1472,8 @@ p.learn-lead em{color:var(--patina)}
 // Nothing below names a language, so adding one means adding those two files
 // and rebuilding. Keys missing from a translation fall back to the base
 // language one at a time, which lets a translation land over several commits.
-const I18N = {"en":{"_code":"en","_name":"English","bar.face":"Word face","bar.find":"Find word or index","bar.findPlaceholder":"abandon · 1024","bar.grid":"Grid","bar.orientation":"Orientation","bar.paper":"Paper","brand.tag":"entropy · words · print","btn.clear":"Clear","btn.pdf":"PDF","btn.print":"PRINT","btn.undo":"Undo","btn.worksheet":"Worksheet PDF","face.grot":"Grotesque","face.mono":"Monospace","face.serif":"Serif","grid.16x128":"16 × 128 · one sheet (4+7 bits)","grid.16x64":"16 × 64 · two sheets","grid.32x64":"32 × 64 · one sheet (5+6 bits)","grid.4x64":"4 × 64 · eight sheets","grid.8x128":"8 × 128 · two sheets","grid.8x64":"8 × 64 · four sheets","grid.auto":"Auto: largest type, one sheet","lang.label":"Language","nav.aria":"Sections","nav.learn":"Entropy","nav.poster":"Poster","nav.roll":"Roll your own","orient.landscape":"Landscape","orient.portrait":"Portrait","pdf.colophonLead":"FIRST FOUR LETTERS ARE UNIQUE","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"HOW TO READ A WORD","pdf.decoderMath":"column {col} + row {row} = {idx}","pdf.eyebrow":"BIP-39 · ENGLISH · 2048 WORDS","pdf.sheetTag":"SHEET {n} / {of} · {lo}-{hi}","pdf.subtitle":"The high {c} bits pick a column, the low {r} pick a row, so every word's index is its coordinate on this sheet. The first four letters, set in black, are unique across all 2048; the grey tail is redundant.","pdf.title1":"THE ELEVEN-BIT","pdf.title2":"ADDRESS ","pdf.title3":"SPACE","pdf.titleTight":"THE ELEVEN-BIT ADDRESS ","readout.landscape":"landscape","readout.match":"1 match, index {i} · {word}","readout.matches":"{n} matches","readout.oneSheet":"one sheet","readout.portrait":"portrait","readout.preview":"preview at {pct} %, prints full size","readout.printTip":"Print at 100 % scale with background graphics on.","readout.sheets":"{n} sheets","readout.small":"Small. Try landscape, or A3, or split across sheets.","readout.split":"{a}+{b} bit split","readout.type":"word type {pt} pt","readout.warn":"Public standard list. Never mark your own recovery words on it.","roll.checksumLabel":"Checksum · first {n} bits of sha256(entropy)","roll.coin":"Coin: one flip","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dice: one d6","roll.disabled":"The entropy engine did not load, so this section is disabled.","roll.entropyLabel":"Entropy · {n} bits","roll.flips":"flips","roll.footnote":"These words are exactly as unpredictable as your throws were, and no more. A phrase made in a browser tab is for learning. Put nothing on it that you would mind losing.","roll.hintCoin":"Flip a real coin. Heads is 1, tails is 0. Press H or T, or 1 and 0. Backspace undoes the last flip.","roll.hintDice":"Throw a real d6 and press what you see. 1 to 4 carry two bits each. 5 and 6 carry nothing and are thrown again, which is what keeps the sixteen possible pairs equally likely. Backspace undoes the last throw.","roll.keyReroll":"reroll","roll.lead":"Twelve words are a 128-bit number plus a 4-bit checksum. Below you make that number yourself, one throw at a time, and watch it turn into words. Nothing here leaves the page, because there is no network code in this file at all.","roll.leadLink":"If the words entropy and checksum are doing no work for you yet, read {link} first.","roll.leadLinkText":"the field guide","roll.length":"Length","roll.rerolled":" · {n} rerolled","roll.source":"Source","roll.throws":"throws","roll.title":"Roll your own entropy","roll.warn":"A phrase generated in a browser is for {em}. For money you intend to keep, generate the phrase on a hardware wallet, or do this on a machine that is offline and stays offline. Never type an existing seed phrase into this or any other page.","roll.warnEm":"learning and verification","roll.warnLead":"Read this first.","roll.words12":"12 words · 128 bits","roll.words24":"24 words · 256 bits","roll.wordsLabel":"{n} words · each one eleven bits of the {total}-bit total","toggle.prefix":"Prefix emphasis","toggle.rules":"Row rules","ws.colIndex":"INDEX","ws.colWord":"WORD","ws.continued":"{words} words · continued","ws.eyebrow":"BIP-39 BY HAND","ws.foot1":"The first {n} words follow from your bits alone, so this sheet and the poster are enough for them.","ws.foot2":"The final word mixes the last entropy bits with a SHA-256 checksum. Enter your bits into an offline tool, or a wallet that accepts dice.","ws.foot3":"BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND.","ws.lastWord":"last word carries the checksum, so a machine has to finish this one","ws.note2":"Each throw is two bits: 1 is 00, 2 is 01, 3 is 10, 4 is 11. Fill the cells left to right, top to bottom.","ws.note3":"Eleven bits per word. Read the first four bits as a column and the last seven as a row, or the first five and last six on a 32 x 64 sheet. Write the index, then the word.","ws.noteCoin":"One coin, {n} times. Heads is 1, tails is 0. Write each result in a box, in order. A flip is already a bit, so there is nothing to convert.","ws.noteDice":"One die, until {n} boxes are full. Write 1, 2, 3 or 4 in the next box. A 5 or a 6 fills no box, so throw again. Rejecting them is what keeps the four outcomes equally likely.","ws.step1Coin":"FLIP","ws.step1Dice":"THROW","ws.step2":"TRANSCRIBE","ws.step3":"READ OFF THE POSTER","ws.sub":"{words} words · {bits} bits of entropy · {n} {unit}","ws.titleCoin":"Coin worksheet","ws.titleDice":"Dice worksheet","ws.unitFlips":"flips","ws.unitThrows":"accepted throws"}};
-const LANGS = [{"code":"en","name":"English"}];
+const I18N = {"en":{"_code":"en","_name":"English","bar.face":"Word face","bar.find":"Find word or index","bar.findPlaceholder":"abandon · 1024","bar.grid":"Grid","bar.orientation":"Orientation","bar.paper":"Paper","brand.tag":"entropy · words · print","btn.clear":"Clear","btn.pdf":"PDF","btn.print":"PRINT","btn.undo":"Undo","btn.worksheet":"Worksheet PDF","face.grot":"Grotesque","face.mono":"Monospace","face.serif":"Serif","grid.16x128":"16 × 128 · one sheet (4+7 bits)","grid.16x64":"16 × 64 · two sheets","grid.32x64":"32 × 64 · one sheet (5+6 bits)","grid.4x64":"4 × 64 · eight sheets","grid.8x128":"8 × 128 · two sheets","grid.8x64":"8 × 64 · four sheets","grid.auto":"Auto: largest type, one sheet","lang.label":"Language","nav.aria":"Sections","nav.learn":"Entropy","nav.poster":"Poster","nav.roll":"Roll your own","orient.landscape":"Landscape","orient.portrait":"Portrait","pdf.colophonLead":"FIRST FOUR LETTERS ARE UNIQUE","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"HOW TO READ A WORD","pdf.decoderMath":"column {col} + row {row} = {idx}","pdf.eyebrow":"BIP-39 · ENGLISH · 2048 WORDS","pdf.sheetTag":"SHEET {n} / {of} · {lo}-{hi}","pdf.subtitle":"The high {c} bits pick a column, the low {r} pick a row, so every word's index is its coordinate on this sheet. The first four letters, set in black, are unique across all 2048; the grey tail is redundant.","pdf.title1":"THE ELEVEN-BIT","pdf.title2":"ADDRESS ","pdf.title3":"SPACE","pdf.titleTight":"THE ELEVEN-BIT ADDRESS ","readout.landscape":"landscape","readout.match":"1 match, index {i} · {word}","readout.matches":"{n} matches","readout.oneSheet":"one sheet","readout.portrait":"portrait","readout.preview":"preview at {pct} %, prints full size","readout.printTip":"Print at 100 % scale with background graphics on.","readout.sheets":"{n} sheets","readout.small":"Small. Try landscape, or A3, or split across sheets.","readout.split":"{a}+{b} bit split","readout.type":"word type {pt} pt","readout.warn":"Public standard list. Never mark your own recovery words on it.","roll.checksumLabel":"Checksum · first {n} bits of sha256(entropy)","roll.coin":"Coin: one flip","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dice: one d6","roll.disabled":"The entropy engine did not load, so this section is disabled.","roll.entropyLabel":"Entropy · {n} bits","roll.flips":"flips","roll.footnote":"These words are exactly as unpredictable as your throws were, and no more. A phrase made in a browser tab is for learning. Put nothing on it that you would mind losing.","roll.hintCoin":"Flip a real coin. Heads is 1, tails is 0. Press H or T, or 1 and 0. Backspace undoes the last flip.","roll.hintDice":"Throw a real d6 and press what you see. 1 to 4 carry two bits each. 5 and 6 carry nothing and are thrown again, which is what keeps the sixteen possible pairs equally likely. Backspace undoes the last throw.","roll.keyReroll":"reroll","roll.lead":"Twelve words are a 128-bit number plus a 4-bit checksum. Below you make that number yourself, one throw at a time, and watch it turn into words. Nothing here leaves the page, because there is no network code in this file at all.","roll.leadLink":"If the words entropy and checksum are doing no work for you yet, read {link} first.","roll.leadLinkText":"the field guide","roll.length":"Length","roll.rerolled":" · {n} rerolled","roll.source":"Source","roll.throws":"throws","roll.title":"Roll your own entropy","roll.warn":"A phrase generated in a browser is for {em}. For money you intend to keep, generate the phrase on a hardware wallet, or do this on a machine that is offline and stays offline. Never type an existing seed phrase into this or any other page.","roll.warnEm":"learning and verification","roll.warnLead":"Read this first.","roll.words12":"12 words · 128 bits","roll.words24":"24 words · 256 bits","roll.wordsLabel":"{n} words · each one eleven bits of the {total}-bit total","toggle.prefix":"Prefix emphasis","toggle.rules":"Row rules","ws.colIndex":"INDEX","ws.colWord":"WORD","ws.continued":"{words} words · continued","ws.eyebrow":"BIP-39 BY HAND","ws.foot1":"The first {n} words follow from your bits alone, so this sheet and the poster are enough for them.","ws.foot2":"The final word mixes the last entropy bits with a SHA-256 checksum. Enter your bits into an offline tool, or a wallet that accepts dice.","ws.foot3":"BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND.","ws.lastWord":"last word carries the checksum, so a machine has to finish this one","ws.note2":"Each throw is two bits: 1 is 00, 2 is 01, 3 is 10, 4 is 11. Fill the cells left to right, top to bottom.","ws.note3":"Eleven bits per word. Read the first four bits as a column and the last seven as a row, or the first five and last six on a 32 x 64 sheet. Write the index, then the word.","ws.noteCoin":"One coin, {n} times. Heads is 1, tails is 0. Write each result in a box, in order. A flip is already a bit, so there is nothing to convert.","ws.noteDice":"One die, until {n} boxes are full. Write 1, 2, 3 or 4 in the next box. A 5 or a 6 fills no box, so throw again. Rejecting them is what keeps the four outcomes equally likely.","ws.step1Coin":"FLIP","ws.step1Dice":"THROW","ws.step2":"TRANSCRIBE","ws.step3":"READ OFF THE POSTER","ws.sub":"{words} words · {bits} bits of entropy · {n} {unit}","ws.titleCoin":"Coin worksheet","ws.titleDice":"Dice worksheet","ws.unitFlips":"flips","ws.unitThrows":"accepted throws"},"es":{"_code":"es","_name":"Español","bar.face":"Tipografía","bar.find":"Buscar palabra o índice","bar.findPlaceholder":"abandon · 1024","bar.grid":"Cuadrícula","bar.orientation":"Orientación","bar.paper":"Papel","brand.tag":"entropía · palabras · imprimir","btn.clear":"Borrar","btn.pdf":"PDF","btn.print":"IMPRIMIR","btn.undo":"Deshacer","btn.worksheet":"Hoja de trabajo PDF","face.grot":"Grotesca","face.mono":"Monoespaciada","face.serif":"Serif","grid.16x128":"16 × 128 · una hoja (4+7 bits)","grid.16x64":"16 × 64 · dos hojas","grid.32x64":"32 × 64 · una hoja (5+6 bits)","grid.4x64":"4 × 64 · ocho hojas","grid.8x128":"8 × 128 · dos hojas","grid.8x64":"8 × 64 · cuatro hojas","grid.auto":"Auto: cuerpo mayor, una hoja","lang.label":"Idioma","nav.aria":"Secciones","nav.learn":"Entropía","nav.poster":"Póster","nav.roll":"Genera la tuya","orient.landscape":"Horizontal","orient.portrait":"Vertical","pdf.colophonLead":"CUATRO PRIMERAS LETRAS ÚNICAS","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"CÓMO LEER UNA PALABRA","pdf.decoderMath":"columna {col} + fila {row} = {idx}","pdf.eyebrow":"BIP-39 · INGLÉS · 2048 PALABRAS","pdf.sheetTag":"HOJA {n} / {of} · {lo}-{hi}","pdf.subtitle":"Los {c} bits altos eligen una columna y los {r} bajos eligen una fila, así que el índice de cada palabra es su coordenada en esta hoja. Las cuatro primeras letras, en negro, son únicas entre las 2048; la cola gris es redundante.","pdf.title1":"DIRECCIONES","pdf.title2":"DE ","pdf.title3":"ONCE BITS","pdf.titleTight":"DIRECCIONES DE ","readout.landscape":"horizontal","readout.match":"1 coincidencia, índice {i} · {word}","readout.matches":"{n} coincidencias","readout.oneSheet":"una hoja","readout.portrait":"vertical","readout.preview":"vista previa al {pct} %, se imprime a tamaño real","readout.printTip":"Imprime al 100 % de escala y con los gráficos de fondo activados.","readout.sheets":"{n} hojas","readout.small":"Pequeño. Prueba horizontal, o A3, o repartir en varias hojas.","readout.split":"división de bits {a}+{b}","readout.type":"cuerpo de palabra {pt} pt","readout.warn":"Lista pública del estándar. Nunca marques en ella tus propias palabras de recuperación.","roll.checksumLabel":"Suma de verificación · primeros {n} bits de sha256(entropía)","roll.coin":"Moneda: un lanzamiento","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dados: un d6","roll.disabled":"El motor de entropía no se cargó, así que esta sección está desactivada.","roll.entropyLabel":"Entropía · {n} bits","roll.flips":"lanzamientos","roll.footnote":"Estas palabras son exactamente tan impredecibles como lo fueron tus tiradas, y nada más. Una frase creada en una pestaña del navegador sirve para aprender. No pongas en ella nada que te importe perder.","roll.hintCoin":"Lanza una moneda real. Cara es 1, cruz es 0. Pulsa H o T, o 1 y 0. Retroceso deshace el último lanzamiento.","roll.hintDice":"Tira un d6 real y pulsa lo que veas. Del 1 al 4 llevan dos bits cada uno. El 5 y el 6 no llevan nada y se vuelven a tirar, que es lo que mantiene igual de probables los dieciséis pares posibles. Retroceso deshace la última tirada.","roll.keyReroll":"repetir","roll.lead":"Doce palabras son un número de 128 bits más una suma de verificación de 4 bits. Abajo construyes ese número tú, una tirada cada vez, y lo ves convertirse en palabras. Nada de esto sale de la página, porque en este archivo no hay ningún código de red.","roll.leadLink":"Si las palabras entropía y suma de verificación aún no te dicen nada, lee antes {link}.","roll.leadLinkText":"la guía de campo","roll.length":"Longitud","roll.rerolled":" · {n} repetidas","roll.source":"Fuente","roll.throws":"tiradas","roll.title":"Genera tu propia entropía","roll.warn":"Una frase generada en un navegador sirve para {em}. Para dinero que pienses conservar, genera la frase en un monedero hardware, o haz esto en una máquina que esté sin conexión y siga sin conexión. Nunca escribas una frase semilla existente en esta ni en ninguna otra página.","roll.warnEm":"aprender y verificar","roll.warnLead":"Lee esto primero.","roll.words12":"12 palabras · 128 bits","roll.words24":"24 palabras · 256 bits","roll.wordsLabel":"{n} palabras · cada una once bits del total de {total} bits","toggle.prefix":"Énfasis de prefijo","toggle.rules":"Líneas de fila","ws.colIndex":"ÍNDICE","ws.colWord":"PALABRA","ws.continued":"{words} palabras · continuación","ws.eyebrow":"BIP-39 A MANO","ws.foot1":"Las primeras {n} palabras salen solo de tus bits, así que esta hoja y el póster bastan para ellas.","ws.foot2":"La última palabra mezcla los últimos bits de entropía con una suma de verificación SHA-256. Introduce tus bits en una herramienta sin conexión, o en un monedero que acepte dados.","ws.foot3":"QUEMA O DESTRUYE ESTA HOJA CUANDO LA FRASE ESTÉ ANOTADA. ES TU SEMILLA ESCRITA A MANO.","ws.lastWord":"la última palabra lleva la suma de verificación, así que una máquina tiene que terminar esta","ws.note2":"Cada tirada son dos bits: 1 es 00, 2 es 01, 3 es 10, 4 es 11. Rellena las celdas de izquierda a derecha y de arriba abajo.","ws.note3":"Once bits por palabra. Lee los cuatro primeros bits como columna y los siete últimos como fila, o los cinco primeros y los seis últimos en una hoja de 32 x 64. Escribe el índice y luego la palabra.","ws.noteCoin":"Una moneda, {n} veces. Cara es 1, cruz es 0. Escribe cada resultado en una casilla, en orden. Un lanzamiento ya es un bit, así que no hay nada que convertir.","ws.noteDice":"Un dado, hasta llenar {n} casillas. Escribe 1, 2, 3 o 4 en la casilla siguiente. Un 5 o un 6 no llenan ninguna, así que vuelve a tirar. Rechazarlos es lo que mantiene igual de probables los cuatro resultados.","ws.step1Coin":"LANZA","ws.step1Dice":"TIRA","ws.step2":"TRANSCRIBE","ws.step3":"LEE EN EL PÓSTER","ws.sub":"{words} palabras · {bits} bits de entropía · {n} {unit}","ws.titleCoin":"Hoja de moneda","ws.titleDice":"Hoja de dados","ws.unitFlips":"lanzamientos","ws.unitThrows":"tiradas aceptadas"}};
+const LANGS = [{"code":"en","name":"English"},{"code":"es","name":"Español"}];
 const BASE_LANG = "en";
 let LANG = BASE_LANG;
 
@@ -1840,8 +2325,8 @@ function pdfDecoder(d, idx, x2, bottom){
   const padX = L.fs * 1.1, padY = L.fs * 0.9, vgap = L.fs * 0.62;
   const bitsW = bits.length * bw + (bits.length - 1) * gap + lead;
 
-  const label = "HOW TO READ A WORD";
-  const math = "column " + (col * L.TR) + " + row " + row + " = " + idx;
+  const label = t("pdf.decoderLabel");
+  const math = t("pdf.decoderMath", { col: col * L.TR, row: row, idx: idx });
   const word = WORDS[idx];
 
   const wLab = d.width(label, pdfSize(L.fs * 0.6), "cour") +
@@ -1889,14 +2374,14 @@ function pdfMasthead(d, s, colStart, rowStart){
   const top = L.M, x = L.M;
   const titleMM = L.headH * (L.tight ? 0.27 : (L.solo ? 0.26 : 0.30));
 
-  d.text(x, top + L.fs * 0.72, "BIP-39 · ENGLISH · 2048 WORDS",
+  d.text(x, top + L.fs * 0.72, t("pdf.eyebrow"),
          { size: pdfSize(L.fs * (L.tight ? 0.78 : 0.72)), font: "cour",
            rgb: PDF_VERD, tracking: 0.3 });
 
   let ty = top + L.fs * 0.72 + L.fs * 0.45 + titleMM;
   const lines = L.tight
-    ? [["THE ELEVEN-BIT ADDRESS ", "SPACE"]]
-    : [["THE ELEVEN-BIT", ""], ["ADDRESS ", "SPACE"]];
+    ? [[t("pdf.titleTight"), t("pdf.title3")]]
+    : [[t("pdf.title1"), ""], [t("pdf.title2"), t("pdf.title3")]];
   for (const [dark, green] of lines){
     d.text(x, ty, dark, { size: pdfSize(titleMM), font: "courB", rgb: PDF_INK });
     if (green)
@@ -1907,9 +2392,7 @@ function pdfMasthead(d, s, colStart, rowStart){
 
   if (L.headH >= 15){
     const size = pdfSize(L.fs * (L.tight ? 0.95 : 0.86));
-    const text = "The high " + L.colBits + " bits pick a column, the low " + L.rowBits +
-      " pick a row, so every word's index is its coordinate on this sheet. The first " +
-      "four letters, set in black, are unique across all 2048; the grey tail is redundant.";
+    const text = t("pdf.subtitle", { c: L.colBits, r: L.rowBits });
     const maxW = L.CW * 0.52;
     let line = "", ly = ty + L.fs * 0.6;
     for (const word of text.split(" ")){
@@ -1929,7 +2412,7 @@ function pdfMasthead(d, s, colStart, rowStart){
     const lo = colStart * L.TR + rowStart;
     const hi = (colStart + L.cols - 1) * L.TR + rowStart + L.rows - 1;
     d.text(L.W - L.M, L.M + L.headH,
-           "SHEET " + (s + 1) + " / " + L.sheets + " · " + lo + "-" + hi,
+           t("pdf.sheetTag", { n: s + 1, of: L.sheets, lo: lo, hi: hi }),
            { size: pdfSize(L.fs * 0.64), font: "cour", align: "r",
              rgb: PDF_VERD, tracking: 0.18 });
   }
@@ -2006,11 +2489,11 @@ function pdfSheet(d, s){
   d.line(L.M, fy, L.W - L.M, fy, { rgb: PDF_INK, lw: 0.3 });
   const fsz = pdfSize(L.fs * (L.tight ? 0.72 : 0.68));
   const fb = fy + L.footH * 0.2 + L.fs * 0.6;
-  d.text(L.M, fb, "FIRST FOUR LETTERS ARE UNIQUE",
+  d.text(L.M, fb, t("pdf.colophonLead"),
          { size: fsz, font: "courB", rgb: PDF_INK, tracking: 0.14 });
   d.text(L.W / 2, fb, "sha256 " + SHA_SHORT,
          { size: fsz, font: "cour", align: "c", rgb: PDF_SUB, tracking: 0.03 });
-  d.text(L.W - L.M, fb, "bitcoin/bips · bip-0039 · english.txt",
+  d.text(L.W - L.M, fb, t("pdf.colophonSource"),
          { size: fsz, font: "cour", align: "r", rgb: PDF_SUB, tracking: 0.03 });
 }
 
@@ -2050,18 +2533,35 @@ function wsBoxes(d, x, y, cols, rows, bw, bh, n, label){
 }
 
 function wsHead(d, title, sub){
-  d.text(15, 20, "BIP-39 BY HAND",
+  d.text(15, 20, t("ws.eyebrow"),
          { size: 7, font: "cour", rgb: WS_VERD, tracking: 0.3 });
   d.text(15, 30, title, { size: 19, font: "courB", rgb: WS_INK });
   d.text(15, 37.5, sub, { size: 8.5, font: "helv", rgb: WS_SUB });
   d.line(15, 41, 195, 41, { rgb: WS_INK, lw: 0.3 });
 }
 
+// The notes are the only running prose on the sheet. They wrap to the content
+// width rather than trusting one line to fit: Spanish runs a fifth longer than
+// English, and an unwrapped line simply walks off the right edge of the paper.
+function wsWrap(d, x, y, maxW, text, size, lead){
+  let line = "";
+  for (const word of text.split(" ")){
+    const next = line ? line + " " + word : word;
+    if (line && d.width(next, size, "helv") > maxW){
+      d.text(x, y, line, { size, font: "helv", rgb: WS_SUB });
+      y += lead;
+      line = word;
+    } else line = next;
+  }
+  if (line){ d.text(x, y, line, { size, font: "helv", rgb: WS_SUB }); y += lead; }
+  return y;
+}
+
 function wsSection(d, y, n, title, note){
   d.text(15, y, n, { size: 8, font: "courB", rgb: WS_VERD, tracking: 0.1 });
   d.text(24, y, title, { size: 8, font: "courB", rgb: WS_INK, tracking: 0.1 });
-  if (note) d.text(15, y + 5.5, note, { size: 7.4, font: "helv", rgb: WS_SUB });
-  return y + (note ? 11 : 6);
+  if (!note) return y + 6;
+  return wsWrap(d, 15, y + 5.5, 180, note, 7.4, 4.2) + 1.5;
 }
 
 function worksheetPDF(){
@@ -2070,26 +2570,19 @@ function worksheetPDF(){
   const throws = coin ? spec.entBits : spec.entBits / 2;
   const d = PDF.doc({ w: 210, h: 297 });
 
-  wsHead(d,
-    coin ? "Coin worksheet" : "Dice worksheet",
-    spec.words + " words · " + spec.entBits + " bits of entropy · " +
-    throws + (coin ? " flips" : " accepted throws"));
+  wsHead(d, t(coin ? "ws.titleCoin" : "ws.titleDice"),
+    t("ws.sub", { words: spec.words, bits: spec.entBits, n: throws,
+                  unit: t(coin ? "ws.unitFlips" : "ws.unitThrows") }));
 
-  let y = wsSection(d, 50, "01", coin ? "FLIP" : "THROW",
-    coin
-      ? "One coin, " + throws + " times. Heads is 1, tails is 0. Write each result in a box, in order — " +
-        "a flip is already a bit, so there is nothing to convert."
-      : "One die, until " + throws + " boxes are full. Write 1, 2, 3 or 4 in the next box. " +
-        "A 5 or a 6 fills no box — throw again. Rejecting them is what keeps the four outcomes equally likely.");
+  let y = wsSection(d, 50, "01", t(coin ? "ws.step1Coin" : "ws.step1Dice"),
+    t(coin ? "ws.noteCoin" : "ws.noteDice", { n: throws }));
 
   const bw = 180 / 16;
   y = wsBoxes(d, 15, y, 16, throws / 16, bw, 7.2, throws, 16) + 9;
 
   // A coin needs no transcription step; a die does, two bits at a time.
   if (!coin){
-    y = wsSection(d, y, "02", "TRANSCRIBE",
-      "Each throw is two bits: 1 is 00, 2 is 01, 3 is 10, 4 is 11. " +
-      "Fill the cells left to right, top to bottom.");
+    y = wsSection(d, y, "02", t("ws.step2"), t("ws.note2"));
     for (let r = 0; r < spec.entBits / 16; r++){
       const ry = y + r * 6.4;
       for (let c = 0; c < 16; c++)
@@ -2102,15 +2595,13 @@ function worksheetPDF(){
   // The word table gets its own page: at 24 words it cannot share one, and a
   // sheet you fill at a table should not need turning back and forth anyway.
   d.page();
-  wsHead(d, coin ? "Coin worksheet" : "Dice worksheet",
-         spec.words + " words · continued");
-  y = wsSection(d, 50, coin ? "02" : "03", "READ OFF THE POSTER",
-    "Eleven bits per word. Read the first four bits as a column and the last seven as a row — " +
-    "or the first five and last six, on a 32 x 64 sheet. Write the index, then the word.");
+  wsHead(d, t(coin ? "ws.titleCoin" : "ws.titleDice"),
+         t("ws.continued", { words: spec.words }));
+  y = wsSection(d, 50, coin ? "02" : "03", t("ws.step3"), t("ws.note3"));
 
   // 24 rows plus the closing notes do not fit at a comfortable row height, so
   // the rows give way rather than the notes: the notes are the safety warning.
-  const FOOT = 34, BOTTOM = 282;
+  const FOOT = 46, BOTTOM = 282;   // room for the closing notes once they wrap
   const rowH = Math.min(9.4, (BOTTOM - FOOT - y) / spec.words);
   for (let i = 0; i < spec.words; i++){
     const ry = y + i * rowH;
@@ -2123,26 +2614,19 @@ function worksheetPDF(){
     d.line(86, ry + rowH - 1.6, 108, ry + rowH - 1.6, { rgb: WS_RULE, lw: 0.15 });
     d.line(112, ry + rowH - 1.6, 195, ry + rowH - 1.6, { rgb: WS_RULE, lw: 0.15 });
     if (i === 0){
-      d.text(86, ry - 0.6, "INDEX", { size: 5.4, font: "cour", rgb: WS_SUB, tracking: 0.14 });
-      d.text(112, ry - 0.6, "WORD", { size: 5.4, font: "cour", rgb: WS_SUB, tracking: 0.14 });
+      d.text(86, ry - 0.6, t("ws.colIndex"), { size: 5.4, font: "cour", rgb: WS_SUB, tracking: 0.14 });
+      d.text(112, ry - 0.6, t("ws.colWord"), { size: 5.4, font: "cour", rgb: WS_SUB, tracking: 0.14 });
     }
     if (last)
-      d.text(24, ry + rowH * 0.62,
-             "last word carries the checksum — a machine has to finish this one",
+      d.text(24, ry + rowH * 0.62, t("ws.lastWord"),
              { size: 6.6, font: "helv", rgb: WS_VERD });
   }
   y += spec.words * rowH + 6;
 
   d.line(15, y, 195, y, { rgb: WS_INK, lw: 0.3 });
-  d.text(15, y + 5,
-    "The first " + (spec.words - 1) + " words follow from your bits alone, so this sheet and the poster " +
-    "are enough for them.", { size: 7.2, font: "helv", rgb: WS_SUB });
-  d.text(15, y + 10,
-    "The final word mixes the last entropy bits with a SHA-256 checksum: enter your bits into an offline " +
-    "tool, or a wallet that accepts dice.", { size: 7.2, font: "helv", rgb: WS_SUB });
-  d.text(15, y + 16.5,
-    "BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND.",
-    { size: 7, font: "courB", rgb: WS_INK, tracking: 0.06 });
+  let fy = wsWrap(d, 15, y + 5, 180, t("ws.foot1", { n: spec.words - 1 }), 7.2, 4);
+  fy = wsWrap(d, 15, fy + 1, 180, t("ws.foot2"), 7.2, 4);
+  d.text(15, fy + 4, t("ws.foot3"), { size: 7, font: "courB", rgb: WS_INK, tracking: 0.06 });
 
   PDF.save(d.blob(), "bip39-" + (coin ? "coin" : "dice") + "-worksheet-" + spec.words + "w.pdf");
 }
