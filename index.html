@@ -507,6 +507,7 @@ p.learn-lead em{color:var(--patina)}
         <span class="tabs-g">
           <a href="#start" data-view="start" data-t="nav.start"></a>
           <a href="#learn" data-view="learn" data-t="nav.learn"></a>
+          <a href="#protect" data-view="protect" data-t="nav.protect"></a>
           <a href="#faq" data-view="faq" data-t="nav.faq"></a>
         </span>
         <span class="tabs-sep" data-t="nav.tools"></span>
@@ -2162,6 +2163,612 @@ p.learn-lead em{color:var(--patina)}
 </div>
 </div>
 
+<div class="view" id="view-protect" hidden>
+<!-- src/content/protect.en.html -->
+<div class="pane" data-pane="protect" data-lang="en" lang="en" hidden>
+<section id="en-protect" class="learn">
+
+  <header class="learn-head">
+    <p class="learn-eyebrow">Protection · layers and their costs</p>
+    <h1 class="learn-title">Every layer<br>has a price</h1>
+    <p class="learn-lead">
+      Suppose the hard part is done. The phrase was generated properly, it is
+      written on paper, and nobody has seen it. This page is about everything
+      after that: the things people add on top, what each one actually buys, and
+      what each one costs. There are only a few real layers, and every one of
+      them defends against something while creating a new way to lose access.
+      None of this is a recommendation to add all of them. The honest default is
+      to add none of them and get the paper <em>right</em> first.
+    </p>
+  </header>
+
+  <aside class="learn-warn">
+    <p class="learn-warn-label">Warning</p>
+    <p>
+      Every layer you add is another thing that must survive, be remembered, and
+      still work in ten years. Protection that has never been rehearsed is not
+      protection, it is an intention. If you add a passphrase or a second key and
+      never restore from them, you have not made your coins safer. You have added
+      a way to lose them that did not exist before.
+    </p>
+    <p>
+      Nothing on this page needs your phrase and nothing here asks for it. As
+      everywhere else on this site, no legitimate party ever needs your recovery
+      phrase, and no field here accepts one.
+    </p>
+  </aside>
+
+  <nav class="learn-toc" aria-label="Sections on this page">
+    <ol>
+      <li><a href="#en-protect-threats">What you are defending against</a></li>
+      <li><a href="#en-protect-passphrase">The passphrase</a></li>
+      <li><a href="#en-protect-multisig">Multisig, 2 of 3</a></li>
+      <li><a href="#en-protect-choose">Choosing between them</a></li>
+      <li><a href="#en-protect-backup">The backup itself</a></li>
+      <li><a href="#en-protect-test">Test the recovery</a></li>
+      <li><a href="#en-protect-heirs">Inheritance and incapacity</a></li>
+    </ol>
+  </nav>
+
+  <section class="learn-sec" id="en-protect-threats">
+    <h2><span class="learn-num" aria-hidden="true">01</span> What you are defending against</h2>
+
+    <p>
+      “Keeping it safe” is not one problem. At least five distinct things can
+      separate you from your coins, they barely overlap, and a measure that
+      answers one of them often does nothing at all for the others. Deciding
+      which one you actually mean is most of the work, and it is the step that
+      gets skipped in favour of buying something.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>Theft by someone who finds the backup.</b> Not a cryptographer. A
+        burglar working through the obvious drawers, a builder, a lodger, a
+        houseguest, a relative, a removal firm, a landlord with a key. Your paper
+        is the entire secret and it is written in plain language, so anyone who
+        reads it can spend from anywhere in the world, immediately and
+        irreversibly. This is the threat that a passphrase and multisig are
+        designed for, and it is the only one they are both good at.
+      </li>
+      <li>
+        <b>Loss, with no attacker involved.</b> Fire, flood, a burst pipe, a
+        house move, a clear-out, a word written so badly that six years later you
+        cannot tell an <code>l</code> from a <code>1</code>, a hiding place so
+        clever you cannot reconstruct it, a device that dies with the only copy
+        of something you assumed was written down. Nobody is against you here.
+        The coins go anyway.
+      </li>
+      <li>
+        <b>Coercion.</b> Someone who knows you hold coins and is standing in
+        front of you. Cryptography has no answer to this, and no arrangement
+        makes it pleasant. The only thing that helps is a structure in which it
+        is genuinely true that you cannot produce everything on the spot, and
+        that structure has to be real, because a bluff has to be maintained under
+        conditions where people are bad at maintaining bluffs. The best defence
+        remains not being known to hold anything.
+      </li>
+      <li>
+        <b>A compromised device at signing time.</b> Here the phrase never leaks
+        and the backup is irrelevant. Malware changes the destination address
+        between the moment you copy it and the moment you approve it, or presents
+        a transaction that does something other than what the screen on your
+        computer says. The defence is not a better backup, it is verifying the
+        amount and the full destination address on the signing device's own
+        screen, every time, and refusing to approve anything you cannot read
+        there.
+      </li>
+      <li>
+        <b>Your own death or incapacity.</b> From your family's point of view
+        this is indistinguishable from loss, and the coins are just as gone. It
+        is the threat that receives the least attention per unit of money it
+        actually consumes.
+      </li>
+    </ul>
+
+    <p>
+      Those five want different answers, and two of them want opposite answers.
+      Anything that makes the secret harder for a stranger to use makes it harder
+      for you to use as well, and harder still for whoever has to use it without
+      you. That tension runs through the rest of this page, and there is no
+      arrangement that escapes it.
+    </p>
+
+    <p class="learn-note">
+      Keep the proportions in mind. Coins are lost to fire, water, forgetting,
+      transcription errors, dead devices, clever schemes nobody else understood
+      and quiet deaths far more often than they are lost to burglars, and the
+      <a href="#faq">questions page</a> says the same thing from another angle. A
+      design that defends only against a thief is unbalanced against the way
+      people actually lose money, and adding layers usually makes that imbalance
+      worse rather than better.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="en-protect-passphrase">
+    <h2><span class="learn-num" aria-hidden="true">02</span> The passphrase</h2>
+
+    <p>
+      Wallets sometimes call it the “25th word”, which is a friendly name for
+      something that is not a word and is not part of the phrase. It is an extra
+      secret you supply alongside the twelve words, mixed into the same
+      derivation that turns them into a seed. The <a href="#learn">field
+      guide</a> describes that derivation: the words are stretched with
+      <code>PBKDF2-HMAC-SHA-512</code>, and the passphrase goes into the salt. So
+      the same twelve words with a different passphrase produce a completely
+      different seed, and therefore a completely different wallet, with different
+      addresses and no relationship to the first one.
+    </p>
+
+    <p>
+      It is taken literally. Case, spacing, punctuation and accents all count, a
+      trailing space is part of the secret, and there is no list of valid
+      passphrases because every possible string is one.
+    </p>
+
+    <p>
+      <b>What it buys.</b> Exactly one thing, and it is a real thing: your paper
+      backup on its own is no longer enough to spend. Somebody who finds it, and
+      knows what it is, and tries it, gets a valid and empty wallet. That answers
+      the first threat above, theft by whoever finds the backup, and it answers
+      it well. It also means the twelve words can be stored somewhere less
+      dramatic than you would otherwise accept, which is genuinely useful.
+    </p>
+
+    <p>
+      <b>What it does not buy.</b> It does nothing for fire or flood. It does
+      nothing at signing time, when the device in front of you is the problem. It
+      does nothing for your heirs except make their job harder. And against
+      coercion it converts “hand over the paper” into “tell me the passphrase”,
+      which is not obviously an improvement.
+    </p>
+
+    <p>
+      <b>What it costs.</b> This is the part that is usually undersold, so it is
+      stated bluntly.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>There is no checksum on it, and no error to see.</b> The twelve words
+        have four bits of checksum, so a mistyped word is usually caught. A
+        passphrase has nothing of the kind. A wrong one is not rejected, because
+        there is nothing to reject it against. It silently opens a different real
+        wallet, which is empty, and the software will show you that empty wallet
+        with complete confidence. A single missing capital letter and a single
+        stray space are indistinguishable from having lost everything.
+      </li>
+      <li>
+        <b>It is not recoverable, by anyone.</b> No wallet, device, vendor or
+        service records what you chose, because nothing anywhere ever sees it in
+        a form it could store. There is no reset, no support desk, no escrow, no
+        clever forensic path. If it exists only in your memory, then it is a
+        secret with no backup, and memory is not a storage medium: it decays,
+        and it decays fastest for things you rarely use.
+      </li>
+      <li>
+        <b>Forgetting it loses the coins as completely as losing the phrase.</b>
+        Not partially, not with more effort. The twelve words and the passphrase
+        are two halves of one secret, and holding one half is worth nothing. You
+        can be looking directly at a perfect, legible, fireproof backup of your
+        seed phrase and be permanently locked out.
+      </li>
+      <li>
+        <b>It doubles the backup problem.</b> You now have two secrets to record,
+        protect and keep legible for decades, and they must be stored apart or
+        the whole point is lost. Two locations is more than twice the
+        administration of one, because you must also remember that the second one
+        exists and what it belongs to.
+      </li>
+      <li>
+        <b>It has to be typed, correctly, on unfamiliar hardware.</b> Sometimes
+        years later, sometimes on a small device with an awkward keyboard,
+        sometimes by someone who is not you. A passphrase full of unusual
+        characters is a passphrase you may not be able to enter on the device you
+        end up holding.
+      </li>
+    </ul>
+
+    <p>
+      <b>Plausible deniability.</b> The idea is appealing: the words without the
+      passphrase open a real wallet, so you can keep a small amount there and
+      hand that over under duress, while the serious wallet stays invisible. It
+      works better in explanation than in practice, and it is worth being honest
+      about why. Anyone who knows enough to demand your seed phrase probably
+      knows that passphrases exist, since the feature is documented by every
+      vendor that offers it and discussed everywhere. The decoy has to hold
+      enough to be believed and look like it has been used, which means
+      maintaining it. Nothing about the arrangement proves a negative, so the
+      other person's decision to stop is not something you control. Treat it as a
+      thin extra option rather than the reason to adopt a passphrase.
+    </p>
+
+    <p>
+      <b>If you use one, do these four things.</b> Back it up with the same
+      seriousness as the phrase, in writing, exactly as typed, with any leading
+      or trailing spaces made explicit or avoided entirely. Store it apart from
+      the words, so that finding either one alone achieves nothing. Choose
+      something you can transcribe unambiguously and type on any device, which
+      argues for length over exotic characters. And restore from both, together,
+      before the wallet holds anything.
+    </p>
+
+    <p class="learn-note">
+      A passphrase converts a theft risk into a loss risk. That is a good trade
+      only if theft of the physical backup is genuinely the threat that worries
+      you most, and only if you are the sort of person who will test it and keep
+      testing it. If you are not sure which of those is true, the honest answer is
+      that far more coins are lost to forgotten passphrases than are saved from
+      burglars by them.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="en-protect-multisig">
+    <h2><span class="learn-num" aria-hidden="true">03</span> Multisig, 2 of 3</h2>
+
+    <p>
+      A multisignature wallet requires more than one key to spend. The common
+      arrangement, and the one worth understanding first, is 2 of 3: three keys
+      exist, each with its own seed phrase, and any two of them together can
+      sign. One key on its own can do nothing. The three usually live on three
+      separate devices, ideally not all the same make, kept in three separate
+      places.
+    </p>
+
+    <p>
+      <b>What it buys.</b> There is no longer a single object whose loss or theft
+      is decisive. A backup found in a drawer is not enough to spend. A device
+      that is stolen, seized, bricked or quietly compromised is not enough to
+      spend, and is also not enough to lose: you sign with the other two, move
+      everything to a fresh set of keys, and the compromised one becomes
+      irrelevant. That is the structural difference from a passphrase. A
+      passphrase adds a second thing you must not lose. Multisig adds a spare.
+    </p>
+
+    <p>
+      It is also the only arrangement here that meaningfully addresses two
+      threats at once. Because the keys are in different places, one fire or one
+      flood does not take them all, and because two are needed at the same time,
+      being made to produce one is not the end. That second property is real, and
+      it is also a reason to be careful about who is told the shape of the
+      arrangement.
+    </p>
+
+    <p>
+      <b>What it costs.</b> More than people expect, and in an unfamiliar
+      currency: the expensive part is not the money, it is the record-keeping.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>The seeds alone will not rebuild the wallet.</b> This is the single
+        most important thing on this page about multisig, and the most commonly
+        missed. To reconstruct the wallet you also need to know how the three
+        keys were combined: the policy, the script type, the derivation paths,
+        and the extended public keys of all three cosigners. That information is
+        what a wallet descriptor records. Two seed phrases and no descriptor can
+        be a permanent, total loss with nothing stolen and nothing forgotten. So
+        the descriptor is backed up too, with every seed, in every location.
+      </li>
+      <li>
+        <b>The descriptor is not secret, but it is not harmless either.</b> It
+        cannot spend anything on its own, which is why it can be copied freely
+        among your own backups. It does reveal every address you have ever used
+        and therefore your entire balance and history to anyone who reads it.
+        Store it with care, and never treat “it cannot spend” as “it does not
+        matter”.
+      </li>
+      <li>
+        <b>Recovery is a project rather than a step.</b> Restoring a
+        single-signature wallet is typing twelve words into almost any wallet
+        made in the last decade. Restoring this one means finding software that
+        supports the policy you chose, rebuilding the wallet from the descriptor,
+        importing two of the keys, and producing a transaction that collects two
+        signatures, often by moving a partly signed transaction between devices.
+        Support for this is narrower than for ordinary wallets, and the
+        transactions themselves are larger, so they cost more in fees.
+      </li>
+      <li>
+        <b>Complexity is itself a risk.</b> A scheme that only you fully
+        understand fails on precisely the day you are not there to explain it.
+        Every additional device is another firmware to keep current, another set
+        of instructions, another thing that must still be workable in ten years
+        by someone who may not be you.
+      </li>
+    </ul>
+
+    <p>
+      <b>Who it suits.</b> Someone holding an amount where an evening of setup
+      and a rehearsed recovery is clearly proportionate. Anyone whose real worry
+      is a single point of failure rather than a single burglar. Custody shared
+      between people, such as a couple, a family, a business, or an arrangement
+      where a third key sits with someone trusted for use only in an emergency.
+      In those cases it is the right tool and nothing else does the job.
+    </p>
+
+    <p>
+      <b>Who it does not suit.</b> A first wallet. A small amount, where the added
+      ways to fail plainly outweigh the theft being prevented. Anyone who wants
+      one piece of paper and no ongoing obligation. And anyone who will not
+      rehearse it, because an untested multisig is strictly worse than a tested
+      single seed: more parts, more records, and no evidence any of it works.
+    </p>
+
+    <p class="learn-note">
+      There is a common half-measure worth naming: setting up a 2 of 3 wallet,
+      funding it, and never writing down the descriptor or trying a recovery. It
+      feels like the strongest option on this page and is, in practice, the
+      weakest thing described here.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="en-protect-choose">
+    <h2><span class="learn-num" aria-hidden="true">04</span> Choosing between them</h2>
+
+    <p>
+      Three options, side by side. The table is the summary, a phrase per cell.
+      It is short in both directions on purpose: the simplest row is not the
+      weakest one, and the most elaborate row is not the safest one.
+    </p>
+
+    <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Protection schemes compared, scrollable table">
+      <table class="learn-tbl">
+        <caption>Three schemes</caption>
+        <thead>
+          <tr>
+            <th scope="col">Scheme</th>
+            <th scope="col">Defends against</th>
+            <th scope="col">Costs you</th>
+            <th scope="col">How it fails</th>
+            <th scope="col">Who it suits</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Seed alone</th>
+            <td>Remote attack</td>
+            <td>Nothing</td>
+            <td>Found or burnt</td>
+            <td>Most people</td>
+          </tr>
+          <tr>
+            <th scope="row">Plus passphrase</th>
+            <td>A found copy</td>
+            <td>A second secret</td>
+            <td>Forgotten</td>
+            <td>The careful</td>
+          </tr>
+          <tr>
+            <th scope="row">2 of 3 multisig</th>
+            <td>Theft and loss</td>
+            <td>Setup, records</td>
+            <td>Lost descriptor</td>
+            <td>Larger sums</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      <b>A seed on paper is not the placeholder option.</b> Generated properly it
+      is already beyond brute force by margins the <a href="#learn">field
+      guide</a> works through, so the only realistic ways to lose it are physical
+      and local. Kept in one dry, private place that is not the drawer beside the
+      computer, and copied to a second building, it defeats almost everything on
+      the threat list except a thief who finds it and your own mortality. For
+      most people, most of the time, it is the correct answer and the effort
+      belongs in the backup rather than in a scheme.
+    </p>
+
+    <p>
+      <b>A passphrase is the layer that is most often overrated.</b> It is cheap
+      to enable, which is exactly why it is dangerous: the cost arrives years
+      later and all at once. It is a good answer to one threat and it makes the
+      more common threat worse.
+    </p>
+
+    <p>
+      <b>Multisig is the layer most often underrated and most often abandoned
+      halfway.</b> It is the only option that removes the single point of failure
+      rather than adding a second one, and it is also the only option that can
+      fail because of a missing file that was never secret in the first place.
+    </p>
+
+    <p class="learn-note">
+      The rows are not a ladder and using two of them is not twice as safe.
+      A passphrase on top of a multisig wallet multiplies the record-keeping
+      rather than the security, and it is the combination most likely to be
+      recoverable only by the person who set it up. Add a layer because it
+      answers a threat you have actually named, not because it is the next one
+      along.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="en-protect-backup">
+    <h2><span class="learn-num" aria-hidden="true">05</span> The backup itself</h2>
+
+    <p>
+      Before any of the layers above, the object. Almost everything that goes
+      wrong here is mundane, and the two failures that actually happen to
+      ordinary households are heat and water. A house fire and a burst pipe are
+      not exotic threats, they are the standard ones, and they are the reason
+      metal exists as an option at all.
+    </p>
+
+    <p>
+      <b>Paper or steel.</b> Handwritten paper is a perfectly good backup and
+      costs nothing, and it is destroyed by fire and ruined by water. Stamped or
+      punched metal survives both, at the cost of an hour and a modest piece of
+      equipment. The reasonable rule is proportion: paper while you are learning
+      and the balance is small, metal once losing it would genuinely hurt. If you
+      use paper, use ordinary pen and paper rather than a receipt printer's
+      thermal paper, which fades to blank on its own.
+    </p>
+
+    <p>
+      <b>Write it for a stranger.</b> Number the words 1 to 12 as you write them,
+      in order, spelled exactly as the wallet showed them. Write legibly enough
+      that someone who has never seen the words could read them, because in the
+      worst case that is precisely who will. Check each word against
+      <a href="#poster">the poster</a> before you commit it to metal, since a
+      word that is not on the list is a transcription error you can still fix at
+      that point and cannot fix afterwards. It is worth recording the wallet
+      type and the derivation path alongside, and the date, since those are what
+      turn a restore that comes back empty into a restore that comes back. Never
+      record the balance, and never record where the other copies are.
+    </p>
+
+    <p>
+      <b>Photographs, cloud notes and password managers are not backups of this
+      kind.</b> Each one converts a secret that lived in a single physical place
+      into a file on a machine designed to be reachable from anywhere, which is
+      the exact property you were trying to avoid, and a photograph taken in
+      airplane mode uploads itself the moment the connection returns. The
+      <a href="#faq">questions page</a> works through all three properly.
+    </p>
+
+    <p>
+      <b>Geographic separation.</b> Fire, flood and burglary are local events, so
+      a second copy in a different building removes a whole category of total
+      loss at a stroke. It also doubles the number of objects that can be found,
+      which means the second copy needs the same protection as the first and not
+      less. A copy at a relative's house is a copy in a house whose locks,
+      lodgers, clear-outs and future occupants you do not control. Two copies you
+      have thought about carefully beat four you have not.
+    </p>
+
+    <p>
+      <b>Splitting the phrase yourself is not a backup strategy.</b> Half in one
+      place and half in another feels prudent and is, on both counts, worse than
+      it looks: the halves are weaker than people assume, and home-made splits
+      lose coins far more often than they prevent theft, because the scheme lives
+      in a single head. The <a href="#faq">questions page</a> gives the
+      arithmetic. If the goal is genuinely to divide custody, that is what
+      multisig above is for.
+    </p>
+
+    <p class="learn-note">
+      One more copy of the words exists that people forget about: whatever you
+      wrote the entropy on. If you generated the phrase by hand with
+      <a href="#roll">the roller</a> or a printed worksheet, that sheet of bits
+      is a second copy of your seed in longhand. It gets destroyed once the
+      phrase is recorded and verified, and never before.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="en-protect-test">
+    <h2><span class="learn-num" aria-hidden="true">06</span> Test the recovery</h2>
+
+    <p>
+      This is the step almost everybody skips, and it is the one that decides
+      whether any of the rest was real. Everything above is a claim about the
+      future. A restore is the only evidence you will ever have.
+    </p>
+
+    <p>
+      <b>Restore before you fund it.</b> While the wallet is empty the test costs
+      nothing and a failure is a lucky discovery. After it is funded the test has
+      stakes, so it quietly never happens, and the first real restore attempt
+      takes place on the day something has already gone wrong.
+    </p>
+
+    <p>
+      <b>Restore from the backup you actually wrote.</b> Not from the screen, not
+      from memory, not from the copy on the device that is still working. The
+      thing being tested is the object you will one day be holding, including
+      your handwriting, your abbreviations, whether you noted the derivation
+      path, and whether the passphrase you wrote down is the passphrase you
+      typed. Wipe the device and restore, or restore onto a second device, or
+      into a clean offline installation. A restore that reads from something you
+      will not have later has tested nothing.
+    </p>
+
+    <p>
+      <b>What success looks like.</b> The same wallet comes back: the same
+      addresses in the same order, the same first receive address, and for a
+      wallet that has been used, the same history. If you can, go one step
+      further and send a small amount out afterwards, because receiving only
+      proves you copied an address correctly and spending is what proves you hold
+      the key. For a multisig wallet the test is the whole rebuild, from the
+      descriptor and two seeds on a machine that has never seen this wallet
+      before, ending in a signature from each of two devices.
+    </p>
+
+    <p>
+      <b>An empty wallet after a restore is usually not the phrase.</b> Two
+      causes account for nearly all of it. The derivation path or address type
+      differs, so the wallet is showing you a different branch of the same tree
+      and both are correct. Or a passphrase is involved and something about it is
+      off by a character. Check those two before concluding anything, and
+      remember that a valid phrase which is not yours also restores a real, empty
+      wallet without complaint, so an empty result is a question rather than an
+      answer. The <a href="#faq">questions page</a> covers the derivation path
+      case in full.
+    </p>
+
+    <p>
+      <b>Repeat it occasionally.</b> Once is proof about one day. Do it again
+      after a house move, after you change devices, after firmware changes
+      something about how a device behaves, and after any change to who would
+      need to do this without you. An annual habit is more than most people
+      manage and far more than most people need.
+    </p>
+
+    <p class="learn-note">
+      Test the layers specifically, because they are the parts that fail
+      silently. A wrong word is usually caught by the checksum. A wrong
+      passphrase, a missing descriptor and a cosigner key nobody can find are
+      caught by nothing at all, right up until the moment they matter.
+      <a href="#start">Start here</a> puts the same test in the middle of both of
+      its recipes, for the same reason.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="en-protect-heirs">
+    <h2><span class="learn-num" aria-hidden="true">07</span> Inheritance and incapacity</h2>
+
+    <p>
+      A backup that nobody else can find, or can find but cannot use, is
+      indistinguishable from a lost one. The coins are gone in exactly the same
+      way, and the people affected will not even know what they are looking for.
+    </p>
+
+    <p>
+      Whatever you leave has to be written for someone who does not know what any
+      of this is. Not a shorter version of what you would write for yourself: an
+      explanation that starts from the beginning. What the words are and what
+      they control. That they must never be typed into a website or sent to
+      anyone offering to help, because that is the moment this most often ends
+      badly. Which software to use and which derivation path. Whether a
+      passphrase exists at all, and where. For multisig, where each key lives,
+      where the descriptor is, and that two of the three are needed. Then have
+      that person do a dry run on an empty wallet while you are still there to
+      watch, because instructions are subject to the same rule as everything else
+      on this page: untested means unknown.
+    </p>
+
+    <p>
+      The tension is unavoidable and worth stating plainly. Every instruction
+      that makes recovery possible for your family also makes theft easier for
+      whoever else reads it, and a letter explaining exactly where the secrets
+      are kept is itself a target. The usual shape of the answer is to separate
+      the two: instructions that are findable and explain what to do, secrets
+      that are not stored with them. What arrangement is appropriate, and how any
+      of it interacts with the law where you live, is outside what this page can
+      tell you.
+    </p>
+
+    <p class="learn-note">
+      This section is short because it is mostly not a technical problem. It is
+      still the one worth acting on soonest, since it is the only threat on this
+      page whose arrival you are guaranteed not to be able to respond to.
+    </p>
+  </section>
+
+</section>
+</div>
+</div>
+
 <div class="view" id="view-start" hidden>
 <!-- src/content/start.en.html -->
 <div class="pane" data-pane="start" data-lang="en" lang="en" hidden>
@@ -3804,7 +4411,7 @@ p.learn-lead em{color:var(--patina)}
 // Nothing below names a language, so adding one means adding those two files
 // and rebuilding. Keys missing from a translation fall back to the base
 // language one at a time, which lets a translation land over several commits.
-const I18N = {"en":{"_code":"en","_name":"English","bar.face":"Word face","bar.find":"Find word or index","bar.findPlaceholder":"abandon · 1024","bar.grid":"Grid","bar.orientation":"Orientation","bar.paper":"Paper","brand.tag":"entropy · words · print","btn.clear":"Clear","btn.load":"Load","btn.pdf":"PDF","btn.print":"PRINT","btn.undo":"Undo","btn.worksheet":"Worksheet PDF","face.grot":"Grotesque","face.mono":"Monospace","face.serif":"Serif","footer.aria":"Project links","footer.licence":"MIT licence © Chemaclass","footer.licenceLink":"Licence","footer.note":"Links open a browser tab and are the only thing on this page that reaches a network. Nothing loads or sends on its own.","footer.site":"chemaclass.com","footer.source":"Source","footer.sponsor":"Sponsor","grid.16x128":"16 × 128 · one sheet (4+7 bits)","grid.16x64":"16 × 64 · two sheets","grid.32x64":"32 × 64 · one sheet (5+6 bits)","grid.4x64":"4 × 64 · eight sheets","grid.8x128":"8 × 128 · two sheets","grid.8x64":"8 × 64 · four sheets","grid.auto":"Auto: largest type, one sheet","lang.label":"Language","nav.aria":"Sections","nav.faq":"Questions","nav.learn":"Entropy","nav.poster":"Poster","nav.roll":"Roll your own","nav.save":"Save offline","nav.saveHint":"Save this page to disk. It is one self-contained file, so it keeps working with the network off.","nav.start":"Start here","nav.tools":"Tools","orient.landscape":"Landscape","orient.portrait":"Portrait","pager.next":"Next","pager.prev":"Back to","pdf.colophonLead":"FIRST FOUR LETTERS ARE UNIQUE","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"HOW TO READ A WORD","pdf.decoderMath":"column {col} + row {row} = {idx}","pdf.eyebrow":"BIP-39 · ENGLISH · 2048 WORDS","pdf.sheetTag":"SHEET {n} / {of} · {lo}-{hi}","pdf.subtitle":"The high {c} bits pick a column, the low {r} pick a row, so every word's index is its coordinate on this sheet. The first four letters, set in black, are unique across all 2048; the grey tail is redundant.","pdf.title1":"THE ELEVEN-BIT","pdf.title2":"ADDRESS ","pdf.title3":"SPACE","pdf.titleTight":"THE ELEVEN-BIT ADDRESS ","readout.landscape":"landscape","readout.match":"1 match, index {i} · {word}","readout.matches":"{n} matches","readout.oneSheet":"one sheet","readout.portrait":"portrait","readout.preview":"preview at {pct} %, prints full size","readout.printTip":"Print at 100 % scale with background graphics on.","readout.sheets":"{n} sheets","readout.small":"Small. Try landscape, or A3, or split across sheets.","readout.split":"{a}+{b} bit split","readout.type":"word type {pt} pt","readout.warn":"Public standard list. Never mark your own recovery words on it.","roll.checksumLabel":"Checksum · first {n} bits of sha256(entropy)","roll.coin":"Coin: one flip","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dice: one d6","roll.disabled":"The entropy engine did not load, so this section is disabled.","roll.entropyLabel":"Entropy · {n} bits","roll.flips":"flips","roll.footnote":"These words are exactly as unpredictable as your throws were, and no more. A phrase made in a browser tab is for learning. Put nothing on it that you would mind losing.","roll.hintCoin":"Flip a real coin. Heads is 1, tails is 0. Press H or T, or 1 and 0. Backspace undoes the last flip.","roll.hintDice":"Throw a real d6 and press what you see. 1 to 4 carry two bits each. 5 and 6 carry nothing and are thrown again, which is what keeps the sixteen possible pairs equally likely. Backspace undoes the last throw.","roll.keyReroll":"reroll","roll.lead":"Twelve words are a 128-bit number plus a 4-bit checksum. Below you make that number yourself, one throw at a time, and watch it turn into words. Nothing here leaves the page, because there is no network code in this file at all.","roll.leadLink":"If the words entropy and checksum are doing no work for you yet, read {link} first.","roll.leadLinkText":"the field guide","roll.length":"Length","roll.load":"Type in throws or bits","roll.loadBad":"Only 1 to 6 for dice, or 0 and 1 for bits. Letters are not accepted here, and a recovery phrase never should be.","roll.loadDone":"Loaded {n} {unit} from the worksheet.","roll.loadLong":"That is more than {need} bits. The extra was ignored.","roll.loadPlaceholder":"3 1 4 2 … or 0110 1001 …","roll.rerolled":" · {n} rerolled","roll.source":"Source","roll.throws":"throws","roll.title":"Roll your own entropy","roll.warn":"A phrase generated in a browser is for {em}. For money you intend to keep, generate the phrase on a hardware wallet, or do this on a machine that is offline and stays offline. Never type an existing seed phrase into this or any other page.","roll.warnEm":"learning and verification","roll.warnLead":"Read this first.","roll.words12":"12 words · 128 bits","roll.words24":"24 words · 256 bits","roll.wordsLabel":"{n} words · each one eleven bits of the {total}-bit total","scale.ages":"That is {n} times the age of the universe.","scale.beyondLife":"That is past any attacker's lifetime, though still inside the age of the universe.","scale.covered":"Running since the Big Bang at that rate, you would have covered {pct} of the space.","scale.instant":"less than a second","scale.rate.bitcoin":"The whole Bitcoin network · 10^21 per second","scale.rate.botnet":"A large botnet · 10^15 per second","scale.rate.earth":"Every computer on Earth · 10^19 per second","scale.rate.laptop":"One laptop · 10^9 per second","scale.rateLabel":"Guessing at","scale.reachable":"This is reachable. A search of {time} is not a wall, it is an afternoon and a bill.","scale.secret.b128":"12 words, generated properly · 128 bits","scale.secret.b256":"24 words, generated properly · 256 bits","scale.secret.b32":"A wallet with a 32-bit seed bug · 32 bits","scale.secret.chosen":"12 words a person chose · about 60 bits","scale.secretLabel":"Secret","scale.space":"That is {n} possibilities, about {approx}.","scale.takes":"Trying all of them takes {time}.","scale.title":"How big is the number","scale.trialNote":"These rates are generous to the attacker. One real attempt is not one hash: turning a phrase into an address runs PBKDF2 2048 times and then derives keys, which costs thousands of hashes each.","scale.unit.d":"{n} days","scale.unit.h":"{n} hours","scale.unit.min":"{n} minutes","scale.unit.s":"{n} seconds","scale.unit.y":"{n} years","toggle.prefix":"Prefix emphasis","toggle.rules":"Row rules","ws.colIndex":"INDEX","ws.colWord":"WORD","ws.continued":"{words} words · continued","ws.eyebrow":"BIP-39 BY HAND","ws.foot1":"The first {n} words follow from your bits alone, so this sheet and the poster are enough for them.","ws.foot2":"The final word mixes the last entropy bits with a SHA-256 checksum. Type your bits into the Roll your own section of this page, with the machine offline, or into a wallet that accepts dice.","ws.foot3":"BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND.","ws.lastWord":"last word carries the checksum, so a machine has to finish this one","ws.note2":"Each throw is two bits: 1 is 00, 2 is 01, 3 is 10, 4 is 11. Fill the cells left to right, top to bottom.","ws.note3":"Eleven bits per word. Read the first four bits as a column and the last seven as a row, or the first five and last six on a 32 x 64 sheet. Write the index, then the word.","ws.noteCoin":"One coin, {n} times. Heads is 1, tails is 0. Write each result in a box, in order. A flip is already a bit, so there is nothing to convert.","ws.noteDice":"One die, until {n} boxes are full. Write 1, 2, 3 or 4 in the next box. A 5 or a 6 fills no box, so throw again. Rejecting them is what keeps the four outcomes equally likely.","ws.step1Coin":"FLIP","ws.step1Dice":"THROW","ws.step2":"TRANSCRIBE","ws.step3":"READ OFF THE POSTER","ws.sub":"{words} words · {bits} bits of entropy · {n} {unit}","ws.titleCoin":"Coin worksheet","ws.titleDice":"Dice worksheet","ws.unitFlips":"flips","ws.unitThrows":"accepted throws"},"es":{"_code":"es","_name":"Español","bar.face":"Tipografía","bar.find":"Buscar palabra o índice","bar.findPlaceholder":"abandon · 1024","bar.grid":"Cuadrícula","bar.orientation":"Orientación","bar.paper":"Papel","brand.tag":"entropía · palabras · imprimir","btn.clear":"Borrar","btn.load":"Cargar","btn.pdf":"PDF","btn.print":"IMPRIMIR","btn.undo":"Deshacer","btn.worksheet":"Hoja de trabajo PDF","face.grot":"Grotesca","face.mono":"Monoespaciada","face.serif":"Serif","footer.aria":"Enlaces del proyecto","footer.licence":"Licencia MIT © Chemaclass","footer.licenceLink":"Licencia","footer.note":"Los enlaces abren una pestaña del navegador y son lo único de esta página que llega a una red. Nada se carga ni se envía por su cuenta.","footer.site":"chemaclass.com","footer.source":"Código","footer.sponsor":"Patrocinar","grid.16x128":"16 × 128 · una hoja (4+7 bits)","grid.16x64":"16 × 64 · dos hojas","grid.32x64":"32 × 64 · una hoja (5+6 bits)","grid.4x64":"4 × 64 · ocho hojas","grid.8x128":"8 × 128 · dos hojas","grid.8x64":"8 × 64 · cuatro hojas","grid.auto":"Auto: cuerpo mayor, una hoja","lang.label":"Idioma","nav.aria":"Secciones","nav.faq":"Preguntas","nav.learn":"Entropía","nav.poster":"Póster","nav.roll":"Genera la tuya","nav.save":"Descargar","nav.saveHint":"Descarga esta página en tu disco. Es un único archivo autónomo, así que sigue funcionando con la red desconectada.","nav.start":"Empieza aquí","nav.tools":"Herramientas","orient.landscape":"Horizontal","orient.portrait":"Vertical","pager.next":"Siguiente","pager.prev":"Volver a","pdf.colophonLead":"CUATRO PRIMERAS LETRAS ÚNICAS","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"CÓMO LEER UNA PALABRA","pdf.decoderMath":"columna {col} + fila {row} = {idx}","pdf.eyebrow":"BIP-39 · INGLÉS · 2048 PALABRAS","pdf.sheetTag":"HOJA {n} / {of} · {lo}-{hi}","pdf.subtitle":"Los {c} bits altos eligen una columna y los {r} bajos eligen una fila, así que el índice de cada palabra es su coordenada en esta hoja. Las cuatro primeras letras, en negro, son únicas entre las 2048; la cola gris es redundante.","pdf.title1":"DIRECCIONES","pdf.title2":"DE ","pdf.title3":"ONCE BITS","pdf.titleTight":"DIRECCIONES DE ","readout.landscape":"horizontal","readout.match":"1 coincidencia, índice {i} · {word}","readout.matches":"{n} coincidencias","readout.oneSheet":"una hoja","readout.portrait":"vertical","readout.preview":"vista previa al {pct} %, se imprime a tamaño real","readout.printTip":"Imprime al 100 % de escala y con los gráficos de fondo activados.","readout.sheets":"{n} hojas","readout.small":"Pequeño. Prueba horizontal, o A3, o repartir en varias hojas.","readout.split":"división de bits {a}+{b}","readout.type":"cuerpo de palabra {pt} pt","readout.warn":"Lista pública del estándar. Nunca marques en ella tus propias palabras de recuperación.","roll.checksumLabel":"Suma de verificación · primeros {n} bits de sha256(entropía)","roll.coin":"Moneda: un lanzamiento","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dados: un d6","roll.disabled":"El motor de entropía no se cargó, así que esta sección está desactivada.","roll.entropyLabel":"Entropía · {n} bits","roll.flips":"lanzamientos","roll.footnote":"Estas palabras son exactamente tan impredecibles como lo fueron tus tiradas, y nada más. Una frase creada en una pestaña del navegador sirve para aprender. No pongas en ella nada que te importe perder.","roll.hintCoin":"Lanza una moneda real. Cara es 1, cruz es 0. Pulsa H o T, o 1 y 0. Retroceso deshace el último lanzamiento.","roll.hintDice":"Tira un d6 real y pulsa lo que veas. Del 1 al 4 llevan dos bits cada uno. El 5 y el 6 no llevan nada y se vuelven a tirar, que es lo que mantiene igual de probables los dieciséis pares posibles. Retroceso deshace la última tirada.","roll.keyReroll":"repetir","roll.lead":"Doce palabras son un número de 128 bits más una suma de verificación de 4 bits. Abajo construyes ese número tú, una tirada cada vez, y lo ves convertirse en palabras. Nada de esto sale de la página, porque en este archivo no hay ningún código de red.","roll.leadLink":"Si las palabras entropía y suma de verificación aún no te dicen nada, lee antes {link}.","roll.leadLinkText":"la guía de campo","roll.length":"Longitud","roll.load":"Escribe tiradas o bits","roll.loadBad":"Solo del 1 al 6 para dados, o 0 y 1 para bits. Aquí no se aceptan letras, y una frase de recuperación no debería escribirse nunca.","roll.loadDone":"Se cargaron {n} {unit} de la hoja de trabajo.","roll.loadLong":"Eso supera los {need} bits. Se ignoró lo que sobra.","roll.loadPlaceholder":"3 1 4 2 … o 0110 1001 …","roll.rerolled":" · {n} repetidas","roll.source":"Fuente","roll.throws":"tiradas","roll.title":"Genera tu propia entropía","roll.warn":"Una frase generada en un navegador sirve para {em}. Para dinero que pienses conservar, genera la frase en un monedero hardware, o haz esto en una máquina que esté sin conexión y siga sin conexión. Nunca escribas una frase semilla existente en esta ni en ninguna otra página.","roll.warnEm":"aprender y verificar","roll.warnLead":"Lee esto primero.","roll.words12":"12 palabras · 128 bits","roll.words24":"24 palabras · 256 bits","roll.wordsLabel":"{n} palabras · cada una once bits del total de {total} bits","scale.ages":"Eso es {n} veces la edad del universo.","scale.beyondLife":"Eso supera la vida de cualquier atacante, aunque sigue dentro de la edad del universo.","scale.covered":"Probando desde el Big Bang a ese ritmo, habrías cubierto el {pct} del espacio.","scale.instant":"menos de un segundo","scale.rate.bitcoin":"Toda la red de Bitcoin · 10^21 por segundo","scale.rate.botnet":"Una gran botnet · 10^15 por segundo","scale.rate.earth":"Todos los ordenadores de la Tierra · 10^19 por segundo","scale.rate.laptop":"Un portátil · 10^9 por segundo","scale.rateLabel":"Probando a","scale.reachable":"Esto está al alcance. Una búsqueda de {time} no es un muro, es una tarde y una factura.","scale.secret.b128":"12 palabras, generadas bien · 128 bits","scale.secret.b256":"24 palabras, generadas bien · 256 bits","scale.secret.b32":"Un monedero con un fallo de semilla de 32 bits · 32 bits","scale.secret.chosen":"12 palabras elegidas por una persona · unos 60 bits","scale.secretLabel":"Secreto","scale.space":"Eso son {n} posibilidades, unas {approx}.","scale.takes":"Probarlas todas lleva {time}.","scale.title":"Qué tamaño tiene el número","scale.trialNote":"Estos ritmos son generosos con el atacante. Un intento real no es un hash: convertir una frase en una dirección ejecuta PBKDF2 2048 veces y luego deriva claves, lo que cuesta miles de hashes cada vez.","scale.unit.d":"{n} días","scale.unit.h":"{n} horas","scale.unit.min":"{n} minutos","scale.unit.s":"{n} segundos","scale.unit.y":"{n} años","toggle.prefix":"Énfasis de prefijo","toggle.rules":"Líneas de fila","ws.colIndex":"ÍNDICE","ws.colWord":"PALABRA","ws.continued":"{words} palabras · continuación","ws.eyebrow":"BIP-39 A MANO","ws.foot1":"Las primeras {n} palabras salen solo de tus bits, así que esta hoja y el póster bastan para ellas.","ws.foot2":"La última palabra mezcla los últimos bits de entropía con una suma de verificación SHA-256. Escribe tus bits en la sección Genera la tuya de esta página, con la máquina sin conexión, o en un monedero que acepte dados.","ws.foot3":"QUEMA O DESTRUYE ESTA HOJA CUANDO LA FRASE ESTÉ ANOTADA. ES TU SEMILLA ESCRITA A MANO.","ws.lastWord":"la última palabra lleva la suma de verificación, así que una máquina tiene que terminar esta","ws.note2":"Cada tirada son dos bits: 1 es 00, 2 es 01, 3 es 10, 4 es 11. Rellena las celdas de izquierda a derecha y de arriba abajo.","ws.note3":"Once bits por palabra. Lee los cuatro primeros bits como columna y los siete últimos como fila, o los cinco primeros y los seis últimos en una hoja de 32 x 64. Escribe el índice y luego la palabra.","ws.noteCoin":"Una moneda, {n} veces. Cara es 1, cruz es 0. Escribe cada resultado en una casilla, en orden. Un lanzamiento ya es un bit, así que no hay nada que convertir.","ws.noteDice":"Un dado, hasta llenar {n} casillas. Escribe 1, 2, 3 o 4 en la casilla siguiente. Un 5 o un 6 no llenan ninguna, así que vuelve a tirar. Rechazarlos es lo que mantiene igual de probables los cuatro resultados.","ws.step1Coin":"LANZA","ws.step1Dice":"TIRA","ws.step2":"TRANSCRIBE","ws.step3":"LEE EN EL PÓSTER","ws.sub":"{words} palabras · {bits} bits de entropía · {n} {unit}","ws.titleCoin":"Hoja de moneda","ws.titleDice":"Hoja de dados","ws.unitFlips":"lanzamientos","ws.unitThrows":"tiradas aceptadas"}};
+const I18N = {"en":{"_code":"en","_name":"English","bar.face":"Word face","bar.find":"Find word or index","bar.findPlaceholder":"abandon · 1024","bar.grid":"Grid","bar.orientation":"Orientation","bar.paper":"Paper","brand.tag":"entropy · words · print","btn.clear":"Clear","btn.load":"Load","btn.pdf":"PDF","btn.print":"PRINT","btn.undo":"Undo","btn.worksheet":"Worksheet PDF","face.grot":"Grotesque","face.mono":"Monospace","face.serif":"Serif","footer.aria":"Project links","footer.licence":"MIT licence © Chemaclass","footer.licenceLink":"Licence","footer.note":"Links open a browser tab and are the only thing on this page that reaches a network. Nothing loads or sends on its own.","footer.site":"chemaclass.com","footer.source":"Source","footer.sponsor":"Sponsor","grid.16x128":"16 × 128 · one sheet (4+7 bits)","grid.16x64":"16 × 64 · two sheets","grid.32x64":"32 × 64 · one sheet (5+6 bits)","grid.4x64":"4 × 64 · eight sheets","grid.8x128":"8 × 128 · two sheets","grid.8x64":"8 × 64 · four sheets","grid.auto":"Auto: largest type, one sheet","lang.label":"Language","nav.aria":"Sections","nav.faq":"Questions","nav.learn":"Entropy","nav.poster":"Poster","nav.protect":"Protect","nav.roll":"Roll your own","nav.save":"Save offline","nav.saveHint":"Save this page to disk. It is one self-contained file, so it keeps working with the network off.","nav.start":"Start here","nav.tools":"Tools","orient.landscape":"Landscape","orient.portrait":"Portrait","pager.next":"Next","pager.prev":"Back to","pdf.colophonLead":"FIRST FOUR LETTERS ARE UNIQUE","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"HOW TO READ A WORD","pdf.decoderMath":"column {col} + row {row} = {idx}","pdf.eyebrow":"BIP-39 · ENGLISH · 2048 WORDS","pdf.sheetTag":"SHEET {n} / {of} · {lo}-{hi}","pdf.subtitle":"The high {c} bits pick a column, the low {r} pick a row, so every word's index is its coordinate on this sheet. The first four letters, set in black, are unique across all 2048; the grey tail is redundant.","pdf.title1":"THE ELEVEN-BIT","pdf.title2":"ADDRESS ","pdf.title3":"SPACE","pdf.titleTight":"THE ELEVEN-BIT ADDRESS ","readout.landscape":"landscape","readout.match":"1 match, index {i} · {word}","readout.matches":"{n} matches","readout.oneSheet":"one sheet","readout.portrait":"portrait","readout.preview":"preview at {pct} %, prints full size","readout.printTip":"Print at 100 % scale with background graphics on.","readout.sheets":"{n} sheets","readout.small":"Small. Try landscape, or A3, or split across sheets.","readout.split":"{a}+{b} bit split","readout.type":"word type {pt} pt","readout.warn":"Public standard list. Never mark your own recovery words on it.","roll.checksumLabel":"Checksum · first {n} bits of sha256(entropy)","roll.coin":"Coin: one flip","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dice: one d6","roll.disabled":"The entropy engine did not load, so this section is disabled.","roll.entropyLabel":"Entropy · {n} bits","roll.flips":"flips","roll.footnote":"These words are exactly as unpredictable as your throws were, and no more. A phrase made in a browser tab is for learning. Put nothing on it that you would mind losing.","roll.hintCoin":"Flip a real coin. Heads is 1, tails is 0. Press H or T, or 1 and 0. Backspace undoes the last flip.","roll.hintDice":"Throw a real d6 and press what you see. 1 to 4 carry two bits each. 5 and 6 carry nothing and are thrown again, which is what keeps the sixteen possible pairs equally likely. Backspace undoes the last throw.","roll.keyReroll":"reroll","roll.lead":"Twelve words are a 128-bit number plus a 4-bit checksum. Below you make that number yourself, one throw at a time, and watch it turn into words. Nothing here leaves the page, because there is no network code in this file at all.","roll.leadLink":"If the words entropy and checksum are doing no work for you yet, read {link} first.","roll.leadLinkText":"the field guide","roll.length":"Length","roll.load":"Type in throws or bits","roll.loadBad":"Only 1 to 6 for dice, or 0 and 1 for bits. Letters are not accepted here, and a recovery phrase never should be.","roll.loadDone":"Loaded {n} {unit} from the worksheet.","roll.loadLong":"That is more than {need} bits. The extra was ignored.","roll.loadPlaceholder":"3 1 4 2 … or 0110 1001 …","roll.rerolled":" · {n} rerolled","roll.source":"Source","roll.throws":"throws","roll.title":"Roll your own entropy","roll.warn":"A phrase generated in a browser is for {em}. For money you intend to keep, generate the phrase on a hardware wallet, or do this on a machine that is offline and stays offline. Never type an existing seed phrase into this or any other page.","roll.warnEm":"learning and verification","roll.warnLead":"Read this first.","roll.words12":"12 words · 128 bits","roll.words24":"24 words · 256 bits","roll.wordsLabel":"{n} words · each one eleven bits of the {total}-bit total","scale.ages":"That is {n} times the age of the universe.","scale.beyondLife":"That is past any attacker's lifetime, though still inside the age of the universe.","scale.covered":"Running since the Big Bang at that rate, you would have covered {pct} of the space.","scale.instant":"less than a second","scale.rate.bitcoin":"The whole Bitcoin network · 10^21 per second","scale.rate.botnet":"A large botnet · 10^15 per second","scale.rate.earth":"Every computer on Earth · 10^19 per second","scale.rate.laptop":"One laptop · 10^9 per second","scale.rateLabel":"Guessing at","scale.reachable":"This is reachable. A search of {time} is not a wall, it is an afternoon and a bill.","scale.secret.b128":"12 words, generated properly · 128 bits","scale.secret.b256":"24 words, generated properly · 256 bits","scale.secret.b32":"A wallet with a 32-bit seed bug · 32 bits","scale.secret.chosen":"12 words a person chose · about 60 bits","scale.secretLabel":"Secret","scale.space":"That is {n} possibilities, about {approx}.","scale.takes":"Trying all of them takes {time}.","scale.title":"How big is the number","scale.trialNote":"These rates are generous to the attacker. One real attempt is not one hash: turning a phrase into an address runs PBKDF2 2048 times and then derives keys, which costs thousands of hashes each.","scale.unit.d":"{n} days","scale.unit.h":"{n} hours","scale.unit.min":"{n} minutes","scale.unit.s":"{n} seconds","scale.unit.y":"{n} years","toggle.prefix":"Prefix emphasis","toggle.rules":"Row rules","ws.colIndex":"INDEX","ws.colWord":"WORD","ws.continued":"{words} words · continued","ws.eyebrow":"BIP-39 BY HAND","ws.foot1":"The first {n} words follow from your bits alone, so this sheet and the poster are enough for them.","ws.foot2":"The final word mixes the last entropy bits with a SHA-256 checksum. Type your bits into the Roll your own section of this page, with the machine offline, or into a wallet that accepts dice.","ws.foot3":"BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND.","ws.lastWord":"last word carries the checksum, so a machine has to finish this one","ws.note2":"Each throw is two bits: 1 is 00, 2 is 01, 3 is 10, 4 is 11. Fill the cells left to right, top to bottom.","ws.note3":"Eleven bits per word. Read the first four bits as a column and the last seven as a row, or the first five and last six on a 32 x 64 sheet. Write the index, then the word.","ws.noteCoin":"One coin, {n} times. Heads is 1, tails is 0. Write each result in a box, in order. A flip is already a bit, so there is nothing to convert.","ws.noteDice":"One die, until {n} boxes are full. Write 1, 2, 3 or 4 in the next box. A 5 or a 6 fills no box, so throw again. Rejecting them is what keeps the four outcomes equally likely.","ws.step1Coin":"FLIP","ws.step1Dice":"THROW","ws.step2":"TRANSCRIBE","ws.step3":"READ OFF THE POSTER","ws.sub":"{words} words · {bits} bits of entropy · {n} {unit}","ws.titleCoin":"Coin worksheet","ws.titleDice":"Dice worksheet","ws.unitFlips":"flips","ws.unitThrows":"accepted throws"},"es":{"_code":"es","_name":"Español","bar.face":"Tipografía","bar.find":"Buscar palabra o índice","bar.findPlaceholder":"abandon · 1024","bar.grid":"Cuadrícula","bar.orientation":"Orientación","bar.paper":"Papel","brand.tag":"entropía · palabras · imprimir","btn.clear":"Borrar","btn.load":"Cargar","btn.pdf":"PDF","btn.print":"IMPRIMIR","btn.undo":"Deshacer","btn.worksheet":"Hoja de trabajo PDF","face.grot":"Grotesca","face.mono":"Monoespaciada","face.serif":"Serif","footer.aria":"Enlaces del proyecto","footer.licence":"Licencia MIT © Chemaclass","footer.licenceLink":"Licencia","footer.note":"Los enlaces abren una pestaña del navegador y son lo único de esta página que llega a una red. Nada se carga ni se envía por su cuenta.","footer.site":"chemaclass.com","footer.source":"Código","footer.sponsor":"Patrocinar","grid.16x128":"16 × 128 · una hoja (4+7 bits)","grid.16x64":"16 × 64 · dos hojas","grid.32x64":"32 × 64 · una hoja (5+6 bits)","grid.4x64":"4 × 64 · ocho hojas","grid.8x128":"8 × 128 · dos hojas","grid.8x64":"8 × 64 · cuatro hojas","grid.auto":"Auto: cuerpo mayor, una hoja","lang.label":"Idioma","nav.aria":"Secciones","nav.faq":"Preguntas","nav.learn":"Entropía","nav.poster":"Póster","nav.protect":"Protégete","nav.roll":"Genera la tuya","nav.save":"Descargar","nav.saveHint":"Descarga esta página en tu disco. Es un único archivo autónomo, así que sigue funcionando con la red desconectada.","nav.start":"Empieza aquí","nav.tools":"Herramientas","orient.landscape":"Horizontal","orient.portrait":"Vertical","pager.next":"Siguiente","pager.prev":"Volver a","pdf.colophonLead":"CUATRO PRIMERAS LETRAS ÚNICAS","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"CÓMO LEER UNA PALABRA","pdf.decoderMath":"columna {col} + fila {row} = {idx}","pdf.eyebrow":"BIP-39 · INGLÉS · 2048 PALABRAS","pdf.sheetTag":"HOJA {n} / {of} · {lo}-{hi}","pdf.subtitle":"Los {c} bits altos eligen una columna y los {r} bajos eligen una fila, así que el índice de cada palabra es su coordenada en esta hoja. Las cuatro primeras letras, en negro, son únicas entre las 2048; la cola gris es redundante.","pdf.title1":"DIRECCIONES","pdf.title2":"DE ","pdf.title3":"ONCE BITS","pdf.titleTight":"DIRECCIONES DE ","readout.landscape":"horizontal","readout.match":"1 coincidencia, índice {i} · {word}","readout.matches":"{n} coincidencias","readout.oneSheet":"una hoja","readout.portrait":"vertical","readout.preview":"vista previa al {pct} %, se imprime a tamaño real","readout.printTip":"Imprime al 100 % de escala y con los gráficos de fondo activados.","readout.sheets":"{n} hojas","readout.small":"Pequeño. Prueba horizontal, o A3, o repartir en varias hojas.","readout.split":"división de bits {a}+{b}","readout.type":"cuerpo de palabra {pt} pt","readout.warn":"Lista pública del estándar. Nunca marques en ella tus propias palabras de recuperación.","roll.checksumLabel":"Suma de verificación · primeros {n} bits de sha256(entropía)","roll.coin":"Moneda: un lanzamiento","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dados: un d6","roll.disabled":"El motor de entropía no se cargó, así que esta sección está desactivada.","roll.entropyLabel":"Entropía · {n} bits","roll.flips":"lanzamientos","roll.footnote":"Estas palabras son exactamente tan impredecibles como lo fueron tus tiradas, y nada más. Una frase creada en una pestaña del navegador sirve para aprender. No pongas en ella nada que te importe perder.","roll.hintCoin":"Lanza una moneda real. Cara es 1, cruz es 0. Pulsa H o T, o 1 y 0. Retroceso deshace el último lanzamiento.","roll.hintDice":"Tira un d6 real y pulsa lo que veas. Del 1 al 4 llevan dos bits cada uno. El 5 y el 6 no llevan nada y se vuelven a tirar, que es lo que mantiene igual de probables los dieciséis pares posibles. Retroceso deshace la última tirada.","roll.keyReroll":"repetir","roll.lead":"Doce palabras son un número de 128 bits más una suma de verificación de 4 bits. Abajo construyes ese número tú, una tirada cada vez, y lo ves convertirse en palabras. Nada de esto sale de la página, porque en este archivo no hay ningún código de red.","roll.leadLink":"Si las palabras entropía y suma de verificación aún no te dicen nada, lee antes {link}.","roll.leadLinkText":"la guía de campo","roll.length":"Longitud","roll.load":"Escribe tiradas o bits","roll.loadBad":"Solo del 1 al 6 para dados, o 0 y 1 para bits. Aquí no se aceptan letras, y una frase de recuperación no debería escribirse nunca.","roll.loadDone":"Se cargaron {n} {unit} de la hoja de trabajo.","roll.loadLong":"Eso supera los {need} bits. Se ignoró lo que sobra.","roll.loadPlaceholder":"3 1 4 2 … o 0110 1001 …","roll.rerolled":" · {n} repetidas","roll.source":"Fuente","roll.throws":"tiradas","roll.title":"Genera tu propia entropía","roll.warn":"Una frase generada en un navegador sirve para {em}. Para dinero que pienses conservar, genera la frase en un monedero hardware, o haz esto en una máquina que esté sin conexión y siga sin conexión. Nunca escribas una frase semilla existente en esta ni en ninguna otra página.","roll.warnEm":"aprender y verificar","roll.warnLead":"Lee esto primero.","roll.words12":"12 palabras · 128 bits","roll.words24":"24 palabras · 256 bits","roll.wordsLabel":"{n} palabras · cada una once bits del total de {total} bits","scale.ages":"Eso es {n} veces la edad del universo.","scale.beyondLife":"Eso supera la vida de cualquier atacante, aunque sigue dentro de la edad del universo.","scale.covered":"Probando desde el Big Bang a ese ritmo, habrías cubierto el {pct} del espacio.","scale.instant":"menos de un segundo","scale.rate.bitcoin":"Toda la red de Bitcoin · 10^21 por segundo","scale.rate.botnet":"Una gran botnet · 10^15 por segundo","scale.rate.earth":"Todos los ordenadores de la Tierra · 10^19 por segundo","scale.rate.laptop":"Un portátil · 10^9 por segundo","scale.rateLabel":"Probando a","scale.reachable":"Esto está al alcance. Una búsqueda de {time} no es un muro, es una tarde y una factura.","scale.secret.b128":"12 palabras, generadas bien · 128 bits","scale.secret.b256":"24 palabras, generadas bien · 256 bits","scale.secret.b32":"Un monedero con un fallo de semilla de 32 bits · 32 bits","scale.secret.chosen":"12 palabras elegidas por una persona · unos 60 bits","scale.secretLabel":"Secreto","scale.space":"Eso son {n} posibilidades, unas {approx}.","scale.takes":"Probarlas todas lleva {time}.","scale.title":"Qué tamaño tiene el número","scale.trialNote":"Estos ritmos son generosos con el atacante. Un intento real no es un hash: convertir una frase en una dirección ejecuta PBKDF2 2048 veces y luego deriva claves, lo que cuesta miles de hashes cada vez.","scale.unit.d":"{n} días","scale.unit.h":"{n} horas","scale.unit.min":"{n} minutos","scale.unit.s":"{n} segundos","scale.unit.y":"{n} años","toggle.prefix":"Énfasis de prefijo","toggle.rules":"Líneas de fila","ws.colIndex":"ÍNDICE","ws.colWord":"PALABRA","ws.continued":"{words} palabras · continuación","ws.eyebrow":"BIP-39 A MANO","ws.foot1":"Las primeras {n} palabras salen solo de tus bits, así que esta hoja y el póster bastan para ellas.","ws.foot2":"La última palabra mezcla los últimos bits de entropía con una suma de verificación SHA-256. Escribe tus bits en la sección Genera la tuya de esta página, con la máquina sin conexión, o en un monedero que acepte dados.","ws.foot3":"QUEMA O DESTRUYE ESTA HOJA CUANDO LA FRASE ESTÉ ANOTADA. ES TU SEMILLA ESCRITA A MANO.","ws.lastWord":"la última palabra lleva la suma de verificación, así que una máquina tiene que terminar esta","ws.note2":"Cada tirada son dos bits: 1 es 00, 2 es 01, 3 es 10, 4 es 11. Rellena las celdas de izquierda a derecha y de arriba abajo.","ws.note3":"Once bits por palabra. Lee los cuatro primeros bits como columna y los siete últimos como fila, o los cinco primeros y los seis últimos en una hoja de 32 x 64. Escribe el índice y luego la palabra.","ws.noteCoin":"Una moneda, {n} veces. Cara es 1, cruz es 0. Escribe cada resultado en una casilla, en orden. Un lanzamiento ya es un bit, así que no hay nada que convertir.","ws.noteDice":"Un dado, hasta llenar {n} casillas. Escribe 1, 2, 3 o 4 en la casilla siguiente. Un 5 o un 6 no llenan ninguna, así que vuelve a tirar. Rechazarlos es lo que mantiene igual de probables los cuatro resultados.","ws.step1Coin":"LANZA","ws.step1Dice":"TIRA","ws.step2":"TRANSCRIBE","ws.step3":"LEE EN EL PÓSTER","ws.sub":"{words} palabras · {bits} bits de entropía · {n} {unit}","ws.titleCoin":"Hoja de moneda","ws.titleDice":"Hoja de dados","ws.unitFlips":"lanzamientos","ws.unitThrows":"tiradas aceptadas"}};
 const LANGS = [{"code":"en","name":"English"},{"code":"es","name":"Español"}];
 const BASE_LANG = "en";
 let LANG = BASE_LANG;

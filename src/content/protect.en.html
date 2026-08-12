@@ -1,0 +1,600 @@
+<section id="protect" class="learn">
+
+  <header class="learn-head">
+    <p class="learn-eyebrow">Protection · layers and their costs</p>
+    <h1 class="learn-title">Every layer<br>has a price</h1>
+    <p class="learn-lead">
+      Suppose the hard part is done. The phrase was generated properly, it is
+      written on paper, and nobody has seen it. This page is about everything
+      after that: the things people add on top, what each one actually buys, and
+      what each one costs. There are only a few real layers, and every one of
+      them defends against something while creating a new way to lose access.
+      None of this is a recommendation to add all of them. The honest default is
+      to add none of them and get the paper <em>right</em> first.
+    </p>
+  </header>
+
+  <aside class="learn-warn">
+    <p class="learn-warn-label">Warning</p>
+    <p>
+      Every layer you add is another thing that must survive, be remembered, and
+      still work in ten years. Protection that has never been rehearsed is not
+      protection, it is an intention. If you add a passphrase or a second key and
+      never restore from them, you have not made your coins safer. You have added
+      a way to lose them that did not exist before.
+    </p>
+    <p>
+      Nothing on this page needs your phrase and nothing here asks for it. As
+      everywhere else on this site, no legitimate party ever needs your recovery
+      phrase, and no field here accepts one.
+    </p>
+  </aside>
+
+  <nav class="learn-toc" aria-label="Sections on this page">
+    <ol>
+      <li><a href="#protect-threats">What you are defending against</a></li>
+      <li><a href="#protect-passphrase">The passphrase</a></li>
+      <li><a href="#protect-multisig">Multisig, 2 of 3</a></li>
+      <li><a href="#protect-choose">Choosing between them</a></li>
+      <li><a href="#protect-backup">The backup itself</a></li>
+      <li><a href="#protect-test">Test the recovery</a></li>
+      <li><a href="#protect-heirs">Inheritance and incapacity</a></li>
+    </ol>
+  </nav>
+
+  <section class="learn-sec" id="protect-threats">
+    <h2><span class="learn-num" aria-hidden="true">01</span> What you are defending against</h2>
+
+    <p>
+      “Keeping it safe” is not one problem. At least five distinct things can
+      separate you from your coins, they barely overlap, and a measure that
+      answers one of them often does nothing at all for the others. Deciding
+      which one you actually mean is most of the work, and it is the step that
+      gets skipped in favour of buying something.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>Theft by someone who finds the backup.</b> Not a cryptographer. A
+        burglar working through the obvious drawers, a builder, a lodger, a
+        houseguest, a relative, a removal firm, a landlord with a key. Your paper
+        is the entire secret and it is written in plain language, so anyone who
+        reads it can spend from anywhere in the world, immediately and
+        irreversibly. This is the threat that a passphrase and multisig are
+        designed for, and it is the only one they are both good at.
+      </li>
+      <li>
+        <b>Loss, with no attacker involved.</b> Fire, flood, a burst pipe, a
+        house move, a clear-out, a word written so badly that six years later you
+        cannot tell an <code>l</code> from a <code>1</code>, a hiding place so
+        clever you cannot reconstruct it, a device that dies with the only copy
+        of something you assumed was written down. Nobody is against you here.
+        The coins go anyway.
+      </li>
+      <li>
+        <b>Coercion.</b> Someone who knows you hold coins and is standing in
+        front of you. Cryptography has no answer to this, and no arrangement
+        makes it pleasant. The only thing that helps is a structure in which it
+        is genuinely true that you cannot produce everything on the spot, and
+        that structure has to be real, because a bluff has to be maintained under
+        conditions where people are bad at maintaining bluffs. The best defence
+        remains not being known to hold anything.
+      </li>
+      <li>
+        <b>A compromised device at signing time.</b> Here the phrase never leaks
+        and the backup is irrelevant. Malware changes the destination address
+        between the moment you copy it and the moment you approve it, or presents
+        a transaction that does something other than what the screen on your
+        computer says. The defence is not a better backup, it is verifying the
+        amount and the full destination address on the signing device's own
+        screen, every time, and refusing to approve anything you cannot read
+        there.
+      </li>
+      <li>
+        <b>Your own death or incapacity.</b> From your family's point of view
+        this is indistinguishable from loss, and the coins are just as gone. It
+        is the threat that receives the least attention per unit of money it
+        actually consumes.
+      </li>
+    </ul>
+
+    <p>
+      Those five want different answers, and two of them want opposite answers.
+      Anything that makes the secret harder for a stranger to use makes it harder
+      for you to use as well, and harder still for whoever has to use it without
+      you. That tension runs through the rest of this page, and there is no
+      arrangement that escapes it.
+    </p>
+
+    <p class="learn-note">
+      Keep the proportions in mind. Coins are lost to fire, water, forgetting,
+      transcription errors, dead devices, clever schemes nobody else understood
+      and quiet deaths far more often than they are lost to burglars, and the
+      <a href="#faq">questions page</a> says the same thing from another angle. A
+      design that defends only against a thief is unbalanced against the way
+      people actually lose money, and adding layers usually makes that imbalance
+      worse rather than better.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="protect-passphrase">
+    <h2><span class="learn-num" aria-hidden="true">02</span> The passphrase</h2>
+
+    <p>
+      Wallets sometimes call it the “25th word”, which is a friendly name for
+      something that is not a word and is not part of the phrase. It is an extra
+      secret you supply alongside the twelve words, mixed into the same
+      derivation that turns them into a seed. The <a href="#learn">field
+      guide</a> describes that derivation: the words are stretched with
+      <code>PBKDF2-HMAC-SHA-512</code>, and the passphrase goes into the salt. So
+      the same twelve words with a different passphrase produce a completely
+      different seed, and therefore a completely different wallet, with different
+      addresses and no relationship to the first one.
+    </p>
+
+    <p>
+      It is taken literally. Case, spacing, punctuation and accents all count, a
+      trailing space is part of the secret, and there is no list of valid
+      passphrases because every possible string is one.
+    </p>
+
+    <p>
+      <b>What it buys.</b> Exactly one thing, and it is a real thing: your paper
+      backup on its own is no longer enough to spend. Somebody who finds it, and
+      knows what it is, and tries it, gets a valid and empty wallet. That answers
+      the first threat above, theft by whoever finds the backup, and it answers
+      it well. It also means the twelve words can be stored somewhere less
+      dramatic than you would otherwise accept, which is genuinely useful.
+    </p>
+
+    <p>
+      <b>What it does not buy.</b> It does nothing for fire or flood. It does
+      nothing at signing time, when the device in front of you is the problem. It
+      does nothing for your heirs except make their job harder. And against
+      coercion it converts “hand over the paper” into “tell me the passphrase”,
+      which is not obviously an improvement.
+    </p>
+
+    <p>
+      <b>What it costs.</b> This is the part that is usually undersold, so it is
+      stated bluntly.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>There is no checksum on it, and no error to see.</b> The twelve words
+        have four bits of checksum, so a mistyped word is usually caught. A
+        passphrase has nothing of the kind. A wrong one is not rejected, because
+        there is nothing to reject it against. It silently opens a different real
+        wallet, which is empty, and the software will show you that empty wallet
+        with complete confidence. A single missing capital letter and a single
+        stray space are indistinguishable from having lost everything.
+      </li>
+      <li>
+        <b>It is not recoverable, by anyone.</b> No wallet, device, vendor or
+        service records what you chose, because nothing anywhere ever sees it in
+        a form it could store. There is no reset, no support desk, no escrow, no
+        clever forensic path. If it exists only in your memory, then it is a
+        secret with no backup, and memory is not a storage medium: it decays,
+        and it decays fastest for things you rarely use.
+      </li>
+      <li>
+        <b>Forgetting it loses the coins as completely as losing the phrase.</b>
+        Not partially, not with more effort. The twelve words and the passphrase
+        are two halves of one secret, and holding one half is worth nothing. You
+        can be looking directly at a perfect, legible, fireproof backup of your
+        seed phrase and be permanently locked out.
+      </li>
+      <li>
+        <b>It doubles the backup problem.</b> You now have two secrets to record,
+        protect and keep legible for decades, and they must be stored apart or
+        the whole point is lost. Two locations is more than twice the
+        administration of one, because you must also remember that the second one
+        exists and what it belongs to.
+      </li>
+      <li>
+        <b>It has to be typed, correctly, on unfamiliar hardware.</b> Sometimes
+        years later, sometimes on a small device with an awkward keyboard,
+        sometimes by someone who is not you. A passphrase full of unusual
+        characters is a passphrase you may not be able to enter on the device you
+        end up holding.
+      </li>
+    </ul>
+
+    <p>
+      <b>Plausible deniability.</b> The idea is appealing: the words without the
+      passphrase open a real wallet, so you can keep a small amount there and
+      hand that over under duress, while the serious wallet stays invisible. It
+      works better in explanation than in practice, and it is worth being honest
+      about why. Anyone who knows enough to demand your seed phrase probably
+      knows that passphrases exist, since the feature is documented by every
+      vendor that offers it and discussed everywhere. The decoy has to hold
+      enough to be believed and look like it has been used, which means
+      maintaining it. Nothing about the arrangement proves a negative, so the
+      other person's decision to stop is not something you control. Treat it as a
+      thin extra option rather than the reason to adopt a passphrase.
+    </p>
+
+    <p>
+      <b>If you use one, do these four things.</b> Back it up with the same
+      seriousness as the phrase, in writing, exactly as typed, with any leading
+      or trailing spaces made explicit or avoided entirely. Store it apart from
+      the words, so that finding either one alone achieves nothing. Choose
+      something you can transcribe unambiguously and type on any device, which
+      argues for length over exotic characters. And restore from both, together,
+      before the wallet holds anything.
+    </p>
+
+    <p class="learn-note">
+      A passphrase converts a theft risk into a loss risk. That is a good trade
+      only if theft of the physical backup is genuinely the threat that worries
+      you most, and only if you are the sort of person who will test it and keep
+      testing it. If you are not sure which of those is true, the honest answer is
+      that far more coins are lost to forgotten passphrases than are saved from
+      burglars by them.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="protect-multisig">
+    <h2><span class="learn-num" aria-hidden="true">03</span> Multisig, 2 of 3</h2>
+
+    <p>
+      A multisignature wallet requires more than one key to spend. The common
+      arrangement, and the one worth understanding first, is 2 of 3: three keys
+      exist, each with its own seed phrase, and any two of them together can
+      sign. One key on its own can do nothing. The three usually live on three
+      separate devices, ideally not all the same make, kept in three separate
+      places.
+    </p>
+
+    <p>
+      <b>What it buys.</b> There is no longer a single object whose loss or theft
+      is decisive. A backup found in a drawer is not enough to spend. A device
+      that is stolen, seized, bricked or quietly compromised is not enough to
+      spend, and is also not enough to lose: you sign with the other two, move
+      everything to a fresh set of keys, and the compromised one becomes
+      irrelevant. That is the structural difference from a passphrase. A
+      passphrase adds a second thing you must not lose. Multisig adds a spare.
+    </p>
+
+    <p>
+      It is also the only arrangement here that meaningfully addresses two
+      threats at once. Because the keys are in different places, one fire or one
+      flood does not take them all, and because two are needed at the same time,
+      being made to produce one is not the end. That second property is real, and
+      it is also a reason to be careful about who is told the shape of the
+      arrangement.
+    </p>
+
+    <p>
+      <b>What it costs.</b> More than people expect, and in an unfamiliar
+      currency: the expensive part is not the money, it is the record-keeping.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>The seeds alone will not rebuild the wallet.</b> This is the single
+        most important thing on this page about multisig, and the most commonly
+        missed. To reconstruct the wallet you also need to know how the three
+        keys were combined: the policy, the script type, the derivation paths,
+        and the extended public keys of all three cosigners. That information is
+        what a wallet descriptor records. Two seed phrases and no descriptor can
+        be a permanent, total loss with nothing stolen and nothing forgotten. So
+        the descriptor is backed up too, with every seed, in every location.
+      </li>
+      <li>
+        <b>The descriptor is not secret, but it is not harmless either.</b> It
+        cannot spend anything on its own, which is why it can be copied freely
+        among your own backups. It does reveal every address you have ever used
+        and therefore your entire balance and history to anyone who reads it.
+        Store it with care, and never treat “it cannot spend” as “it does not
+        matter”.
+      </li>
+      <li>
+        <b>Recovery is a project rather than a step.</b> Restoring a
+        single-signature wallet is typing twelve words into almost any wallet
+        made in the last decade. Restoring this one means finding software that
+        supports the policy you chose, rebuilding the wallet from the descriptor,
+        importing two of the keys, and producing a transaction that collects two
+        signatures, often by moving a partly signed transaction between devices.
+        Support for this is narrower than for ordinary wallets, and the
+        transactions themselves are larger, so they cost more in fees.
+      </li>
+      <li>
+        <b>Complexity is itself a risk.</b> A scheme that only you fully
+        understand fails on precisely the day you are not there to explain it.
+        Every additional device is another firmware to keep current, another set
+        of instructions, another thing that must still be workable in ten years
+        by someone who may not be you.
+      </li>
+    </ul>
+
+    <p>
+      <b>Who it suits.</b> Someone holding an amount where an evening of setup
+      and a rehearsed recovery is clearly proportionate. Anyone whose real worry
+      is a single point of failure rather than a single burglar. Custody shared
+      between people, such as a couple, a family, a business, or an arrangement
+      where a third key sits with someone trusted for use only in an emergency.
+      In those cases it is the right tool and nothing else does the job.
+    </p>
+
+    <p>
+      <b>Who it does not suit.</b> A first wallet. A small amount, where the added
+      ways to fail plainly outweigh the theft being prevented. Anyone who wants
+      one piece of paper and no ongoing obligation. And anyone who will not
+      rehearse it, because an untested multisig is strictly worse than a tested
+      single seed: more parts, more records, and no evidence any of it works.
+    </p>
+
+    <p class="learn-note">
+      There is a common half-measure worth naming: setting up a 2 of 3 wallet,
+      funding it, and never writing down the descriptor or trying a recovery. It
+      feels like the strongest option on this page and is, in practice, the
+      weakest thing described here.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="protect-choose">
+    <h2><span class="learn-num" aria-hidden="true">04</span> Choosing between them</h2>
+
+    <p>
+      Three options, side by side. The table is the summary, a phrase per cell.
+      It is short in both directions on purpose: the simplest row is not the
+      weakest one, and the most elaborate row is not the safest one.
+    </p>
+
+    <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Protection schemes compared, scrollable table">
+      <table class="learn-tbl">
+        <caption>Three schemes</caption>
+        <thead>
+          <tr>
+            <th scope="col">Scheme</th>
+            <th scope="col">Defends against</th>
+            <th scope="col">Costs you</th>
+            <th scope="col">How it fails</th>
+            <th scope="col">Who it suits</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Seed alone</th>
+            <td>Remote attack</td>
+            <td>Nothing</td>
+            <td>Found or burnt</td>
+            <td>Most people</td>
+          </tr>
+          <tr>
+            <th scope="row">Plus passphrase</th>
+            <td>A found copy</td>
+            <td>A second secret</td>
+            <td>Forgotten</td>
+            <td>The careful</td>
+          </tr>
+          <tr>
+            <th scope="row">2 of 3 multisig</th>
+            <td>Theft and loss</td>
+            <td>Setup, records</td>
+            <td>Lost descriptor</td>
+            <td>Larger sums</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      <b>A seed on paper is not the placeholder option.</b> Generated properly it
+      is already beyond brute force by margins the <a href="#learn">field
+      guide</a> works through, so the only realistic ways to lose it are physical
+      and local. Kept in one dry, private place that is not the drawer beside the
+      computer, and copied to a second building, it defeats almost everything on
+      the threat list except a thief who finds it and your own mortality. For
+      most people, most of the time, it is the correct answer and the effort
+      belongs in the backup rather than in a scheme.
+    </p>
+
+    <p>
+      <b>A passphrase is the layer that is most often overrated.</b> It is cheap
+      to enable, which is exactly why it is dangerous: the cost arrives years
+      later and all at once. It is a good answer to one threat and it makes the
+      more common threat worse.
+    </p>
+
+    <p>
+      <b>Multisig is the layer most often underrated and most often abandoned
+      halfway.</b> It is the only option that removes the single point of failure
+      rather than adding a second one, and it is also the only option that can
+      fail because of a missing file that was never secret in the first place.
+    </p>
+
+    <p class="learn-note">
+      The rows are not a ladder and using two of them is not twice as safe.
+      A passphrase on top of a multisig wallet multiplies the record-keeping
+      rather than the security, and it is the combination most likely to be
+      recoverable only by the person who set it up. Add a layer because it
+      answers a threat you have actually named, not because it is the next one
+      along.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="protect-backup">
+    <h2><span class="learn-num" aria-hidden="true">05</span> The backup itself</h2>
+
+    <p>
+      Before any of the layers above, the object. Almost everything that goes
+      wrong here is mundane, and the two failures that actually happen to
+      ordinary households are heat and water. A house fire and a burst pipe are
+      not exotic threats, they are the standard ones, and they are the reason
+      metal exists as an option at all.
+    </p>
+
+    <p>
+      <b>Paper or steel.</b> Handwritten paper is a perfectly good backup and
+      costs nothing, and it is destroyed by fire and ruined by water. Stamped or
+      punched metal survives both, at the cost of an hour and a modest piece of
+      equipment. The reasonable rule is proportion: paper while you are learning
+      and the balance is small, metal once losing it would genuinely hurt. If you
+      use paper, use ordinary pen and paper rather than a receipt printer's
+      thermal paper, which fades to blank on its own.
+    </p>
+
+    <p>
+      <b>Write it for a stranger.</b> Number the words 1 to 12 as you write them,
+      in order, spelled exactly as the wallet showed them. Write legibly enough
+      that someone who has never seen the words could read them, because in the
+      worst case that is precisely who will. Check each word against
+      <a href="#poster">the poster</a> before you commit it to metal, since a
+      word that is not on the list is a transcription error you can still fix at
+      that point and cannot fix afterwards. It is worth recording the wallet
+      type and the derivation path alongside, and the date, since those are what
+      turn a restore that comes back empty into a restore that comes back. Never
+      record the balance, and never record where the other copies are.
+    </p>
+
+    <p>
+      <b>Photographs, cloud notes and password managers are not backups of this
+      kind.</b> Each one converts a secret that lived in a single physical place
+      into a file on a machine designed to be reachable from anywhere, which is
+      the exact property you were trying to avoid, and a photograph taken in
+      airplane mode uploads itself the moment the connection returns. The
+      <a href="#faq">questions page</a> works through all three properly.
+    </p>
+
+    <p>
+      <b>Geographic separation.</b> Fire, flood and burglary are local events, so
+      a second copy in a different building removes a whole category of total
+      loss at a stroke. It also doubles the number of objects that can be found,
+      which means the second copy needs the same protection as the first and not
+      less. A copy at a relative's house is a copy in a house whose locks,
+      lodgers, clear-outs and future occupants you do not control. Two copies you
+      have thought about carefully beat four you have not.
+    </p>
+
+    <p>
+      <b>Splitting the phrase yourself is not a backup strategy.</b> Half in one
+      place and half in another feels prudent and is, on both counts, worse than
+      it looks: the halves are weaker than people assume, and home-made splits
+      lose coins far more often than they prevent theft, because the scheme lives
+      in a single head. The <a href="#faq">questions page</a> gives the
+      arithmetic. If the goal is genuinely to divide custody, that is what
+      multisig above is for.
+    </p>
+
+    <p class="learn-note">
+      One more copy of the words exists that people forget about: whatever you
+      wrote the entropy on. If you generated the phrase by hand with
+      <a href="#roll">the roller</a> or a printed worksheet, that sheet of bits
+      is a second copy of your seed in longhand. It gets destroyed once the
+      phrase is recorded and verified, and never before.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="protect-test">
+    <h2><span class="learn-num" aria-hidden="true">06</span> Test the recovery</h2>
+
+    <p>
+      This is the step almost everybody skips, and it is the one that decides
+      whether any of the rest was real. Everything above is a claim about the
+      future. A restore is the only evidence you will ever have.
+    </p>
+
+    <p>
+      <b>Restore before you fund it.</b> While the wallet is empty the test costs
+      nothing and a failure is a lucky discovery. After it is funded the test has
+      stakes, so it quietly never happens, and the first real restore attempt
+      takes place on the day something has already gone wrong.
+    </p>
+
+    <p>
+      <b>Restore from the backup you actually wrote.</b> Not from the screen, not
+      from memory, not from the copy on the device that is still working. The
+      thing being tested is the object you will one day be holding, including
+      your handwriting, your abbreviations, whether you noted the derivation
+      path, and whether the passphrase you wrote down is the passphrase you
+      typed. Wipe the device and restore, or restore onto a second device, or
+      into a clean offline installation. A restore that reads from something you
+      will not have later has tested nothing.
+    </p>
+
+    <p>
+      <b>What success looks like.</b> The same wallet comes back: the same
+      addresses in the same order, the same first receive address, and for a
+      wallet that has been used, the same history. If you can, go one step
+      further and send a small amount out afterwards, because receiving only
+      proves you copied an address correctly and spending is what proves you hold
+      the key. For a multisig wallet the test is the whole rebuild, from the
+      descriptor and two seeds on a machine that has never seen this wallet
+      before, ending in a signature from each of two devices.
+    </p>
+
+    <p>
+      <b>An empty wallet after a restore is usually not the phrase.</b> Two
+      causes account for nearly all of it. The derivation path or address type
+      differs, so the wallet is showing you a different branch of the same tree
+      and both are correct. Or a passphrase is involved and something about it is
+      off by a character. Check those two before concluding anything, and
+      remember that a valid phrase which is not yours also restores a real, empty
+      wallet without complaint, so an empty result is a question rather than an
+      answer. The <a href="#faq">questions page</a> covers the derivation path
+      case in full.
+    </p>
+
+    <p>
+      <b>Repeat it occasionally.</b> Once is proof about one day. Do it again
+      after a house move, after you change devices, after firmware changes
+      something about how a device behaves, and after any change to who would
+      need to do this without you. An annual habit is more than most people
+      manage and far more than most people need.
+    </p>
+
+    <p class="learn-note">
+      Test the layers specifically, because they are the parts that fail
+      silently. A wrong word is usually caught by the checksum. A wrong
+      passphrase, a missing descriptor and a cosigner key nobody can find are
+      caught by nothing at all, right up until the moment they matter.
+      <a href="#start">Start here</a> puts the same test in the middle of both of
+      its recipes, for the same reason.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="protect-heirs">
+    <h2><span class="learn-num" aria-hidden="true">07</span> Inheritance and incapacity</h2>
+
+    <p>
+      A backup that nobody else can find, or can find but cannot use, is
+      indistinguishable from a lost one. The coins are gone in exactly the same
+      way, and the people affected will not even know what they are looking for.
+    </p>
+
+    <p>
+      Whatever you leave has to be written for someone who does not know what any
+      of this is. Not a shorter version of what you would write for yourself: an
+      explanation that starts from the beginning. What the words are and what
+      they control. That they must never be typed into a website or sent to
+      anyone offering to help, because that is the moment this most often ends
+      badly. Which software to use and which derivation path. Whether a
+      passphrase exists at all, and where. For multisig, where each key lives,
+      where the descriptor is, and that two of the three are needed. Then have
+      that person do a dry run on an empty wallet while you are still there to
+      watch, because instructions are subject to the same rule as everything else
+      on this page: untested means unknown.
+    </p>
+
+    <p>
+      The tension is unavoidable and worth stating plainly. Every instruction
+      that makes recovery possible for your family also makes theft easier for
+      whoever else reads it, and a letter explaining exactly where the secrets
+      are kept is itself a target. The usual shape of the answer is to separate
+      the two: instructions that are findable and explain what to do, secrets
+      that are not stored with them. What arrangement is appropriate, and how any
+      of it interacts with the law where you live, is outside what this page can
+      tell you.
+    </p>
+
+    <p class="learn-note">
+      This section is short because it is mostly not a technical problem. It is
+      still the one worth acting on soonest, since it is the only threat on this
+      page whose arrival you are guaranteed not to be able to respond to.
+    </p>
+  </section>
+
+</section>
