@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import json
 import pathlib
+import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -117,6 +118,22 @@ def load_i18n() -> tuple[dict, list[dict]]:
     return bundles, langs
 
 
+def namespace_ids(html: str, lang: str) -> str:
+    """Prefix a pane's ids, and the links that point at them, with its language.
+
+    Every language of a section is in the document at once, so without this the
+    same id exists two or three times and an anchor resolves to whichever pane
+    happens to be first, which is usually the hidden one. Links to other views,
+    like href="#poster", are left alone: only ids defined in this very file are
+    rewritten.
+    """
+    own = set(re.findall(r'id="([^"]+)"', html))
+    html = re.sub(r'id="([^"]+)"', lambda m: f'id="{lang}-{m.group(1)}"', html)
+    return re.sub(r'href="#([^"]+)"',
+                  lambda m: f'href="#{lang}-{m.group(1)}"' if m.group(1) in own else m.group(0),
+                  html)
+
+
 def load_content(langs: list[dict]) -> tuple[str, list[str]]:
     """Turn src/content/<name>.<lang>.html into one view per name.
 
@@ -141,7 +158,7 @@ def load_content(langs: list[dict]) -> tuple[str, list[str]]:
         for lang, path in sorted(items):
             panes.append(f'<!-- {path.relative_to(ROOT)} -->\n'
                          f'<div class="pane" data-pane="{name}" data-lang="{lang}" hidden>\n'
-                         f'{path.read_text().strip()}\n</div>')
+                         f'{namespace_ids(path.read_text().strip(), lang)}\n</div>')
             names.append(path.name)
         views.append(f'<div class="view" id="view-{name}" hidden>\n'
                      + "\n\n".join(panes) + "\n</div>")

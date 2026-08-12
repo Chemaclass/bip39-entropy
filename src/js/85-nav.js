@@ -28,7 +28,16 @@ function showView(name){
 
 function route(){
   const { lang, view } = parseHash();
-  LANG = pickLang(lang);
+
+  // A hash that names neither a language nor a view may be an anchor inside a
+  // section, like #en-learn-checksum from a table of contents. Follow it to the
+  // view that contains it instead of treating it as an unknown view and
+  // bouncing the reader to the poster.
+  const anchor = view && !VIEWS.includes(view) ? document.getElementById(view) : null;
+  const pane = anchor && anchor.closest(".pane");
+  const host = anchor && anchor.closest(".view");
+
+  LANG = pickLang(pane ? pane.dataset.lang : lang);
   $("lang").value = LANG;
   applyI18n();
   showPanes();
@@ -38,6 +47,12 @@ function route(){
   });
   $("brandlink").href = "#" + LANG + "/poster";
   if (rollReady()){ rollText(); rollPad(); rollRender(); }
+
+  if (host){
+    showView(host.id.slice("view-".length));
+    anchor.scrollIntoView({ block: "start" });
+    return;
+  }
   showView(VIEWS.includes(view) ? view : "poster");
 }
 

@@ -1,24 +1,23 @@
 {
   "_name": "Español",
   "_code": "es",
-
   "brand.tag": "entropía · palabras · imprimir",
   "nav.aria": "Secciones",
   "nav.poster": "Póster",
+  "nav.start": "Empieza aquí",
   "nav.learn": "Entropía",
   "nav.roll": "Genera la tuya",
+  "nav.save": "Descargar",
+  "nav.saveHint": "Guarda esta página en tu disco. Es un único archivo autónomo, así que sigue funcionando con la red apagada.",
   "lang.label": "Idioma",
-
   "bar.paper": "Papel",
   "bar.orientation": "Orientación",
   "bar.grid": "Cuadrícula",
   "bar.face": "Tipografía",
   "bar.find": "Buscar palabra o índice",
   "bar.findPlaceholder": "abandon · 1024",
-
   "orient.portrait": "Vertical",
   "orient.landscape": "Horizontal",
-
   "grid.auto": "Auto: cuerpo mayor, una hoja",
   "grid.16x128": "16 × 128 · una hoja (4+7 bits)",
   "grid.32x64": "32 × 64 · una hoja (5+6 bits)",
@@ -26,16 +25,13 @@
   "grid.8x128": "8 × 128 · dos hojas",
   "grid.8x64": "8 × 64 · cuatro hojas",
   "grid.4x64": "4 × 64 · ocho hojas",
-
   "face.grot": "Grotesca",
   "face.serif": "Serif",
   "face.mono": "Monoespaciada",
-
   "toggle.prefix": "Énfasis de prefijo",
   "toggle.rules": "Líneas de fila",
   "btn.pdf": "PDF",
   "btn.print": "IMPRIMIR",
-
   "readout.portrait": "vertical",
   "readout.landscape": "horizontal",
   "readout.oneSheet": "una hoja",
@@ -48,7 +44,6 @@
   "readout.warn": "Lista pública del estándar. Nunca marques en ella tus propias palabras de recuperación.",
   "readout.matches": "{n} coincidencias",
   "readout.match": "1 coincidencia, índice {i} · {word}",
-
   "roll.title": "Genera tu propia entropía",
   "roll.lead": "Doce palabras son un número de 128 bits más una suma de verificación de 4 bits. Abajo construyes ese número tú, una tirada cada vez, y lo ves convertirse en palabras. Nada de esto sale de la página, porque en este archivo no hay ningún código de red.",
   "roll.leadLink": "Si las palabras entropía y suma de verificación aún no te dicen nada, lee antes {link}.",
@@ -57,7 +52,6 @@
   "roll.warn": "Una frase generada en un navegador sirve para {em}. Para dinero que pienses conservar, genera la frase en un monedero hardware, o haz esto en una máquina que esté sin conexión y siga sin conexión. Nunca escribas una frase semilla existente en esta ni en ninguna otra página.",
   "roll.warnEm": "aprender y verificar",
   "roll.disabled": "El motor de entropía no se cargó, así que esta sección está desactivada.",
-
   "roll.length": "Longitud",
   "roll.source": "Fuente",
   "roll.words12": "12 palabras · 128 bits",
@@ -67,7 +61,6 @@
   "btn.undo": "Deshacer",
   "btn.clear": "Borrar",
   "btn.worksheet": "Hoja de trabajo PDF",
-
   "roll.keyReroll": "repetir",
   "roll.hintDice": "Tira un d6 real y pulsa lo que veas. Del 1 al 4 llevan dos bits cada uno. El 5 y el 6 no llevan nada y se vuelven a tirar, que es lo que mantiene igual de probables los dieciséis pares posibles. Retroceso deshace la última tirada.",
   "roll.hintCoin": "Lanza una moneda real. Cara es 1, cruz es 0. Pulsa H o T, o 1 y 0. Retroceso deshace el último lanzamiento.",
@@ -79,7 +72,6 @@
   "roll.checksumLabel": "Suma de verificación · primeros {n} bits de sha256(entropía)",
   "roll.wordsLabel": "{n} palabras · cada una once bits del total de {total} bits",
   "roll.footnote": "Estas palabras son exactamente tan impredecibles como lo fueron tus tiradas, y nada más. Una frase creada en una pestaña del navegador sirve para aprender. No pongas en ella nada que te importe perder.",
-
   "pdf.eyebrow": "BIP-39 · INGLÉS · 2048 PALABRAS",
   "pdf.title1": "DIRECCIONES",
   "pdf.title2": "DE ",
@@ -91,7 +83,6 @@
   "pdf.sheetTag": "HOJA {n} / {of} · {lo}-{hi}",
   "pdf.colophonLead": "CUATRO PRIMERAS LETRAS ÚNICAS",
   "pdf.colophonSource": "bitcoin/bips · bip-0039 · english.txt",
-
   "ws.eyebrow": "BIP-39 A MANO",
   "ws.titleDice": "Hoja de dados",
   "ws.titleCoin": "Hoja de moneda",

@@ -141,6 +141,32 @@ PDFS = """
 </script>
 """
 
+ANCHORS = """
+<script>
+(function(){
+  // Every in-page link must land somewhere inside a view. A table of contents
+  // entry that routes to an unknown view silently bounces to the poster.
+  const bad = [], seen = new Set();
+  for (const a of document.querySelectorAll('a[href^="#"]')){
+    const id = a.getAttribute("href").slice(1);
+    if (!id || seen.has(id)) continue;
+    seen.add(id);
+    if (LANGS.some(l => l.code === id) || VIEWS.includes(id)) continue;
+    const parts = id.split("/");
+    if (LANGS.some(l => l.code === parts[0]) && VIEWS.includes(parts[1])) continue;
+    const el = document.getElementById(id);
+    if (!el){ bad.push(id + ": no such id"); continue; }
+    const host = el.closest(".view");
+    if (!host){ bad.push(id + ": not inside a view"); continue; }
+    location.hash = "#" + id;
+    route();
+    if (document.getElementById(host.id).hidden) bad.push(id + ": view stayed hidden");
+  }
+  document.title = "PROBE" + JSON.stringify({ checked: seen.size, bad });
+})();
+</script>
+"""
+
 SWEEP = """
 <script>
 (function(){
@@ -304,6 +330,13 @@ def main() -> None:
         if over:
             print(f"        widest string: {row['worst']!r}")
         fail += bool(over)
+
+    anchors = run(ANCHORS)
+    print(f"  {'ok   ' if not anchors['bad'] else 'FAIL '} "
+          f"{anchors['checked']} in-page links resolve into a view")
+    for b in anchors["bad"][:8]:
+        print(f"        {b}")
+    fail += bool(anchors["bad"])
 
     narrow = run_mobile()
     spill = [r for r in narrow if r["count"] or r["scroll"] > r["vw"]]
