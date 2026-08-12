@@ -5,8 +5,8 @@ description: Build, preview and audit the BIP-39 site: poster layout, entropy ex
 
 # Working on the site
 
-`index.html` is generated from `src/` + `data/english.txt`. Three views behind
-hash routing (`#poster`, `#learn`, `#roll`), in one offline file.
+`index.html` is generated from `src/` + `data/english.txt`. Views behind hash
+routing that carries the language too (`#es/learn`), in one offline file.
 
 ## Loop
 
@@ -19,9 +19,28 @@ python3 scripts/probe.py    # ~90s: headless Chrome, all 252 layout combinations
 
 No dev server, nothing to install. Reload the tab after a rebuild.
 
-`build.py` concatenates `src/css/*.css`, `src/js/*.js`, `src/content/*.html` in
-filename order into one scope. The number prefix is load order: `10-data.js`
-defines `WORDS` before `90-boot.js` renders. New module, new prefix.
+`build.py` concatenates `src/css/*.css` and `src/js/*.js` in filename order into
+one scope. The number prefix is load order: `10-data.js` defines `WORDS` before
+`90-boot.js` renders. New module, new prefix.
+
+## Adding a section or a language
+
+Both are files, not code.
+
+- **A section**: `src/content/<name>.<lang>.html` becomes `#<name>`, one view per
+  name. Add a tab in `src/template.html` with `data-view="<name>"` and a
+  `nav.<name>` key. The router reads its view list off the tabs, and a tab whose
+  content has not landed yet hides itself, so the two can arrive in either order.
+- **A language**: `src/i18n/<lang>.json` plus a `<name>.<lang>.html` for each
+  section. Nothing in the JavaScript names a language. Missing keys fall back to
+  English one at a time; a missing pane falls back whole.
+
+Markup carries keys, never text: `data-t` for content, `data-t-attr` for
+attributes like `placeholder` and `title`. Strings with inline markup are
+assembled from DOM nodes in JS, so translation files stay plain text.
+
+`build.py` fails on an em dash anywhere in `src/i18n`, `src/content` or the
+template. Write two sentences.
 
 ## What breaks, and how it hides
 
@@ -35,8 +54,10 @@ Both of these shipped, and neither is visible on A4:
   Invariant: no `.w` cell has `scrollWidth > clientWidth`.
 
 `scripts/probe.py` asserts both across every paper × orientation × grid × face,
-plus no JS errors and a passing `SEED.selfTest()`. Run it after any layout or
-engine change. It needs Chrome, which is why it is not in `verify.sh` or CI.
+plus no JS errors, a passing `SEED.selfTest()`, no translation key leaking into
+the page as raw text, no sideways scroll at 320 and 375 px, and no PDF ink
+outside the sheet in any language. Run it after any layout, engine or
+translation change. It needs Chrome, which is why it is not in `verify.sh` or CI.
 
 ## Reference type sizes
 
@@ -65,6 +86,10 @@ The page is a print artifact, so screen appearance is not the deliverable.
 4. **PDF**. The reliable output path; `Print` depends on the user setting 100 %
    scale and background graphics.
 5. **Roller**. Dice and coin, 12 and 24 words, Undo, keyboard entry, worksheet.
+6. **Languages**. Every tab in each language, and the PDFs, which carry their own
+   strings. Spanish runs about a fifth longer than English and is what exposes
+   any text that does not wrap.
+7. **Save offline**. Present over http, hidden on `file://`.
 
 ## Verifying PDFs
 
