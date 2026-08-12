@@ -36,6 +36,7 @@
       <li><a href="#learn-2048">Why 2048 words</a></li>
       <li><a href="#learn-checksum">The checksum</a></li>
       <li><a href="#learn-source">Where the randomness comes from</a></li>
+      <li><a href="#learn-failed">When entropy failed</a></li>
       <li><a href="#learn-byhand">Doing it by hand</a></li>
       <li><a href="#learn-threat">Threat model and hygiene</a></li>
     </ol>
@@ -325,8 +326,211 @@
     </p>
   </section>
 
+  <section class="learn-sec" id="learn-failed">
+    <h2><span class="learn-num" aria-hidden="true">06</span> When entropy failed</h2>
+
+    <p>
+      Everything above this point is arithmetic. What follows is the record. Weak
+      randomness is not a hypothetical raised by people who enjoy being careful;
+      it is the failure that has actually and repeatedly emptied wallets, and it
+      has done so through ordinary software that nobody suspected at the time.
+    </p>
+
+    <p>
+      Read these for the mechanism rather than the drama, and notice the one thing
+      they share. In every case the wallet worked. Addresses were valid,
+      transactions signed and confirmed, the phrase looked exactly like any other
+      phrase, and <a href="#learn-checksum">the checksum</a> passed, because a
+      checksum has nothing to say about where a number came from. Nobody here
+      could have caught it by studying their own words. There was nothing in them
+      to see.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>Brainwallets, from around 2011.</b> A passphrase you invented yourself
+        was put through a single unsalted <code>SHA-256</code>, and the 32 bytes
+        that came out were used directly as the private key. No salt, no
+        stretching, no per-user variation, so a given phrase always produced the
+        same address and the whole mapping could be computed in advance. The study
+        that measured this, published at Financial Cryptography in 2016, tested
+        roughly 300 billion candidate passwords and identified 884 brainwallets
+        that had held funds between 2011 and 2015. All but 21 had been drained.
+        Half were emptied within 21 minutes of being funded, and by late 2013 the
+        gap was measured in seconds, because bots were watching the precomputed
+        addresses and competing to spend first. A researcher who funded one keyed
+        on the opening line of <em>Moby-Dick</em> in 2020 lost it in 0.67 seconds,
+        out of the memory pool, before the funding transaction had confirmed. A
+        human-chosen passphrase is worth something like 20 bits against an offline
+        attacker, not 256.
+      </li>
+      <li>
+        <b>Android, August 2013.</b> The platform's <code>SecureRandom</code> was
+        not what it claimed to be, through two defects found at once. One capped
+        an unseeded instance at 64 bits of entropy
+        (<code>CVE-2013-7372</code>); the other left the OpenSSL generator unseeded
+        across the process fork that every app is spawned from
+        (<code>CVE-2013-7373</code>). The thefts came through the first. Signing
+        needs a fresh random nonce every time, and when one key signs twice with
+        the same nonce the private key drops out of a page of algebra, so
+        attackers scanned the public chain for the repeats and swept what they
+        found. About 55 BTC gathered at a single attacker address, worth some
+        5,800 dollars at that week's rate. The bitcoin.org advisory of 11 August
+        2013 declared every Android-generated wallet vulnerable and named Bitcoin
+        Wallet, blockchain.info, BitcoinSpinner and Mycelium as an explicitly
+        incomplete list. Strictly this broke the numbers used in signing rather
+        than the number behind the phrase, but the advisory treated every key the
+        platform had ever produced as suspect and told everyone to rotate. From
+        the phone, nothing looked wrong. The signatures were valid. The evidence
+        sat in the blockchain, legible to anyone who compared two transactions,
+        and the owners learned of it when the money was gone.
+      </li>
+      <li>
+        <b>Randstorm, browser wallets of roughly 2011 to 2015.</b> BitcoinJS, which
+        sat underneath a great many web wallets of the period, produced keys
+        through the <code>SecureRandom</code> function in the JSBN library. A type
+        error meant the browser's real cryptographic generator was never read
+        from. What got used instead was <code>Math.random</code>, a 48-bit linear
+        congruential generator in the browsers of that era, plus a single timer
+        reading. The researchers who disclosed this in November 2023 put the
+        result at substantially less than 48 bits, worst before March 2012 and
+        harder to exploit each year after as browsers improved. They described
+        millions of affected wallets and confirmed the flaw is exploitable. It is
+        also unpatchable in the usual sense, because the keys were generated years
+        ago and already exist; the only remedy is to move the funds. Nothing about
+        an affected wallet looked wrong then, and nothing looks wrong about it now.
+      </li>
+      <li>
+        <b>Trust Wallet browser extension, 2022.</b> The WebAssembly build of the
+        wallet's core library generated mnemonics with a Mersenne Twister, a
+        generator built for simulations and expressly not for cryptography. The
+        variant it used, <code>mt19937</code>, takes a single 32-bit value as its
+        seed, so the extension could only ever emit <code>2^32</code> distinct
+        phrases where a 12-word phrase should have <code>2^128</code> behind it.
+        Extension versions <code>0.0.172</code> through <code>0.0.182</code> were
+        affected. It was reported in November 2022 and fixed on a public
+        repository four days later, then exploited in the wild that December and
+        again in March 2023, before being disclosed the following April as
+        <code>CVE-2023-31290</code>. The team that found it estimated every one of
+        those four billion phrases could be generated on a single computer in a
+        couple of hours.
+      </li>
+      <li>
+        <b>Milk Sad, 2023.</b> Libbitcoin Explorer, a long-established command line
+        tool, offered a <code>bx seed</code> command for producing entropy. From
+        version <code>3.0.0</code> in 2017 to <code>3.6.0</code> in 2019 it used
+        that same <code>mt19937</code> Mersenne Twister, seeded with 32 bits of
+        system clock. Ask it for 256 bits and it returned 256 bits: a 32-bit clock
+        reading run through the twister and stretched to fill the space, with no
+        new information added at any point. The output passed every test a user
+        could think to apply, because the shortfall was in the input. The name is
+        what the command emits when the clock reads zero, a phrase starting
+        <code>milk sad wage cup</code>. On 12 July 2023 one well-prepared actor
+        took about 29.65 BTC, then worth upwards of 850,000 dollars, and the
+        researchers put the total moved across chains above 900,000 dollars. They
+        estimated the full 4.29 billion candidates at no more than a few days on
+        an ordinary gaming machine. Disclosed 8 August 2023 as
+        <code>CVE-2023-39910</code>.
+      </li>
+      <li>
+        <b>Preloaded and tampered devices.</b> A hardware wallet bought through a
+        marketplace rather than from the company that made it can arrive already
+        knowing its answer. The crude version puts the phrase in the box, on a
+        pre-filled card or under a scratch panel, with instructions implying the
+        factory generated it. The thorough version is inside the device. A
+        counterfeit taken apart by security researchers in 2023, bought from a
+        classifieds seller the year before, had its microcontroller swapped for one
+        with readout protection disabled and its bootloader signature checks
+        stripped out, and its firmware substituted one of 20 phrases stored in
+        advance for the one it appeared to generate. Twenty, rather than
+        <code>2^128</code>, which is about four and a third bits. Its passphrase
+        feature was gutted to match, using only the first character and leaving 64
+        combinations. The seller had only to wait, and in that instance waited a
+        month after the device was first funded. Every part of the ceremony was
+        intact. The owner watched a device generate a phrase, wrote it down, and it
+        was valid, and the checksum passed, and it was never theirs.
+      </li>
+    </ul>
+
+    <p>
+      Set the collapses side by side. The middle column is what the format
+      implies: 256 bits for a raw private key, 128 for a 12-word phrase. The one
+      beside it is what was actually there.
+    </p>
+
+    <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Documented entropy failures and the search space each left, scrollable table">
+      <table class="learn-tbl">
+        <caption>What was left of the number</caption>
+        <thead>
+          <tr>
+            <th scope="col">Case</th>
+            <th scope="col">Year</th>
+            <th scope="col">Bits implied</th>
+            <th scope="col">Bits present</th>
+            <th scope="col">Candidates left</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Brainwallet</th><td>2011 on</td><td>256</td><td>about 20</td><td>2^20</td></tr>
+          <tr><th scope="row">Android</th><td>2013</td><td>256</td><td>64</td><td>2^64</td></tr>
+          <tr><th scope="row">Randstorm</th><td>2011 to 2015</td><td>256</td><td>under 48</td><td>under 2^48</td></tr>
+          <tr><th scope="row">Trust Wallet</th><td>2022</td><td>128</td><td>32</td><td>2^32</td></tr>
+          <tr><th scope="row">Milk Sad</th><td>2023</td><td>256</td><td>32</td><td>2^32</td></tr>
+          <tr><th scope="row">Preloaded device</th><td>2022</td><td>128</td><td>about 4.3</td><td>20</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      The two 32-bit cases deserve the arithmetic spelled out, because 32 bits does
+      not sound small until you count it. <code>2^32</code> is
+      <code>4294967296</code>, about 4.3 billion.
+      <a href="#learn-source">The previous section</a> put a single machine at
+      <code>2^40</code> in a fortnight, and <code>2^32</code> is 256 times smaller
+      than <code>2^40</code>, so that same machine finishes the entire space in a
+      little over an hour. The published estimates agree: a couple of hours on one
+      computer for the Trust Wallet phrases, at most a few days on a gaming machine
+      for Libbitcoin's. That is not a hardware budget. It is an afternoon.
+    </p>
+
+    <p>
+      <b>None of this was a failure of BIP-39.</b> The standard held throughout.
+      The word list was the same public 2048 words, correctly indexed. The
+      derivation was correct. The checksum was correct, and it passed every time,
+      because a well-formed phrase is the only thing it was ever asked to certify.
+      What failed was the number underneath, and the number is the one part of the
+      system nobody can inspect afterwards. A phrase does not record its own
+      origin. There is no field in it for provenance, no timestamp, no signature,
+      nothing that distinguishes 128 bits of physics from 32 bits of clock. Twelve
+      words drawn from four billion possibilities are twelve perfectly ordinary
+      words.
+    </p>
+
+    <p>
+      This is why <a href="#learn-source">the section on sources</a> prefers what
+      can be audited, and why it says of hardware generators that the problem is
+      not that they are bad but that you cannot check them. Dice are not more
+      random than a sound hardware generator. They are more <em>accountable</em>,
+      and every case above is an argument about accountability rather than about
+      randomness. A phrase handed to you by a device you cannot see inside is a
+      trust decision. It may be a perfectly good one, made about a reputable maker
+      with a published design and a supply chain you have reason to believe in. It
+      is still a decision about whom to trust, and not something you can check by
+      looking at the words.
+    </p>
+
+    <p class="learn-note">
+      Two caveats, in fairness. Most of the figures above are estimates by the
+      researchers who found the flaw rather than audited totals, and the amounts
+      stolen are lower bounds, because they count only what could be traced. More
+      importantly, this is a list of the failures that were <em>found</em>. A
+      generator that is merely predictable to whoever built it, and never exploited
+      loudly enough to draw attention, leaves no trace in a record like this one.
+    </p>
+  </section>
+
   <section class="learn-sec" id="learn-byhand">
-    <h2><span class="learn-num" aria-hidden="true">06</span> Doing it by hand</h2>
+    <h2><span class="learn-num" aria-hidden="true">07</span> Doing it by hand</h2>
 
     <p class="learn-note">
       Two things on this page put this section into practice:
@@ -403,7 +607,7 @@
   </section>
 
   <section class="learn-sec" id="learn-threat">
-    <h2><span class="learn-num" aria-hidden="true">07</span> Threat model and hygiene</h2>
+    <h2><span class="learn-num" aria-hidden="true">08</span> Threat model and hygiene</h2>
 
     <p>
       <b>What a printed word list is.</b> The public BIP-39 English list, identical
