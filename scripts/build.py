@@ -162,6 +162,31 @@ def report_pane_drift(groups: dict) -> None:
                       f"{BASE_LANG}: {', '.join(extra[:6])}{' …' if len(extra) > 6 else ''}")
 
 
+def check_anchors(groups: dict, html: str) -> None:
+    """Every in-page link must point at an id in the same pane.
+
+    A table of contents entry whose target does not exist is silent: the reader
+    clicks and nothing happens, or the router treats it as an unknown view and
+    shows the poster. Fatal, because unlike a missing translation there is no
+    sensible fallback and the fix is always local to one file.
+    """
+    views = set(re.findall(r'data-view="([^"]+)"', html))
+    langs = {p.stem for p in I18N_DIR.glob("*.json")}
+    broken = []
+    for name, items in sorted(groups.items()):
+        for lang, path in items:
+            text = path.read_text()
+            ids = set(re.findall(r'id="([^"]+)"', text))
+            for href in set(re.findall(r'href="#([^"]+)"', text)):
+                head = href.split("/")[0]
+                if href in ids or head in views or head in langs:
+                    continue
+                broken.append(f"  {path.relative_to(ROOT)}: #{href} matches no id "
+                              f"in that file, no view and no language")
+    if broken:
+        sys.exit("in-page link with no target:\n" + "\n".join(broken[:12]))
+
+
 def load_content(langs: list[dict]) -> tuple[str, list[str]]:
     """Turn src/content/<name>.<lang>.html into one view per name.
 
@@ -181,6 +206,7 @@ def load_content(langs: list[dict]) -> tuple[str, list[str]]:
         sys.exit("no content files in src/content")
 
     report_pane_drift(groups)
+    check_anchors(groups, TEMPLATE.read_text())
 
     views, names = [], []
     for name, items in sorted(groups.items()):

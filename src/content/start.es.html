@@ -34,7 +34,8 @@
       <li><a href="#start-random">Por qué la aleatoriedad lo es todo</a></li>
       <li><a href="#start-sources">De dónde puede venir la aleatoriedad</a></li>
       <li><a href="#start-recipe">Una receta que puedes seguir</a></li>
-      <li><a href="#start-offline">Qué significa “sin conexión” de verdad</a></li>
+      <li><a href="#start-offline">Desconectarse</a></li>
+      <li><a href="#start-staying">Seguir sin conexión</a></li>
       <li><a href="#start-after">Cuando ya tienes las palabras</a></li>
       <li><a href="#start-mistakes">Errores comunes</a></li>
     </ol>
@@ -388,46 +389,121 @@
   </section>
 
   <section class="learn-sec" id="start-offline">
-    <h2><span class="learn-num" aria-hidden="true">05</span> Qué significa “sin conexión” de verdad</h2>
+    <h2><span class="learn-num" aria-hidden="true">05</span> Desconectarse</h2>
 
     <p>
-      Un air gap es una máquina sin ningún camino hacia una red, no una máquina cuya
-      red está apagada en este momento. La distinción es la idea entera. Apagar el
-      wifi es un ajuste, y los ajustes los cambian el software, las
-      actualizaciones, los ciclos de suspensión, las bases de conexión y las
-      personas. Quitar la tarjeta inalámbrica, o usar una máquina que nunca la tuvo,
-      es un hecho sobre el hardware.
+      La mayoría de quienes lean esto debería quedarse en la receta A y dejar que lo
+      haga un monedero hardware. Eso no es una salida diplomática, es la
+      recomendación. Lo que sigue es para dos casos más estrechos: has decidido
+      generar tú la entropía y quieres que la máquina implicada sea lo más inerte
+      posible, o estás a punto de imprimir algo y prefieres que el paso de imprimir
+      no eche a perder en silencio el cuidado puesto en todo lo demás.
     </p>
 
     <p>
-      <b>Tu teléfono no está sin conexión, y tu computadora de diario tampoco.</b>
-      Los dos están construidos para sincronizar. Se hacen copias de seguridad
-      solos, se restauran solos en dispositivos nuevos, indexan su propio contenido
-      para poder buscarlo, guardan copias de lo que hay en pantalla y ejecutan
-      software que tú no elegiste y no puedes inventariar. El modo avión es una
-      pausa, no una propiedad. Una fotografía tomada en modo avión se sube sola en
+      <b>Un air gap es un hecho sobre el hardware, no un ajuste.</b> Significa una
+      máquina sin ningún camino hacia una red, no una máquina cuya red está apagada
+      en este momento. Los ajustes los cambian el software, las actualizaciones, los
+      ciclos de suspensión, las bases de conexión y las personas. Quitar la tarjeta
+      inalámbrica, o usar una máquina que nunca la tuvo, es otra clase de
+      afirmación.
+    </p>
+
+    <p>
+      <b>Apagar la red, de verdad.</b> Desenchufa el cable de ethernet y desactiva
+      por separado el wifi <em>y</em> el bluetooth, porque el bluetooth es una red y
+      un teléfono emparejado es una ruta hacia internet. El modo avión es una pausa
+      más que una propiedad: muchos dispositivos vuelven a activar las radios al
+      despertar, al reiniciarse o cuando una actualización decide que hace falta
+      conexión. Si no hay forma de que la máquina siga apagada, usa otra máquina.
+    </p>
+
+    <p>
+      <b>Tu teléfono nunca está sin conexión en el sentido que importa.</b> Está
+      construido para sincronizar. Se hace copias de seguridad solo, se restaura
+      solo en dispositivos nuevos, indexa su propio contenido para poder buscarlo,
+      guarda copias de lo que hay en pantalla y ejecuta software que tú no elegiste
+      y no puedes inventariar. Una fotografía tomada en modo avión se sube sola en
       cuanto vuelve la conexión, que es el mecanismo por el que la mayoría de las
-      frases guardadas en teléfonos acaban saliendo del edificio.
+      frases guardadas en teléfonos acaban saliendo del edificio. Tu computadora de
+      diario es la misma máquina con una pantalla más grande.
     </p>
 
     <p>
-      <b>Una sesión live desde USB</b> te aporta algo real. Arrancar un sistema
-      operativo nuevo desde un medio extraíble, con el disco interno intacto,
-      significa que no está corriendo nada de lo que ya había en la máquina, y que
-      nada de lo que hagas sobrevive al corte de corriente. Reduce el problema al
-      hardware y a la imagen que arrancaste. No arregla un hardware que ya esté
-      comprometido, y no ayuda si vuelves a enchufar la red a mitad de camino.
+      <b>Sacar esta página de la red</b>, en este orden. La gracia de cada paso es
+      que el siguiente pueda ocurrir sin que nada escuche.
+    </p>
+
+    <ol class="learn-mag">
+      <li>
+        <b>1 · Guárdala en el disco.</b> La cabecera tiene un control de
+        “Descargar” que escribe esta página como un solo archivo. Funciona porque la
+        página es genuinamente autónoma: no carga tipografías, imágenes, scripts ni
+        estilos de ningún sitio, así que la copia guardada es la cosa entera y no
+        una cáscara que se rompe en cuanto no alcanza un servidor.
+      </li>
+      <li>
+        <b>2 · Comprueba lo que descargaste.</b> Cada despliegue publica el SHA-256
+        del archivo junto a él, como <code>index.html.sha256</code>. Compáralo con
+        el archivo que guardaste antes de fiarte de la copia. Ten claro qué
+        demuestra esto: el mismo servidor sirvió los dos, así que detecta una
+        descarga truncada, servida desde caché o sustituida en tránsito, y no
+        demuestra que el servidor en sí fuera honesto. La versión fuerte es clonar
+        el repositorio y ejecutar su script de verificación, que reconstruye la
+        página desde el código fuente y compara el resultado.
+      </li>
+      <li>
+        <b>3 · Llévala en un medio extraíble</b> hasta la máquina que va a hacer el
+        trabajo, en lugar de descargarla allí. Una máquina que nunca ha ido a buscar
+        nada tiene menos que explicar.
+      </li>
+      <li>
+        <b>4 · Desconecta y después ábrela.</b> No al revés. Abre el archivo local
+        con la red ya caída, para que en ningún momento haya a la vez una pestaña
+        con tu entropía dentro y una ruta hacia el mundo exterior.
+      </li>
+      <li>
+        <b>5 · Haz el trabajo y anota las palabras a mano</b>, y deja la máquina en
+        ese estado hasta que hayas terminado de transcribir y de comprobar. Volver a
+        conectarse “solo para mirar una cosa” a mitad de camino es el paso que echa
+        a perder los otros cuatro.
+      </li>
+    </ol>
+
+    <p>
+      <b>Un entorno limpio.</b> Para una computadora de uso general, la opción
+      realista más fuerte es arrancar una sesión live desde una memoria USB con la
+      persistencia desactivada. Obtienes un sistema operativo que no se ha usado
+      nunca, así que no está corriendo nada de lo que ya había instalado en la
+      máquina, y una sesión que solo existe en memoria, así que nada de lo que hagas
+      sobrevive al reinicio. En eso consiste todo su atractivo: la limpieza es un
+      apagado y encendido en lugar de una lista de cosas que hay que acordarse de
+      borrar.
     </p>
 
     <p>
-      <b>El navegador es el eslabón más débil en todas las versiones de esto.</b> No
-      suele ser porque la aleatoriedad sea mala; eso se lo pide al sistema
-      operativo. Es todo lo demás. Las extensiones pueden leer lo que hay en la
-      página. Las páginas se guardan en caché. La memoria acaba escrita en el swap.
-      Las sesiones se restauran tras un cierre inesperado, a veces con el contenido
-      intacto. Los portapapeles se comparten y se leen. Y tienes que acertar sobre
-      la copia de la página que cargaste, que es una afirmación sobre un servidor,
-      una red y una actualización que no viste suceder.
+      Las contrapartidas merecen decirse en lugar de pasarse por alto, sobre todo si
+      nunca lo has hecho. Necesitas una segunda computadora que funcione para
+      preparar la memoria, y deberías comprobar la firma o el hash de la imagen
+      mientras todavía estás en línea, porque una sesión live construida a partir de
+      una imagen manipulada es peor que no molestarse. Puede que haya que cambiar el
+      orden de arranque o los ajustes de arranque seguro de la máquina. Puede que
+      las impresoras y el wifi no funcionen sin controladores que tendrías que ir a
+      buscar, cosa que es incómoda por diseño. Y no arregla un hardware que ya esté
+      comprometido, ni ayuda si vuelves a conectarte a mitad de camino. Reduce el
+      problema al hardware y a la imagen, que es un problema mucho más pequeño que
+      aquel con el que empezaste.
+    </p>
+
+    <p>
+      <b>El navegador sigue siendo el eslabón más débil.</b> No suele ser porque la
+      aleatoriedad sea mala, ya que eso se lo pide al sistema operativo. Es todo lo
+      que hay alrededor. Las extensiones pueden leer lo que hay en la página. Las
+      páginas se guardan en caché. La memoria acaba escrita en el swap. Las sesiones
+      se restauran tras un cierre inesperado, a veces con el contenido intacto. Los
+      portapapeles se comparten y se leen. Una sesión live elimina casi todo eso de
+      un golpe, que es precisamente por lo que merece la molestia si al final vas a
+      usar un navegador.
     </p>
 
     <p>
@@ -438,35 +514,155 @@
       guardar unos ahorros.
     </p>
 
-    <p>
-      Si aun así vas a usarla, el procedimiento que la hace menos mala es este, en
-      este orden. Descarga el archivo. Verifica su hash contra el publicado. Cópialo
-      a un medio extraíble. Desconecta la máquina o, mejor, usa una que no pueda
-      conectarse. Arranca una sesión live limpia. Abre el archivo local desde el
-      medio, sin ninguna red al alcance. Haz el trabajo y anota las palabras a mano.
-      Después destruye la copia de trabajo: apaga la sesión live, borra o destruye
-      el medio, y no guardes el archivo de vuelta en ningún disco que persista.
-    </p>
-
     <p class="learn-note">
       La razón de que esta página sea un solo archivo sin código de red es
-      precisamente que ese procedimiento se pueda llevar a cabo y se pueda
-      comprobar. No carga tipografías, imágenes, scripts ni estilos de ningún sitio,
-      no envía nada y no guarda nada. Eso lo impone la compilación en lugar de
-      prometerlo en prosa, y puedes confirmarlo leyendo el código fuente o
-      trabajando con el cable desenchufado.
+      precisamente que el procedimiento de arriba se pueda llevar a cabo y se pueda
+      comprobar. No carga nada de ningún sitio, no envía nada y no guarda nada. Eso
+      lo impone la compilación en lugar de prometerlo en prosa, y puedes confirmarlo
+      leyendo el código fuente o trabajando con el cable desenchufado.
     </p>
   </section>
 
-  <section class="learn-sec" id="start-after">
-    <h2><span class="learn-num" aria-hidden="true">06</span> Cuando ya tienes las palabras</h2>
+  <section class="learn-sec" id="start-staying">
+    <h2><span class="learn-num" aria-hidden="true">06</span> Seguir sin conexión</h2>
 
     <p>
-      <b>Restaura antes de meter dinero.</b> Es la segunda vez que esta página lo
-      dice y no lo dirá una tercera. Una copia de seguridad que nunca has restaurado
-      es una suposición sobre el futuro, y el momento de descubrir que una palabra
-      es ilegible o está en la posición equivocada es mientras el monedero está
-      vacío.
+      Desconectarse es un momento. Seguir sin conexión es la mitad difícil, porque
+      una computadora moderna está llena de funciones cuyo único trabajo es recordar
+      cosas por ti y entregárselas a otra máquina más tarde. Ninguna de ellas
+      necesita una red en ese momento. Esperan.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>Capturas y grabación de pantalla.</b> Una captura es un archivo en una
+        carpeta que muy a menudo es un álbum sincronizado, y se sube en cuanto la
+        máquina se reconecta. El software de grabación de pantalla y de reuniones
+        puede estar corriendo sin una ventana visible. Si no fotografiarías las
+        palabras, no las pongas en una pantalla que no tengas controlada.
+      </li>
+      <li>
+        <b>Historial del portapapeles.</b> Copiar ya no es algo pasajero. Los
+        sistemas operativos y los gestores de portapapeles guardan un historial de
+        todo lo copiado, a veces en el disco, a veces sincronizado entre tus propios
+        dispositivos, lo que convierte un solo copiar y pegar en un registro
+        permanente en un hardware en el que no estabas pensando.
+      </li>
+      <li>
+        <b>Historial de la shell.</b> Todo lo que se teclea en una línea de comandos
+        se añade a un archivo de historial, incluidos los argumentos. Una frase o un
+        conjunto de bits de entropía en bruto pasados a una herramienta en la línea
+        de comandos quedan ahora escritos en texto plano en tu carpeta personal, y
+        se respaldan junto con todo lo demás.
+      </li>
+      <li>
+        <b>Los editores y sus redes de seguridad.</b> El autoguardado, los archivos
+        de intercambio y de recuperación, el historial de deshacer y la lista de
+        documentos recientes existen todos para sobrevivir a un cierre inesperado,
+        lo que significa que sobreviven a que cierres el archivo sin guardarlo. No
+        uses un editor de texto como papel de borrador para esto. Usa papel de
+        verdad.
+      </li>
+      <li>
+        <b>Asistentes de voz y entrada siempre activa.</b> Leer las palabras en voz
+        alta mientras un micrófono escucha es una transcripción esperando a subirse.
+        Esto incluye los teléfonos y los altavoces de la habitación, no solo la
+        máquina que tienes delante.
+      </li>
+      <li>
+        <b>Carpetas sincronizadas.</b> El escritorio, la carpeta de documentos y la
+        carpeta de descargas suelen estar sincronizadas. Un archivo escrito ahí sin
+        conexión no es privado, está en cola. Se subirá en cuanto la máquina vuelva,
+        sin volver a preguntarte.
+      </li>
+    </ul>
+
+    <p class="learn-note">
+      Cada punto de esa lista es una razón para preferir la sesión live o el
+      monedero hardware. En una máquina sin disco persistente y sin cuentas
+      iniciadas, la mayoría de estas trampas no existen, porque no hay ningún sitio
+      donde pueda vivir la copia recordada ni nada con lo que sincronizarla después.
+    </p>
+
+    <p>
+      <b>Imprimir, que es de lo que va este proyecto.</b> Una impresora es una
+      computadora en la que no has pensado en esos términos. Muchas guardan una cola
+      de trabajos recientes, y los modelos de oficina suelen tener un disco interno
+      que los retiene durante mucho tiempo. Las impresoras compartidas y en red
+      guardan registros de trabajos con el nombre del documento y de quien lo envió.
+      Una impresora compartida por wifi es un dispositivo de red por definición: el
+      trabajo cruza una red para llegar a ella, y cualquier otra cosa de esa red
+      puede alcanzarla.
+    </p>
+
+    <p>
+      La buena noticia es que lo que imprime este proyecto no es secreto. <b>El
+      póster es la lista pública de palabras de BIP-39</b>, incluida en todos los
+      monederos y descargable por cualquiera, así que imprimirlo en el trabajo, en
+      una copistería o por la red que quieras no revela nada. <b>La hoja de trabajo
+      en blanco es igual de segura</b>, porque contiene casillas e instrucciones y
+      ningún resultado. Imprime esas dos cosas donde te resulte cómodo, e imprímelas
+      con antelación.
+    </p>
+
+    <p>
+      <b>Lo peligroso es una hoja de trabajo que has rellenado</b>, o cualquier otra
+      cosa que lleve tus palabras o tus bits. Eso es tu semilla escrita a mano, y no
+      debería enviarse nunca a una impresora. Escríbela a mano en su lugar. Si de
+      verdad tienes que imprimir algo derivado de una frase real, usa una impresora
+      conectada directamente por cable a la máquina que hace el trabajo, nunca una
+      compartida ni en red, y da por hecho después que la impresora se quedó una
+      copia.
+    </p>
+
+    <p>
+      <b>Volver a conectarse.</b> Este es el paso que la gente olvida, porque para
+      entonces la parte interesante ya ha pasado.
+    </p>
+
+    <ol class="learn-mag">
+      <li>
+        <b>1 · Termina primero el papel.</b> Transcribe, comprueba la ortografía,
+        confirma el orden y completa cualquier prueba de restauración antes de que
+        nada se reconecte. Una vez que la máquina vuelva a estar en línea, no
+        deberías querer tocar la frase en ella.
+      </li>
+      <li>
+        <b>2 · Destruye las copias de trabajo.</b> Quema o destruye las hojas de
+        bits. Una hoja de trabajo rellenada no es un borrador, es un duplicado del
+        secreto, y merece el mismo final que cualquier otra copia que no pensabas
+        conservar.
+      </li>
+      <li>
+        <b>3 · Apaga la sesión live.</b> Este es el final limpio, y la razón de
+        haber usado una. Cortarle la corriente a una sesión sin persistencia
+        descarta el entorno entero de golpe, sin que quede nada que encontrar ni
+        nada que acordarse de borrar. Después borra o destruye el medio en el que
+        llevaste el archivo, y no guardes ese archivo de vuelta en ningún disco que
+        persista.
+      </li>
+      <li>
+        <b>4 · Si usaste una máquina corriente, da por hecho que guardó algo.</b>
+        Recorre la lista de arriba a conciencia: el historial del portapapeles, el
+        historial de la shell, los archivos de recuperación del editor, las carpetas
+        de descargas y del escritorio, la papelera, el álbum de capturas. Después
+        reconéctate. Si esa lista te resulta demasiado larga como para tener
+        certeza, esa es la señal honesta de que el secreto no debería haber estado
+        en esa máquina, y que merece la pena generar la frase otra vez en un sitio
+        más limpio mientras todavía no guarda nada.
+      </li>
+    </ol>
+  </section>
+
+  <section class="learn-sec" id="start-after">
+    <h2><span class="learn-num" aria-hidden="true">07</span> Cuando ya tienes las palabras</h2>
+
+    <p>
+      <b>Restaura antes de meter dinero.</b> Esta página ya lo ha dicho en las dos
+      recetas y lo dice una vez más, porque es el paso que se salta la gente. Una
+      copia de seguridad que nunca has restaurado es una suposición sobre el futuro,
+      y el momento de descubrir que una palabra es ilegible o está en la posición
+      equivocada es mientras el monedero está vacío.
     </p>
 
     <p>
@@ -541,7 +737,7 @@
   </section>
 
   <section class="learn-sec" id="start-mistakes">
-    <h2><span class="learn-num" aria-hidden="true">07</span> Errores comunes</h2>
+    <h2><span class="learn-num" aria-hidden="true">08</span> Errores comunes</h2>
 
     <p>
       Casi todas las pérdidas que no fueron pérdidas de mercado están en esta lista.
