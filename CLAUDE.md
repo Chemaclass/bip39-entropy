@@ -1,4 +1,4 @@
-# bip39-poster
+# bip39-entropy
 
 Three things about BIP-39 seed phrases. A printable poster of the 2048-word
 English list laid out as an eleven-bit address space, a field guide to entropy,

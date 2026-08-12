@@ -1,4 +1,4 @@
-# bip39-poster
+# bip39-entropy
 
 Four things about BIP-39 seed phrases, in one HTML file that works with the
 network cable pulled:
@@ -14,7 +14,7 @@ network cable pulled:
 English and Spanish, chosen in the URL. **Save offline** in the header downloads
 the page itself.
 
-**→ [chemaclass.github.io/bip39-poster](https://chemaclass.github.io/bip39-poster/)**
+**→ [chemaclass.github.io/bip39-entropy](https://chemaclass.github.io/bip39-entropy/)**
 
 One file, no build step to view it, no dependencies, no network, no analytics.
 Nothing you type or throw ever leaves the page. There is no code in it that
