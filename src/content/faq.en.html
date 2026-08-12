@@ -235,10 +235,11 @@
     <h2><span class="learn-num" aria-hidden="true">02</span> Words you will meet</h2>
 
     <p>
-      Most of the confusion around seed phrases is vocabulary. These are the terms
-      used on this site and in wallet software, in the shortest form that is still
-      true. Entropy, bits and the checksum are worked through properly in the
-      <a href="#learn">field guide</a>; air gaps and live sessions in
+      Most of the confusion around seed phrases is vocabulary rather than
+      mathematics. These are the terms used on this site and in wallet software.
+      The table is a summary, a line per term; the five that cannot be said in a
+      line follow it. Entropy, bits and the checksum are worked through properly in
+      the <a href="#learn">field guide</a>; air gaps and live sessions in
       <a href="#start">start here</a>.
     </p>
 
@@ -252,28 +253,43 @@
           </tr>
         </thead>
         <tbody>
-          <tr><th scope="row">Seed phrase</th><td>A number written as words. The whole secret</td></tr>
-          <tr><th scope="row">Entropy</th><td>How many equally likely secrets, in bits</td></tr>
-          <tr><th scope="row">Bit</th><td>One binary digit. Each one doubles the search</td></tr>
-          <tr><th scope="row">Checksum</th><td>Extra bits that catch a transcription error</td></tr>
-          <tr><th scope="row">BIP-39</th><td>The standard that turns entropy into words</td></tr>
-          <tr><th scope="row">Word list</th><td>The public 2048, identical in every wallet</td></tr>
-          <tr><th scope="row">Index</th><td>A word's place in that list, 0 to 2047</td></tr>
-          <tr><th scope="row">Derivation path</th><td>Which branch of keys a wallet reads</td></tr>
-          <tr><th scope="row">Passphrase</th><td>An extra secret mixed into the derivation</td></tr>
-          <tr><th scope="row">Air gap</th><td>No network hardware at all. Not a setting</td></tr>
-          <tr><th scope="row">Live session</th><td>A system booted from USB that keeps nothing</td></tr>
-          <tr><th scope="row">Hardware wallet</th><td>A device that makes the phrase and holds it</td></tr>
-          <tr><th scope="row">Brute force</th><td>Trying every candidate until one fits</td></tr>
-          <tr><th scope="row">Rejection sampling</th><td>Discarding throws so the rest stay even</td></tr>
+          <tr><th scope="row">Seed phrase</th><td>A number written as words</td></tr>
+          <tr><th scope="row">Entropy</th><td>Unpredictability, in bits</td></tr>
+          <tr><th scope="row">Bit</th><td>One binary digit</td></tr>
+          <tr><th scope="row">Checksum</th><td>Bits that catch a typo</td></tr>
+          <tr><th scope="row">BIP-39</th><td>Bits to words: the rules</td></tr>
+          <tr><th scope="row">Word list</th><td>The public 2048 words</td></tr>
+          <tr><th scope="row">Index</th><td>A word's place, 0 to 2047</td></tr>
+          <tr><th scope="row">Derivation path</th><td>Which branch of keys</td></tr>
+          <tr><th scope="row">Passphrase</th><td>An extra secret you add</td></tr>
+          <tr><th scope="row">Air gap</th><td>No network hardware</td></tr>
+          <tr><th scope="row">Live session</th><td>A USB boot, nothing kept</td></tr>
+          <tr><th scope="row">Hardware wallet</th><td>A device that keeps keys</td></tr>
+          <tr><th scope="row">Brute force</th><td>Trying every candidate</td></tr>
+          <tr><th scope="row">Rejection sampling</th><td>Discarding to stay even</td></tr>
         </tbody>
       </table>
     </div>
 
+    <p>
+      Five of those need a sentence rather than a line. <b>Entropy</b> counts how
+      many equally likely secrets yours was drawn from, which is why it is measured
+      in bits and why it tells you nothing about how the result looks. A
+      <b>checksum</b> catches a slip in copying and nothing else, so a wallet
+      accepting a phrase is never evidence that the phrase is hard to guess. A
+      <b>derivation path</b> selects one branch of the unlimited tree of keys that a
+      single seed contains, which is why the same words can restore into two
+      wallets that show you different addresses. A <b>passphrase</b> is an extra
+      secret mixed into that derivation, and it is unrecoverable once forgotten. And
+      <b>rejection sampling</b> is the habit of discarding outcomes that do not
+      divide evenly, such as a 5 or a 6 on a six-sided die, which is exactly what
+      keeps the outcomes you do keep equally likely.
+    </p>
+
     <p class="learn-note">
-      Two of those carry more weight than one line allows. Entropy is what
-      everything else rests on, and the <a href="#learn">field guide</a> spends a
-      section on what it actually measures, because “looks random” is not it. A
+      Two of those carry more weight than the rest. Entropy is what everything else
+      rests on, and the <a href="#learn">field guide</a> spends a section on what it
+      actually measures, because “looks random” is not it. A
       <a href="#faq-passphrase">passphrase</a> is powerful and unforgiving in equal
       measure, and is worth reading in full before you decide to use one.
     </p>

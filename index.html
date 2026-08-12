@@ -730,10 +730,11 @@ p.learn-lead em{color:var(--patina)}
     <h2><span class="learn-num" aria-hidden="true">02</span> Words you will meet</h2>
 
     <p>
-      Most of the confusion around seed phrases is vocabulary. These are the terms
-      used on this site and in wallet software, in the shortest form that is still
-      true. Entropy, bits and the checksum are worked through properly in the
-      <a href="#learn">field guide</a>; air gaps and live sessions in
+      Most of the confusion around seed phrases is vocabulary rather than
+      mathematics. These are the terms used on this site and in wallet software.
+      The table is a summary, a line per term; the five that cannot be said in a
+      line follow it. Entropy, bits and the checksum are worked through properly in
+      the <a href="#learn">field guide</a>; air gaps and live sessions in
       <a href="#start">start here</a>.
     </p>
 
@@ -747,30 +748,363 @@ p.learn-lead em{color:var(--patina)}
           </tr>
         </thead>
         <tbody>
-          <tr><th scope="row">Seed phrase</th><td>A number written as words. The whole secret</td></tr>
-          <tr><th scope="row">Entropy</th><td>How many equally likely secrets, in bits</td></tr>
-          <tr><th scope="row">Bit</th><td>One binary digit. Each one doubles the search</td></tr>
-          <tr><th scope="row">Checksum</th><td>Extra bits that catch a transcription error</td></tr>
-          <tr><th scope="row">BIP-39</th><td>The standard that turns entropy into words</td></tr>
-          <tr><th scope="row">Word list</th><td>The public 2048, identical in every wallet</td></tr>
-          <tr><th scope="row">Index</th><td>A word's place in that list, 0 to 2047</td></tr>
-          <tr><th scope="row">Derivation path</th><td>Which branch of keys a wallet reads</td></tr>
-          <tr><th scope="row">Passphrase</th><td>An extra secret mixed into the derivation</td></tr>
-          <tr><th scope="row">Air gap</th><td>No network hardware at all. Not a setting</td></tr>
-          <tr><th scope="row">Live session</th><td>A system booted from USB that keeps nothing</td></tr>
-          <tr><th scope="row">Hardware wallet</th><td>A device that makes the phrase and holds it</td></tr>
-          <tr><th scope="row">Brute force</th><td>Trying every candidate until one fits</td></tr>
-          <tr><th scope="row">Rejection sampling</th><td>Discarding throws so the rest stay even</td></tr>
+          <tr><th scope="row">Seed phrase</th><td>A number written as words</td></tr>
+          <tr><th scope="row">Entropy</th><td>Unpredictability, in bits</td></tr>
+          <tr><th scope="row">Bit</th><td>One binary digit</td></tr>
+          <tr><th scope="row">Checksum</th><td>Bits that catch a typo</td></tr>
+          <tr><th scope="row">BIP-39</th><td>Bits to words: the rules</td></tr>
+          <tr><th scope="row">Word list</th><td>The public 2048 words</td></tr>
+          <tr><th scope="row">Index</th><td>A word's place, 0 to 2047</td></tr>
+          <tr><th scope="row">Derivation path</th><td>Which branch of keys</td></tr>
+          <tr><th scope="row">Passphrase</th><td>An extra secret you add</td></tr>
+          <tr><th scope="row">Air gap</th><td>No network hardware</td></tr>
+          <tr><th scope="row">Live session</th><td>A USB boot, nothing kept</td></tr>
+          <tr><th scope="row">Hardware wallet</th><td>A device that keeps keys</td></tr>
+          <tr><th scope="row">Brute force</th><td>Trying every candidate</td></tr>
+          <tr><th scope="row">Rejection sampling</th><td>Discarding to stay even</td></tr>
         </tbody>
       </table>
     </div>
 
+    <p>
+      Five of those need a sentence rather than a line. <b>Entropy</b> counts how
+      many equally likely secrets yours was drawn from, which is why it is measured
+      in bits and why it tells you nothing about how the result looks. A
+      <b>checksum</b> catches a slip in copying and nothing else, so a wallet
+      accepting a phrase is never evidence that the phrase is hard to guess. A
+      <b>derivation path</b> selects one branch of the unlimited tree of keys that a
+      single seed contains, which is why the same words can restore into two
+      wallets that show you different addresses. A <b>passphrase</b> is an extra
+      secret mixed into that derivation, and it is unrecoverable once forgotten. And
+      <b>rejection sampling</b> is the habit of discarding outcomes that do not
+      divide evenly, such as a 5 or a 6 on a six-sided die, which is exactly what
+      keeps the outcomes you do keep equally likely.
+    </p>
+
     <p class="learn-note">
-      Two of those carry more weight than one line allows. Entropy is what
-      everything else rests on, and the <a href="#learn">field guide</a> spends a
-      section on what it actually measures, because “looks random” is not it. A
+      Two of those carry more weight than the rest. Entropy is what everything else
+      rests on, and the <a href="#learn">field guide</a> spends a section on what it
+      actually measures, because “looks random” is not it. A
       <a href="#en-faq-passphrase">passphrase</a> is powerful and unforgiving in equal
       measure, and is worth reading in full before you decide to use one.
+    </p>
+  </section>
+
+</section>
+</div>
+
+<!-- src/content/faq.es.html -->
+<div class="pane" data-pane="faq" data-lang="es" lang="es" hidden>
+<section id="es-faq" class="learn">
+
+  <header class="learn-head">
+    <p class="learn-eyebrow">Preguntas · y un glosario</p>
+    <h1 class="learn-title">Las preguntas<br>que surgen<br>siempre</h1>
+    <p class="learn-lead">
+      Estas son las que se hacen antes de que exista una primera frase y las que se
+      hacen años después, respondidas tan brevemente como cada una permita y no más
+      brevemente que eso. Cuando una respuesta se apoya en la aritmética, la
+      <em>guía de campo</em> enseña el cálculo. Cuando se apoya en un procedimiento,
+      <em>empieza aquí</em> da los pasos. La segunda mitad es un glosario, porque la
+      mayor parte de la confusión en torno a las frases semilla resulta ser
+      vocabulario y no matemáticas.
+    </p>
+  </header>
+
+  <aside class="learn-warn">
+    <p class="learn-warn-label">Advertencia</p>
+    <p>
+      Una de las respuestas de abajo describe cómo se puede recuperar una frase a la
+      que le falta una sola palabra. Eso funciona solo porque tú ya aportas las otras
+      once y sabes dónde está el hueco. No es una vía de entrada para nadie más, y
+      nada de esta página acorta la búsqueda de una frase que nunca conociste.
+    </p>
+    <p>
+      Ninguna parte legítima necesita jamás tu frase de recuperación. Ni un
+      fabricante de monederos, ni un exchange, ni un agente de soporte, ni un
+      “validador” o un “servicio de recuperación”. Esta página no tiene ningún campo
+      que acepte una frase, no hace peticiones de red y no guarda nada.
+    </p>
+  </aside>
+
+  <nav class="learn-toc" aria-label="Secciones de esta página">
+    <ol>
+      <li><a href="#es-faq-questions">Preguntas</a></li>
+      <li><a href="#es-faq-glossary">Palabras que te encontrarás</a></li>
+    </ol>
+  </nav>
+
+  <section class="learn-sec" id="es-faq-questions">
+    <h2><span class="learn-num" aria-hidden="true">01</span> Preguntas</h2>
+
+    <p>
+      Más o menos en el orden en que llegan. Cuando una respuesta depende de la
+      aritmética, la <a href="#learn">guía de campo</a> tiene el cálculo; cuando
+      depende de un procedimiento, <a href="#start">empieza aquí</a> tiene los pasos.
+    </p>
+
+    <ul class="learn-mag">
+      <li id="es-faq-length">
+        <b>¿Doce palabras o veinticuatro?</b> Doce palabras llevan 128 bits de
+        entropía y veinticuatro llevan 256. La guía de campo desarrolla por qué 128
+        ya está más allá de lo que la fuerza bruta puede alcanzar, así que
+        veinticuatro no es más fuerte frente a ningún ataque que exista. Es una
+        cobertura frente al criptoanálisis futuro y frente a la búsqueda cuántica al
+        estilo de Grover, que en teoría reduce a la mitad la fuerza efectiva de un
+        secreto simétrico: 128 bits pasarían a ser 64, y 256 pasarían a ser 128. Que
+        esa aceleración llegue a ser práctica alguna vez está genuinamente en
+        disputa. Las dos longitudes están soportadas por todos los monederos que
+        cumplen el estándar, y la más larga te cuesta más de anotar, más de
+        comprobar y más de mantener legible durante décadas. Si no tienes una razón
+        concreta para preferir una, doce está bien y veinticuatro no es paranoia.
+      </li>
+
+      <li id="es-faq-order">
+        <b>¿Importa el orden de las palabras?</b> Por completo. La frase es un solo
+        número cortado en grupos de once bits, y cada palabra es el grupo que ocupa
+        una posición fija, así que mover dos palabras cambia el número con la misma
+        seguridad que cambiar una de ellas. No hay anagrama ni bolsa desordenada de
+        doce. Un intercambio suele fallar la suma de verificación, cosa que es una
+        clemencia y no una salvaguarda: alrededor de uno de cada dieciséis errores
+        así pasa la comprobación en una frase de doce palabras, y una frase que pasa
+        pero no es la tuya restaura un monedero real y vacío sin quejarse. Numera tu
+        copia de seguridad del uno al doce mientras la escribes, y nunca la ordenes.
+      </li>
+
+      <li id="es-faq-choose">
+        <b>¿Puedo elegir yo las palabras?</b> No, y es el error más caro de esta
+        página. La entropía se mide frente a lo que un atacante sabe de cómo
+        elegiste, no frente a lo arbitrario que te parezca el resultado desde
+        dentro, y la elección humana es un espacio pequeño por mucho que te
+        esfuerces. Aunque te disciplinaras para elegir doce palabras de manera
+        uniforme dentro de una lista corta de las treinta y dos que te resulten más
+        memorables, eso son sesenta bits, que un presupuesto serio de hardware
+        recorre entero. La suma de verificación no te va a salvar, porque comprueba
+        la transcripción y nada más. Una frase elegida a mano cuya última palabra
+        encaja por casualidad pasa exactamente igual de fácil que una salida de los
+        dados, así que “mi monedero la aceptó” te dice que la aritmética es coherente
+        y nunca que el número sea difícil de adivinar.
+      </li>
+
+      <li id="es-faq-passphrase">
+        <b>¿Qué es una frase de contraseña, la “palabra veinticinco”?</b> Es un
+        secreto adicional que aportas junto a las palabras, mezclado en la misma
+        derivación que las convierte en una semilla, así que las mismas doce palabras
+        con una frase de contraseña distinta producen un monedero completamente
+        distinto. Se toma al pie de la letra, incluidas las mayúsculas y los
+        espacios. Lo que te aporta es que el papel por sí solo ya no basta: quien
+        encuentre tu copia de seguridad obtiene un monedero vacío salvo que tenga
+        también la frase de contraseña, cosa que vale mucho frente al robo de la
+        copia física. Lo que te cuesta es que no hay nada contra lo que comprobarla.
+        Toda frase de contraseña es válida, así que una equivocada no da ningún
+        error, simplemente abre otro monedero real y vacío, y ningún monedero,
+        dispositivo ni servicio de ninguna parte registra lo que elegiste. Una frase
+        de contraseña olvidada o mal escrita pierde las monedas por completo, igual
+        que una frase perdida, y una que vive solo en tu cabeza es una copia de
+        seguridad sin copia. Se pierde mucho más así que a manos de ladrones.
+      </li>
+
+      <li id="es-faq-lostword">
+        <b>He perdido una palabra. ¿Se acabó?</b> Probablemente no, siempre que
+        sepas qué posición falta y las otras once sean correctas. Solo hay 2048
+        candidatas para el hueco, así que un monedero o una herramienta de
+        recuperación sin conexión puede probarlas todas sin más. Después la suma de
+        verificación hace la mayor parte del trabajo: en una frase de doce palabras
+        son cuatro bits, así que sobrevive alrededor de una candidata de cada
+        dieciséis y quedan unas 128 frases. Esas se resuelven derivando cada una y
+        viendo cuál devuelve direcciones que reconozcas de tu propio historial. En
+        una frase de veinticuatro palabras la suma de verificación son ocho bits y
+        solo sobreviven unas ocho candidatas. Es más difícil si no sabes la posición,
+        y más difícil todavía con dos palabras que faltan, pero merece la pena
+        intentar las dos cosas sin conexión antes de rendirte. Ten claro lo que es
+        esto. Es recuperación, y funciona solo porque tú ya aportas casi todo el
+        secreto. No es un atajo hacia la frase de nadie más, porque quien empiece
+        desde cero sigue enfrentándose a las <code>2^128</code> enteras.
+      </li>
+
+      <li id="es-faq-print">
+        <b>¿Es seguro imprimir o colgar la lista de palabras entera?</b> Sí.
+        <a href="#poster">El póster</a> es la lista pública de BIP-39 en inglés,
+        idéntica en todos los monederos que implementan el estándar y descargable por
+        cualquiera, así que colgarlo en una pared no revela más que colgar un
+        diccionario. Imprímelo en el trabajo, en una copistería, por la red que
+        quieras. La hoja de trabajo en blanco es igual de segura, porque contiene
+        casillas e instrucciones y ningún resultado. Lo peligroso es marcar en él tus
+        propias palabras. Doce marcas en una cuadrícula de 2048 son una copia en
+        texto plano de tu frase de recuperación, más fácil de leer desde el otro lado
+        de la habitación que tu propia letra, e inmune a la excusa habitual de que la
+        fotografía era solo de la pared. Si necesitas seguir las palabras mientras
+        transcribes, usa una hoja aparte y destrúyela después.
+      </li>
+
+      <li id="es-faq-storage">
+        <b>¿Puedo guardar la frase en un gestor de contraseñas, una foto o una nota
+        en la nube?</b> No, y las tres son el mismo error con distinta ropa. Cada una
+        convierte un secreto que existía en un solo sitio físico en un archivo en un
+        servidor diseñado para ser accesible desde cualquier parte, que es justo la
+        propiedad que intentabas evitar. Un gestor de contraseñas pone todo lo que
+        posees detrás de una sola contraseña y de la brecha de seguridad de otra
+        persona. Una fotografía es un archivo que los dispositivos modernos copian a
+        un servicio por defecto, indexan y entregan a cualquier software con permiso
+        para leer fotografías, y una tomada en modo avión se sube sola en cuanto
+        vuelve la conexión. Una nota escrita sin conexión en una carpeta sincronizada
+        no es privada, está en cola. Incluso teclear las palabras es un riesgo en sí
+        mismo, porque los teclados aprenden, el historial del portapapeles se guarda
+        y a menudo se sincroniza, y los archivos de la shell y del editor recuerdan
+        lo que borraste. Escríbela a mano, y tecléala solo en el monedero que estés
+        restaurando a propósito.
+      </li>
+
+      <li id="es-faq-otherwallet">
+        <b>¿Funcionarán las mismas palabras en otro monedero?</b> Sí, y esa
+        portabilidad es la razón de que el estándar exista. La misma frase produce la
+        misma semilla, y por tanto las mismas claves, en cualquier monedero que
+        cumpla el estándar, para siempre. Con lo que la gente choca de verdad es con
+        una restauración que vuelve vacía, y la causa habitual es la ruta de
+        derivación. Una semilla contiene un árbol ilimitado de claves, y cada
+        monedero lee por defecto unas ramas concretas, así que dos monederos que
+        prefieren ramas distintas te enseñarán dos conjuntos distintos de direcciones
+        a partir de palabras idénticas y ninguno está equivocado. Si una restauración
+        parece vacía, no concluyas que la frase es mala. Averigua el tipo de
+        dirección y la ruta de derivación que usaba el monedero antiguo, y apunta el
+        nuevo hacia ahí. Recuerda además que una frase válida que no es la tuya
+        restaura un monedero real y vacío sin quejarse, así que un monedero vacío es
+        una pregunta y no una respuesta.
+      </li>
+
+      <li id="es-faq-split">
+        <b>¿Debería partir la frase por la mitad y guardar las partes por
+        separado?</b> No con un esquema que te hayas inventado. La aritmética es peor
+        de lo que suena. Seis palabras conocidas de una frase de doce dejan unos
+        sesenta y dos bits, que no quedan cómodamente fuera del alcance de un
+        presupuesto grande de hardware, así que quien encuentre una mitad tiene una
+        posibilidad real en lugar de ninguna. No has reducido a la mitad el trabajo
+        del atacante, has entregado la mitad del secreto y has dejado escaso lo que
+        queda. El problema mayor va en la otra dirección. Los repartos caseros
+        pierden monedas mucho más a menudo de lo que evitan robos, porque el esquema
+        vive en una sola cabeza. La memoria se desdibuja, la gente se muda, los
+        familiares mueren, el sobre acaba en la basura durante una limpieza, y las
+        instrucciones resultan ser ambiguas para todo el mundo salvo para quien las
+        escribió, que para entonces no está disponible. La mayoría de las monedas que
+        se pierden se pierden por inaccesibilidad, no por robo. Si de verdad
+        necesitas repartir la custodia, las respuestas asentadas son los monederos
+        multifirma y los esquemas estandarizados de reparto de secretos, que también
+        son fáciles de hacer mal y sobre los que merece la pena leer antes.
+      </li>
+
+      <li id="es-faq-verify">
+        <b>¿Cómo sé que esta página es lo que dice ser?</b> Existen dos
+        comprobaciones y no demuestran lo mismo. La más débil es el hash: cada
+        despliegue publica el SHA-256 del archivo junto a él, como
+        <code>index.html.sha256</code>, así que puedes compararlo con la copia que
+        guardaste antes de fiarte de esa copia. Detecta una descarga truncada,
+        servida desde caché o sustituida en tránsito, y no demuestra que el servidor
+        fuera honesto, porque el mismo servidor sirvió los dos. La más fuerte es
+        clonar el repositorio y ejecutar <code>scripts/verify.sh</code>, que
+        reconstruye <code>index.html</code> desde las fuentes y lo compara con el
+        archivo que hay en el repositorio, comprueba la lista de palabras contra el
+        hash canónico de BIP-39, confirma que las 2048 palabras llegaron a la página
+        y falla si la página ha ganado algún código capaz de usar la red. Una
+        compilación reproducible es una afirmación que puedes comprobar tú en lugar
+        de una que aceptas por confianza. Más allá de eso, la página es un solo
+        archivo que no carga nada y no envía nada, cosa que puedes confirmar
+        leyéndola o trabajando con el cable desenchufado.
+      </li>
+
+      <li id="es-faq-quantum">
+        <b>¿Cambia algo de esto la computación cuántica?</b> Hoy no, y la respuesta
+        honesta tiene dos mitades. Para la frase en sí, el resultado relevante es la
+        búsqueda al estilo de Grover, que en teoría reduce a la mitad la fuerza
+        efectiva de un secreto simétrico, llevando 128 bits a 64 y 256 a 128. Que esa
+        aceleración llegue a ser práctica alguna vez está genuinamente en disputa, y
+        es el único argumento real a favor de veinticuatro palabras. La cuestión
+        mayor no va de tu frase en absoluto. Las firmas de clave pública son la parte
+        que amenazaría una computadora cuántica lo bastante grande, y ese es un
+        problema a nivel de protocolo al que la red entera se enfrentaría en
+        conjunto, no algo que resuelvas escribiendo más palabras en un papel. No
+        existe hoy ninguna máquina capaz de lo uno ni de lo otro, y que una llegara a
+        ser plausible se vería venir durante años en lugar de aparecer de la noche a
+        la mañana. Generar tu frase a partir de una fuente en la que confíes y
+        mantener el papel a salvo siguen siendo las dos decisiones que determinan si
+        conservas tus monedas.
+      </li>
+    </ul>
+
+    <p class="learn-note">
+      Una pregunta que no está aquí se hace demasiado poco: ¿quién más ha visto esta
+      frase? Cualquier frase que no hayas visto crearse debería tratarse como ya
+      comprometida, viniera de un amigo servicial, de un servicio de configuración,
+      de un tutorial, de un vídeo o de una tarjeta en la caja.
+      <a href="#roll">Genera la tuya</a> existe para que puedas ver llegar cada bit
+      de una, y <a href="#start">empieza aquí</a> explica por qué aun así un monedero
+      hardware es el valor por defecto correcto para la mayoría.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="es-faq-glossary">
+    <h2><span class="learn-num" aria-hidden="true">02</span> Palabras que te encontrarás</h2>
+
+    <p>
+      La mayor parte de la confusión en torno a las frases semilla es vocabulario y
+      no matemáticas. Estos son los términos que se usan en este sitio y en el
+      software de monederos. La tabla es un resumen, una línea por término; debajo
+      van los cinco que no caben en una línea. La entropía, los bits y la suma de
+      verificación se desarrollan como es debido en la
+      <a href="#learn">guía de campo</a>; los air gaps y las sesiones live, en
+      <a href="#start">empieza aquí</a>.
+    </p>
+
+    <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Glosario de términos, tabla desplazable">
+      <table class="learn-tbl">
+        <caption>Glosario</caption>
+        <thead>
+          <tr>
+            <th scope="col">Término</th>
+            <th scope="col">Significado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Frase semilla</th><td>Un número escrito en palabras</td></tr>
+          <tr><th scope="row">Entropía</th><td>Impredecibilidad, en bits</td></tr>
+          <tr><th scope="row">Bit</th><td>Un dígito binario</td></tr>
+          <tr><th scope="row">Suma de verificación</th><td>Bits que detectan una errata</td></tr>
+          <tr><th scope="row">BIP-39</th><td>De bits a palabras: las reglas</td></tr>
+          <tr><th scope="row">Lista de palabras</th><td>Las 2048 palabras públicas</td></tr>
+          <tr><th scope="row">Índice</th><td>El puesto de una palabra, de 0 a 2047</td></tr>
+          <tr><th scope="row">Ruta de derivación</th><td>Qué rama de claves</td></tr>
+          <tr><th scope="row">Frase de contraseña</th><td>Un secreto adicional que aportas</td></tr>
+          <tr><th scope="row">Air gap</th><td>Sin hardware de red</td></tr>
+          <tr><th scope="row">Sesión live</th><td>Arranque desde USB, no guarda nada</td></tr>
+          <tr><th scope="row">Monedero hardware</th><td>Un dispositivo que guarda claves</td></tr>
+          <tr><th scope="row">Fuerza bruta</th><td>Probar cada candidato</td></tr>
+          <tr><th scope="row">Muestreo por rechazo</th><td>Descartar para que quede parejo</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Cinco de esos necesitan una frase en lugar de una línea. La <b>entropía</b>
+      cuenta de cuántos secretos igual de probables se extrajo el tuyo, y por eso se
+      mide en bits y por eso no te dice nada sobre el aspecto del resultado. Una
+      <b>suma de verificación</b> detecta un desliz al copiar y nada más, así que un
+      monedero que acepta una frase no es nunca prueba de que la frase sea difícil de
+      adivinar. Una <b>ruta de derivación</b> selecciona una rama del árbol ilimitado
+      de claves que contiene una sola semilla, y por eso las mismas palabras pueden
+      restaurarse en dos monederos que te enseñan direcciones distintas. Una
+      <b>frase de contraseña</b> es un secreto adicional mezclado en esa derivación,
+      y es irrecuperable una vez olvidada. Y el <b>muestreo por rechazo</b> es la
+      costumbre de descartar resultados que no dividen de forma pareja, como un 5 o
+      un 6 en un dado de seis caras, que es exactamente lo que mantiene igual de
+      probables los resultados que sí conservas.
+    </p>
+
+    <p class="learn-note">
+      Dos de esos pesan más que el resto. La entropía es aquello sobre lo que
+      descansa todo lo demás, y la <a href="#learn">guía de campo</a> dedica una
+      sección a qué mide en realidad, porque “parece aleatorio” no es eso. Una
+      <a href="#es-faq-passphrase">frase de contraseña</a> es poderosa e implacable a
+      partes iguales, y merece la pena leer su respuesta entera antes de decidir
+      usar una.
     </p>
   </section>
 
