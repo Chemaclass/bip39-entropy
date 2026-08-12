@@ -6,8 +6,10 @@
 .brand{text-decoration:none;color:inherit}
 .brand:hover span{color:var(--chrome-ink)}
 
-/* The active tab's underline is its own mark, not a join with the bar below. */
-.tabs{display:flex;gap:2px}
+/* The active tab's underline is its own mark, not a join with the bar below.
+   Tabs wrap rather than widen the page: sections get added over time and a
+   narrow phone runs out of room before the design does. */
+.tabs{display:flex;gap:2px;flex-wrap:wrap}
 .tabs a{font:600 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
   color:var(--chrome-dim);text-decoration:none;padding:10px 13px;
   border-bottom:2px solid transparent}
@@ -33,5 +35,7 @@
 
 @media (max-width:560px){
   .top-in{gap:8px 14px}
-  .tabs a{padding:9px 8px;letter-spacing:.1em}
+  .tabs{gap:0}
+  .tabs a{padding:9px 7px;letter-spacing:.06em;font-size:10px}
+  .save{padding:7px 8px;font-size:9px}
 }
