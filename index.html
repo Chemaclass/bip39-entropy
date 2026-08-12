@@ -1579,9 +1579,9 @@ p.learn-lead em{color:var(--patina)}
         that had held funds between 2011 and 2015. All but 21 had been drained.
         Half were emptied within 21 minutes of being funded, and by late 2013 the
         gap was measured in seconds, because bots were watching the precomputed
-        addresses and competing to spend first. A researcher who funded one keyed
-        on the opening line of <em>Moby-Dick</em> in 2020 lost it in 0.67 seconds,
-        out of the memory pool, before the funding transaction had confirmed. A
+        addresses and competing to spend first. A 2020 experiment funded one keyed
+        on the opening line of <em>Moby-Dick</em> and lost it in 0.67 seconds, out
+        of the memory pool, before the funding transaction had confirmed. A
         human-chosen passphrase is worth something like 20 bits against an offline
         attacker, not 256.
       </li>
@@ -1922,6 +1922,7 @@ p.learn-lead em{color:var(--patina)}
       <li><a href="#es-learn-2048">Por qué 2048 palabras</a></li>
       <li><a href="#es-learn-checksum">La suma de verificación</a></li>
       <li><a href="#es-learn-source">De dónde viene la aleatoriedad</a></li>
+      <li><a href="#es-learn-failed">Cuando la entropía falló</a></li>
       <li><a href="#es-learn-byhand">Hacerlo a mano</a></li>
       <li><a href="#es-learn-threat">Modelo de amenazas e higiene</a></li>
     </ol>
@@ -2226,8 +2227,224 @@ p.learn-lead em{color:var(--patina)}
     </p>
   </section>
 
+  <section class="learn-sec" id="es-learn-failed">
+    <h2><span class="learn-num" aria-hidden="true">06</span> Cuando la entropía falló</h2>
+
+    <p>
+      Todo lo que hay por encima de este punto es aritmética. Lo que sigue es el
+      historial. La aleatoriedad débil no es una hipótesis que plantea gente a la
+      que le gusta ser cuidadosa; es el fallo que de verdad ha vaciado monederos una
+      y otra vez, y lo ha hecho a través de software corriente que nadie sospechaba
+      en su momento.
+    </p>
+
+    <p>
+      Léelos por el mecanismo y no por el drama, y fíjate en lo único que comparten.
+      En todos los casos el monedero funcionaba. Las direcciones eran válidas, las
+      transacciones se firmaban y se confirmaban, la frase se parecía exactamente a
+      cualquier otra frase, y <a href="#es-learn-checksum">la suma de verificación</a>
+      pasaba, porque una suma de verificación no tiene nada que decir sobre de dónde
+      vino un número. Nadie de aquí podría haberlo detectado estudiando sus propias
+      palabras. No había nada que ver en ellas.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>Brainwallets, desde alrededor de 2011.</b> Una frase de contraseña que te
+        inventabas tú se pasaba por un único <code>SHA-256</code> sin sal, y los 32
+        bytes que salían se usaban directamente como clave privada. Sin sal, sin
+        estiramiento, sin variación por usuario, así que una frase dada producía
+        siempre la misma dirección y toda la correspondencia se podía calcular por
+        adelantado. El estudio que lo midió, publicado en Financial Cryptography en
+        2016, probó unas 300 mil millones de contraseñas candidatas e identificó 884
+        brainwallets que habían tenido fondos entre 2011 y 2015. Todos menos 21
+        habían sido vaciados. La mitad se vaciaron en los 21 minutos siguientes a
+        recibir fondos, y a finales de 2013 el intervalo se medía en segundos,
+        porque había bots vigilando las direcciones precalculadas y compitiendo por
+        gastar primero. Un experimento de 2020 financió uno cuya clave salía de la
+        primera línea de <em>Moby-Dick</em> y lo perdió en 0.67 segundos, desde la
+        mempool, antes de que la transacción de financiación se hubiera confirmado.
+        Una frase de contraseña elegida por una persona vale algo así como 20 bits
+        frente a un atacante sin conexión, no 256.
+      </li>
+      <li>
+        <b>Android, agosto de 2013.</b> El <code>SecureRandom</code> de la
+        plataforma no era lo que decía ser, por dos defectos encontrados a la vez.
+        Uno limitaba a 64 bits de entropía una instancia sin sembrar
+        (<code>CVE-2013-7372</code>); el otro dejaba sin sembrar el generador de
+        OpenSSL al atravesar el fork de proceso del que nace toda aplicación
+        (<code>CVE-2013-7373</code>). Los robos llegaron por el primero. Firmar
+        necesita un nonce aleatorio nuevo cada vez, y cuando una clave firma dos
+        veces con el mismo nonce la clave privada sale de una página de álgebra, así
+        que los atacantes rastrearon la cadena pública en busca de las repeticiones
+        y se llevaron lo que encontraron. Unos 55 BTC se acumularon en una sola
+        dirección de atacante, que valían unos 5,800 dólares al cambio de esa
+        semana. El aviso de bitcoin.org del 11 de agosto de 2013 declaró vulnerable
+        todo monedero generado en Android y nombró Bitcoin Wallet, blockchain.info,
+        BitcoinSpinner y Mycelium como una lista explícitamente incompleta. En rigor
+        esto rompió los números que se usan al firmar y no el número que hay detrás
+        de la frase, pero el aviso trató como sospechosa toda clave que la
+        plataforma hubiera producido y dijo a todo el mundo que las rotara. Desde el
+        teléfono no había nada que pareciera mal. Las firmas eran válidas. La
+        evidencia estaba en la cadena de bloques, legible para cualquiera que
+        comparara dos transacciones, y sus dueños se enteraron cuando el dinero ya
+        no estaba.
+      </li>
+      <li>
+        <b>Randstorm, monederos de navegador de aproximadamente 2011 a 2015.</b>
+        BitcoinJS, que estaba por debajo de muchísimos monederos web de la época,
+        producía claves con la función <code>SecureRandom</code> de la biblioteca
+        JSBN. Un error de tipos hacía que nunca se leyera del generador
+        criptográfico real del navegador. Lo que se usaba en su lugar era
+        <code>Math.random</code>, un generador congruencial lineal de 48 bits en los
+        navegadores de aquella era, más una única lectura de temporizador. Quienes
+        lo divulgaron en noviembre de 2023 situaron el resultado en bastante menos
+        de 48 bits, peor antes de marzo de 2012 y más difícil de explotar cada año a
+        partir de entonces, a medida que los navegadores mejoraban. Describieron
+        millones de monederos afectados y confirmaron que el fallo es explotable.
+        Tampoco se puede parchear en el sentido habitual, porque las claves se
+        generaron hace años y ya existen; el único remedio es mover los fondos. Nada
+        en un monedero afectado parecía mal entonces, y nada parece mal en él ahora.
+      </li>
+      <li>
+        <b>Extensión de navegador de Trust Wallet, 2022.</b> La compilación a
+        WebAssembly de la biblioteca central del monedero generaba mnemónicos con un
+        Mersenne Twister, un generador construido para simulaciones y expresamente
+        no para criptografía. La variante que usaba, <code>mt19937</code>, toma un
+        único valor de 32 bits como semilla, así que la extensión solo podía llegar
+        a emitir <code>2^32</code> frases distintas donde una frase de 12 palabras
+        debería tener <code>2^128</code> detrás. Las versiones de la extensión de la
+        <code>0.0.172</code> a la <code>0.0.182</code> estaban afectadas. Se informó
+        de ello en noviembre de 2022 y se corrigió en un repositorio público cuatro
+        días después, y luego se explotó en entornos reales ese diciembre y otra vez
+        en marzo de 2023, antes de divulgarse el abril siguiente como
+        <code>CVE-2023-31290</code>. El equipo que lo encontró estimó que cada una
+        de esas cuatro mil millones de frases se podía generar en una sola
+        computadora en un par de horas.
+      </li>
+      <li>
+        <b>Milk Sad, 2023.</b> Libbitcoin Explorer, una herramienta de línea de
+        comandos de larga trayectoria, ofrecía un comando <code>bx seed</code> para
+        producir entropía. Desde la versión <code>3.0.0</code> de 2017 hasta la
+        <code>3.6.0</code> de 2019 usó ese mismo Mersenne Twister
+        <code>mt19937</code>, sembrado con 32 bits del reloj del sistema. Le pedías
+        256 bits y devolvía 256 bits: una lectura de reloj de 32 bits pasada por el
+        twister y estirada para llenar el espacio, sin que se añadiera información
+        nueva en ningún momento. La salida pasaba todas las pruebas que a un usuario
+        se le ocurriera aplicar, porque el déficit estaba en la entrada. El nombre es
+        lo que emite el comando cuando el reloj marca cero, una frase que empieza por
+        <code>milk sad wage cup</code>. El 12 de julio de 2023 un actor bien
+        preparado se llevó unos 29.65 BTC, que entonces valían más de 850,000
+        dólares, y los investigadores situaron el total movido entre cadenas por
+        encima de 900,000 dólares. Estimaron los 4.29 mil millones de candidatos
+        completos en no más de unos pocos días en una computadora para juegos
+        corriente. Divulgado el 8 de agosto de 2023 como
+        <code>CVE-2023-39910</code>.
+      </li>
+      <li>
+        <b>Dispositivos precargados y manipulados.</b> Un monedero hardware comprado
+        en un marketplace en lugar de a la empresa que lo fabricó puede llegar
+        sabiendo ya su respuesta. La versión burda pone la frase en la caja, en una
+        tarjeta ya rellenada o bajo un panel de rascar, con instrucciones que dan a
+        entender que la generó la fábrica. La versión concienzuda está dentro del
+        dispositivo. Una falsificación que unos investigadores de seguridad
+        desmontaron en 2023, comprada el año anterior a un vendedor de anuncios
+        clasificados, tenía el microcontrolador cambiado por uno con la protección
+        de lectura desactivada y las comprobaciones de firma del gestor de arranque
+        eliminadas, y su firmware sustituía por una de 20 frases guardadas de
+        antemano la que aparentaba generar. Veinte, en lugar de <code>2^128</code>,
+        que son unos cuatro bits y un tercio. Su función de frase de contraseña
+        estaba destripada a juego, usando solo el primer carácter y dejando 64
+        combinaciones. Al vendedor solo le quedaba esperar, y en ese caso esperó un
+        mes desde que el dispositivo recibió fondos por primera vez. Todas las
+        partes de la ceremonia estaban intactas. Quien lo compró vio a un
+        dispositivo generar una frase, la anotó, y era válida, y la suma de
+        verificación pasó, y nunca fue suya.
+      </li>
+    </ul>
+
+    <p>
+      Pon los derrumbes uno al lado de otro. La columna del medio es lo que el
+      formato da a entender: 256 bits para una clave privada en bruto, 128 para una
+      frase de 12 palabras. La de al lado es lo que había en realidad.
+    </p>
+
+    <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Fallos de entropía documentados y el espacio de búsqueda que dejó cada uno, tabla desplazable">
+      <table class="learn-tbl">
+        <caption>Lo que quedaba del número</caption>
+        <thead>
+          <tr>
+            <th scope="col">Caso</th>
+            <th scope="col">Año</th>
+            <th scope="col">Bits implícitos</th>
+            <th scope="col">Bits presentes</th>
+            <th scope="col">Candidatos restantes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Brainwallet</th><td>desde 2011</td><td>256</td><td>unos 20</td><td>2^20</td></tr>
+          <tr><th scope="row">Android</th><td>2013</td><td>256</td><td>64</td><td>2^64</td></tr>
+          <tr><th scope="row">Randstorm</th><td>2011 a 2015</td><td>256</td><td>menos de 48</td><td>menos de 2^48</td></tr>
+          <tr><th scope="row">Trust Wallet</th><td>2022</td><td>128</td><td>32</td><td>2^32</td></tr>
+          <tr><th scope="row">Milk Sad</th><td>2023</td><td>256</td><td>32</td><td>2^32</td></tr>
+          <tr><th scope="row">Dispositivo precargado</th><td>2022</td><td>128</td><td>unos 4.3</td><td>20</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Los dos casos de 32 bits merecen que se escriba la aritmética, porque 32 bits
+      no suena a poco hasta que lo cuentas. <code>2^32</code> es
+      <code>4294967296</code>, unos 4.3 mil millones.
+      <a href="#es-learn-source">La sección anterior</a> situaba una sola máquina en
+      <code>2^40</code> en dos semanas, y <code>2^32</code> es 256 veces más pequeño
+      que <code>2^40</code>, así que esa misma máquina termina el espacio entero en
+      poco más de una hora. Las estimaciones publicadas coinciden: un par de horas
+      en una computadora para las frases de Trust Wallet, como mucho unos pocos días
+      en una computadora para juegos para las de Libbitcoin. Eso no es un
+      presupuesto de hardware. Es una tarde.
+    </p>
+
+    <p>
+      <b>Nada de esto fue un fallo de BIP-39.</b> El estándar aguantó en todo
+      momento. La lista de palabras eran las mismas 2048 palabras públicas,
+      correctamente indexadas. La derivación era correcta. La suma de verificación
+      era correcta, y pasó todas las veces, porque una frase bien formada es lo
+      único que se le pidió certificar jamás. Lo que falló fue el número de debajo,
+      y el número es la única parte del sistema que nadie puede inspeccionar
+      después. Una frase no registra su propio origen. No hay en ella ningún campo
+      para la procedencia, ni marca de tiempo, ni firma, nada que distinga 128 bits
+      de física de 32 bits de reloj. Doce palabras extraídas de cuatro mil millones
+      de posibilidades son doce palabras perfectamente corrientes.
+    </p>
+
+    <p>
+      Por eso <a href="#es-learn-source">la sección sobre las fuentes</a> prefiere lo
+      que se puede auditar, y por eso dice de los generadores por hardware que el
+      problema no es que sean malos, sino que no puedes comprobarlos. Los dados no
+      son más aleatorios que un generador de hardware sólido. Son más
+      <em>verificables</em>, y todos los casos de arriba son un argumento sobre la
+      verificabilidad y no sobre la aleatoriedad. Una frase que te entrega un
+      dispositivo en cuyo interior no puedes mirar es una decisión de confianza.
+      Puede ser perfectamente buena, tomada sobre un fabricante de prestigio con un
+      diseño publicado y una cadena de suministro en la que tienes motivos para
+      creer. Sigue siendo una decisión sobre en quién confiar, y no algo que puedas
+      comprobar mirando las palabras.
+    </p>
+
+    <p class="learn-note">
+      Dos salvedades, en justicia. La mayoría de las cifras de arriba son
+      estimaciones de quienes encontraron el fallo y no totales auditados, y las
+      cantidades robadas son cotas inferiores, porque solo cuentan lo que se pudo
+      rastrear. Más importante todavía: esta es una lista de los fallos que se
+      <em>encontraron</em>. Un generador que simplemente es predecible para quien lo
+      construyó, y que nunca se explotó de forma lo bastante ruidosa como para
+      llamar la atención, no deja rastro en un historial como este.
+    </p>
+  </section>
+
   <section class="learn-sec" id="es-learn-byhand">
-    <h2><span class="learn-num" aria-hidden="true">06</span> Hacerlo a mano</h2>
+    <h2><span class="learn-num" aria-hidden="true">07</span> Hacerlo a mano</h2>
 
     <p class="learn-note">
       Dos cosas de esta página llevan esta sección a la práctica:
@@ -2308,7 +2525,7 @@ p.learn-lead em{color:var(--patina)}
   </section>
 
   <section class="learn-sec" id="es-learn-threat">
-    <h2><span class="learn-num" aria-hidden="true">07</span> Modelo de amenazas e higiene</h2>
+    <h2><span class="learn-num" aria-hidden="true">08</span> Modelo de amenazas e higiene</h2>
 
     <p>
       <b>Qué es una lista de palabras impresa.</b> La lista pública de BIP-39 en
@@ -4301,6 +4518,13 @@ p.learn-lead em{color:var(--patina)}
       deserve reading about first. A single well-hidden backup you can definitely
       find beats a clever system you can only mostly reconstruct.
     </p>
+
+    <p class="learn-note">
+      Those layers, the passphrase and multisignature, are worked through on
+      <a href="#protect">Protect</a>: what each one buys, what it costs, and how each
+      one fails. Read it before adding either, because a layer you have not rehearsed
+      is a way to lose coins rather than a way to keep them.
+    </p>
   </section>
 
   <section class="learn-sec" id="en-start-mistakes">
@@ -5097,6 +5321,13 @@ p.learn-lead em{color:var(--patina)}
       los dos y sobre los que merece la pena leer antes los dos. Una sola copia de
       seguridad bien escondida que seguro que puedes encontrar es mejor que un
       sistema ingenioso que solo puedes reconstruir casi del todo.
+    </p>
+
+    <p class="learn-note">
+      Esas capas, la frase de contraseña y la multifirma, se explican en
+      <a href="#protect">Protégete</a>: qué te da cada una, qué te cuesta y cómo falla
+      cada una. Léelo antes de añadir ninguna, porque una capa que no has ensayado es
+      una forma de perder monedas, no de conservarlas.
     </p>
   </section>
 
