@@ -134,6 +134,34 @@ def namespace_ids(html: str, lang: str) -> str:
                   html)
 
 
+def report_pane_drift(groups: dict) -> None:
+    """Say when a translated section has fallen behind its base language.
+
+    Sections are matched by id, which is what the table of contents links to.
+    A missing id means the translation is short a section, which is invisible
+    otherwise: the pane exists, so nothing falls back and nothing complains.
+    Reported rather than fatal, because a translation lands over several
+    commits.
+    """
+    for name, items in sorted(groups.items()):
+        by_lang = {lang: set(re.findall(r'id="([^"]+)"', path.read_text()))
+                   for lang, path in items}
+        if BASE_LANG not in by_lang:
+            continue
+        base = by_lang[BASE_LANG]
+        for lang, ids in sorted(by_lang.items()):
+            if lang == BASE_LANG:
+                continue
+            missing, extra = sorted(base - ids), sorted(ids - base)
+            if missing:
+                print(f"  note: {name}.{lang}.html is missing {len(missing)} section(s) "
+                      f"the {BASE_LANG} version has: {', '.join(missing[:6])}"
+                      f"{' …' if len(missing) > 6 else ''}")
+            if extra:
+                print(f"  note: {name}.{lang}.html has {len(extra)} section(s) not in "
+                      f"{BASE_LANG}: {', '.join(extra[:6])}{' …' if len(extra) > 6 else ''}")
+
+
 def load_content(langs: list[dict]) -> tuple[str, list[str]]:
     """Turn src/content/<name>.<lang>.html into one view per name.
 
@@ -151,6 +179,8 @@ def load_content(langs: list[dict]) -> tuple[str, list[str]]:
 
     if not groups:
         sys.exit("no content files in src/content")
+
+    report_pane_drift(groups)
 
     views, names = [], []
     for name, items in sorted(groups.items()):
