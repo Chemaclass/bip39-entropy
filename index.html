@@ -1572,7 +1572,8 @@ p.learn-lead em{color:var(--patina)}
     <p>
       Every option involves trusting something. The useful question is not which
       one is perfect, but which thing you are trusting, and whether you are able
-      to check it.
+      to check it. The table is the summary, a word per cell. The honest version
+      of each row follows it.
     </p>
 
     <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Sources of randomness compared, scrollable table">
@@ -1590,44 +1591,44 @@ p.learn-lead em{color:var(--patina)}
         <tbody>
           <tr>
             <th scope="row">Hardware wallet</th>
-            <td>Chip in a sealed device</td>
+            <td>Sealed chip</td>
             <td>No</td>
-            <td>Firmware, tampered box</td>
-            <td>Practical default</td>
+            <td>Firmware</td>
+            <td>Default</td>
           </tr>
           <tr>
             <th scope="row">Dice</th>
-            <td>Two bits per kept throw</td>
-            <td>Yes, every bit</td>
-            <td>Slow, easy to fumble</td>
-            <td>Good, if careful</td>
+            <td>Your throws</td>
+            <td>Every bit</td>
+            <td>Fumbling</td>
+            <td>Auditable</td>
           </tr>
           <tr>
             <th scope="row">Coins</th>
-            <td>One bit per flip</td>
-            <td>Yes, every bit</td>
-            <td>Miscounting, bias</td>
-            <td>Good, slower</td>
+            <td>Your flips</td>
+            <td>Every bit</td>
+            <td>Miscounting</td>
+            <td>Auditable</td>
           </tr>
           <tr>
             <th scope="row">OS generator</th>
-            <td>Kernel pool, urandom</td>
-            <td>Code yes, machine no</td>
-            <td>A compromised machine</td>
-            <td>Strong, if offline</td>
+            <td>Kernel pool</td>
+            <td>Code only</td>
+            <td>The machine</td>
+            <td>Offline</td>
           </tr>
           <tr>
-            <th scope="row">Website or tab</th>
-            <td>The browser calls the OS</td>
-            <td>Only what you read</td>
-            <td>Everything around it</td>
-            <td>Learning only</td>
+            <th scope="row">Browser tab</th>
+            <td>Asks the OS</td>
+            <td>The page</td>
+            <td>The browser</td>
+            <td>Learning</td>
           </tr>
           <tr>
-            <th scope="row">Words you choose</th>
-            <td>Memory and taste</td>
-            <td>Nothing to audit</td>
-            <td>A few dozen bits</td>
+            <th scope="row">You choose</th>
+            <td>You pick</td>
+            <td>Nothing</td>
+            <td>Too few bits</td>
             <td>Never</td>
           </tr>
         </tbody>
@@ -1635,7 +1636,8 @@ p.learn-lead em{color:var(--patina)}
     </div>
 
     <p>
-      The table is terse, so here is the honest version of each verdict.
+      Every one of those verdicts has a caveat, and the caveats are the reason
+      people get this wrong.
     </p>
 
     <ul class="learn-mag">

@@ -30,6 +30,13 @@ jobs:
           mkdir -p _site
           cp index.html _site/index.html
           cp data/english.txt _site/english.txt
+          # The offline procedure on the site tells readers to check the file
+          # they downloaded against a published hash, so publish one. It is a
+          # weak check on its own, since whoever serves the page serves this
+          # too. The strong check is cloning the repository and running
+          # scripts/verify.sh, which rebuilds index.html and diffs it.
+          sha256sum index.html | cut -d' ' -f1 > _site/index.html.sha256
+          sha256sum data/english.txt | cut -d' ' -f1 > _site/english.txt.sha256
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

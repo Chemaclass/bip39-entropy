@@ -1,13 +1,18 @@
 # bip39-poster
 
-Three things about BIP-39 seed phrases, in one HTML file that works with the
+Four things about BIP-39 seed phrases, in one HTML file that works with the
 network cable pulled:
 
+- **a start-here guide** for a first phrase: what is at stake, where randomness
+  can come from, a procedure to follow, and what "offline" actually means
 - **a printable poster** of the complete English word list, laid out as what it
   actually is, an **eleven-bit address space**
 - **a field guide to entropy**, with the arithmetic shown rather than asserted
 - **a dice and coin roller** that builds a phrase one throw at a time, and prints
   a worksheet so you can do it at a table with no computer
+
+English and Spanish, chosen in the URL. **Save offline** in the header downloads
+the page itself.
 
 **→ [chemaclass.github.io/bip39-poster](https://chemaclass.github.io/bip39-poster/)**
 
@@ -109,6 +114,11 @@ That checks three things:
 CI runs the same script on every push, and additionally fails the build if
 `index.html` ever gains a remote asset. The page must keep working with the
 network cable pulled.
+
+Every deploy also publishes `index.html.sha256` and `english.txt.sha256` beside
+the page, so a copy downloaded for offline use can be checked before it is
+opened. That check is only as trustworthy as the server that served both, which
+is why the reproducible build above is the one that matters.
 
 The BIP-39 encoder carries its own test vectors: `SEED.selfTest()` in the browser
 console re-derives the official mnemonics (all-zero entropy must give
