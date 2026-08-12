@@ -6,19 +6,24 @@
    specificity, so source order alone decides. */
 
 .learn{
-  max-width:1500px;
+  max-width:1000px;
   margin:0 auto;
-  padding:64px 18px 110px;
+  padding:56px 18px 90px;
   border-top:1px solid var(--chrome-3);
   font-family:var(--grot);
   color:var(--chrome-ink);
 }
 .learn h1,.learn h2,.learn p,.learn ol,.learn ul,.learn li{margin:0;padding:0}
 
-/* One centred column, so the hairline rules stack instead of stepping. */
+/* One column for the whole page. The container is the measure now, so the
+   hairline rules, the tables and the prose all share an edge instead of the
+   text sitting in a narrower well inside a wider page. */
 .learn-head,.learn-warn,.learn-toc,.learn-sec{
-  max-width:68ch;margin-left:auto;margin-right:auto;
+  max-width:100%;margin-left:auto;margin-right:auto;
 }
+/* Running prose still stops short of the full column: a 1000px line is too
+   long to track comfortably, while headings, tables and rules want the width. */
+.learn-sec p,.learn-lead,.learn-note,.learn-mag li{max-width:78ch}
 
 /* ─────────── masthead ─────────── */
 .learn-eyebrow{

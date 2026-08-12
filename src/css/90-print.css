@@ -1,6 +1,6 @@
 @media print{
   body{background:#fff}
-  .chrome,.bar,.readout{display:none !important}
+  .chrome,.bar,.readout,.foot{display:none !important}
   /* Printing always yields the poster, whichever section is on screen. */
   .view{display:none !important}
   #view-poster{display:block !important}

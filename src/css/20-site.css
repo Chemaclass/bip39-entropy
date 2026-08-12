@@ -39,3 +39,21 @@
   .tabs a{padding:9px 7px;letter-spacing:.06em;font-size:10px}
   .save{padding:7px 8px;font-size:9px}
 }
+
+/* ─────────── footer ─────────── */
+.foot{border-top:1px solid var(--chrome-3);margin-top:40px;padding:26px 18px 40px}
+.foot-in{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 26px;
+  align-items:baseline;justify-content:space-between}
+.foot-lic{font:400 11px/1.5 var(--mono);letter-spacing:.06em;color:#69736f}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px 20px}
+.foot-links a{font:500 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--chrome-dim);text-decoration:none;border-bottom:1px solid transparent}
+.foot-links a:hover{color:var(--patina);border-bottom-color:var(--patina)}
+.foot-links a.foot-sponsor{color:var(--amber)}
+.foot-links a.foot-sponsor:hover{border-bottom-color:var(--amber)}
+.foot-note{max-width:1000px;margin:16px auto 0;font:400 10.5px/1.6 var(--mono);color:#565f5c}
+
+@media (max-width:560px){
+  .foot{padding:20px 14px 34px}
+  .foot-in{gap:8px 14px}
+}

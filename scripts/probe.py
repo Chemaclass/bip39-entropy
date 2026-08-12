@@ -58,7 +58,9 @@ LANGS = """
 <script>
 (function(){
   const out = [];
-  const KEYISH = /^[a-z][a-zA-Z0-9]*(\\.[a-zA-Z0-9]+)+$/;   // "roll.title" leaked as text
+  // A failed lookup renders the key itself. Test for exactly that rather than
+  // for anything key-shaped: "chemaclass.com" is a value, not a leak.
+  const KEYS = new Set(Object.keys(I18N[BASE_LANG]));
   for (const l of LANGS){          // a top-level const is not a window property
     setLang(l.code);
     route();
@@ -66,7 +68,7 @@ LANGS = """
     const leaked = [];
     for (const el of document.querySelectorAll("[data-t], .roll-sec, .roll-count, #rollhint")){
       const s = (el.textContent || "").trim();
-      if (!s || KEYISH.test(s)) leaked.push(el.dataset.t || el.id || el.className);
+      if (!s || KEYS.has(s)) leaked.push(el.dataset.t || el.id || el.className);
     }
     const missing = Object.keys(I18N[BASE_LANG])
       .filter(k => !k.startsWith("_") && !(k in (I18N[l.code] || {})));
