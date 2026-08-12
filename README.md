@@ -90,7 +90,10 @@ that stays offline.
 
 The worksheet button prints a blank sheet for doing it away from any computer. It
 records throws, never results. Nothing generated on the page is ever written into
-a file. With a 12-word phrase the checksum occupies only 4 bits, so the first
+a file. When you come back, the **type in throws or bits** field takes the whole
+worksheet at once, in either form, with the spacing ignored. It accepts digits
+and nothing else, so a recovery phrase cannot be pasted into it even by
+accident. With a 12-word phrase the checksum occupies only 4 bits, so the first
 eleven words follow from your entropy alone and can be read straight off the
 poster; only the last word mixes in SHA-256 and needs a machine.
 
