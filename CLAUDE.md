@@ -1,9 +1,11 @@
 # bip39-entropy
 
-Three things about BIP-39 seed phrases. A printable poster of the 2048-word
-English list laid out as an eleven-bit address space, a field guide to entropy,
-and a dice/coin roller, all in one `index.html`: self-contained, no build step to
-view it, no dependencies, **no network code of any kind**. The page tells readers
+An educational site about the number behind a BIP-39 seed phrase, with two tools
+attached. Guide sections: Start here, Entropy (including when entropy failed),
+Protect (passphrase and multisig), Questions. Tools: the printable poster of the
+2048-word list as an eleven-bit address space, and the dice/coin roller. All in
+one `index.html`: self-contained, no build step to view it, no dependencies,
+**no network code of any kind**. The page tells readers
 that nothing they type or throw leaves it, so that has to stay literally true:
 no fetch, no XHR, no beacons, no remote fonts, no analytics, ever.
 

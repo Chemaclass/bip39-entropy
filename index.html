@@ -470,7 +470,10 @@ p.learn-lead em{color:var(--patina)}
 .scale-head{font:500 9.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
   color:var(--patina);margin:0 0 14px}
 .scale-ctl{display:flex;flex-wrap:wrap;gap:12px 18px;margin-bottom:14px}
-.scale-field{display:flex;flex-direction:column;gap:5px;flex:1 1 260px}
+/* A flex item will not shrink below its content unless told to, and a select
+   whose longest option is a sentence is wider than a phone. */
+.scale-field{display:flex;flex-direction:column;gap:5px;flex:1 1 240px;min-width:0}
+.scale-field select{width:100%;min-width:0}
 .scale-field span{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
   color:var(--chrome-dim)}
 .scale-out{display:flex;flex-direction:column;gap:7px}
@@ -1371,6 +1374,8 @@ p.learn-lead em{color:var(--patina)}
       your habit of choosing, and that number is small, no matter how arbitrary
       the result feels from the inside.
     </p>
+
+    <div data-widget="scale"></div>
   </section>
 
   <section class="learn-sec" id="en-learn-2048">
@@ -2040,6 +2045,8 @@ p.learn-lead em{color:var(--patina)}
       para describir tu manera de elegir, y ese número es pequeño, por muy
       arbitrario que te parezca el resultado desde dentro.
     </p>
+
+    <div data-widget="scale"></div>
   </section>
 
   <section class="learn-sec" id="es-learn-2048">

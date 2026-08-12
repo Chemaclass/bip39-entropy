@@ -1,18 +1,34 @@
 # bip39-entropy
 
-Four things about BIP-39 seed phrases, in one HTML file that works with the
-network cable pulled:
+A small educational site about the number behind a BIP-39 seed phrase, with two
+tools attached, in one HTML file that works with the network cable pulled.
 
-- **a start-here guide** for a first phrase: what is at stake, where randomness
-  can come from, a procedure to follow, and what "offline" actually means
+**The guide**
+
+- **Start here** for a first phrase: what is at stake, six sources of randomness
+  compared, a procedure to follow, and what "offline" actually means, down to
+  clipboard history and printer spools
+- **Entropy**, the field guide, with the arithmetic shown rather than asserted,
+  including **when entropy failed**: brainwallets, the Android SecureRandom
+  defects of 2013, Randstorm, Milk Sad and the Trust Wallet extension, each told
+  for the mechanism
+- **Protect**, on the layers after the paper backup: the passphrase and 2 of 3
+  multisig, with what each one costs stated as plainly as what it buys
+- **Questions**, the ones people actually arrive with, and a glossary
+
+**The tools**
+
 - **a printable poster** of the complete English word list, laid out as what it
   actually is, an **eleven-bit address space**
-- **a field guide to entropy**, with the arithmetic shown rather than asserted
-- **a dice and coin roller** that builds a phrase one throw at a time, and prints
-  a worksheet so you can do it at a table with no computer
+- **a dice and coin roller** that builds a phrase one throw at a time, prints a
+  worksheet so you can do it at a table with no computer, and takes that
+  worksheet back in afterwards
 
 English and Spanish, chosen in the URL. **Save offline** in the header downloads
-the page itself.
+the page itself. An interactive control in the guide turns a chosen strength and
+guessing rate into a time, which is how 12 words at the whole Bitcoin network's
+hash rate becomes eleven billion years and a 32-bit seed bug becomes four
+seconds.
 
 **→ [chemaclass.github.io/bip39-entropy](https://chemaclass.github.io/bip39-entropy/)**
 
