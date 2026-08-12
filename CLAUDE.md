@@ -1,8 +1,8 @@
 # bip39-poster
 
-Three things about BIP-39 seed phrases — a printable poster of the 2048-word
+Three things about BIP-39 seed phrases. A printable poster of the 2048-word
 English list laid out as an eleven-bit address space, a field guide to entropy,
-and a dice/coin roller — in one `index.html`: self-contained, no build step to
+and a dice/coin roller, all in one `index.html`: self-contained, no build step to
 view it, no dependencies, **no network code of any kind**. The page tells readers
 that nothing they type or throw leaves it, so that has to stay literally true:
 no fetch, no XHR, no beacons, no remote fonts, no analytics, ever.
@@ -15,7 +15,7 @@ no fetch, no XHR, no beacons, no remote fonts, no analytics, ever.
 python3 scripts/build.py
 ```
 
-Never hand-edit `index.html` — CI fails the moment it stops being byte-identical to
+Never hand-edit `index.html`. CI fails the moment it stops being byte-identical to
 a fresh build. Permission rules in `.claude/settings.json` deny writes to it, and a
 hook rebuilds it whenever anything under `src/` or `data/` changes.
 
@@ -43,14 +43,20 @@ prefixes are unique. `scripts/build.py` asserts that invariant at build time.
 - `data/english.txt` matches `bip-0039/english.txt` from bitcoin/bips by SHA-256
   (`2f5eed53…3b24dbda`), is 2048 words, lexicographically sorted, unique 4-prefixes
 - the committed `index.html` reproduces exactly from `scripts/build.py`
-- **no remote assets** — a `<script>`, `<link>` or `<img>` pointing at `http(s)://`
+- **no remote assets**. A `<script>`, `<link>` or `<img>` pointing at `http(s)://`
   fails CI. Everything inlines: CSS, JS, fonts fall back to system stacks
 - print correctness depends on `print-color-adjust: exact` and `@page { margin: 0 }`;
   changing either prints the decoder legend blank
-- the BIP-39 encoder must keep passing `SEED.selfTest()` — official vectors plus a
+- the BIP-39 encoder must keep passing `SEED.selfTest()`, official vectors plus a
   deterministic property test. Never weaken it to make a change pass
 - never write a generated phrase into a downloaded file; the worksheet PDF records
   throws, never results
+- no em dash in reader-facing text. `build.py` fails on one in `src/i18n/`,
+  `src/content/` or the template. Write two sentences
+- no language is named in JavaScript. Adding one is adding `src/i18n/<lang>.json`
+  and `src/content/<name>.<lang>.html`, nothing else
+- the language lives in the URL as `#<lang>/<view>` and is never stored, because
+  the page tells readers it keeps nothing
 
 ## Commands
 
@@ -73,7 +79,8 @@ src/css/*.css         10 poster · 20 site chrome · 30 roller · 40 explainer �
 src/js/*.js           10 data · 20 layout · 30 sheet · 40 render · 50 find
                       60 sha256+bip39 · 70 pdf · 75 poster pdf · 76 worksheet
                       80 roller · 85 views · 90 boot
-src/content/*.html    long-form prose (__WORDS__ / __SHA__ live in the JS)
+src/i18n/<lang>.json  interface strings, one file per language
+src/content/*.<lang>.html  long-form prose (__WORDS__ / __SHA__ live in the JS)
 data/english.txt      canonical BIP-39 English word list
 scripts/build.py      render index.html
 scripts/verify.sh     audit the word list and the build
@@ -83,5 +90,5 @@ scripts/verify.sh     audit the word list and the build
 
 - No build tooling, no bundler, no minifier, no package manager. Keep it that way.
 - Vanilla JS in the template, no framework, no polyfills.
-- Two-space indent everywhere except Python (four) — see `.editorconfig`.
+- Two-space indent everywhere except Python (four). See `.editorconfig`.
 - Conventional commits. `ref:` rather than `refactor:`.

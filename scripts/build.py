@@ -63,6 +63,22 @@ def concat(directory: pathlib.Path, suffix: str, comment: str = "/* {} */") -> t
     return "\n\n".join(chunks), [p.name for p in parts]
 
 
+def check_house_style(paths: list[pathlib.Path]) -> None:
+    """No em dash in anything a reader sees. House rule: write two sentences.
+
+    Enforced at build time because the rule only holds if it holds in every
+    language, and a translator reaching for one is the easiest thing to miss.
+    """
+    offenders = []
+    for path in paths:
+        for n, line in enumerate(path.read_text().splitlines(), 1):
+            if "—" in line:
+                offenders.append(f"  {path.relative_to(ROOT)}:{n}: {line.strip()[:70]}")
+    if offenders:
+        sys.exit("em dash found in reader-facing text; rewrite as separate statements:\n"
+                 + "\n".join(offenders[:12]))
+
+
 def load_i18n() -> tuple[dict, list[dict]]:
     """Read src/i18n/*.json. Adding a language is adding a file, never code.
 
@@ -137,6 +153,8 @@ def main() -> None:
 
     css, css_parts = concat(CSS_DIR, ".css")
     js, js_parts = concat(JS_DIR, ".js")
+    check_house_style(sorted(I18N_DIR.glob("*.json")) +
+                      sorted(CONTENT_DIR.glob("*.html")) + [TEMPLATE])
     bundles, langs = load_i18n()
     content, content_parts = load_content(langs)
 

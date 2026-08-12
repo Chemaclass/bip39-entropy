@@ -11,5 +11,5 @@ grep -Eqi '<(script|link|img)[^>]+(src|href)="https?://' index.html \
 ```
 
 Report each check as pass or fail. If the reproducible-build check fails, run
-`python3 scripts/build.py` and say what changed in `index.html` — do not edit
+`python3 scripts/build.py` and say what changed in `index.html`. Do not edit
 `index.html` by hand.

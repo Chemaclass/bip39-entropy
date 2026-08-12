@@ -4,7 +4,7 @@ Three things about BIP-39 seed phrases, in one HTML file that works with the
 network cable pulled:
 
 - **a printable poster** of the complete English word list, laid out as what it
-  actually is — an **eleven-bit address space**
+  actually is, an **eleven-bit address space**
 - **a field guide to entropy**, with the arithmetic shown rather than asserted
 - **a dice and coin roller** that builds a phrase one throw at a time, and prints
   a worksheet so you can do it at a table with no computer
@@ -12,7 +12,7 @@ network cable pulled:
 **→ [chemaclass.github.io/bip39-poster](https://chemaclass.github.io/bip39-poster/)**
 
 One file, no build step to view it, no dependencies, no network, no analytics.
-Nothing you type or throw ever leaves the page — there is no code in it that
+Nothing you type or throw ever leaves the page. There is no code in it that
 could send anything anywhere.
 
 ---
@@ -21,7 +21,7 @@ could send anything anywhere.
 
 BIP-39 indices run 0–2047, which is exactly eleven bits. Rather than printing an
 alphabetical column list, the poster arranges the words on a grid where **the high
-bits choose the column and the low bits choose the row** — so a word's index is
+bits choose the column and the low bits choose the row**, so a word's index is
 literally its coordinate on the paper.
 
 ```
@@ -36,7 +36,7 @@ one yields larger type depends entirely on the paper's aspect ratio. The page
 computes both and picks the better fit.
 
 The second idea is typographic: **the first four letters of every word are set in
-black, the rest in grey.** All 2048 four-letter prefixes are unique — that is why
+black, the rest in grey.** All 2048 four-letter prefixes are unique, which is why
 hardware wallets only ever ask you for four characters. The poster shows you that
 fact instead of asserting it in a footnote.
 
@@ -44,7 +44,7 @@ fact instead of asserting it in a footnote.
 
 Either press **PDF**, which produces the sheet directly and is the reliable path,
 or press **Print** and set the printer to **100 % scale** with **background
-graphics enabled** — without those two settings the decoder legend prints blank.
+graphics enabled**. Without those two settings the decoder legend prints blank.
 
 The control bar reports the exact resulting type size, and warns you below 4.6 pt.
 
@@ -61,10 +61,10 @@ Type size is bounded by whichever runs out first, the row height or the column
 width. A column has to hold the widest word in the list without clipping it, so
 the solver sizes the type from `(usable width − padding) / (columns × 4.8 em +
 gutters)` as well as from the row box, and takes the smaller. The 4.8 em is the
-widest word — eight glyphs — in the widest face on offer, the monospace one.
+widest word, eight glyphs, in the widest face on offer, the monospace one.
 
-A4 gets all 2048 words onto one sheet, but at roughly map-legend size — a desk
-reference rather than a wall piece. A3 or larger is where it becomes readable
+A4 gets all 2048 words onto one sheet, but at roughly map-legend size. It is a
+desk reference rather than a wall piece. A3 or larger is where it becomes readable
 across a room. If you would rather have big type on small paper, the **Grid**
 selector splits the list across 2, 4, or 8 sheets.
 
@@ -84,7 +84,7 @@ money you intend to keep, use a hardware wallet, or run this offline on a machin
 that stays offline.
 
 The worksheet button prints a blank sheet for doing it away from any computer. It
-records throws, never results — nothing generated on the page is ever written into
+records throws, never results. Nothing generated on the page is ever written into
 a file. With a 12-word phrase the checksum occupies only 4 bits, so the first
 eleven words follow from your entropy alone and can be read straight off the
 poster; only the last word mixes in SHA-256 and needs a machine.
@@ -107,7 +107,7 @@ That checks three things:
 3. all 2048 words actually made it into the page
 
 CI runs the same script on every push, and additionally fails the build if
-`index.html` ever gains a remote asset — the page must keep working with the
+`index.html` ever gains a remote asset. The page must keep working with the
 network cable pulled.
 
 The BIP-39 encoder carries its own test vectors: `SEED.selfTest()` in the browser
@@ -123,21 +123,45 @@ python3 scripts/build.py          # regenerate index.html from src/ and data/
 python3 scripts/build.py -o /tmp/out.html
 ```
 
-Edit the sources, never `index.html` — the latter is generated. `build.py`
-concatenates `src/css/*.css`, `src/js/*.js` and `src/content/*.html` in filename
-order (numbered, because concatenation order is load order) and inlines them into
-the template along with the word list. There is no minifier and no bundler.
+Edit the sources, never `index.html`, which is generated. `build.py`
+concatenates `src/css/*.css`, `src/js/*.js` and `src/content/*.<lang>.html` in
+filename order (numbered, because concatenation order is load order) and inlines
+them into the template along with the word list and the translations. There is no
+minifier and no bundler.
 
 ```
-index.html            the site, self-contained and committed
-src/template.html     HTML shell, with __CSS__ / __JS__ / __CONTENT__ placeholders
-src/css/*.css         poster, site chrome, roller, explainer, print rules
-src/js/*.js           layout solver, sheet renderer, SHA-256 + BIP-39, PDF writer
-src/content/*.html    long-form prose
-data/english.txt      canonical BIP-39 English word list
-scripts/build.py      render index.html
-scripts/verify.sh     audit the word list and the build
+index.html                 the site, self-contained and committed
+src/template.html          HTML shell: __CSS__ / __JS__ / __CONTENT__ placeholders
+src/css/*.css              poster, site chrome, roller, explainer, print rules
+src/js/*.js                layout solver, sheet renderer, SHA-256 + BIP-39, PDF writer
+src/i18n/<lang>.json       interface strings
+src/content/*.<lang>.html  long-form prose
+data/english.txt           canonical BIP-39 English word list
+scripts/build.py           render index.html
+scripts/verify.sh          audit the word list and the build
+scripts/probe.py           headless-browser layout and engine checks
 ```
+
+### Adding a language
+
+Two files, no code:
+
+```
+src/i18n/fr.json           copy en.json, translate the values, set _name and _code
+src/content/learn.fr.html  copy learn.en.html, translate the prose
+```
+
+Rebuild. The language appears in the selector, named by its own `_name`. Keys a
+translation has not reached yet fall back to English one at a time, and an
+untranslated prose file falls back whole, so a partial language is still usable
+and the build only prints a note about what is missing.
+
+The choice lives in the URL as `#<lang>/<view>`, for example
+`#es/learn`. Nothing is stored on the reader's machine. With no language in the
+URL the browser's own preferences decide.
+
+House style, enforced by the build: no em dash in any string a reader sees.
+Write two sentences instead.
 
 ## A word of caution
 
@@ -145,7 +169,7 @@ This is the **public** BIP-39 standard list. Every wallet ships it and anyone ca
 download it, so there is nothing sensitive about hanging it on a wall.
 
 Your recovery phrase is a different matter. Do not circle, underline, tick or
-otherwise mark your own words on a printed copy — a poster with twelve marks on it
+otherwise mark your own words on a printed copy. A poster with twelve marks on it
 is a plaintext backup of your seed, and a far easier one to read than you would
 like.
 

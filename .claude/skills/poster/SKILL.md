@@ -1,12 +1,12 @@
 ---
 name: poster
-description: Build, preview and audit the BIP-39 site — poster layout, entropy explainer, dice/coin roller, PDF output. Use when changing anything under src/, the grid or typography, the word list, the seed engine, or when asked to run, open, screenshot or print-check the page.
+description: Build, preview and audit the BIP-39 site: poster layout, entropy explainer, dice/coin roller, PDF output. Use when changing anything under src/, the grid or typography, the word list, the seed engine, or when asked to run, open, screenshot or print-check the page.
 ---
 
 # Working on the site
 
 `index.html` is generated from `src/` + `data/english.txt`. Three views behind
-hash routing — `#poster`, `#learn`, `#roll` — in one offline file.
+hash routing (`#poster`, `#learn`, `#roll`), in one offline file.
 
 ## Loop
 
@@ -20,7 +20,7 @@ python3 scripts/probe.py    # ~90s: headless Chrome, all 252 layout combinations
 No dev server, nothing to install. Reload the tab after a rebuild.
 
 `build.py` concatenates `src/css/*.css`, `src/js/*.js`, `src/content/*.html` in
-filename order into one scope. The number prefix is load order — `10-data.js`
+filename order into one scope. The number prefix is load order: `10-data.js`
 defines `WORDS` before `90-boot.js` renders. New module, new prefix.
 
 ## What breaks, and how it hides
@@ -58,13 +58,13 @@ numbers move, update `README.md` too.
 
 The page is a print artifact, so screen appearance is not the deliverable.
 
-1. **Control bar** — Paper, Orientation, Grid, faces and toggles all apply live.
-2. **Readout** — type size, amber below 4.6 pt, and the preview scale when the
+1. **Control bar**. Paper, Orientation, Grid, faces and toggles all apply live.
+2. **Readout**. Type size, amber below 4.6 pt, and the preview scale when the
    sheet is shrunk to fit the window.
-3. **Search** — highlights, and the decoder legend follows the pin.
-4. **PDF** — the reliable output path; `Print` depends on the user setting 100 %
+3. **Search**. Highlights, and the decoder legend follows the pin.
+4. **PDF**. The reliable output path; `Print` depends on the user setting 100 %
    scale and background graphics.
-5. **Roller** — dice and coin, 12 and 24 words, Undo, keyboard entry, worksheet.
+5. **Roller**. Dice and coin, 12 and 24 words, Undo, keyboard entry, worksheet.
 
 ## Verifying PDFs
 
@@ -73,11 +73,11 @@ nowhere. Generate in headless Chrome with `PDF.save` stubbed to capture the
 blob, read it back with `FileReader`, then check the bytes (`%PDF-1.4`, `xref`,
 `%%EOF`) and render with `qlmanage -t -s 1200 -o . file.pdf` and *look* at it.
 For the worksheet, wrap `d.text`/`d.rect`/`d.line` to assert nothing is drawn
-outside the margins — `qlmanage` only ever renders page one.
+outside the margins, because `qlmanage` only ever renders page one.
 
 ## Things that break the build
 
-- Hand-editing `index.html` — generated, and CI diffs it against a fresh build.
+- Hand-editing `index.html`, which is generated and diffed by CI against a fresh build.
 - Dropping `__CSS__`, `__JS__`, `__CONTENT__` from the template, or `__WORDS__`,
   `__SHA__`, `__SHA_SHORT__` from the sources. `build.py` exits non-zero.
 - Any `http(s)://` asset. CI greps for it, and the page's central claim is that
@@ -90,5 +90,5 @@ Don't touch `data/english.txt` unless BIP-39 itself changed: it is pinned by
 SHA-256 in `build.py`, in `verify.sh`, and in the poster's colophon.
 
 `src/js/60-seed.js` carries the official BIP-39 vectors plus a deterministic
-property test. If a change makes `SEED.selfTest()` fail, the change is wrong —
-never adjust the vectors to suit it.
+property test. If a change makes `SEED.selfTest()` fail, the change is wrong.
+Never adjust the vectors to suit it.
