@@ -49,4 +49,15 @@ done < "$ROOT/data/english.txt"
 [[ "$missing" == "0" ]] || fail "$missing words missing from index.html"
 pass "all 2048 words embedded in index.html"
 
+# 4. the page claims it cannot talk to a network, so hold it to that
+net_hits=""
+for pattern in 'fetch(' 'XMLHttpRequest' 'WebSocket' 'sendBeacon' 'EventSource' \
+               'serviceWorker' 'new Worker(' 'importScripts' '<form' 'navigator.connection'; do
+  if grep -qF "$pattern" "$ROOT/index.html"; then
+    net_hits="$net_hits $pattern"
+  fi
+done
+[[ -z "$net_hits" ]] || fail "index.html contains network-capable code:$net_hits"
+pass "no network-capable code in index.html"
+
 echo "verified."
