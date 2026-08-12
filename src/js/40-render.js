@@ -30,21 +30,19 @@ function writeReadout(){
   r.replaceChildren();
   const spec = document.createElement("span");
   spec.className = "spec";
-  spec.textContent = L.paper + " " + (L.land ? "landscape" : "portrait") + " · " +
-    L.cols + " × " + L.rows + " · " +
-    (L.sheets === 1 ? "one sheet" : L.sheets + " sheets") + " · " +
-    L.colBits + "+" + L.rowBits + " bit split";
+  spec.textContent = L.paper + " " + t(L.land ? "readout.landscape" : "readout.portrait") +
+    " · " + L.cols + " × " + L.rows + " · " +
+    (L.sheets === 1 ? t("readout.oneSheet") : t("readout.sheets", { n: L.sheets })) + " · " +
+    t("readout.split", { a: L.colBits, b: L.rowBits });
   const size = document.createElement("span");
   size.className = "pt" + (pt < 4.6 ? " small" : "");
-  size.textContent = "word type " + pt.toFixed(1) + " pt";
+  size.textContent = t("readout.type", { pt: pt.toFixed(1) });
   const tip = document.createElement("span");
-  tip.textContent = pt < 4.6
-    ? "Small. Try landscape, or A3, or split across sheets."
-    : "Print at 100 % scale with background graphics on.";
+  tip.textContent = t(pt < 4.6 ? "readout.small" : "readout.printTip");
   const prev = document.createElement("span");
   if (L.scale < 0.995)
-    prev.textContent = "preview at " + Math.round(L.scale * 100) + " % — prints full size";
+    prev.textContent = t("readout.preview", { pct: Math.round(L.scale * 100) });
   const warn = document.createElement("span");
-  warn.textContent = "Public standard list — never mark your own recovery words on it.";
+  warn.textContent = t("readout.warn");
   r.append(spec, size, prev, tip, warn);
 }

@@ -19,6 +19,8 @@ TEMPLATE = ROOT / "src" / "template.html"
 CSS_DIR = ROOT / "src" / "css"
 JS_DIR = ROOT / "src" / "js"
 CONTENT_DIR = ROOT / "src" / "content"
+I18N_DIR = ROOT / "src" / "i18n"
+BASE_LANG = "en"
 DEFAULT_OUTPUT = ROOT / "index.html"
 
 # SHA-256 of bip-0039/english.txt from github.com/bitcoin/bips
@@ -61,6 +63,63 @@ def concat(directory: pathlib.Path, suffix: str, comment: str = "/* {} */") -> t
     return "\n\n".join(chunks), [p.name for p in parts]
 
 
+def load_i18n() -> tuple[dict, list[dict]]:
+    """Read src/i18n/*.json. Adding a language is adding a file, never code.
+
+    Missing keys are reported but not fatal: a translation lands over several
+    commits, and the runtime falls back to the base language key by key.
+    """
+    bundles = {}
+    for path in sorted(I18N_DIR.glob("*.json")):
+        code = path.stem
+        try:
+            bundles[code] = json.loads(path.read_text())
+        except json.JSONDecodeError as e:
+            sys.exit(f"{path.relative_to(ROOT)} is not valid JSON: {e}")
+        if bundles[code].get("_code", code) != code:
+            sys.exit(f"{path.relative_to(ROOT)} declares _code "
+                     f"{bundles[code].get('_code')!r} but is named {code}.json")
+
+    if BASE_LANG not in bundles:
+        sys.exit(f"src/i18n/{BASE_LANG}.json is required as the fallback language")
+
+    base = {k for k in bundles[BASE_LANG] if not k.startswith("_")}
+    for code, bundle in bundles.items():
+        if code == BASE_LANG:
+            continue
+        keys = {k for k in bundle if not k.startswith("_")}
+        missing, extra = sorted(base - keys), sorted(keys - base)
+        if missing:
+            print(f"  note: {code}.json is missing {len(missing)} key(s): "
+                  f"{', '.join(missing[:6])}{' …' if len(missing) > 6 else ''}")
+        if extra:
+            print(f"  note: {code}.json has {len(extra)} key(s) not in {BASE_LANG}.json: "
+                  f"{', '.join(extra[:6])}{' …' if len(extra) > 6 else ''}")
+
+    langs = [{"code": c, "name": b.get("_name", c)} for c, b in bundles.items()]
+    langs.sort(key=lambda l: (l["code"] != BASE_LANG, l["name"]))
+    return bundles, langs
+
+
+def load_content(langs: list[dict]) -> tuple[str, list[str]]:
+    """Wrap each src/content/<name>.<lang>.html in a pane the runtime can switch."""
+    panes, names = [], []
+    known = {l["code"] for l in langs}
+    for path in sorted(CONTENT_DIR.glob("*.html")):
+        parts = path.stem.rsplit(".", 1)
+        if len(parts) != 2 or parts[1] not in known:
+            sys.exit(f"{path.relative_to(ROOT)} must be named <name>.<lang>.html "
+                     f"with lang one of {sorted(known)}")
+        name, lang = parts
+        panes.append(f'<!-- {path.relative_to(ROOT)} -->\n'
+                     f'<div class="pane" data-pane="{name}" data-lang="{lang}" hidden>\n'
+                     f'{path.read_text().strip()}\n</div>')
+        names.append(path.name)
+    if not panes:
+        sys.exit("no content files in src/content")
+    return "\n\n".join(panes), names
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -78,11 +137,16 @@ def main() -> None:
 
     css, css_parts = concat(CSS_DIR, ".css")
     js, js_parts = concat(JS_DIR, ".js")
-    content, content_parts = concat(CONTENT_DIR, ".html", "<!-- {} -->")
+    bundles, langs = load_i18n()
+    content, content_parts = load_content(langs)
 
     # CSS, JS and prose first: __WORDS__ and the hashes live inside the JS sources.
     html = html.replace("__CSS__", css).replace("__JS__", js)
     html = html.replace("__CONTENT__", content)
+    html = html.replace("__I18N__", json.dumps(bundles, ensure_ascii=False,
+                                               separators=(",", ":"), sort_keys=True))
+    html = html.replace("__LANGS__", json.dumps(langs, ensure_ascii=False,
+                                                separators=(",", ":")))
 
     for placeholder in ("__WORDS__", "__SHA__", "__SHA_SHORT__"):
         if placeholder not in html:
@@ -97,6 +161,7 @@ def main() -> None:
     print(f"  css:     {' '.join(css_parts)}")
     print(f"  js:      {' '.join(js_parts)}")
     print(f"  content: {' '.join(content_parts)}")
+    print(f"  i18n:    {' '.join(l['code'] for l in langs)}")
     print(f"legend word: {words[LEGEND_INDEX]} (index {LEGEND_INDEX})")
 
 

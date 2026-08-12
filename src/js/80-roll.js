@@ -17,10 +17,11 @@ function rollBits(){
 function rollPad(){
   const pad = $("rollpad");
   pad.replaceChildren();
+  const reroll = t("roll.keyReroll");
   const keys = ROLL.method === "coin"
     ? [["H", "1", false], ["T", "0", false]]
     : [["1", "00", false], ["2", "01", false], ["3", "10", false],
-       ["4", "11", false], ["5", "reroll", true], ["6", "reroll", true]];
+       ["4", "11", false], ["5", reroll, true], ["6", reroll, true]];
 
   for (const [face, sub, rej] of keys){
     const b = document.createElement("button");
@@ -31,12 +32,22 @@ function rollPad(){
     pad.appendChild(b);
   }
 
-  $("rollhint").textContent = ROLL.method === "coin"
-    ? "Flip a real coin. Heads is 1, tails is 0 — press H or T, or 1 and 0. " +
-      "Backspace undoes the last flip."
-    : "Throw a real d6 and press what you see. 1 to 4 carry two bits each; " +
-      "5 and 6 carry nothing and are thrown again, which is what keeps the " +
-      "sixteen possible pairs equally likely. Backspace undoes the last throw.";
+  $("rollhint").textContent = t(ROLL.method === "coin" ? "roll.hintCoin" : "roll.hintDice");
+}
+
+// Two sentences carry inline markup. They are assembled from parts rather than
+// injected as HTML, so a translation file stays plain text and cannot smuggle tags.
+function rollText(){
+  const link = document.createElement("a");
+  link.href = "#" + LANG + "/learn";
+  link.textContent = t("roll.leadLinkText");
+  const lead = t("roll.leadLink").split("{link}");
+  $("rollleadlink").replaceChildren(lead[0] || "", link, lead[1] || "");
+
+  const em = document.createElement("em");
+  em.textContent = t("roll.warnEm");
+  const warn = t("roll.warn").split("{em}");
+  $("rollwarntext").replaceChildren(warn[0] || "", em, warn[1] || "");
 }
 
 function rollPush(face){
@@ -58,10 +69,10 @@ function rollRender(){
   const entBits = bits.slice(0, spec.entBits);
 
   $("rollfill").style.width = (100 * have / spec.entBits) + "%";
-  $("rollcount").innerHTML =
-    "<b>" + have + "</b> / " + spec.entBits + " bits · " +
-    "<b>" + ROLL.throws.length + "</b> " + (ROLL.method === "coin" ? "flips" : "throws") +
-    (rejected ? " · " + rejected + " rerolled" : "");
+  $("rollcount").textContent =
+    t("roll.count", { have, need: spec.entBits, throws: ROLL.throws.length,
+                      unit: t(ROLL.method === "coin" ? "roll.flips" : "roll.throws") }) +
+    (rejected ? t("roll.rerolled", { n: rejected }) : "");
 
   const cs = full ? SEED.checksumBits(SEED.bitsToBytes(entBits)) : "";
   const all = entBits + cs;
@@ -90,12 +101,12 @@ function rollRender(){
     return d;
   };
 
-  add("roll-sec", "Entropy · " + spec.entBits + " bits");
+  add("roll-sec", t("roll.entropyLabel", { n: spec.entBits }));
   add("roll-fact", "<b>" + hex + "</b>");
-  add("roll-sec", "Checksum · first " + spec.csBits + " bits of sha256(entropy)");
+  add("roll-sec", t("roll.checksumLabel", { n: spec.csBits }));
   add("roll-fact", "<b>" + cs + "</b>");
-  add("roll-sec", spec.words + " words · each one eleven bits of the " +
-      (spec.entBits + spec.csBits) + "-bit total");
+  add("roll-sec", t("roll.wordsLabel", { n: spec.words,
+                                         total: spec.entBits + spec.csBits }));
 
   const grid = document.createElement("div");
   grid.className = "seed";
@@ -110,9 +121,7 @@ function rollRender(){
   });
   out.appendChild(grid);
 
-  add("roll-fact", "These words are exactly as unpredictable as your throws were, " +
-      "and no more. A phrase made in a browser tab is for learning — put nothing " +
-      "on it that you would mind losing.");
+  add("roll-fact", t("roll.footnote"));
 }
 
 function rollReset(){
@@ -122,8 +131,7 @@ function rollReset(){
 
 function rollInit(){
   if (!rollReady()){
-    $("view-roll").querySelector(".roll-warn").textContent =
-      "The entropy engine did not load, so this section is disabled.";
+    $("view-roll").querySelector(".roll-warn").textContent = t("roll.disabled");
     return;
   }
   $("strength").addEventListener("change", () => {
@@ -154,6 +162,7 @@ function rollInit(){
     }
   });
 
+  rollText();
   rollPad();
   rollRender();
 }

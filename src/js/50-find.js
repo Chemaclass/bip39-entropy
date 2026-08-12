@@ -20,8 +20,9 @@ function applyFind(){
   }
   const tag = document.createElement("span");
   tag.className = "hit";
-  tag.textContent = hits.length + " match" + (hits.length === 1 ? "" : "es") +
-    (hits.length === 1 ? " — index " + hits[0] + " · " + WORDS[hits[0]] : "");
+  tag.textContent = hits.length === 1
+    ? t("readout.match", { i: hits[0], word: WORDS[hits[0]] })
+    : t("readout.matches", { n: hits.length });
   $("readout").appendChild(tag);
 }
 

@@ -15,71 +15,75 @@ __CSS__
 <div class="chrome">
   <div class="top">
     <div class="top-in">
-      <a class="brand" href="#poster"><b>BIP-39</b><span>entropy · words · print</span></a>
-      <nav class="tabs" id="tabs" aria-label="Sections">
-        <a href="#poster" data-view="poster">Poster</a>
-        <a href="#learn" data-view="learn">Entropy</a>
-        <a href="#roll" data-view="roll">Roll your own</a>
+      <a class="brand" id="brandlink" href="#poster"><b>BIP-39</b><span data-t="brand.tag"></span></a>
+      <nav class="tabs" id="tabs" data-t-attr="aria-label:nav.aria">
+        <a href="#poster" data-view="poster" data-t="nav.poster"></a>
+        <a href="#learn" data-view="learn" data-t="nav.learn"></a>
+        <a href="#roll" data-view="roll" data-t="nav.roll"></a>
       </nav>
+      <div class="langsel">
+        <label for="lang" class="vh" data-t="lang.label"></label>
+        <select id="lang" data-t-attr="aria-label:lang.label"></select>
+      </div>
     </div>
   </div>
 
   <div class="bar" id="bar">
     <div class="bar-in">
       <div class="ctl">
-        <label for="paper">Paper</label>
+        <label for="paper" data-t="bar.paper"></label>
         <select id="paper">
-          <option value="A4" selected>A4 — 210 × 297</option>
-          <option value="A3">A3 — 297 × 420</option>
-          <option value="A2">A2 — 420 × 594</option>
-          <option value="A1">A1 — 594 × 841</option>
-          <option value="Letter">Letter — 8.5 × 11</option>
-          <option value="Tabloid">Tabloid — 11 × 17</option>
+          <option value="A4" selected>A4 · 210 × 297</option>
+          <option value="A3">A3 · 297 × 420</option>
+          <option value="A2">A2 · 420 × 594</option>
+          <option value="A1">A1 · 594 × 841</option>
+          <option value="Letter">Letter · 8.5 × 11</option>
+          <option value="Tabloid">Tabloid · 11 × 17</option>
         </select>
       </div>
 
       <div class="ctl">
-        <label for="orient">Orientation</label>
+        <label for="orient" data-t="bar.orientation"></label>
         <select id="orient">
-          <option value="p" selected>Portrait</option>
-          <option value="l">Landscape</option>
+          <option value="p" selected data-t="orient.portrait"></option>
+          <option value="l" data-t="orient.landscape"></option>
         </select>
       </div>
 
       <div class="ctl">
-        <label for="split">Grid</label>
+        <label for="split" data-t="bar.grid"></label>
         <select id="split">
-          <option value="auto" selected>Auto — largest type, one sheet</option>
-          <option value="16x128:16x128">16 × 128 — one sheet (4+7 bits)</option>
-          <option value="32x64:32x64">32 × 64 — one sheet (5+6 bits)</option>
-          <option value="16x128:16x64">16 × 64 — two sheets</option>
-          <option value="16x128:8x128">8 × 128 — two sheets</option>
-          <option value="16x128:8x64">8 × 64 — four sheets</option>
-          <option value="16x128:4x64">4 × 64 — eight sheets</option>
+          <option value="auto" selected data-t="grid.auto"></option>
+          <option value="16x128:16x128" data-t="grid.16x128"></option>
+          <option value="32x64:32x64" data-t="grid.32x64"></option>
+          <option value="16x128:16x64" data-t="grid.16x64"></option>
+          <option value="16x128:8x128" data-t="grid.8x128"></option>
+          <option value="16x128:8x64" data-t="grid.8x64"></option>
+          <option value="16x128:4x64" data-t="grid.4x64"></option>
         </select>
       </div>
 
       <div class="ctl">
-        <label for="face">Word face</label>
+        <label for="face" data-t="bar.face"></label>
         <select id="face">
-          <option value="grot" selected>Grotesque</option>
-          <option value="serif">Serif</option>
-          <option value="mono">Monospace</option>
+          <option value="grot" selected data-t="face.grot"></option>
+          <option value="serif" data-t="face.serif"></option>
+          <option value="mono" data-t="face.mono"></option>
         </select>
       </div>
 
       <div class="ctl">
-        <label for="find">Find word or index</label>
-        <input id="find" type="search" placeholder="abandon · 1024" autocomplete="off" spellcheck="false">
+        <label for="find" data-t="bar.find"></label>
+        <input id="find" type="search" data-t-attr="placeholder:bar.findPlaceholder" autocomplete="off" spellcheck="false">
       </div>
 
       <div class="ctl">
         <label>&nbsp;</label>
         <div class="toggles">
-          <label class="tg"><input type="checkbox" id="prefix" checked> Prefix emphasis</label>
-          <label class="tg"><input type="checkbox" id="rules" checked> Row rules</label>
-          <button id="pdf">PDF</button>
-          <button class="btn-print" id="print">PRINT</button>
+          <label class="tg"><input type="checkbox" id="prefix" checked> <span data-t="toggle.prefix"></span></label>
+          <label class="tg"><input type="checkbox" id="rules" checked> <span data-t="toggle.rules"></span></label>
+          <button id="pdf" data-t="btn.pdf"></button>
+          <button class="btn-print" id="print" data-t="btn.print"></button>
         </div>
       </div>
     </div>
@@ -99,41 +103,32 @@ __CONTENT__
 
   <div class="view" id="view-roll" hidden>
     <section class="roll">
-      <h2 class="roll-h">Roll your own entropy</h2>
-      <p class="roll-lead">Twelve words are a 128-bit number plus a 4-bit checksum.
-        Below you make that number yourself, one throw at a time, and watch it turn
-        into words. Nothing here leaves the page — there is no network code in this
-        file at all. If the words <em>entropy</em> and <em>checksum</em> are doing
-        no work for you yet, read <a href="#learn">the field guide</a> first.</p>
+      <h2 class="roll-h" data-t="roll.title"></h2>
+      <p class="roll-lead"><span data-t="roll.lead"></span> <span id="rollleadlink"></span></p>
 
-      <aside class="roll-warn">
-        <b>Read this first.</b> A phrase generated in a browser is for
-        <em>learning and verification</em>. For money you intend to keep, generate the
-        phrase on a hardware wallet, or do this on a machine that is offline and stays
-        offline. Never type an existing seed phrase into this or any other page.
-      </aside>
+      <aside class="roll-warn"><b data-t="roll.warnLead"></b> <span id="rollwarntext"></span></aside>
 
       <div class="roll-ctl">
         <div class="ctl">
-          <label for="strength">Length</label>
+          <label for="strength" data-t="roll.length"></label>
           <select id="strength">
-            <option value="12" selected>12 words — 128 bits</option>
-            <option value="24">24 words — 256 bits</option>
+            <option value="12" selected data-t="roll.words12"></option>
+            <option value="24" data-t="roll.words24"></option>
           </select>
         </div>
         <div class="ctl">
-          <label for="method">Source</label>
+          <label for="method" data-t="roll.source"></label>
           <select id="method">
-            <option value="dice" selected>Dice — one d6</option>
-            <option value="coin">Coin — one flip</option>
+            <option value="dice" selected data-t="roll.dice"></option>
+            <option value="coin" data-t="roll.coin"></option>
           </select>
         </div>
         <div class="ctl">
           <label>&nbsp;</label>
           <div class="toggles">
-            <button id="rollundo">Undo</button>
-            <button id="rollclear">Clear</button>
-            <button id="rollsheet">Worksheet PDF</button>
+            <button id="rollundo" data-t="btn.undo"></button>
+            <button id="rollclear" data-t="btn.clear"></button>
+            <button id="rollsheet" data-t="btn.worksheet"></button>
           </div>
         </div>
       </div>

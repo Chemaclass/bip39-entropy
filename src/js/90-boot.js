@@ -14,8 +14,12 @@ stage.addEventListener("click", e => {
   updateDecoders(+w.dataset.i);
 });
 
-let t;
-window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(render, 140); });
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(render, 140);
+});
 
-navInit();
+langInit();
 rollInit();
+navInit();

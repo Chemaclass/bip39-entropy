@@ -141,6 +141,11 @@ body.plain .w{color:var(--ink)}
 .tabs a:hover{color:var(--chrome-ink)}
 .tabs a.on{color:var(--patina);border-bottom-color:var(--patina)}
 
+.langsel{margin-left:auto;display:flex;align-items:center}
+.langsel select{min-height:28px;padding:5px 22px 5px 8px;font-size:11px;letter-spacing:.06em}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
 .view[hidden]{display:none}
 
 /* Prose links, in both long-form sections. */
@@ -387,71 +392,75 @@ p.learn-lead em{color:var(--patina)}
 <div class="chrome">
   <div class="top">
     <div class="top-in">
-      <a class="brand" href="#poster"><b>BIP-39</b><span>entropy · words · print</span></a>
-      <nav class="tabs" id="tabs" aria-label="Sections">
-        <a href="#poster" data-view="poster">Poster</a>
-        <a href="#learn" data-view="learn">Entropy</a>
-        <a href="#roll" data-view="roll">Roll your own</a>
+      <a class="brand" id="brandlink" href="#poster"><b>BIP-39</b><span data-t="brand.tag"></span></a>
+      <nav class="tabs" id="tabs" data-t-attr="aria-label:nav.aria">
+        <a href="#poster" data-view="poster" data-t="nav.poster"></a>
+        <a href="#learn" data-view="learn" data-t="nav.learn"></a>
+        <a href="#roll" data-view="roll" data-t="nav.roll"></a>
       </nav>
+      <div class="langsel">
+        <label for="lang" class="vh" data-t="lang.label"></label>
+        <select id="lang" data-t-attr="aria-label:lang.label"></select>
+      </div>
     </div>
   </div>
 
   <div class="bar" id="bar">
     <div class="bar-in">
       <div class="ctl">
-        <label for="paper">Paper</label>
+        <label for="paper" data-t="bar.paper"></label>
         <select id="paper">
-          <option value="A4" selected>A4 — 210 × 297</option>
-          <option value="A3">A3 — 297 × 420</option>
-          <option value="A2">A2 — 420 × 594</option>
-          <option value="A1">A1 — 594 × 841</option>
-          <option value="Letter">Letter — 8.5 × 11</option>
-          <option value="Tabloid">Tabloid — 11 × 17</option>
+          <option value="A4" selected>A4 · 210 × 297</option>
+          <option value="A3">A3 · 297 × 420</option>
+          <option value="A2">A2 · 420 × 594</option>
+          <option value="A1">A1 · 594 × 841</option>
+          <option value="Letter">Letter · 8.5 × 11</option>
+          <option value="Tabloid">Tabloid · 11 × 17</option>
         </select>
       </div>
 
       <div class="ctl">
-        <label for="orient">Orientation</label>
+        <label for="orient" data-t="bar.orientation"></label>
         <select id="orient">
-          <option value="p" selected>Portrait</option>
-          <option value="l">Landscape</option>
+          <option value="p" selected data-t="orient.portrait"></option>
+          <option value="l" data-t="orient.landscape"></option>
         </select>
       </div>
 
       <div class="ctl">
-        <label for="split">Grid</label>
+        <label for="split" data-t="bar.grid"></label>
         <select id="split">
-          <option value="auto" selected>Auto — largest type, one sheet</option>
-          <option value="16x128:16x128">16 × 128 — one sheet (4+7 bits)</option>
-          <option value="32x64:32x64">32 × 64 — one sheet (5+6 bits)</option>
-          <option value="16x128:16x64">16 × 64 — two sheets</option>
-          <option value="16x128:8x128">8 × 128 — two sheets</option>
-          <option value="16x128:8x64">8 × 64 — four sheets</option>
-          <option value="16x128:4x64">4 × 64 — eight sheets</option>
+          <option value="auto" selected data-t="grid.auto"></option>
+          <option value="16x128:16x128" data-t="grid.16x128"></option>
+          <option value="32x64:32x64" data-t="grid.32x64"></option>
+          <option value="16x128:16x64" data-t="grid.16x64"></option>
+          <option value="16x128:8x128" data-t="grid.8x128"></option>
+          <option value="16x128:8x64" data-t="grid.8x64"></option>
+          <option value="16x128:4x64" data-t="grid.4x64"></option>
         </select>
       </div>
 
       <div class="ctl">
-        <label for="face">Word face</label>
+        <label for="face" data-t="bar.face"></label>
         <select id="face">
-          <option value="grot" selected>Grotesque</option>
-          <option value="serif">Serif</option>
-          <option value="mono">Monospace</option>
+          <option value="grot" selected data-t="face.grot"></option>
+          <option value="serif" data-t="face.serif"></option>
+          <option value="mono" data-t="face.mono"></option>
         </select>
       </div>
 
       <div class="ctl">
-        <label for="find">Find word or index</label>
-        <input id="find" type="search" placeholder="abandon · 1024" autocomplete="off" spellcheck="false">
+        <label for="find" data-t="bar.find"></label>
+        <input id="find" type="search" data-t-attr="placeholder:bar.findPlaceholder" autocomplete="off" spellcheck="false">
       </div>
 
       <div class="ctl">
         <label>&nbsp;</label>
         <div class="toggles">
-          <label class="tg"><input type="checkbox" id="prefix" checked> Prefix emphasis</label>
-          <label class="tg"><input type="checkbox" id="rules" checked> Row rules</label>
-          <button id="pdf">PDF</button>
-          <button class="btn-print" id="print">PRINT</button>
+          <label class="tg"><input type="checkbox" id="prefix" checked> <span data-t="toggle.prefix"></span></label>
+          <label class="tg"><input type="checkbox" id="rules" checked> <span data-t="toggle.rules"></span></label>
+          <button id="pdf" data-t="btn.pdf"></button>
+          <button class="btn-print" id="print" data-t="btn.print"></button>
         </div>
       </div>
     </div>
@@ -466,7 +475,8 @@ p.learn-lead em{color:var(--patina)}
   </div>
 
   <div class="view" id="view-learn" hidden>
-<!-- src/content/learn.html -->
+<!-- src/content/learn.en.html -->
+<div class="pane" data-pane="learn" data-lang="en" hidden>
 <section id="learn" class="learn">
 
   <header class="learn-head">
@@ -474,7 +484,7 @@ p.learn-lead em{color:var(--patina)}
     <h1 class="learn-title">Twelve words are<br>a number</h1>
     <p class="learn-lead">
       Everything that keeps that number yours is decided in the instant it is
-      generated — before you write anything down, before you pick a wallet, before
+      generated, before you write anything down, before you pick a wallet, before
       you think about fireproof steel. This page explains what that instant has to
       accomplish, with the arithmetic shown rather than asserted. It is written for
       someone who owns bitcoin, is about to record a recovery phrase, and has heard
@@ -492,7 +502,7 @@ p.learn-lead em{color:var(--patina)}
     <p>
       Never type a real recovery phrase into any website, including this one. This
       page has no field that accepts a phrase, makes no network requests, and stores
-      nothing — a claim you can check by reading the source and by pulling the cable.
+      nothing. You can check that claim by reading the source and by pulling the cable.
       Anything that offers to “validate” or “recover” your phrase online is a theft
       pattern, not a service.
     </p>
@@ -517,7 +527,7 @@ p.learn-lead em{color:var(--patina)}
       A BIP-39 phrase is a number written in words. Each word is an index into a
       fixed, public, ordered list of 2048 entries: <code>abandon</code> is
       <code>0</code>, <code>length</code> is <code>1024</code>, <code>zoo</code> is
-      <code>2047</code>. Nothing else about a word matters — not its meaning, not
+      <code>2047</code>. Nothing else about a word matters. Not its meaning, not
       its length, not whether it sounds like a strong password. The list is a
       numbering scheme for humans, and that is its entire job.
     </p>
@@ -552,7 +562,7 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       A 12-word phrase generated correctly carries 128 bits, so it was drawn from
-      <code>2^128</code> candidates —
+      <code>2^128</code> candidates, or
       <code>340282366920938463463374607431768211456</code>, about
       <code>3.4 × 10^38</code>. That number is hard to hold in the head, so here are
       four handles on it, each with its working shown.
@@ -563,7 +573,7 @@ p.learn-lead em{color:var(--patina)}
         <b>Bitcoin's entire mining network.</b> The largest purpose-built computing
         effort that has ever existed runs on the order of <code>10^21</code> hashes
         per second. At that rate, merely counting to <code>2^128</code> takes
-        <code>3.4 × 10^17</code> seconds, or about <b>11 billion years</b> — roughly
+        <code>3.4 × 10^17</code> seconds, or about <b>11 billion years</b>, roughly
         the present age of the universe, which is about 13.8 billion years. And a
         bare hash is far cheaper than one full trial of a candidate phrase, so this
         is a generous underestimate of the real cost.
@@ -578,15 +588,15 @@ p.learn-lead em{color:var(--patina)}
       <li>
         <b>Since the Big Bang.</b> To have finished the search by today you would
         have needed to test roughly <code>7.8 × 10^20</code> candidates every second
-        without pause since the universe began — about 780 billion billion per
-        second, for 13.8 billion years.
+        without pause since the universe began. That is about 780 billion billion
+        per second, for 13.8 billion years.
       </li>
       <li>
         <b>Grains of sand, squared.</b> The often-quoted estimate for the sand on
         Earth's beaches and deserts is around <code>7.5 × 10^18</code> grains; treat
         that as very approximate. Replace every one of those grains with an entire
-        Earth's worth of sand — square the figure — and the total is still smaller
-        than <code>2^128</code>.
+        Earth's worth of sand, which squares the figure, and the total is still
+        smaller than <code>2^128</code>.
       </li>
     </ul>
 
@@ -615,7 +625,7 @@ p.learn-lead em{color:var(--patina)}
       <b>Entropy is measured against what an attacker knows about your process.</b>
       If you rolled dice, the answer is 128 bits. If you picked words that mean
       something to you, the honest answer is however many bits it takes to describe
-      your habit of choosing — and that number is small, no matter how arbitrary
+      your habit of choosing, and that number is small, no matter how arbitrary
       the result feels from the inside.
     </p>
   </section>
@@ -681,7 +691,7 @@ p.learn-lead em{color:var(--patina)}
       Whether 12 or 24 words is the better choice is not settled by entropy alone.
       128 bits is already beyond brute force by the margins above; 24 words is
       chiefly a hedge against future cryptanalysis and against Grover-style quantum
-      search, which in theory halves the effective strength of a symmetric secret —
+      search, which in theory halves the effective strength of a symmetric secret.
       128 bits would become 64, and 256 would become 128. Whether that speedup is
       ever practical is genuinely disputed. Both lengths are supported everywhere,
       and longer phrases cost you more to record and more to check.
@@ -702,7 +712,7 @@ p.learn-lead em{color:var(--patina)}
       <b>What it catches.</b> A word you mistyped into some other real word. Two
       words written in the wrong order. A word read off the wrong row of a grid. For
       a 12-word phrase, any single such mistake survives the check only if it
-      happens to produce the right four bits — about one time in sixteen — so
+      happens to produce the right four bits. That is about one time in sixteen, so
       roughly fifteen errors in sixteen are caught. For 24 words the figure is 255
       in 256. This is a genuinely useful property; it is why wallets can reject a
       typo instead of silently restoring an empty account.
@@ -742,9 +752,9 @@ p.learn-lead em{color:var(--patina)}
     </p>
 
     <p>
-      <b>A hardware random number generator</b>, in a wallet or a phone, is fast and
-      — when the device and its firmware are sound — genuinely unpredictable. Its
-      weakness is that you cannot audit it. You are trusting a chip, a firmware
+      <b>A hardware random number generator</b>, in a wallet or a phone, is fast.
+      When the device and its firmware are sound, it is genuinely unpredictable.
+      Its weakness is that you cannot audit it. You are trusting a chip, a firmware
       build and a supply chain, and there is a real history of generators that were
       broken, weakened or simply misused by the software above them.
     </p>
@@ -753,7 +763,7 @@ p.learn-lead em{color:var(--patina)}
       <b>Dice and coins</b> are slow, physical, and verifiable. You can watch every
       bit arrive. Their weakness is procedural: a biased die, a mis-transcribed bit,
       a photograph of the worksheet. Hand-generated entropy is not <em>more</em>
-      random than a good hardware source — the reason to do it is that you can check
+      random than a good hardware source. The reason to do it is that you can check
       it, not that it is stronger.
     </p>
 
@@ -788,7 +798,7 @@ p.learn-lead em{color:var(--patina)}
 
     <p class="learn-note">
       The 2048 PBKDF2 iterations in the derivation make each guess about two
-      thousand times more expensive than a bare hash — worth roughly eleven bits.
+      thousand times more expensive than a bare hash, worth roughly eleven bits.
       That is a meaningful speed bump against a weak passphrase and an irrelevance
       against 128 bits of real entropy. It cannot rescue a phrase you chose yourself.
     </p>
@@ -802,7 +812,7 @@ p.learn-lead em{color:var(--patina)}
       <a href="#roll">Roll your own</a> walks the throws in and shows the bits
       becoming words, and the worksheet it prints lets you do the same at a table
       with no computer at all. With a 12-word phrase only the last word needs a
-      machine — the other eleven you can read straight off
+      machine. The other eleven you can read straight off
       <a href="#poster">the poster</a>.
     </p>
 
@@ -815,12 +825,12 @@ p.learn-lead em{color:var(--patina)}
     </p>
 
     <p>
-      <b>Coins.</b> One flip, one bit — heads <code>1</code>, tails <code>0</code> —
-      so 128 flips for a 12-word phrase. If you doubt the coin is fair, use von
-      Neumann's trick: flip in pairs, read <code>HT</code> as <code>1</code> and
-      <code>TH</code> as <code>0</code>, discard <code>HH</code> and <code>TT</code>.
-      That removes any fixed bias at a cost of about four flips per bit, so roughly
-      512 flips for 128 bits.
+      <b>Coins.</b> One flip, one bit, with heads <code>1</code> and tails
+      <code>0</code>, so 128 flips for a 12-word phrase. If you doubt the coin is
+      fair, use von Neumann's trick: flip in pairs, read <code>HT</code> as
+      <code>1</code> and <code>TH</code> as <code>0</code>, discard <code>HH</code>
+      and <code>TT</code>. That removes any fixed bias at a cost of about four flips
+      per bit, so roughly 512 flips for 128 bits.
     </p>
 
     <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Dice and coin counts by phrase length, scrollable table">
@@ -860,7 +870,7 @@ p.learn-lead em{color:var(--patina)}
       practical sense. So the honest procedure is: generate the entropy physically,
       then use an offline machine or a hardware wallet that accepts raw entropy or
       dice input to compute the final word. Several wallets support exactly this.
-      The machine learns your entropy either way — the point of doing it by hand is
+      The machine learns your entropy either way. The point of doing it by hand is
       that the machine did not <em>choose</em> it.
     </p>
 
@@ -902,15 +912,14 @@ p.learn-lead em{color:var(--patina)}
       device you control. Not a website that offers to check it. Not a support chat,
       an exchange form, a “migration” page or an email. Not a notes app that syncs,
       a password manager backed by a server, or a photograph on a phone that backs
-      itself up. No legitimate party — not a wallet vendor, not an exchange, not a
-      developer — ever needs your recovery phrase, and the request itself is the
-      attack.
+      itself up. No legitimate party ever needs your recovery phrase. Not a wallet
+      vendor, not an exchange, not a developer. The request itself is the attack.
     </p>
 
     <p>
       <b>Verify offline.</b> The only check worth running is restoring the phrase on
       a device you control, offline, and seeing your own addresses come back. Do it
-      once, deliberately, soon after you record the phrase — an unverified backup is
+      once, deliberately, soon after you record the phrase. An unverified backup is
       a guess about the future.
     </p>
 
@@ -924,45 +933,37 @@ p.learn-lead em{color:var(--patina)}
   </section>
 
 </section>
+</div>
   </div>
 
   <div class="view" id="view-roll" hidden>
     <section class="roll">
-      <h2 class="roll-h">Roll your own entropy</h2>
-      <p class="roll-lead">Twelve words are a 128-bit number plus a 4-bit checksum.
-        Below you make that number yourself, one throw at a time, and watch it turn
-        into words. Nothing here leaves the page — there is no network code in this
-        file at all. If the words <em>entropy</em> and <em>checksum</em> are doing
-        no work for you yet, read <a href="#learn">the field guide</a> first.</p>
+      <h2 class="roll-h" data-t="roll.title"></h2>
+      <p class="roll-lead"><span data-t="roll.lead"></span> <span id="rollleadlink"></span></p>
 
-      <aside class="roll-warn">
-        <b>Read this first.</b> A phrase generated in a browser is for
-        <em>learning and verification</em>. For money you intend to keep, generate the
-        phrase on a hardware wallet, or do this on a machine that is offline and stays
-        offline. Never type an existing seed phrase into this or any other page.
-      </aside>
+      <aside class="roll-warn"><b data-t="roll.warnLead"></b> <span id="rollwarntext"></span></aside>
 
       <div class="roll-ctl">
         <div class="ctl">
-          <label for="strength">Length</label>
+          <label for="strength" data-t="roll.length"></label>
           <select id="strength">
-            <option value="12" selected>12 words — 128 bits</option>
-            <option value="24">24 words — 256 bits</option>
+            <option value="12" selected data-t="roll.words12"></option>
+            <option value="24" data-t="roll.words24"></option>
           </select>
         </div>
         <div class="ctl">
-          <label for="method">Source</label>
+          <label for="method" data-t="roll.source"></label>
           <select id="method">
-            <option value="dice" selected>Dice — one d6</option>
-            <option value="coin">Coin — one flip</option>
+            <option value="dice" selected data-t="roll.dice"></option>
+            <option value="coin" data-t="roll.coin"></option>
           </select>
         </div>
         <div class="ctl">
           <label>&nbsp;</label>
           <div class="toggles">
-            <button id="rollundo">Undo</button>
-            <button id="rollclear">Clear</button>
-            <button id="rollsheet">Worksheet PDF</button>
+            <button id="rollundo" data-t="btn.undo"></button>
+            <button id="rollclear" data-t="btn.clear"></button>
+            <button id="rollsheet" data-t="btn.worksheet"></button>
           </div>
         </div>
       </div>
@@ -980,6 +981,72 @@ p.learn-lead em{color:var(--patina)}
 </main>
 
 <script>
+/* src/js/05-i18n.js */
+/* ── i18n ───────────────────────────────────────────────────────── */
+// Strings live in src/i18n/<lang>.json, prose in src/content/<name>.<lang>.html.
+// Nothing below names a language, so adding one means adding those two files
+// and rebuilding. Keys missing from a translation fall back to the base
+// language one at a time, which lets a translation land over several commits.
+const I18N = {"en":{"_code":"en","_name":"English","bar.face":"Word face","bar.find":"Find word or index","bar.findPlaceholder":"abandon · 1024","bar.grid":"Grid","bar.orientation":"Orientation","bar.paper":"Paper","brand.tag":"entropy · words · print","btn.clear":"Clear","btn.pdf":"PDF","btn.print":"PRINT","btn.undo":"Undo","btn.worksheet":"Worksheet PDF","face.grot":"Grotesque","face.mono":"Monospace","face.serif":"Serif","grid.16x128":"16 × 128 · one sheet (4+7 bits)","grid.16x64":"16 × 64 · two sheets","grid.32x64":"32 × 64 · one sheet (5+6 bits)","grid.4x64":"4 × 64 · eight sheets","grid.8x128":"8 × 128 · two sheets","grid.8x64":"8 × 64 · four sheets","grid.auto":"Auto: largest type, one sheet","lang.label":"Language","nav.aria":"Sections","nav.learn":"Entropy","nav.poster":"Poster","nav.roll":"Roll your own","orient.landscape":"Landscape","orient.portrait":"Portrait","pdf.colophonLead":"FIRST FOUR LETTERS ARE UNIQUE","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"HOW TO READ A WORD","pdf.decoderMath":"column {col} + row {row} = {idx}","pdf.eyebrow":"BIP-39 · ENGLISH · 2048 WORDS","pdf.sheetTag":"SHEET {n} / {of} · {lo}-{hi}","pdf.subtitle":"The high {c} bits pick a column, the low {r} pick a row, so every word's index is its coordinate on this sheet. The first four letters, set in black, are unique across all 2048; the grey tail is redundant.","pdf.title1":"THE ELEVEN-BIT","pdf.title2":"ADDRESS ","pdf.title3":"SPACE","pdf.titleTight":"THE ELEVEN-BIT ADDRESS ","readout.landscape":"landscape","readout.match":"1 match, index {i} · {word}","readout.matches":"{n} matches","readout.oneSheet":"one sheet","readout.portrait":"portrait","readout.preview":"preview at {pct} %, prints full size","readout.printTip":"Print at 100 % scale with background graphics on.","readout.sheets":"{n} sheets","readout.small":"Small. Try landscape, or A3, or split across sheets.","readout.split":"{a}+{b} bit split","readout.type":"word type {pt} pt","readout.warn":"Public standard list. Never mark your own recovery words on it.","roll.checksumLabel":"Checksum · first {n} bits of sha256(entropy)","roll.coin":"Coin: one flip","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dice: one d6","roll.disabled":"The entropy engine did not load, so this section is disabled.","roll.entropyLabel":"Entropy · {n} bits","roll.flips":"flips","roll.footnote":"These words are exactly as unpredictable as your throws were, and no more. A phrase made in a browser tab is for learning. Put nothing on it that you would mind losing.","roll.hintCoin":"Flip a real coin. Heads is 1, tails is 0. Press H or T, or 1 and 0. Backspace undoes the last flip.","roll.hintDice":"Throw a real d6 and press what you see. 1 to 4 carry two bits each. 5 and 6 carry nothing and are thrown again, which is what keeps the sixteen possible pairs equally likely. Backspace undoes the last throw.","roll.keyReroll":"reroll","roll.lead":"Twelve words are a 128-bit number plus a 4-bit checksum. Below you make that number yourself, one throw at a time, and watch it turn into words. Nothing here leaves the page, because there is no network code in this file at all.","roll.leadLink":"If the words entropy and checksum are doing no work for you yet, read {link} first.","roll.leadLinkText":"the field guide","roll.length":"Length","roll.rerolled":" · {n} rerolled","roll.source":"Source","roll.throws":"throws","roll.title":"Roll your own entropy","roll.warn":"A phrase generated in a browser is for {em}. For money you intend to keep, generate the phrase on a hardware wallet, or do this on a machine that is offline and stays offline. Never type an existing seed phrase into this or any other page.","roll.warnEm":"learning and verification","roll.warnLead":"Read this first.","roll.words12":"12 words · 128 bits","roll.words24":"24 words · 256 bits","roll.wordsLabel":"{n} words · each one eleven bits of the {total}-bit total","toggle.prefix":"Prefix emphasis","toggle.rules":"Row rules","ws.colIndex":"INDEX","ws.colWord":"WORD","ws.continued":"{words} words · continued","ws.eyebrow":"BIP-39 BY HAND","ws.foot1":"The first {n} words follow from your bits alone, so this sheet and the poster are enough for them.","ws.foot2":"The final word mixes the last entropy bits with a SHA-256 checksum. Enter your bits into an offline tool, or a wallet that accepts dice.","ws.foot3":"BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND.","ws.lastWord":"last word carries the checksum, so a machine has to finish this one","ws.note2":"Each throw is two bits: 1 is 00, 2 is 01, 3 is 10, 4 is 11. Fill the cells left to right, top to bottom.","ws.note3":"Eleven bits per word. Read the first four bits as a column and the last seven as a row, or the first five and last six on a 32 x 64 sheet. Write the index, then the word.","ws.noteCoin":"One coin, {n} times. Heads is 1, tails is 0. Write each result in a box, in order. A flip is already a bit, so there is nothing to convert.","ws.noteDice":"One die, until {n} boxes are full. Write 1, 2, 3 or 4 in the next box. A 5 or a 6 fills no box, so throw again. Rejecting them is what keeps the four outcomes equally likely.","ws.step1Coin":"FLIP","ws.step1Dice":"THROW","ws.step2":"TRANSCRIBE","ws.step3":"READ OFF THE POSTER","ws.sub":"{words} words · {bits} bits of entropy · {n} {unit}","ws.titleCoin":"Coin worksheet","ws.titleDice":"Dice worksheet","ws.unitFlips":"flips","ws.unitThrows":"accepted throws"}};
+const LANGS = [{"code":"en","name":"English"}];
+const BASE_LANG = "en";
+let LANG = BASE_LANG;
+
+const t = (key, vars) => {
+  const s = (I18N[LANG] || {})[key] ?? I18N[BASE_LANG][key] ?? key;
+  return vars ? s.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m)) : s;
+};
+
+const langKnown = code => LANGS.some(l => l.code === code);
+
+// Preference order: the URL, then the browser, then the base language. Nothing
+// is stored. The page promises it keeps nothing, and a language in the URL is
+// shareable, which a hidden preference is not.
+function pickLang(wanted){
+  if (wanted && langKnown(wanted)) return wanted;
+  for (const tag of navigator.languages || [navigator.language || ""]){
+    const code = String(tag).toLowerCase().split("-")[0];
+    if (langKnown(code)) return code;
+  }
+  return BASE_LANG;
+}
+
+function applyI18n(){
+  document.querySelectorAll("[data-t]").forEach(el => { el.textContent = t(el.dataset.t); });
+  document.querySelectorAll("[data-t-attr]").forEach(el => {
+    for (const pair of el.dataset.tAttr.split(";")){
+      const [attr, key] = pair.split(":").map(s => s.trim());
+      if (attr && key) el.setAttribute(attr, t(key));
+    }
+  });
+  document.documentElement.lang = LANG;
+}
+
+// A pane is a block of translated prose. Fall back to the base language rather
+// than showing nothing, so a half-translated language is still usable.
+function showPanes(){
+  const names = new Set([...document.querySelectorAll(".pane")].map(p => p.dataset.pane));
+  for (const name of names){
+    const all = [...document.querySelectorAll('.pane[data-pane="' + name + '"]')];
+    const wanted = all.find(p => p.dataset.lang === LANG) ||
+                   all.find(p => p.dataset.lang === BASE_LANG);
+    all.forEach(p => { p.hidden = p !== wanted; });
+  }
+}
+
+function langInit(){
+  const sel = $("lang");
+  sel.replaceChildren();
+  for (const l of LANGS){
+    const o = document.createElement("option");
+    o.value = l.code;
+    o.textContent = l.name;
+    sel.appendChild(o);
+  }
+  sel.hidden = LANGS.length < 2;
+  sel.addEventListener("change", () => setLang(sel.value));
+}
+
 /* src/js/10-data.js */
 const WORDS = ["abandon","ability","able","about","above","absent","absorb","abstract","absurd","abuse","access","accident","account","accuse","achieve","acid","acoustic","acquire","across","act","action","actor","actress","actual","adapt","add","addict","address","adjust","admit","adult","advance","advice","aerobic","affair","afford","afraid","again","age","agent","agree","ahead","aim","air","airport","aisle","alarm","album","alcohol","alert","alien","all","alley","allow","almost","alone","alpha","already","also","alter","always","amateur","amazing","among","amount","amused","analyst","anchor","ancient","anger","angle","angry","animal","ankle","announce","annual","another","answer","antenna","antique","anxiety","any","apart","apology","appear","apple","approve","april","arch","arctic","area","arena","argue","arm","armed","armor","army","around","arrange","arrest","arrive","arrow","art","artefact","artist","artwork","ask","aspect","assault","asset","assist","assume","asthma","athlete","atom","attack","attend","attitude","attract","auction","audit","august","aunt","author","auto","autumn","average","avocado","avoid","awake","aware","away","awesome","awful","awkward","axis","baby","bachelor","bacon","badge","bag","balance","balcony","ball","bamboo","banana","banner","bar","barely","bargain","barrel","base","basic","basket","battle","beach","bean","beauty","because","become","beef","before","begin","behave","behind","believe","below","belt","bench","benefit","best","betray","better","between","beyond","bicycle","bid","bike","bind","biology","bird","birth","bitter","black","blade","blame","blanket","blast","bleak","bless","blind","blood","blossom","blouse","blue","blur","blush","board","boat","body","boil","bomb","bone","bonus","book","boost","border","boring","borrow","boss","bottom","bounce","box","boy","bracket","brain","brand","brass","brave","bread","breeze","brick","bridge","brief","bright","bring","brisk","broccoli","broken","bronze","broom","brother","brown","brush","bubble","buddy","budget","buffalo","build","bulb","bulk","bullet","bundle","bunker","burden","burger","burst","bus","business","busy","butter","buyer","buzz","cabbage","cabin","cable","cactus","cage","cake","call","calm","camera","camp","can","canal","cancel","candy","cannon","canoe","canvas","canyon","capable","capital","captain","car","carbon","card","cargo","carpet","carry","cart","case","cash","casino","castle","casual","cat","catalog","catch","category","cattle","caught","cause","caution","cave","ceiling","celery","cement","census","century","cereal","certain","chair","chalk","champion","change","chaos","chapter","charge","chase","chat","cheap","check","cheese","chef","cherry","chest","chicken","chief","child","chimney","choice","choose","chronic","chuckle","chunk","churn","cigar","cinnamon","circle","citizen","city","civil","claim","clap","clarify","claw","clay","clean","clerk","clever","click","client","cliff","climb","clinic","clip","clock","clog","close","cloth","cloud","clown","club","clump","cluster","clutch","coach","coast","coconut","code","coffee","coil","coin","collect","color","column","combine","come","comfort","comic","common","company","concert","conduct","confirm","congress","connect","consider","control","convince","cook","cool","copper","copy","coral","core","corn","correct","cost","cotton","couch","country","couple","course","cousin","cover","coyote","crack","cradle","craft","cram","crane","crash","crater","crawl","crazy","cream","credit","creek","crew","cricket","crime","crisp","critic","crop","cross","crouch","crowd","crucial","cruel","cruise","crumble","crunch","crush","cry","crystal","cube","culture","cup","cupboard","curious","current","curtain","curve","cushion","custom","cute","cycle","dad","damage","damp","dance","danger","daring","dash","daughter","dawn","day","deal","debate","debris","decade","december","decide","decline","decorate","decrease","deer","defense","define","defy","degree","delay","deliver","demand","demise","denial","dentist","deny","depart","depend","deposit","depth","deputy","derive","describe","desert","design","desk","despair","destroy","detail","detect","develop","device","devote","diagram","dial","diamond","diary","dice","diesel","diet","differ","digital","dignity","dilemma","dinner","dinosaur","direct","dirt","disagree","discover","disease","dish","dismiss","disorder","display","distance","divert","divide","divorce","dizzy","doctor","document","dog","doll","dolphin","domain","donate","donkey","donor","door","dose","double","dove","draft","dragon","drama","drastic","draw","dream","dress","drift","drill","drink","drip","drive","drop","drum","dry","duck","dumb","dune","during","dust","dutch","duty","dwarf","dynamic","eager","eagle","early","earn","earth","easily","east","easy","echo","ecology","economy","edge","edit","educate","effort","egg","eight","either","elbow","elder","electric","elegant","element","elephant","elevator","elite","else","embark","embody","embrace","emerge","emotion","employ","empower","empty","enable","enact","end","endless","endorse","enemy","energy","enforce","engage","engine","enhance","enjoy","enlist","enough","enrich","enroll","ensure","enter","entire","entry","envelope","episode","equal","equip","era","erase","erode","erosion","error","erupt","escape","essay","essence","estate","eternal","ethics","evidence","evil","evoke","evolve","exact","example","excess","exchange","excite","exclude","excuse","execute","exercise","exhaust","exhibit","exile","exist","exit","exotic","expand","expect","expire","explain","expose","express","extend","extra","eye","eyebrow","fabric","face","faculty","fade","faint","faith","fall","false","fame","family","famous","fan","fancy","fantasy","farm","fashion","fat","fatal","father","fatigue","fault","favorite","feature","february","federal","fee","feed","feel","female","fence","festival","fetch","fever","few","fiber","fiction","field","figure","file","film","filter","final","find","fine","finger","finish","fire","firm","first","fiscal","fish","fit","fitness","fix","flag","flame","flash","flat","flavor","flee","flight","flip","float","flock","floor","flower","fluid","flush","fly","foam","focus","fog","foil","fold","follow","food","foot","force","forest","forget","fork","fortune","forum","forward","fossil","foster","found","fox","fragile","frame","frequent","fresh","friend","fringe","frog","front","frost","frown","frozen","fruit","fuel","fun","funny","furnace","fury","future","gadget","gain","galaxy","gallery","game","gap","garage","garbage","garden","garlic","garment","gas","gasp","gate","gather","gauge","gaze","general","genius","genre","gentle","genuine","gesture","ghost","giant","gift","giggle","ginger","giraffe","girl","give","glad","glance","glare","glass","glide","glimpse","globe","gloom","glory","glove","glow","glue","goat","goddess","gold","good","goose","gorilla","gospel","gossip","govern","gown","grab","grace","grain","grant","grape","grass","gravity","great","green","grid","grief","grit","grocery","group","grow","grunt","guard","guess","guide","guilt","guitar","gun","gym","habit","hair","half","hammer","hamster","hand","happy","harbor","hard","harsh","harvest","hat","have","hawk","hazard","head","health","heart","heavy","hedgehog","height","hello","helmet","help","hen","hero","hidden","high","hill","hint","hip","hire","history","hobby","hockey","hold","hole","holiday","hollow","home","honey","hood","hope","horn","horror","horse","hospital","host","hotel","hour","hover","hub","huge","human","humble","humor","hundred","hungry","hunt","hurdle","hurry","hurt","husband","hybrid","ice","icon","idea","identify","idle","ignore","ill","illegal","illness","image","imitate","immense","immune","impact","impose","improve","impulse","inch","include","income","increase","index","indicate","indoor","industry","infant","inflict","inform","inhale","inherit","initial","inject","injury","inmate","inner","innocent","input","inquiry","insane","insect","inside","inspire","install","intact","interest","into","invest","invite","involve","iron","island","isolate","issue","item","ivory","jacket","jaguar","jar","jazz","jealous","jeans","jelly","jewel","job","join","joke","journey","joy","judge","juice","jump","jungle","junior","junk","just","kangaroo","keen","keep","ketchup","key","kick","kid","kidney","kind","kingdom","kiss","kit","kitchen","kite","kitten","kiwi","knee","knife","knock","know","lab","label","labor","ladder","lady","lake","lamp","language","laptop","large","later","latin","laugh","laundry","lava","law","lawn","lawsuit","layer","lazy","leader","leaf","learn","leave","lecture","left","leg","legal","legend","leisure","lemon","lend","length","lens","leopard","lesson","letter","level","liar","liberty","library","license","life","lift","light","like","limb","limit","link","lion","liquid","list","little","live","lizard","load","loan","lobster","local","lock","logic","lonely","long","loop","lottery","loud","lounge","love","loyal","lucky","luggage","lumber","lunar","lunch","luxury","lyrics","machine","mad","magic","magnet","maid","mail","main","major","make","mammal","man","manage","mandate","mango","mansion","manual","maple","marble","march","margin","marine","market","marriage","mask","mass","master","match","material","math","matrix","matter","maximum","maze","meadow","mean","measure","meat","mechanic","medal","media","melody","melt","member","memory","mention","menu","mercy","merge","merit","merry","mesh","message","metal","method","middle","midnight","milk","million","mimic","mind","minimum","minor","minute","miracle","mirror","misery","miss","mistake","mix","mixed","mixture","mobile","model","modify","mom","moment","monitor","monkey","monster","month","moon","moral","more","morning","mosquito","mother","motion","motor","mountain","mouse","move","movie","much","muffin","mule","multiply","muscle","museum","mushroom","music","must","mutual","myself","mystery","myth","naive","name","napkin","narrow","nasty","nation","nature","near","neck","need","negative","neglect","neither","nephew","nerve","nest","net","network","neutral","never","news","next","nice","night","noble","noise","nominee","noodle","normal","north","nose","notable","note","nothing","notice","novel","now","nuclear","number","nurse","nut","oak","obey","object","oblige","obscure","observe","obtain","obvious","occur","ocean","october","odor","off","offer","office","often","oil","okay","old","olive","olympic","omit","once","one","onion","online","only","open","opera","opinion","oppose","option","orange","orbit","orchard","order","ordinary","organ","orient","original","orphan","ostrich","other","outdoor","outer","output","outside","oval","oven","over","own","owner","oxygen","oyster","ozone","pact","paddle","page","pair","palace","palm","panda","panel","panic","panther","paper","parade","parent","park","parrot","party","pass","patch","path","patient","patrol","pattern","pause","pave","payment","peace","peanut","pear","peasant","pelican","pen","penalty","pencil","people","pepper","perfect","permit","person","pet","phone","photo","phrase","physical","piano","picnic","picture","piece","pig","pigeon","pill","pilot","pink","pioneer","pipe","pistol","pitch","pizza","place","planet","plastic","plate","play","please","pledge","pluck","plug","plunge","poem","poet","point","polar","pole","police","pond","pony","pool","popular","portion","position","possible","post","potato","pottery","poverty","powder","power","practice","praise","predict","prefer","prepare","present","pretty","prevent","price","pride","primary","print","priority","prison","private","prize","problem","process","produce","profit","program","project","promote","proof","property","prosper","protect","proud","provide","public","pudding","pull","pulp","pulse","pumpkin","punch","pupil","puppy","purchase","purity","purpose","purse","push","put","puzzle","pyramid","quality","quantum","quarter","question","quick","quit","quiz","quote","rabbit","raccoon","race","rack","radar","radio","rail","rain","raise","rally","ramp","ranch","random","range","rapid","rare","rate","rather","raven","raw","razor","ready","real","reason","rebel","rebuild","recall","receive","recipe","record","recycle","reduce","reflect","reform","refuse","region","regret","regular","reject","relax","release","relief","rely","remain","remember","remind","remove","render","renew","rent","reopen","repair","repeat","replace","report","require","rescue","resemble","resist","resource","response","result","retire","retreat","return","reunion","reveal","review","reward","rhythm","rib","ribbon","rice","rich","ride","ridge","rifle","right","rigid","ring","riot","ripple","risk","ritual","rival","river","road","roast","robot","robust","rocket","romance","roof","rookie","room","rose","rotate","rough","round","route","royal","rubber","rude","rug","rule","run","runway","rural","sad","saddle","sadness","safe","sail","salad","salmon","salon","salt","salute","same","sample","sand","satisfy","satoshi","sauce","sausage","save","say","scale","scan","scare","scatter","scene","scheme","school","science","scissors","scorpion","scout","scrap","screen","script","scrub","sea","search","season","seat","second","secret","section","security","seed","seek","segment","select","sell","seminar","senior","sense","sentence","series","service","session","settle","setup","seven","shadow","shaft","shallow","share","shed","shell","sheriff","shield","shift","shine","ship","shiver","shock","shoe","shoot","shop","short","shoulder","shove","shrimp","shrug","shuffle","shy","sibling","sick","side","siege","sight","sign","silent","silk","silly","silver","similar","simple","since","sing","siren","sister","situate","six","size","skate","sketch","ski","skill","skin","skirt","skull","slab","slam","sleep","slender","slice","slide","slight","slim","slogan","slot","slow","slush","small","smart","smile","smoke","smooth","snack","snake","snap","sniff","snow","soap","soccer","social","sock","soda","soft","solar","soldier","solid","solution","solve","someone","song","soon","sorry","sort","soul","sound","soup","source","south","space","spare","spatial","spawn","speak","special","speed","spell","spend","sphere","spice","spider","spike","spin","spirit","split","spoil","sponsor","spoon","sport","spot","spray","spread","spring","spy","square","squeeze","squirrel","stable","stadium","staff","stage","stairs","stamp","stand","start","state","stay","steak","steel","stem","step","stereo","stick","still","sting","stock","stomach","stone","stool","story","stove","strategy","street","strike","strong","struggle","student","stuff","stumble","style","subject","submit","subway","success","such","sudden","suffer","sugar","suggest","suit","summer","sun","sunny","sunset","super","supply","supreme","sure","surface","surge","surprise","surround","survey","suspect","sustain","swallow","swamp","swap","swarm","swear","sweet","swift","swim","swing","switch","sword","symbol","symptom","syrup","system","table","tackle","tag","tail","talent","talk","tank","tape","target","task","taste","tattoo","taxi","teach","team","tell","ten","tenant","tennis","tent","term","test","text","thank","that","theme","then","theory","there","they","thing","this","thought","three","thrive","throw","thumb","thunder","ticket","tide","tiger","tilt","timber","time","tiny","tip","tired","tissue","title","toast","tobacco","today","toddler","toe","together","toilet","token","tomato","tomorrow","tone","tongue","tonight","tool","tooth","top","topic","topple","torch","tornado","tortoise","toss","total","tourist","toward","tower","town","toy","track","trade","traffic","tragic","train","transfer","trap","trash","travel","tray","treat","tree","trend","trial","tribe","trick","trigger","trim","trip","trophy","trouble","truck","true","truly","trumpet","trust","truth","try","tube","tuition","tumble","tuna","tunnel","turkey","turn","turtle","twelve","twenty","twice","twin","twist","two","type","typical","ugly","umbrella","unable","unaware","uncle","uncover","under","undo","unfair","unfold","unhappy","uniform","unique","unit","universe","unknown","unlock","until","unusual","unveil","update","upgrade","uphold","upon","upper","upset","urban","urge","usage","use","used","useful","useless","usual","utility","vacant","vacuum","vague","valid","valley","valve","van","vanish","vapor","various","vast","vault","vehicle","velvet","vendor","venture","venue","verb","verify","version","very","vessel","veteran","viable","vibrant","vicious","victory","video","view","village","vintage","violin","virtual","virus","visa","visit","visual","vital","vivid","vocal","voice","void","volcano","volume","vote","voyage","wage","wagon","wait","walk","wall","walnut","want","warfare","warm","warrior","wash","wasp","waste","water","wave","way","wealth","weapon","wear","weasel","weather","web","wedding","weekend","weird","welcome","west","wet","whale","what","wheat","wheel","when","where","whip","whisper","wide","width","wife","wild","will","win","window","wine","wing","wink","winner","winter","wire","wisdom","wise","wish","witness","wolf","woman","wonder","wood","wool","word","work","world","worry","worth","wrap","wreck","wrestle","wrist","write","wrong","yard","year","yellow","you","young","youth","zebra","zero","zone","zoo"];
 const SHA = "2f5eed53a4727b4bf8880d8f3f199efc90e58503646d9ff8eff3a2ed3b24dbda", SHA_SHORT = "2f5eed53…3b24dbda";
@@ -1282,22 +1349,20 @@ function writeReadout(){
   r.replaceChildren();
   const spec = document.createElement("span");
   spec.className = "spec";
-  spec.textContent = L.paper + " " + (L.land ? "landscape" : "portrait") + " · " +
-    L.cols + " × " + L.rows + " · " +
-    (L.sheets === 1 ? "one sheet" : L.sheets + " sheets") + " · " +
-    L.colBits + "+" + L.rowBits + " bit split";
+  spec.textContent = L.paper + " " + t(L.land ? "readout.landscape" : "readout.portrait") +
+    " · " + L.cols + " × " + L.rows + " · " +
+    (L.sheets === 1 ? t("readout.oneSheet") : t("readout.sheets", { n: L.sheets })) + " · " +
+    t("readout.split", { a: L.colBits, b: L.rowBits });
   const size = document.createElement("span");
   size.className = "pt" + (pt < 4.6 ? " small" : "");
-  size.textContent = "word type " + pt.toFixed(1) + " pt";
+  size.textContent = t("readout.type", { pt: pt.toFixed(1) });
   const tip = document.createElement("span");
-  tip.textContent = pt < 4.6
-    ? "Small. Try landscape, or A3, or split across sheets."
-    : "Print at 100 % scale with background graphics on.";
+  tip.textContent = t(pt < 4.6 ? "readout.small" : "readout.printTip");
   const prev = document.createElement("span");
   if (L.scale < 0.995)
-    prev.textContent = "preview at " + Math.round(L.scale * 100) + " % — prints full size";
+    prev.textContent = t("readout.preview", { pct: Math.round(L.scale * 100) });
   const warn = document.createElement("span");
-  warn.textContent = "Public standard list — never mark your own recovery words on it.";
+  warn.textContent = t("readout.warn");
   r.append(spec, size, prev, tip, warn);
 }
 
@@ -1324,8 +1389,9 @@ function applyFind(){
   }
   const tag = document.createElement("span");
   tag.className = "hit";
-  tag.textContent = hits.length + " match" + (hits.length === 1 ? "" : "es") +
-    (hits.length === 1 ? " — index " + hits[0] + " · " + WORDS[hits[0]] : "");
+  tag.textContent = hits.length === 1
+    ? t("readout.match", { i: hits[0], word: WORDS[hits[0]] })
+    : t("readout.matches", { n: hits.length });
   $("readout").appendChild(tag);
 }
 
@@ -2101,10 +2167,11 @@ function rollBits(){
 function rollPad(){
   const pad = $("rollpad");
   pad.replaceChildren();
+  const reroll = t("roll.keyReroll");
   const keys = ROLL.method === "coin"
     ? [["H", "1", false], ["T", "0", false]]
     : [["1", "00", false], ["2", "01", false], ["3", "10", false],
-       ["4", "11", false], ["5", "reroll", true], ["6", "reroll", true]];
+       ["4", "11", false], ["5", reroll, true], ["6", reroll, true]];
 
   for (const [face, sub, rej] of keys){
     const b = document.createElement("button");
@@ -2115,12 +2182,22 @@ function rollPad(){
     pad.appendChild(b);
   }
 
-  $("rollhint").textContent = ROLL.method === "coin"
-    ? "Flip a real coin. Heads is 1, tails is 0 — press H or T, or 1 and 0. " +
-      "Backspace undoes the last flip."
-    : "Throw a real d6 and press what you see. 1 to 4 carry two bits each; " +
-      "5 and 6 carry nothing and are thrown again, which is what keeps the " +
-      "sixteen possible pairs equally likely. Backspace undoes the last throw.";
+  $("rollhint").textContent = t(ROLL.method === "coin" ? "roll.hintCoin" : "roll.hintDice");
+}
+
+// Two sentences carry inline markup. They are assembled from parts rather than
+// injected as HTML, so a translation file stays plain text and cannot smuggle tags.
+function rollText(){
+  const link = document.createElement("a");
+  link.href = "#" + LANG + "/learn";
+  link.textContent = t("roll.leadLinkText");
+  const lead = t("roll.leadLink").split("{link}");
+  $("rollleadlink").replaceChildren(lead[0] || "", link, lead[1] || "");
+
+  const em = document.createElement("em");
+  em.textContent = t("roll.warnEm");
+  const warn = t("roll.warn").split("{em}");
+  $("rollwarntext").replaceChildren(warn[0] || "", em, warn[1] || "");
 }
 
 function rollPush(face){
@@ -2142,10 +2219,10 @@ function rollRender(){
   const entBits = bits.slice(0, spec.entBits);
 
   $("rollfill").style.width = (100 * have / spec.entBits) + "%";
-  $("rollcount").innerHTML =
-    "<b>" + have + "</b> / " + spec.entBits + " bits · " +
-    "<b>" + ROLL.throws.length + "</b> " + (ROLL.method === "coin" ? "flips" : "throws") +
-    (rejected ? " · " + rejected + " rerolled" : "");
+  $("rollcount").textContent =
+    t("roll.count", { have, need: spec.entBits, throws: ROLL.throws.length,
+                      unit: t(ROLL.method === "coin" ? "roll.flips" : "roll.throws") }) +
+    (rejected ? t("roll.rerolled", { n: rejected }) : "");
 
   const cs = full ? SEED.checksumBits(SEED.bitsToBytes(entBits)) : "";
   const all = entBits + cs;
@@ -2174,12 +2251,12 @@ function rollRender(){
     return d;
   };
 
-  add("roll-sec", "Entropy · " + spec.entBits + " bits");
+  add("roll-sec", t("roll.entropyLabel", { n: spec.entBits }));
   add("roll-fact", "<b>" + hex + "</b>");
-  add("roll-sec", "Checksum · first " + spec.csBits + " bits of sha256(entropy)");
+  add("roll-sec", t("roll.checksumLabel", { n: spec.csBits }));
   add("roll-fact", "<b>" + cs + "</b>");
-  add("roll-sec", spec.words + " words · each one eleven bits of the " +
-      (spec.entBits + spec.csBits) + "-bit total");
+  add("roll-sec", t("roll.wordsLabel", { n: spec.words,
+                                         total: spec.entBits + spec.csBits }));
 
   const grid = document.createElement("div");
   grid.className = "seed";
@@ -2194,9 +2271,7 @@ function rollRender(){
   });
   out.appendChild(grid);
 
-  add("roll-fact", "These words are exactly as unpredictable as your throws were, " +
-      "and no more. A phrase made in a browser tab is for learning — put nothing " +
-      "on it that you would mind losing.");
+  add("roll-fact", t("roll.footnote"));
 }
 
 function rollReset(){
@@ -2206,8 +2281,7 @@ function rollReset(){
 
 function rollInit(){
   if (!rollReady()){
-    $("view-roll").querySelector(".roll-warn").textContent =
-      "The entropy engine did not load, so this section is disabled.";
+    $("view-roll").querySelector(".roll-warn").textContent = t("roll.disabled");
     return;
   }
   $("strength").addEventListener("change", () => {
@@ -2238,13 +2312,23 @@ function rollInit(){
     }
   });
 
+  rollText();
   rollPad();
   rollRender();
 }
 
 /* src/js/85-nav.js */
-/* ── views ──────────────────────────────────────────────────────── */
+/* ── views and routing ──────────────────────────────────────────── */
+// The hash carries both: #<lang>/<view>, e.g. #es/learn. A bare #learn still
+// works, so older links keep resolving.
 const VIEWS = ["poster", "learn", "roll"];
+
+function parseHash(){
+  const parts = location.hash.slice(1).split("/").filter(Boolean);
+  return langKnown(parts[0])
+    ? { lang: parts[0], view: parts[1] }
+    : { lang: null, view: parts[0] };
+}
 
 function showView(name){
   if (!VIEWS.includes(name)) name = "poster";
@@ -2256,9 +2340,30 @@ function showView(name){
   if (name === "poster") render();
 }
 
+function route(){
+  const { lang, view } = parseHash();
+  LANG = pickLang(lang);
+  $("lang").value = LANG;
+  applyI18n();
+  showPanes();
+  // Keep the language in every tab link, so switching section does not drop it.
+  document.querySelectorAll("#tabs a").forEach(a => {
+    a.href = "#" + LANG + "/" + a.dataset.view;
+  });
+  $("brandlink").href = "#" + LANG + "/poster";
+  if (rollReady()){ rollText(); rollPad(); rollRender(); }
+  showView(VIEWS.includes(view) ? view : "poster");
+}
+
+function setLang(code){
+  const { view } = parseHash();
+  location.hash = "#" + code + "/" + (VIEWS.includes(view) ? view : "poster");
+  if (LANG === code) route();     // hash unchanged, so no hashchange to wait for
+}
+
 function navInit(){
-  addEventListener("hashchange", () => showView(location.hash.slice(1)));
-  showView(location.hash.slice(1));
+  addEventListener("hashchange", route);
+  route();
 }
 
 /* src/js/90-boot.js */
@@ -2278,11 +2383,15 @@ stage.addEventListener("click", e => {
   updateDecoders(+w.dataset.i);
 });
 
-let t;
-window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(render, 140); });
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(render, 140);
+});
 
-navInit();
+langInit();
 rollInit();
+navInit();
 </script>
 </body>
 </html>

@@ -5,7 +5,7 @@
     <h1 class="learn-title">Twelve words are<br>a number</h1>
     <p class="learn-lead">
       Everything that keeps that number yours is decided in the instant it is
-      generated — before you write anything down, before you pick a wallet, before
+      generated, before you write anything down, before you pick a wallet, before
       you think about fireproof steel. This page explains what that instant has to
       accomplish, with the arithmetic shown rather than asserted. It is written for
       someone who owns bitcoin, is about to record a recovery phrase, and has heard
@@ -23,7 +23,7 @@
     <p>
       Never type a real recovery phrase into any website, including this one. This
       page has no field that accepts a phrase, makes no network requests, and stores
-      nothing — a claim you can check by reading the source and by pulling the cable.
+      nothing. You can check that claim by reading the source and by pulling the cable.
       Anything that offers to “validate” or “recover” your phrase online is a theft
       pattern, not a service.
     </p>
@@ -48,7 +48,7 @@
       A BIP-39 phrase is a number written in words. Each word is an index into a
       fixed, public, ordered list of 2048 entries: <code>abandon</code> is
       <code>0</code>, <code>length</code> is <code>1024</code>, <code>zoo</code> is
-      <code>2047</code>. Nothing else about a word matters — not its meaning, not
+      <code>2047</code>. Nothing else about a word matters. Not its meaning, not
       its length, not whether it sounds like a strong password. The list is a
       numbering scheme for humans, and that is its entire job.
     </p>
@@ -83,7 +83,7 @@
 
     <p>
       A 12-word phrase generated correctly carries 128 bits, so it was drawn from
-      <code>2^128</code> candidates —
+      <code>2^128</code> candidates, or
       <code>340282366920938463463374607431768211456</code>, about
       <code>3.4 × 10^38</code>. That number is hard to hold in the head, so here are
       four handles on it, each with its working shown.
@@ -94,7 +94,7 @@
         <b>Bitcoin's entire mining network.</b> The largest purpose-built computing
         effort that has ever existed runs on the order of <code>10^21</code> hashes
         per second. At that rate, merely counting to <code>2^128</code> takes
-        <code>3.4 × 10^17</code> seconds, or about <b>11 billion years</b> — roughly
+        <code>3.4 × 10^17</code> seconds, or about <b>11 billion years</b>, roughly
         the present age of the universe, which is about 13.8 billion years. And a
         bare hash is far cheaper than one full trial of a candidate phrase, so this
         is a generous underestimate of the real cost.
@@ -109,15 +109,15 @@
       <li>
         <b>Since the Big Bang.</b> To have finished the search by today you would
         have needed to test roughly <code>7.8 × 10^20</code> candidates every second
-        without pause since the universe began — about 780 billion billion per
-        second, for 13.8 billion years.
+        without pause since the universe began. That is about 780 billion billion
+        per second, for 13.8 billion years.
       </li>
       <li>
         <b>Grains of sand, squared.</b> The often-quoted estimate for the sand on
         Earth's beaches and deserts is around <code>7.5 × 10^18</code> grains; treat
         that as very approximate. Replace every one of those grains with an entire
-        Earth's worth of sand — square the figure — and the total is still smaller
-        than <code>2^128</code>.
+        Earth's worth of sand, which squares the figure, and the total is still
+        smaller than <code>2^128</code>.
       </li>
     </ul>
 
@@ -146,7 +146,7 @@
       <b>Entropy is measured against what an attacker knows about your process.</b>
       If you rolled dice, the answer is 128 bits. If you picked words that mean
       something to you, the honest answer is however many bits it takes to describe
-      your habit of choosing — and that number is small, no matter how arbitrary
+      your habit of choosing, and that number is small, no matter how arbitrary
       the result feels from the inside.
     </p>
   </section>
@@ -212,7 +212,7 @@
       Whether 12 or 24 words is the better choice is not settled by entropy alone.
       128 bits is already beyond brute force by the margins above; 24 words is
       chiefly a hedge against future cryptanalysis and against Grover-style quantum
-      search, which in theory halves the effective strength of a symmetric secret —
+      search, which in theory halves the effective strength of a symmetric secret.
       128 bits would become 64, and 256 would become 128. Whether that speedup is
       ever practical is genuinely disputed. Both lengths are supported everywhere,
       and longer phrases cost you more to record and more to check.
@@ -233,7 +233,7 @@
       <b>What it catches.</b> A word you mistyped into some other real word. Two
       words written in the wrong order. A word read off the wrong row of a grid. For
       a 12-word phrase, any single such mistake survives the check only if it
-      happens to produce the right four bits — about one time in sixteen — so
+      happens to produce the right four bits. That is about one time in sixteen, so
       roughly fifteen errors in sixteen are caught. For 24 words the figure is 255
       in 256. This is a genuinely useful property; it is why wallets can reject a
       typo instead of silently restoring an empty account.
@@ -273,9 +273,9 @@
     </p>
 
     <p>
-      <b>A hardware random number generator</b>, in a wallet or a phone, is fast and
-      — when the device and its firmware are sound — genuinely unpredictable. Its
-      weakness is that you cannot audit it. You are trusting a chip, a firmware
+      <b>A hardware random number generator</b>, in a wallet or a phone, is fast.
+      When the device and its firmware are sound, it is genuinely unpredictable.
+      Its weakness is that you cannot audit it. You are trusting a chip, a firmware
       build and a supply chain, and there is a real history of generators that were
       broken, weakened or simply misused by the software above them.
     </p>
@@ -284,7 +284,7 @@
       <b>Dice and coins</b> are slow, physical, and verifiable. You can watch every
       bit arrive. Their weakness is procedural: a biased die, a mis-transcribed bit,
       a photograph of the worksheet. Hand-generated entropy is not <em>more</em>
-      random than a good hardware source — the reason to do it is that you can check
+      random than a good hardware source. The reason to do it is that you can check
       it, not that it is stronger.
     </p>
 
@@ -319,7 +319,7 @@
 
     <p class="learn-note">
       The 2048 PBKDF2 iterations in the derivation make each guess about two
-      thousand times more expensive than a bare hash — worth roughly eleven bits.
+      thousand times more expensive than a bare hash, worth roughly eleven bits.
       That is a meaningful speed bump against a weak passphrase and an irrelevance
       against 128 bits of real entropy. It cannot rescue a phrase you chose yourself.
     </p>
@@ -333,7 +333,7 @@
       <a href="#roll">Roll your own</a> walks the throws in and shows the bits
       becoming words, and the worksheet it prints lets you do the same at a table
       with no computer at all. With a 12-word phrase only the last word needs a
-      machine — the other eleven you can read straight off
+      machine. The other eleven you can read straight off
       <a href="#poster">the poster</a>.
     </p>
 
@@ -346,12 +346,12 @@
     </p>
 
     <p>
-      <b>Coins.</b> One flip, one bit — heads <code>1</code>, tails <code>0</code> —
-      so 128 flips for a 12-word phrase. If you doubt the coin is fair, use von
-      Neumann's trick: flip in pairs, read <code>HT</code> as <code>1</code> and
-      <code>TH</code> as <code>0</code>, discard <code>HH</code> and <code>TT</code>.
-      That removes any fixed bias at a cost of about four flips per bit, so roughly
-      512 flips for 128 bits.
+      <b>Coins.</b> One flip, one bit, with heads <code>1</code> and tails
+      <code>0</code>, so 128 flips for a 12-word phrase. If you doubt the coin is
+      fair, use von Neumann's trick: flip in pairs, read <code>HT</code> as
+      <code>1</code> and <code>TH</code> as <code>0</code>, discard <code>HH</code>
+      and <code>TT</code>. That removes any fixed bias at a cost of about four flips
+      per bit, so roughly 512 flips for 128 bits.
     </p>
 
     <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Dice and coin counts by phrase length, scrollable table">
@@ -391,7 +391,7 @@
       practical sense. So the honest procedure is: generate the entropy physically,
       then use an offline machine or a hardware wallet that accepts raw entropy or
       dice input to compute the final word. Several wallets support exactly this.
-      The machine learns your entropy either way — the point of doing it by hand is
+      The machine learns your entropy either way. The point of doing it by hand is
       that the machine did not <em>choose</em> it.
     </p>
 
@@ -433,15 +433,14 @@
       device you control. Not a website that offers to check it. Not a support chat,
       an exchange form, a “migration” page or an email. Not a notes app that syncs,
       a password manager backed by a server, or a photograph on a phone that backs
-      itself up. No legitimate party — not a wallet vendor, not an exchange, not a
-      developer — ever needs your recovery phrase, and the request itself is the
-      attack.
+      itself up. No legitimate party ever needs your recovery phrase. Not a wallet
+      vendor, not an exchange, not a developer. The request itself is the attack.
     </p>
 
     <p>
       <b>Verify offline.</b> The only check worth running is restoring the phrase on
       a device you control, offline, and seeing your own addresses come back. Do it
-      once, deliberately, soon after you record the phrase — an unverified backup is
+      once, deliberately, soon after you record the phrase. An unverified backup is
       a guess about the future.
     </p>
 
