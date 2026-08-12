@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Keep index.html in step with the sources it is generated from.
+#
+# index.html is committed and CI diffs it against a fresh build, so a commit
+# that stages a source change beside an older generated file fails CI for a
+# difference that is already fixed. That happens whenever anything edits a
+# source between the last build and `git add`: a second session, a background
+# job, an editor writing on save.
+#
+# Enable once per clone:
+#     git config core.hooksPath .githooks
+set -euo pipefail
+
+git diff --cached --name-only | grep -qE '^(src/|data/)' || exit 0
+
+if ! python3 scripts/build.py >/dev/null 2>&1; then
+  echo "pre-commit: scripts/build.py failed, so index.html cannot be regenerated." >&2
+  echo "            Fix the build, or commit with --no-verify to bypass this check." >&2
+  exit 1
+fi
+
+if ! git diff --quiet -- index.html; then
+  git add index.html
+  echo "pre-commit: index.html was stale against the staged sources; rebuilt and staged it."
+fi

@@ -119,9 +119,16 @@ because `crypto.subtle` is not guaranteed on a `file://` URL.
 ## Building
 
 ```bash
-python3 scripts/build.py          # regenerate index.html from src/ and data/
+git config core.hooksPath .githooks   # once per clone, see below
+python3 scripts/build.py              # regenerate index.html from src/ and data/
 python3 scripts/build.py -o /tmp/out.html
 ```
+
+`index.html` is committed and CI diffs it against a fresh build, so a commit
+that stages a source change beside an older generated file fails CI for a
+difference that is already fixed. The pre-commit hook rebuilds and stages
+`index.html` whenever anything under `src/` or `data/` is staged. It is opt-in
+because git does not run hooks from a repository without `core.hooksPath`.
 
 Edit the sources, never `index.html`, which is generated. `build.py`
 concatenates `src/css/*.css`, `src/js/*.js` and `src/content/*.<lang>.html` in

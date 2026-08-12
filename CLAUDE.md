@@ -61,6 +61,7 @@ prefixes are unique. `scripts/build.py` asserts that invariant at build time.
 ## Commands
 
 ```bash
+git config core.hooksPath .githooks   # once per clone: rebuilds index.html on commit
 python3 scripts/build.py              # regenerate index.html
 python3 scripts/build.py -o /tmp/x.html
 ./scripts/verify.sh                   # full audit (~4s): hash, reproducibility, 2048 words
