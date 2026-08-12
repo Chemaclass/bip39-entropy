@@ -213,7 +213,7 @@ def load_content(langs: list[dict]) -> tuple[str, list[str]]:
         panes = []
         for lang, path in sorted(items):
             panes.append(f'<!-- {path.relative_to(ROOT)} -->\n'
-                         f'<div class="pane" data-pane="{name}" data-lang="{lang}" hidden>\n'
+                         f'<div class="pane" data-pane="{name}" data-lang="{lang}" lang="{lang}" hidden>\n'
                          f'{namespace_ids(path.read_text().strip(), lang)}\n</div>')
             names.append(path.name)
         views.append(f'<div class="view" id="view-{name}" hidden>\n'

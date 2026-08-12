@@ -486,9 +486,297 @@ p.learn-lead em{color:var(--patina)}
     <div class="stage" id="stage"></div>
   </div>
 
+<div class="view" id="view-faq" hidden>
+<!-- src/content/faq.en.html -->
+<div class="pane" data-pane="faq" data-lang="en" lang="en" hidden>
+<section id="en-faq" class="learn">
+
+  <header class="learn-head">
+    <p class="learn-eyebrow">Questions · and a glossary</p>
+    <h1 class="learn-title">The questions<br>that come up<br>every time</h1>
+    <p class="learn-lead">
+      These are the ones asked before a first phrase exists and the ones asked
+      years later, answered as briefly as each will allow and no more briefly than
+      that. Where an answer rests on arithmetic, the <em>field guide</em> shows the
+      working. Where it rests on a procedure, <em>start here</em> gives the steps.
+      The second half is a glossary, because most of the confusion around seed
+      phrases turns out to be vocabulary rather than mathematics.
+    </p>
+  </header>
+
+  <aside class="learn-warn">
+    <p class="learn-warn-label">Warning</p>
+    <p>
+      One answer below describes how a phrase missing a single word can be
+      recovered. That works only because you already supply the other eleven and
+      know where the gap is. It is not a way in for anybody else, and nothing on
+      this page shortens the search for a phrase you never knew.
+    </p>
+    <p>
+      No legitimate party ever needs your recovery phrase. Not a wallet maker, not
+      an exchange, not a support agent, not a “validator” or a “recovery service”.
+      This page has no field that accepts a phrase, makes no network requests and
+      stores nothing.
+    </p>
+  </aside>
+
+  <nav class="learn-toc" aria-label="Sections on this page">
+    <ol>
+      <li><a href="#en-faq-questions">Questions</a></li>
+      <li><a href="#en-faq-glossary">Words you will meet</a></li>
+    </ol>
+  </nav>
+
+  <section class="learn-sec" id="en-faq-questions">
+    <h2><span class="learn-num" aria-hidden="true">01</span> Questions</h2>
+
+    <p>
+      Roughly in the order they arrive. Where an answer depends on arithmetic, the
+      <a href="#learn">field guide</a> has the working; where it depends on a
+      procedure, <a href="#start">start here</a> has the steps.
+    </p>
+
+    <ul class="learn-mag">
+      <li id="en-faq-length">
+        <b>Twelve words or twenty-four?</b> Twelve words carry 128 bits of entropy
+        and twenty-four carry 256. The field guide works through why 128 is already
+        past what brute force can reach, so twenty-four is not stronger against any
+        attack that exists. It is a hedge against future cryptanalysis and against
+        Grover-style quantum search, which in theory halves the effective strength
+        of a symmetric secret: 128 bits would become 64, and 256 would become 128.
+        Whether that speedup is ever practical is genuinely disputed. Both lengths
+        are supported by every conforming wallet, and the longer one costs you more
+        to record, more to check and more to keep legible for decades. If you have
+        no particular reason to prefer one, twelve is fine and twenty-four is not
+        paranoid.
+      </li>
+
+      <li id="en-faq-order">
+        <b>Does the order of the words matter?</b> Completely. The phrase is one
+        number cut into eleven-bit groups, and each word is the group at a fixed
+        position, so moving two words changes the number as surely as changing one
+        of them. There is no anagram and no unordered bag of twelve. A swap will
+        usually fail the checksum, which is a mercy rather than a safeguard: about
+        one such mistake in sixteen passes the check on a twelve-word phrase, and a
+        phrase that passes but is not yours restores a real, empty wallet without
+        complaint. Number your backup one to twelve as you write it, and never sort
+        it.
+      </li>
+
+      <li id="en-faq-choose">
+        <b>Can I choose the words myself?</b> No, and it is the most expensive
+        mistake on this page. Entropy is measured against what an attacker knows
+        about how you chose, not against how arbitrary the result feels from the
+        inside, and human choice is a small space however hard you try. Even if you
+        disciplined yourself into picking twelve words uniformly from a shortlist of
+        the thirty-two you find most memorable, that is sixty bits, which a serious
+        hardware budget works through. The checksum will not save you, because it
+        checks transcription and nothing else. A hand-picked phrase whose last word
+        happens to fit passes exactly as readily as one from dice, so “my wallet
+        accepted it” tells you the arithmetic is consistent and never that the
+        number is hard to guess.
+      </li>
+
+      <li id="en-faq-passphrase">
+        <b>What is a passphrase, the “twenty-fifth word”?</b> It is an extra secret
+        you supply alongside the words, mixed into the same derivation that turns
+        them into a seed, so the same twelve words with a different passphrase
+        produce a completely different wallet. It is taken literally, including
+        case and spacing. What it buys is that the paper alone is no longer enough:
+        somebody who finds your backup gets an empty wallet unless they also have
+        the passphrase, which is worth a great deal against theft of the physical
+        copy. What it costs is that there is nothing to check it against. Every
+        passphrase is valid, so a wrong one raises no error, it simply opens
+        another real and empty wallet, and no wallet, device or service anywhere
+        records what you chose. A forgotten or mistyped passphrase loses the coins
+        as completely as a lost phrase, and one that lives only in your head is a
+        backup with no copy. Far more is lost this way than to burglars.
+      </li>
+
+      <li id="en-faq-lostword">
+        <b>I have lost one word. Am I finished?</b> Probably not, provided you know
+        which position is missing and the other eleven are correct. There are only
+        2048 candidates for the gap, so a wallet or an offline recovery tool can
+        simply try all of them. The checksum then does most of the work: for a
+        twelve-word phrase it is four bits, so about one candidate in sixteen
+        survives and roughly 128 phrases are left. Those are settled by deriving
+        each one and seeing which brings back addresses you recognise from your own
+        history. For a twenty-four-word phrase the checksum is eight bits and only
+        about eight candidates survive. It is harder if you do not know the
+        position, and harder again with two words missing, but both are still worth
+        attempting offline before you give up. Be clear about what this is. It is
+        recovery, and it works only because you already supply almost the entire
+        secret. It is not a shortcut into anybody else's phrase, because somebody
+        starting from nothing still faces all <code>2^128</code>.
+      </li>
+
+      <li id="en-faq-print">
+        <b>Is it safe to print or hang the whole word list?</b> Yes.
+        <a href="#poster">The poster</a> is the public BIP-39 English list,
+        identical in every wallet that implements the standard and downloadable by
+        anyone, so hanging it on a wall reveals no more than hanging up a
+        dictionary. Print it at work, at a copy shop, over any network you like.
+        The blank worksheet is equally safe, because it holds boxes and
+        instructions and no results. What is dangerous is marking your own words on
+        it. Twelve ticks on a grid of 2048 is a plaintext copy of your recovery
+        phrase, easier to read from across a room than your own handwriting, and
+        immune to the usual excuse that the photograph was only of the wall. If you
+        need to trace words while transcribing, use a separate sheet and destroy it
+        afterwards.
+      </li>
+
+      <li id="en-faq-storage">
+        <b>Can I keep the phrase in a password manager, a photo, or a note in the
+        cloud?</b> No, and all three are the same mistake wearing different
+        clothes. Each turns a secret that existed in one physical place into a file
+        on a server designed to be reachable from anywhere, which is precisely the
+        property you were trying to avoid. A password manager puts everything you
+        own behind one password and somebody else's breach. A photograph is a file
+        that modern devices copy to a service by default, index, and hand to
+        whatever software has permission to read photographs, and one taken in
+        airplane mode uploads itself the moment the connection returns. A note in a
+        synced folder written while offline is not private, it is queued. Even
+        typing the words is a risk of its own, because keyboards learn, clipboard
+        history is kept and often synchronised, and shell and editor files remember
+        what you deleted. Write it by hand, and type it only into the wallet you
+        are deliberately restoring.
+      </li>
+
+      <li id="en-faq-otherwallet">
+        <b>Will the same words work in a different wallet?</b> Yes, and that
+        portability is the reason the standard exists. The same phrase produces the
+        same seed, and therefore the same keys, on any conforming wallet, forever.
+        What people actually hit is a restore that comes back empty, and the usual
+        cause is the derivation path. One seed contains an unlimited tree of keys,
+        and each wallet reads particular branches of it by default, so two wallets
+        that prefer different branches will show you two different sets of
+        addresses from identical words and neither is wrong. If a restore looks
+        empty, do not conclude the phrase is bad. Find the address type and
+        derivation path the old wallet used, and point the new one at it. Remember
+        too that a valid phrase which is not yours restores a real, empty wallet
+        without complaint, so an empty wallet is a question rather than an answer.
+      </li>
+
+      <li id="en-faq-split">
+        <b>Should I split the phrase into halves and store them separately?</b> Not
+        one you invented. The arithmetic is worse than it sounds. Six known words
+        of a twelve-word phrase leave about sixty-two bits, which is not
+        comfortably out of reach of a large hardware budget, so whoever finds one
+        half has a real chance rather than none. You have not halved the attacker's
+        work, you have handed over half the secret and left the remainder thin. The
+        larger problem runs the other way. Home-made splits lose coins far more
+        often than they prevent theft, because the scheme lives in one head. Memory
+        fades, people move house, relatives die, the envelope is thrown out during
+        a clear-out, and the instructions turn out to be ambiguous to everyone
+        except the person who wrote them, who is by then unavailable. Most coins
+        that are lost are lost through inaccessibility, not robbery. If you
+        genuinely need to split custody, the established answers are multisignature
+        wallets and standardised share schemes, both of which are also easy to get
+        wrong and deserve reading about first.
+      </li>
+
+      <li id="en-faq-verify">
+        <b>How do I know this page is what it claims?</b> Two checks exist and they
+        prove different amounts. The weaker one is the hash: every deploy publishes
+        the file's SHA-256 beside it as <code>index.html.sha256</code>, so you can
+        compare it against the copy you saved before you trust that copy. It
+        catches a truncated, cached or substituted-in-transit download, and it does
+        not prove the server was honest, because the same server served both. The
+        stronger one is to clone the repository and run
+        <code>scripts/verify.sh</code>, which rebuilds <code>index.html</code> from
+        the sources and diffs it against the committed file, checks the word list
+        against the canonical BIP-39 hash, confirms all 2048 words reached the
+        page, and fails if the page has gained any network-capable code. A
+        reproducible build is a claim you can check for yourself rather than one
+        you take on trust. Beyond that the page is a single file that loads nothing
+        and sends nothing, which you can confirm by reading it or by working with
+        the cable pulled.
+      </li>
+
+      <li id="en-faq-quantum">
+        <b>Does quantum computing change any of this?</b> Not today, and the honest
+        answer has two halves. For the phrase itself the relevant result is
+        Grover-style search, which in theory halves the effective strength of a
+        symmetric secret, taking 128 bits to 64 and 256 to 128. Whether that
+        speedup is ever practical is genuinely disputed, and it is the one real
+        argument for twenty-four words. The larger question is not about your
+        phrase at all. Public-key signatures are the part that a sufficiently large
+        quantum computer would threaten, and that is a protocol-level problem the
+        whole network would meet together rather than something you solve by
+        writing more words on paper. No machine capable of either exists now, and
+        one becoming plausible would be visible for years beforehand rather than
+        arriving overnight. Generating your phrase from a source you trust and
+        keeping the paper safe are still the two decisions that determine whether
+        you keep your coins.
+      </li>
+    </ul>
+
+    <p class="learn-note">
+      One question that is not here is asked too rarely: who else has seen this
+      phrase? Any phrase you did not watch being created should be treated as
+      already compromised, whether it came from a helpful friend, a setup service,
+      a tutorial, a video, or a card in the box.
+      <a href="#roll">Roll your own</a> exists so that you can watch every bit of
+      one arrive, and <a href="#start">start here</a> explains why a hardware
+      wallet is nonetheless the right default for most people.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="en-faq-glossary">
+    <h2><span class="learn-num" aria-hidden="true">02</span> Words you will meet</h2>
+
+    <p>
+      Most of the confusion around seed phrases is vocabulary. These are the terms
+      used on this site and in wallet software, in the shortest form that is still
+      true. Entropy, bits and the checksum are worked through properly in the
+      <a href="#learn">field guide</a>; air gaps and live sessions in
+      <a href="#start">start here</a>.
+    </p>
+
+    <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Glossary of terms, scrollable table">
+      <table class="learn-tbl">
+        <caption>Glossary</caption>
+        <thead>
+          <tr>
+            <th scope="col">Term</th>
+            <th scope="col">Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Seed phrase</th><td>A number written as words. The whole secret</td></tr>
+          <tr><th scope="row">Entropy</th><td>How many equally likely secrets, in bits</td></tr>
+          <tr><th scope="row">Bit</th><td>One binary digit. Each one doubles the search</td></tr>
+          <tr><th scope="row">Checksum</th><td>Extra bits that catch a transcription error</td></tr>
+          <tr><th scope="row">BIP-39</th><td>The standard that turns entropy into words</td></tr>
+          <tr><th scope="row">Word list</th><td>The public 2048, identical in every wallet</td></tr>
+          <tr><th scope="row">Index</th><td>A word's place in that list, 0 to 2047</td></tr>
+          <tr><th scope="row">Derivation path</th><td>Which branch of keys a wallet reads</td></tr>
+          <tr><th scope="row">Passphrase</th><td>An extra secret mixed into the derivation</td></tr>
+          <tr><th scope="row">Air gap</th><td>No network hardware at all. Not a setting</td></tr>
+          <tr><th scope="row">Live session</th><td>A system booted from USB that keeps nothing</td></tr>
+          <tr><th scope="row">Hardware wallet</th><td>A device that makes the phrase and holds it</td></tr>
+          <tr><th scope="row">Brute force</th><td>Trying every candidate until one fits</td></tr>
+          <tr><th scope="row">Rejection sampling</th><td>Discarding throws so the rest stay even</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="learn-note">
+      Two of those carry more weight than one line allows. Entropy is what
+      everything else rests on, and the <a href="#learn">field guide</a> spends a
+      section on what it actually measures, because “looks random” is not it. A
+      <a href="#en-faq-passphrase">passphrase</a> is powerful and unforgiving in equal
+      measure, and is worth reading in full before you decide to use one.
+    </p>
+  </section>
+
+</section>
+</div>
+</div>
+
 <div class="view" id="view-learn" hidden>
 <!-- src/content/learn.en.html -->
-<div class="pane" data-pane="learn" data-lang="en" hidden>
+<div class="pane" data-pane="learn" data-lang="en" lang="en" hidden>
 <section id="en-learn" class="learn">
 
   <header class="learn-head">
@@ -948,7 +1236,7 @@ p.learn-lead em{color:var(--patina)}
 </div>
 
 <!-- src/content/learn.es.html -->
-<div class="pane" data-pane="learn" data-lang="es" hidden>
+<div class="pane" data-pane="learn" data-lang="es" lang="es" hidden>
 <section id="es-learn" class="learn">
 
   <header class="learn-head">
@@ -1435,7 +1723,7 @@ p.learn-lead em{color:var(--patina)}
 
 <div class="view" id="view-start" hidden>
 <!-- src/content/start.en.html -->
-<div class="pane" data-pane="start" data-lang="en" hidden>
+<div class="pane" data-pane="start" data-lang="en" lang="en" hidden>
 <section id="en-start" class="learn">
 
   <header class="learn-head">
@@ -2195,7 +2483,7 @@ p.learn-lead em{color:var(--patina)}
 </div>
 
 <!-- src/content/start.es.html -->
-<div class="pane" data-pane="start" data-lang="es" hidden>
+<div class="pane" data-pane="start" data-lang="es" lang="es" hidden>
 <section id="es-start" class="learn">
 
   <header class="learn-head">
