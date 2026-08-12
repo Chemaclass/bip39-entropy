@@ -76,6 +76,7 @@ function readingInit(view){
   railSecs = railFor(view);
   if (!railSecs) $("view-" + view).classList.remove("has-rail");
   pagerFor(view);
+  if (typeof scaleInit === "function") scaleInit();
   railSpy();
 }
 

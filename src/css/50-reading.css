@@ -54,3 +54,21 @@
   .pager{padding:0 14px 50px}
   .pager a{flex-basis:100%}
 }
+
+/* ─────────── the scale widget ─────────── */
+/* Sits inside the prose. Same chrome as the roller's controls, so it reads as
+   a thing you operate rather than a thing you read. */
+.scale{border:1px solid var(--chrome-3);background:var(--chrome-2);
+  border-radius:3px;padding:16px 18px;margin:26px 0}
+.scale-head{font:500 9.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--patina);margin:0 0 14px}
+.scale-ctl{display:flex;flex-wrap:wrap;gap:12px 18px;margin-bottom:14px}
+.scale-field{display:flex;flex-direction:column;gap:5px;flex:1 1 260px}
+.scale-field span{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--chrome-dim)}
+.scale-out{display:flex;flex-direction:column;gap:7px}
+.scale-line{margin:0;font:400 13px/1.6 var(--mono);color:#aab3af}
+.scale-line b{color:var(--chrome-ink);font-weight:600}
+.scale-dim{color:#69736f}
+.scale-warn{color:var(--amber)}
+.scale-warn b{color:var(--amber)}
