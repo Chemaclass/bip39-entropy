@@ -34,7 +34,8 @@
       <li><a href="#start-random">Why the randomness is the whole game</a></li>
       <li><a href="#start-sources">Where randomness can come from</a></li>
       <li><a href="#start-recipe">A recipe you can follow</a></li>
-      <li><a href="#start-offline">What “offline” actually means</a></li>
+      <li><a href="#start-offline">Going offline</a></li>
+      <li><a href="#start-staying">Staying offline</a></li>
       <li><a href="#start-after">After you have the words</a></li>
       <li><a href="#start-mistakes">Common mistakes</a></li>
     </ol>
@@ -374,43 +375,117 @@
   </section>
 
   <section class="learn-sec" id="start-offline">
-    <h2><span class="learn-num" aria-hidden="true">05</span> What “offline” actually means</h2>
+    <h2><span class="learn-num" aria-hidden="true">05</span> Going offline</h2>
 
     <p>
-      An air gap means a machine with no path to a network at all, not a machine
-      whose network is currently switched off. The distinction is the whole idea.
-      Switching wifi off is a setting, and settings are changed by software,
-      updates, sleep cycles, docking stations and people. Removing the wireless
-      card, or using a machine that never had one, is a fact about the hardware.
+      Most people reading this should stop at Recipe A and let a hardware wallet
+      do it. That is not a hedge, it is the recommendation. What follows is for
+      two narrower cases: you have decided to generate the entropy yourself and
+      want the machine involved to be as inert as possible, or you are about to
+      print something and would rather the printing step did not quietly undo the
+      care taken everywhere else.
     </p>
 
     <p>
-      <b>Your phone is not offline, and neither is your daily laptop.</b> Both are
-      built to synchronise. They back themselves up, restore themselves onto new
-      devices, index their own contents to make them searchable, save copies of
-      what is on screen, and run software you did not choose and cannot inventory.
-      Airplane mode is a pause, not a property. A photograph taken in airplane mode
-      uploads itself the moment the connection returns, which is the mechanism by
-      which most phrases stored on phones eventually leave the building.
+      <b>An air gap is a fact about hardware, not a setting.</b> It means a
+      machine with no path to a network at all, not a machine whose network is
+      currently switched off. Settings are changed by software, updates, sleep
+      cycles, docking stations and people. Removing the wireless card, or using a
+      machine that never had one, is a different kind of claim.
     </p>
 
     <p>
-      <b>A live USB session</b> buys you something real. Booting a fresh operating
-      system from removable media, with the internal disk untouched, means nothing
-      that was already on the machine is running, and nothing you do survives the
-      power being cut. It narrows the problem to the hardware and the image you
-      booted. It does not fix hardware that is already compromised, and it does
-      not help if you plug the network back in halfway through.
+      <b>Turning the network off, for real.</b> Unplug the ethernet cable, and
+      separately disable wifi <em>and</em> bluetooth, because bluetooth is a
+      network and a paired phone is a route to the internet. Airplane mode is a
+      pause rather than a property: many devices re-enable radios on wake, on
+      reboot, or when an update decides connectivity is needed. If the machine
+      cannot be made to stay off, use a different machine.
     </p>
 
     <p>
-      <b>The browser is the weakest link in every version of this.</b> Not
-      normally because the randomness is bad; the browser asks the operating
-      system for that. It is everything else. Extensions can read what is on the
-      page. Pages get cached. Memory gets written to swap. Sessions get restored
-      after a crash, sometimes with the contents intact. Clipboards are shared and
-      read. And you have to be right about the copy of the page you loaded, which
-      is a claim about a server, a network and an update you did not watch happen.
+      <b>Your phone is never offline in the sense that matters.</b> It is built to
+      synchronise. It backs itself up, restores itself onto new devices, indexes
+      its own contents to make them searchable, saves copies of what is on screen,
+      and runs software you did not choose and cannot inventory. A photograph
+      taken in airplane mode uploads itself the moment the connection returns,
+      which is the mechanism by which most phrases stored on phones eventually
+      leave the building. Your daily laptop is the same machine with a bigger
+      screen.
+    </p>
+
+    <p>
+      <b>Getting this page off the network</b>, in this order. The point of each
+      step is that the next one can happen with nothing listening.
+    </p>
+
+    <ol class="learn-mag">
+      <li>
+        <b>1 · Save it to disk.</b> The header has a “Save offline” control that
+        writes this page out as a single file. That works because the page is
+        genuinely self-contained: no fonts, images, scripts or styles are loaded
+        from anywhere, so the saved copy is the whole thing rather than a shell
+        that breaks the moment it cannot reach a server.
+      </li>
+      <li>
+        <b>2 · Check what you downloaded.</b> Every deploy publishes the file's
+        SHA-256 beside it, as <code>index.html.sha256</code>. Compare it against
+        the file you saved before you trust the copy. Be clear about what this
+        proves: the same server served both, so it catches a truncated, cached or
+        substituted-in-transit download, and it does not prove the server itself
+        was honest. The strong version is cloning the repository and running its
+        verify script, which rebuilds the page from source and diffs the result.
+      </li>
+      <li>
+        <b>3 · Move it on removable media</b> to the machine that will do the
+        work, rather than downloading it there. A machine that never fetched
+        anything has less to explain.
+      </li>
+      <li>
+        <b>4 · Disconnect, then open it.</b> Not the other way round. Open the
+        local file with the network already down, so that at no point is there a
+        tab with your entropy in it and a route to the outside world at the same
+        time.
+      </li>
+      <li>
+        <b>5 · Do the work, write the words by hand</b>, and leave the machine in
+        that state until you have finished transcribing and checking. Reconnecting
+        “just to look something up” in the middle is the step that undoes the
+        other four.
+      </li>
+    </ol>
+
+    <p>
+      <b>A clean environment.</b> For a general-purpose computer, the strongest
+      realistic option is booting a live session from a USB stick with persistence
+      switched off. You get an operating system that has never been used, so
+      nothing that was already installed on the machine is running, and a session
+      that exists only in memory, so nothing you do survives the reboot. That is
+      the whole appeal: the cleanup is a power cycle rather than a list of things
+      to remember to delete.
+    </p>
+
+    <p>
+      The trade-offs are worth stating rather than glossing, especially if you
+      have never done it. You need a second working computer to prepare the stick,
+      and you should check the image's signature or hash while you are still
+      online, because a live session built from a tampered image is worse than not
+      bothering. The machine may need its boot order or secure boot settings
+      changed. Printers and wifi may not work without drivers you would have to
+      fetch, which is inconvenient by design. And it does not fix hardware that is
+      already compromised, nor does it help if you reconnect halfway through. It
+      narrows the problem to the hardware and the image, which is a much smaller
+      problem than the one you started with.
+    </p>
+
+    <p>
+      <b>The browser is still the weakest link.</b> Not normally because the
+      randomness is bad, since the browser asks the operating system for that. It
+      is everything around it. Extensions can read what is on the page. Pages get
+      cached. Memory gets written to swap. Sessions get restored after a crash,
+      sometimes with the contents intact. Clipboards are shared and read. A live
+      session removes most of that at a stroke, which is precisely why it is worth
+      the trouble if you are going to use a browser at all.
     </p>
 
     <p>
@@ -420,33 +495,146 @@
       you verify it, which is a genuinely different job from holding savings.
     </p>
 
-    <p>
-      If you are going to use it anyway, the procedure that makes it least bad is
-      this, in this order. Download the file. Verify its hash against the
-      published one. Copy it to removable media. Disconnect the machine, or better,
-      use one that cannot connect. Boot a clean live session. Open the local file
-      from the media, with no network reachable. Do the work, write the words down
-      by hand. Then destroy the working copy: power off the live session, wipe or
-      destroy the media, and do not save the file back to any disk that persists.
-    </p>
-
     <p class="learn-note">
       The reason this page is one file with no network code is precisely so that
-      procedure is possible to carry out and possible to check. It loads no fonts,
-      images, scripts or styles from anywhere, sends nothing, and stores nothing.
-      That is enforced by the build rather than promised in prose, and you can
-      confirm it by reading the source or by working with the cable pulled.
+      the procedure above is possible to carry out and possible to check. It loads
+      nothing from anywhere, sends nothing, and stores nothing. That is enforced
+      by the build rather than promised in prose, and you can confirm it by
+      reading the source or by working with the cable pulled.
     </p>
   </section>
 
-  <section class="learn-sec" id="start-after">
-    <h2><span class="learn-num" aria-hidden="true">06</span> After you have the words</h2>
+  <section class="learn-sec" id="start-staying">
+    <h2><span class="learn-num" aria-hidden="true">06</span> Staying offline</h2>
 
     <p>
-      <b>Restore before you fund.</b> It is the second time this page has said so
-      and it will not say it a third. A backup you have never restored is a guess
-      about the future, and the moment to discover that a word is illegible or in
-      the wrong position is while the wallet is empty.
+      Going offline is a moment. Staying offline is the harder half, because a
+      modern computer is full of features whose entire job is to remember things
+      for you and hand them to another machine later. None of these need a network
+      at the time. They wait.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>Screenshots and screen recording.</b> A screenshot is a file in a
+        folder that is very often a synchronised album, and it uploads when the
+        machine reconnects. Screen recording and meeting software can be running
+        without a visible window. If you would not photograph the words, do not
+        put them on a screen you have not accounted for.
+      </li>
+      <li>
+        <b>Clipboard history.</b> Copying is not transient any more. Operating
+        systems and clipboard managers keep a scrollback of everything copied,
+        sometimes on disk, sometimes synchronised between your own devices, which
+        turns one copy-and-paste into a permanent record on hardware you were not
+        thinking about.
+      </li>
+      <li>
+        <b>Shell history.</b> Anything typed at a command line is appended to a
+        history file, including the arguments. A phrase or a set of raw entropy
+        bits passed to a tool on the command line is now written to your home
+        directory in plain text, and it is backed up with everything else.
+      </li>
+      <li>
+        <b>Editors and their safety nets.</b> Autosave, swap and recovery files,
+        undo history, and the recent-documents list all exist to survive a crash,
+        which means they survive you closing the file without saving. Do not use a
+        text editor as scratch paper for this. Use actual paper.
+      </li>
+      <li>
+        <b>Voice assistants and always-on input.</b> Reading the words aloud while
+        a microphone is listening is a transcription waiting to be uploaded. This
+        includes phones and speakers in the room, not just the machine in front of
+        you.
+      </li>
+      <li>
+        <b>Sync folders.</b> The desktop, the documents folder and the downloads
+        folder are commonly synchronised. A file written there while offline is
+        not private, it is queued. It will upload the moment the machine comes
+        back, without asking you again.
+      </li>
+    </ul>
+
+    <p class="learn-note">
+      Every item on that list is a reason to prefer the live session or the
+      hardware wallet. On a machine with no persistent disk and no accounts signed
+      in, most of these traps do not exist, because there is nowhere for the
+      remembered copy to live and nothing to sync it to later.
+    </p>
+
+    <p>
+      <b>Printing, which is the point of this project.</b> A printer is a computer
+      that you have not thought about in those terms. Many keep a spool of recent
+      jobs, and office models often have an internal disk that retains them for a
+      long time. Shared and networked printers keep job logs naming the document
+      and the person who sent it. A printer shared over wifi is a network device
+      by definition: the job crosses a network to reach it, and it is reachable by
+      anything else on that network.
+    </p>
+
+    <p>
+      The good news is that this project's printed output is not secret. <b>The
+      poster is the public BIP-39 word list</b>, shipped in every wallet and
+      downloadable by anyone, so printing it at work, at a copy shop or over any
+      network you like reveals nothing. <b>The blank worksheet is equally safe</b>,
+      because it contains boxes and instructions and no results. Print those
+      wherever is convenient, and print them in advance.
+    </p>
+
+    <p>
+      <b>What is dangerous is a worksheet you have filled in</b>, or anything else
+      carrying your words or your bits. That is your seed in longhand, and it
+      should never be sent to a printer at all. Write it by hand instead. If you
+      genuinely must print something derived from a real phrase, use a printer
+      connected directly by cable to the machine doing the work, never a shared or
+      network one, and treat the printer as having kept a copy afterwards.
+    </p>
+
+    <p>
+      <b>Coming back online.</b> This is the step people forget, because by then
+      the interesting part is over.
+    </p>
+
+    <ol class="learn-mag">
+      <li>
+        <b>1 · Finish the paper first.</b> Transcribe, check the spelling, confirm
+        the order, and complete any restore test before anything reconnects. Once
+        the machine is online again you should not want to touch the phrase on it.
+      </li>
+      <li>
+        <b>2 · Destroy the working copies.</b> Burn or shred the sheets of bits.
+        A filled-in worksheet is not a draft, it is a duplicate of the secret, and
+        it deserves the same end as any other copy you did not intend to keep.
+      </li>
+      <li>
+        <b>3 · Power off the live session.</b> This is the clean ending, and the
+        reason to have used one. Cutting the power to a session with no
+        persistence discards the whole environment at once, with nothing left to
+        find and nothing left to remember to delete. Then wipe or destroy the
+        media you carried the file on, and do not save that file back to any disk
+        that persists.
+      </li>
+      <li>
+        <b>4 · If you used an ordinary machine, assume it kept something.</b> Go
+        through the list above deliberately: clipboard history, shell history,
+        editor recovery files, the downloads and desktop folders, the trash, the
+        screenshots album. Then reconnect. If that list feels like too much to be
+        sure about, that is the honest signal that the secret should not have been
+        on that machine, and the phrase is worth generating again somewhere
+        cleaner while it still holds nothing.
+      </li>
+    </ol>
+  </section>
+
+  <section class="learn-sec" id="start-after">
+    <h2><span class="learn-num" aria-hidden="true">07</span> After you have the words</h2>
+
+    <p>
+      <b>Restore before you fund.</b> This page has now said so in both recipes
+      and it is saying so once more, because it is the step that gets skipped. A
+      backup you have never restored is a guess about the future, and the moment
+      to discover that a word is illegible or in the wrong position is while the
+      wallet is empty.
     </p>
 
     <p>
@@ -514,7 +702,7 @@
   </section>
 
   <section class="learn-sec" id="start-mistakes">
-    <h2><span class="learn-num" aria-hidden="true">07</span> Common mistakes</h2>
+    <h2><span class="learn-num" aria-hidden="true">08</span> Common mistakes</h2>
 
     <p>
       Nearly every loss that was not a market loss is on this list.

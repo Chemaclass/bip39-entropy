@@ -1467,7 +1467,8 @@ p.learn-lead em{color:var(--patina)}
       <li><a href="#en-start-random">Why the randomness is the whole game</a></li>
       <li><a href="#en-start-sources">Where randomness can come from</a></li>
       <li><a href="#en-start-recipe">A recipe you can follow</a></li>
-      <li><a href="#en-start-offline">What “offline” actually means</a></li>
+      <li><a href="#en-start-offline">Going offline</a></li>
+      <li><a href="#en-start-staying">Staying offline</a></li>
       <li><a href="#en-start-after">After you have the words</a></li>
       <li><a href="#en-start-mistakes">Common mistakes</a></li>
     </ol>
@@ -1807,43 +1808,117 @@ p.learn-lead em{color:var(--patina)}
   </section>
 
   <section class="learn-sec" id="en-start-offline">
-    <h2><span class="learn-num" aria-hidden="true">05</span> What “offline” actually means</h2>
+    <h2><span class="learn-num" aria-hidden="true">05</span> Going offline</h2>
 
     <p>
-      An air gap means a machine with no path to a network at all, not a machine
-      whose network is currently switched off. The distinction is the whole idea.
-      Switching wifi off is a setting, and settings are changed by software,
-      updates, sleep cycles, docking stations and people. Removing the wireless
-      card, or using a machine that never had one, is a fact about the hardware.
+      Most people reading this should stop at Recipe A and let a hardware wallet
+      do it. That is not a hedge, it is the recommendation. What follows is for
+      two narrower cases: you have decided to generate the entropy yourself and
+      want the machine involved to be as inert as possible, or you are about to
+      print something and would rather the printing step did not quietly undo the
+      care taken everywhere else.
     </p>
 
     <p>
-      <b>Your phone is not offline, and neither is your daily laptop.</b> Both are
-      built to synchronise. They back themselves up, restore themselves onto new
-      devices, index their own contents to make them searchable, save copies of
-      what is on screen, and run software you did not choose and cannot inventory.
-      Airplane mode is a pause, not a property. A photograph taken in airplane mode
-      uploads itself the moment the connection returns, which is the mechanism by
-      which most phrases stored on phones eventually leave the building.
+      <b>An air gap is a fact about hardware, not a setting.</b> It means a
+      machine with no path to a network at all, not a machine whose network is
+      currently switched off. Settings are changed by software, updates, sleep
+      cycles, docking stations and people. Removing the wireless card, or using a
+      machine that never had one, is a different kind of claim.
     </p>
 
     <p>
-      <b>A live USB session</b> buys you something real. Booting a fresh operating
-      system from removable media, with the internal disk untouched, means nothing
-      that was already on the machine is running, and nothing you do survives the
-      power being cut. It narrows the problem to the hardware and the image you
-      booted. It does not fix hardware that is already compromised, and it does
-      not help if you plug the network back in halfway through.
+      <b>Turning the network off, for real.</b> Unplug the ethernet cable, and
+      separately disable wifi <em>and</em> bluetooth, because bluetooth is a
+      network and a paired phone is a route to the internet. Airplane mode is a
+      pause rather than a property: many devices re-enable radios on wake, on
+      reboot, or when an update decides connectivity is needed. If the machine
+      cannot be made to stay off, use a different machine.
     </p>
 
     <p>
-      <b>The browser is the weakest link in every version of this.</b> Not
-      normally because the randomness is bad; the browser asks the operating
-      system for that. It is everything else. Extensions can read what is on the
-      page. Pages get cached. Memory gets written to swap. Sessions get restored
-      after a crash, sometimes with the contents intact. Clipboards are shared and
-      read. And you have to be right about the copy of the page you loaded, which
-      is a claim about a server, a network and an update you did not watch happen.
+      <b>Your phone is never offline in the sense that matters.</b> It is built to
+      synchronise. It backs itself up, restores itself onto new devices, indexes
+      its own contents to make them searchable, saves copies of what is on screen,
+      and runs software you did not choose and cannot inventory. A photograph
+      taken in airplane mode uploads itself the moment the connection returns,
+      which is the mechanism by which most phrases stored on phones eventually
+      leave the building. Your daily laptop is the same machine with a bigger
+      screen.
+    </p>
+
+    <p>
+      <b>Getting this page off the network</b>, in this order. The point of each
+      step is that the next one can happen with nothing listening.
+    </p>
+
+    <ol class="learn-mag">
+      <li>
+        <b>1 · Save it to disk.</b> The header has a “Save offline” control that
+        writes this page out as a single file. That works because the page is
+        genuinely self-contained: no fonts, images, scripts or styles are loaded
+        from anywhere, so the saved copy is the whole thing rather than a shell
+        that breaks the moment it cannot reach a server.
+      </li>
+      <li>
+        <b>2 · Check what you downloaded.</b> Every deploy publishes the file's
+        SHA-256 beside it, as <code>index.html.sha256</code>. Compare it against
+        the file you saved before you trust the copy. Be clear about what this
+        proves: the same server served both, so it catches a truncated, cached or
+        substituted-in-transit download, and it does not prove the server itself
+        was honest. The strong version is cloning the repository and running its
+        verify script, which rebuilds the page from source and diffs the result.
+      </li>
+      <li>
+        <b>3 · Move it on removable media</b> to the machine that will do the
+        work, rather than downloading it there. A machine that never fetched
+        anything has less to explain.
+      </li>
+      <li>
+        <b>4 · Disconnect, then open it.</b> Not the other way round. Open the
+        local file with the network already down, so that at no point is there a
+        tab with your entropy in it and a route to the outside world at the same
+        time.
+      </li>
+      <li>
+        <b>5 · Do the work, write the words by hand</b>, and leave the machine in
+        that state until you have finished transcribing and checking. Reconnecting
+        “just to look something up” in the middle is the step that undoes the
+        other four.
+      </li>
+    </ol>
+
+    <p>
+      <b>A clean environment.</b> For a general-purpose computer, the strongest
+      realistic option is booting a live session from a USB stick with persistence
+      switched off. You get an operating system that has never been used, so
+      nothing that was already installed on the machine is running, and a session
+      that exists only in memory, so nothing you do survives the reboot. That is
+      the whole appeal: the cleanup is a power cycle rather than a list of things
+      to remember to delete.
+    </p>
+
+    <p>
+      The trade-offs are worth stating rather than glossing, especially if you
+      have never done it. You need a second working computer to prepare the stick,
+      and you should check the image's signature or hash while you are still
+      online, because a live session built from a tampered image is worse than not
+      bothering. The machine may need its boot order or secure boot settings
+      changed. Printers and wifi may not work without drivers you would have to
+      fetch, which is inconvenient by design. And it does not fix hardware that is
+      already compromised, nor does it help if you reconnect halfway through. It
+      narrows the problem to the hardware and the image, which is a much smaller
+      problem than the one you started with.
+    </p>
+
+    <p>
+      <b>The browser is still the weakest link.</b> Not normally because the
+      randomness is bad, since the browser asks the operating system for that. It
+      is everything around it. Extensions can read what is on the page. Pages get
+      cached. Memory gets written to swap. Sessions get restored after a crash,
+      sometimes with the contents intact. Clipboards are shared and read. A live
+      session removes most of that at a stroke, which is precisely why it is worth
+      the trouble if you are going to use a browser at all.
     </p>
 
     <p>
@@ -1853,33 +1928,146 @@ p.learn-lead em{color:var(--patina)}
       you verify it, which is a genuinely different job from holding savings.
     </p>
 
-    <p>
-      If you are going to use it anyway, the procedure that makes it least bad is
-      this, in this order. Download the file. Verify its hash against the
-      published one. Copy it to removable media. Disconnect the machine, or better,
-      use one that cannot connect. Boot a clean live session. Open the local file
-      from the media, with no network reachable. Do the work, write the words down
-      by hand. Then destroy the working copy: power off the live session, wipe or
-      destroy the media, and do not save the file back to any disk that persists.
-    </p>
-
     <p class="learn-note">
       The reason this page is one file with no network code is precisely so that
-      procedure is possible to carry out and possible to check. It loads no fonts,
-      images, scripts or styles from anywhere, sends nothing, and stores nothing.
-      That is enforced by the build rather than promised in prose, and you can
-      confirm it by reading the source or by working with the cable pulled.
+      the procedure above is possible to carry out and possible to check. It loads
+      nothing from anywhere, sends nothing, and stores nothing. That is enforced
+      by the build rather than promised in prose, and you can confirm it by
+      reading the source or by working with the cable pulled.
     </p>
   </section>
 
-  <section class="learn-sec" id="en-start-after">
-    <h2><span class="learn-num" aria-hidden="true">06</span> After you have the words</h2>
+  <section class="learn-sec" id="en-start-staying">
+    <h2><span class="learn-num" aria-hidden="true">06</span> Staying offline</h2>
 
     <p>
-      <b>Restore before you fund.</b> It is the second time this page has said so
-      and it will not say it a third. A backup you have never restored is a guess
-      about the future, and the moment to discover that a word is illegible or in
-      the wrong position is while the wallet is empty.
+      Going offline is a moment. Staying offline is the harder half, because a
+      modern computer is full of features whose entire job is to remember things
+      for you and hand them to another machine later. None of these need a network
+      at the time. They wait.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>Screenshots and screen recording.</b> A screenshot is a file in a
+        folder that is very often a synchronised album, and it uploads when the
+        machine reconnects. Screen recording and meeting software can be running
+        without a visible window. If you would not photograph the words, do not
+        put them on a screen you have not accounted for.
+      </li>
+      <li>
+        <b>Clipboard history.</b> Copying is not transient any more. Operating
+        systems and clipboard managers keep a scrollback of everything copied,
+        sometimes on disk, sometimes synchronised between your own devices, which
+        turns one copy-and-paste into a permanent record on hardware you were not
+        thinking about.
+      </li>
+      <li>
+        <b>Shell history.</b> Anything typed at a command line is appended to a
+        history file, including the arguments. A phrase or a set of raw entropy
+        bits passed to a tool on the command line is now written to your home
+        directory in plain text, and it is backed up with everything else.
+      </li>
+      <li>
+        <b>Editors and their safety nets.</b> Autosave, swap and recovery files,
+        undo history, and the recent-documents list all exist to survive a crash,
+        which means they survive you closing the file without saving. Do not use a
+        text editor as scratch paper for this. Use actual paper.
+      </li>
+      <li>
+        <b>Voice assistants and always-on input.</b> Reading the words aloud while
+        a microphone is listening is a transcription waiting to be uploaded. This
+        includes phones and speakers in the room, not just the machine in front of
+        you.
+      </li>
+      <li>
+        <b>Sync folders.</b> The desktop, the documents folder and the downloads
+        folder are commonly synchronised. A file written there while offline is
+        not private, it is queued. It will upload the moment the machine comes
+        back, without asking you again.
+      </li>
+    </ul>
+
+    <p class="learn-note">
+      Every item on that list is a reason to prefer the live session or the
+      hardware wallet. On a machine with no persistent disk and no accounts signed
+      in, most of these traps do not exist, because there is nowhere for the
+      remembered copy to live and nothing to sync it to later.
+    </p>
+
+    <p>
+      <b>Printing, which is the point of this project.</b> A printer is a computer
+      that you have not thought about in those terms. Many keep a spool of recent
+      jobs, and office models often have an internal disk that retains them for a
+      long time. Shared and networked printers keep job logs naming the document
+      and the person who sent it. A printer shared over wifi is a network device
+      by definition: the job crosses a network to reach it, and it is reachable by
+      anything else on that network.
+    </p>
+
+    <p>
+      The good news is that this project's printed output is not secret. <b>The
+      poster is the public BIP-39 word list</b>, shipped in every wallet and
+      downloadable by anyone, so printing it at work, at a copy shop or over any
+      network you like reveals nothing. <b>The blank worksheet is equally safe</b>,
+      because it contains boxes and instructions and no results. Print those
+      wherever is convenient, and print them in advance.
+    </p>
+
+    <p>
+      <b>What is dangerous is a worksheet you have filled in</b>, or anything else
+      carrying your words or your bits. That is your seed in longhand, and it
+      should never be sent to a printer at all. Write it by hand instead. If you
+      genuinely must print something derived from a real phrase, use a printer
+      connected directly by cable to the machine doing the work, never a shared or
+      network one, and treat the printer as having kept a copy afterwards.
+    </p>
+
+    <p>
+      <b>Coming back online.</b> This is the step people forget, because by then
+      the interesting part is over.
+    </p>
+
+    <ol class="learn-mag">
+      <li>
+        <b>1 · Finish the paper first.</b> Transcribe, check the spelling, confirm
+        the order, and complete any restore test before anything reconnects. Once
+        the machine is online again you should not want to touch the phrase on it.
+      </li>
+      <li>
+        <b>2 · Destroy the working copies.</b> Burn or shred the sheets of bits.
+        A filled-in worksheet is not a draft, it is a duplicate of the secret, and
+        it deserves the same end as any other copy you did not intend to keep.
+      </li>
+      <li>
+        <b>3 · Power off the live session.</b> This is the clean ending, and the
+        reason to have used one. Cutting the power to a session with no
+        persistence discards the whole environment at once, with nothing left to
+        find and nothing left to remember to delete. Then wipe or destroy the
+        media you carried the file on, and do not save that file back to any disk
+        that persists.
+      </li>
+      <li>
+        <b>4 · If you used an ordinary machine, assume it kept something.</b> Go
+        through the list above deliberately: clipboard history, shell history,
+        editor recovery files, the downloads and desktop folders, the trash, the
+        screenshots album. Then reconnect. If that list feels like too much to be
+        sure about, that is the honest signal that the secret should not have been
+        on that machine, and the phrase is worth generating again somewhere
+        cleaner while it still holds nothing.
+      </li>
+    </ol>
+  </section>
+
+  <section class="learn-sec" id="en-start-after">
+    <h2><span class="learn-num" aria-hidden="true">07</span> After you have the words</h2>
+
+    <p>
+      <b>Restore before you fund.</b> This page has now said so in both recipes
+      and it is saying so once more, because it is the step that gets skipped. A
+      backup you have never restored is a guess about the future, and the moment
+      to discover that a word is illegible or in the wrong position is while the
+      wallet is empty.
     </p>
 
     <p>
@@ -1947,7 +2135,7 @@ p.learn-lead em{color:var(--patina)}
   </section>
 
   <section class="learn-sec" id="en-start-mistakes">
-    <h2><span class="learn-num" aria-hidden="true">07</span> Common mistakes</h2>
+    <h2><span class="learn-num" aria-hidden="true">08</span> Common mistakes</h2>
 
     <p>
       Nearly every loss that was not a market loss is on this list.
@@ -1995,6 +2183,608 @@ p.learn-lead em{color:var(--patina)}
       does and does not catch, and what a chosen phrase is really worth. None of it
       changes the procedure above. It just means you are not taking anyone's word
       for it, which is the habit worth having here.
+    </p>
+  </section>
+
+</section>
+</div>
+
+<!-- src/content/start.es.html -->
+<div class="pane" data-pane="start" data-lang="es" hidden>
+<section id="es-start" class="learn">
+
+  <header class="learn-head">
+    <p class="learn-eyebrow">Empieza aquí · primera frase</p>
+    <h1 class="learn-title">Alguien te dijo<br>que anotaras<br>doce palabras</h1>
+    <p class="learn-lead">
+      Esta página es para el momento anterior a eso. Explica qué son esas palabras,
+      qué está realmente en juego, de dónde debería venir la aleatoriedad que hay
+      detrás y un procedimiento que puedes seguir esta misma noche sin tener que
+      fiarte de la opinión de nadie, tampoco de esta. Es deliberadamente corta y
+      práctica. La <em>guía de campo</em> que la acompaña tiene la aritmética y las
+      demostraciones; no las necesitas para hacer esto bien.
+    </p>
+  </header>
+
+  <aside class="learn-warn">
+    <p class="learn-warn-label">Antes de nada</p>
+    <p>
+      Esta página nunca pide una frase de recuperación, y ninguna herramienta
+      legítima lo hará jamás. Ni un fabricante de monederos, ni un exchange, ni un
+      agente de soporte, ni un “validador” o un “servicio de recuperación”. No hay
+      ninguna situación en la que un desconocido necesite tus palabras. La petición
+      es el ataque, siempre, sin excepciones que merezca la pena aprender.
+    </p>
+    <p>
+      Aquí no hay ningún campo que acepte una frase, y aquí nada habla con una red.
+      Puedes confirmarlo leyendo el código fuente o tirando del cable.
+    </p>
+  </aside>
+
+  <nav class="learn-toc" aria-label="Secciones de esta página">
+    <ol>
+      <li><a href="#es-start-minute">En un minuto</a></li>
+      <li><a href="#es-start-random">Por qué la aleatoriedad lo es todo</a></li>
+      <li><a href="#es-start-sources">De dónde puede venir la aleatoriedad</a></li>
+      <li><a href="#es-start-recipe">Una receta que puedes seguir</a></li>
+      <li><a href="#es-start-offline">Qué significa “sin conexión” de verdad</a></li>
+      <li><a href="#es-start-after">Cuando ya tienes las palabras</a></li>
+      <li><a href="#es-start-mistakes">Errores comunes</a></li>
+    </ol>
+  </nav>
+
+  <section class="learn-sec" id="es-start-minute">
+    <h2><span class="learn-num" aria-hidden="true">01</span> En un minuto</h2>
+
+    <p>
+      Una frase semilla es un número escrito en palabras. Doce palabras son un
+      número de 128 bits, más cuatro bits de verificación que detectan errores de
+      tecleo. Las palabras en sí no llevan nada; cada una es solo una entrada de una
+      lista pública de 2048, la misma lista en todos los monederos, la misma lista
+      impresa en <a href="#poster">el póster</a>.
+    </p>
+
+    <p>
+      Quien conozca ese número posee las monedas. No la persona que sostiene el
+      dispositivo, no la persona que las compró, no la persona cuyo nombre figura en
+      nada. No hay cuenta, no hay restablecimiento de contraseña, no hay servicio de
+      soporte que pueda intervenir, en ninguna de las dos direcciones. Si pierdes el
+      número, las monedas están perdidas, y si alguien más lo averigua, están
+      perdidas exactamente igual.
+    </p>
+
+    <p>
+      Lo único que se interpone entre tus monedas y todo el mundo es que nadie puede
+      adivinar el número. Eso no es una metáfora. Es el modelo de seguridad entero,
+      y si se sostiene o no se decidió en el instante en que se creó la frase, antes
+      de que anotaras nada, antes de que eligieras un monedero, antes de que
+      pensaras dónde esconder el papel. Todo lo demás de esta página se sigue de ese
+      único hecho.
+    </p>
+
+    <p class="learn-note">
+      Aquí todo se afirma en lugar de demostrarse, porque el procedimiento importa
+      más que la aritmética cuando estás empezando. La
+      <a href="#learn">guía de campo</a> lo demuestra: qué mide en realidad la
+      entropía, por qué la lista tiene exactamente 2048 palabras y qué puede y qué
+      no puede decirte la suma de verificación.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="es-start-random">
+    <h2><span class="learn-num" aria-hidden="true">02</span> Por qué la aleatoriedad lo es todo</h2>
+
+    <p>
+      Una frase generada correctamente es una de <code>2^128</code> posibilidades
+      igual de probables, unos <code>3.4 × 10^38</code>. Aquí va un asidero para ese
+      número. La red de minería de Bitcoin, el mayor esfuerzo de computación
+      construido para un solo fin que ha existido jamás, funciona al orden de
+      <code>10^21</code> hashes por segundo. A ese ritmo, solo <em>contar</em> hasta
+      <code>2^128</code> lleva <code>3.4 × 10^17</code> segundos, o sea unos 11 mil
+      millones de años, aproximadamente la edad actual del universo. Nadie va a
+      adivinar tu frase.
+    </p>
+
+    <p>
+      Pero esa cifra describe una frase extraída de manera uniforme de las
+      <code>2^128</code>. No dice nada de una frase extraída de un conjunto más
+      pequeño, y un atacante no tiene que romper ninguna matemática para sacar
+      provecho. Solo tiene que buscar en un conjunto más pequeño de lo que tú creías
+      estar usando.
+    </p>
+
+    <p>
+      Esto no es hipotético, y es el único modo de fallo que de verdad ha costado
+      dinero a la gente a gran escala. Se repite en dos versiones.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>Secretos que eligió una persona.</b> Antes de que las frases semilla
+        fueran el estándar, era habitual derivar una clave de una frase de
+        contraseña que te inventabas tú, una práctica conocida como brainwallet. Los
+        atacantes generaron claves a partir de letras de canciones, textos
+        religiosos, títulos de libros, citas y volcados de contraseñas, y se
+        llevaron los fondos. Algunos saldos se vaciaron a los pocos segundos de
+        llegar, porque las direcciones estaban precalculadas y simplemente se
+        vigilaban. La elección humana no es un espacio grande, por muy original que
+        parezca el resultado desde dentro.
+      </li>
+      <li>
+        <b>Generadores que estaban rotos.</b> El software que siembra su
+        aleatoriedad con algo predecible, como el reloj o un valor fijo, produce
+        frases que parecen perfectamente normales y viven en un conjunto lo bastante
+        pequeño como para enumerarlo. Esto ha pasado una y otra vez, en programas de
+        monedero y en las bibliotecas de la plataforma que hay debajo. El resultado
+        es indistinguible de una buena frase a simple vista. No puedes mirar doce
+        palabras y saberlo.
+      </li>
+    </ul>
+
+    <p class="learn-note">
+      Ese último punto merece decirse por separado. No hay ninguna prueba que puedas
+      hacerle a una frase terminada para saber si se generó bien. Que un monedero la
+      acepte solo demuestra que la suma de verificación cuadra, cosa que una frase
+      elegida a mano satisface igual de fácil. La única evidencia que tendrás jamás
+      sobre la fuerza de una frase es lo que sepas del proceso que la produjo, y por
+      eso el resto de esta página trata del proceso.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="es-start-sources">
+    <h2><span class="learn-num" aria-hidden="true">03</span> De dónde puede venir la aleatoriedad</h2>
+
+    <p>
+      Todas las opciones implican confiar en algo. La pregunta útil no es cuál es
+      perfecta, sino en qué estás confiando y si eres capaz de comprobarlo. La tabla
+      es el resumen, una palabra por celda. Debajo va la versión honesta de cada
+      fila.
+    </p>
+
+    <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Comparación de fuentes de aleatoriedad, tabla desplazable">
+      <table class="learn-tbl">
+        <caption>Fuentes de aleatoriedad</caption>
+        <thead>
+          <tr>
+            <th scope="col">Fuente</th>
+            <th scope="col">Cómo funciona</th>
+            <th scope="col">¿Puedes comprobarlo?</th>
+            <th scope="col">Qué sale mal</th>
+            <th scope="col">Veredicto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Monedero hardware</th>
+            <td>Chip sellado</td>
+            <td>No</td>
+            <td>Firmware</td>
+            <td>Por defecto</td>
+          </tr>
+          <tr>
+            <th scope="row">Dados</th>
+            <td>Tus tiradas</td>
+            <td>Cada bit</td>
+            <td>Torpezas</td>
+            <td>Auditable</td>
+          </tr>
+          <tr>
+            <th scope="row">Monedas</th>
+            <td>Tus lanzamientos</td>
+            <td>Cada bit</td>
+            <td>Mal recuento</td>
+            <td>Auditable</td>
+          </tr>
+          <tr>
+            <th scope="row">Generador del SO</th>
+            <td>Pool del kernel</td>
+            <td>Solo el código</td>
+            <td>La máquina</td>
+            <td>Sin conexión</td>
+          </tr>
+          <tr>
+            <th scope="row">Pestaña del navegador</th>
+            <td>Pide al SO</td>
+            <td>La página</td>
+            <td>El navegador</td>
+            <td>Aprender</td>
+          </tr>
+          <tr>
+            <th scope="row">Eliges tú</th>
+            <td>Las eliges</td>
+            <td>Nada</td>
+            <td>Pocos bits</td>
+            <td>Nunca</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Cada uno de esos veredictos tiene una salvedad, y las salvedades son la razón
+      de que la gente se equivoque en esto.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>El generador propio de un monedero hardware</b> es la respuesta correcta
+        para casi todo el mundo, y no puedes auditarlo. Las dos mitades son ciertas.
+        Estás confiando en un chip, en una compilación de firmware y en la ruta de
+        envío que recorrió la caja. Lo que recibes a cambio es que la frase se
+        produce dentro de un dispositivo diseñado para guardarla, nunca aparece en
+        una computadora de uso general y nunca pasa por una pantalla que algo más
+        pueda estar leyendo. Ese intercambio es bueno, porque las amenazas realistas
+        para quien empieza son el malware corriente y los errores corrientes, no un
+        chip comprometido.
+      </li>
+      <li>
+        <b>Los dados y las monedas</b> son auditables, cosa genuinamente rara y la
+        única razón para preferirlos. Ves llegar cada bit. También son lentos y
+        fáciles de estropear: un dado con los cantos redondeados, una tirada anotada
+        en la casilla equivocada, una hoja de trabajo olvidada en el escritorio, un
+        teléfono en la habitación. La entropía generada a mano no es <em>más</em>
+        aleatoria que una fuente de hardware sólida. Solo es comprobable, y solo si
+        eres de las personas que de verdad van a tener cuidado durante la hora
+        entera que lleva.
+      </li>
+      <li>
+        <b>El generador de un sistema operativo</b>, es decir
+        <code>/dev/urandom</code> en los sistemas tipo Unix y la llamada equivalente
+        en los demás, es criptografía genuinamente buena, resembrada de forma
+        continua y revisada a fondo. Su debilidad no es el algoritmo. Es que estás
+        confiando en la máquina entera sobre la que corre: el kernel, los
+        controladores, todo lo demás que haya instalado y todo aquello a lo que la
+        máquina haya estado expuesta. En un sistema limpio y sin conexión, esta es
+        una opción fuerte. En tu computadora de diario es una apuesta sobre tu
+        computadora de diario.
+      </li>
+      <li>
+        <b>Un sitio web o una pestaña del navegador</b> acaba llamando al mismo
+        generador del sistema operativo, así que la aleatoriedad en sí suele estar
+        bien. El problema es todo lo que hay alrededor: extensiones que pueden leer
+        la página, la caché de páginas, memoria que acaba escrita en el disco,
+        capturas de pantalla, la restauración de sesión y la cuestión de si la copia
+        que cargaste es la copia que escribió quien la hizo. Útil para aprender cómo
+        funciona esto. No es donde se crea una frase que va a guardar unos ahorros.
+      </li>
+      <li>
+        <b>Elegir las palabras tú</b> es la única opción sin defensa. Si les pides
+        cosas al azar, las personas producen patrones: sustantivos concretos, cosas
+        que hay en la habitación, nombres, fechas, evitar repeticiones. Aunque te
+        disciplinaras para elegir doce palabras de manera uniforme dentro de una
+        lista corta de treinta y dos que te resulten memorables, eso son sesenta
+        bits, que un presupuesto serio de hardware recorre entero. No es una clase
+        más débil de seguridad. Es su ausencia.
+      </li>
+    </ul>
+  </section>
+
+  <section class="learn-sec" id="es-start-recipe">
+    <h2><span class="learn-num" aria-hidden="true">04</span> Una receta que puedes seguir</h2>
+
+    <p>
+      Dos procedimientos. El primero es lo que debería hacer la mayoría. El segundo
+      es para quien quiera ver llegar cada bit de su propia entropía y esté
+      dispuesto a dedicarle una tarde. El orden de los pasos importa en los dos, en
+      especial la prueba de restauración, que va antes del dinero y no después.
+    </p>
+
+    <p>
+      <b>Receta A · Un monedero hardware.</b> La opción por defecto.
+    </p>
+
+    <ol class="learn-mag">
+      <li>
+        <b>1 · Cómpralo al fabricante.</b> Pídelo directamente al fabricante o a un
+        distribuidor autorizado que él mismo liste. No en un anuncio de un
+        marketplace, no en una subasta, no de segunda mano, no como regalo de
+        alguien de un chat. Si la caja llega con una frase de recuperación ya
+        escrita en una tarjeta dentro, el dispositivo es una trampa. Para y
+        devuélvelo.
+      </li>
+      <li>
+        <b>2 · Verifica el dispositivo antes de que guarde nada.</b> Sigue la
+        comprobación de autenticidad del propio fabricante, instala o confirma el
+        firmware desde su canal oficial y lee la versión del firmware en la pantalla
+        del propio dispositivo, no en la de la computadora. Un dispositivo que te
+        pide instalar software desde un enlace que te enviaron no es el dispositivo
+        que pediste.
+      </li>
+      <li>
+        <b>3 · Deja que el dispositivo genere la frase.</b> Elige la opción que crea
+        un monedero nuevo. Las palabras aparecen en la pantalla del dispositivo y no
+        deberían aparecer en ningún momento en la pantalla de tu computadora. Pon un
+        PIN cuando te lo pida.
+      </li>
+      <li>
+        <b>4 · Anota las palabras a mano.</b> Papel, bolígrafo, numeradas del uno al
+        doce, en orden, escritas exactamente como se muestran. Escribe con letra lo
+        bastante legible como para que la lea un desconocido, porque en el peor caso
+        de eso se trata. No fotografíes la pantalla. No teclees las palabras en
+        ningún sitio.
+      </li>
+      <li>
+        <b>5 · Confirma desde tu copia, no de memoria.</b> El dispositivo te pedirá
+        que vuelvas a introducir algunas palabras o todas. Léelas del papel que
+        acabas de escribir. Este es el único momento en que un error de
+        transcripción sale barato de encontrar, y leer de memoria echa a perder la
+        comprobación por completo.
+      </li>
+      <li>
+        <b>6 · Restaura antes de meter dinero.</b> Borra el dispositivo y luego
+        restáuralo solo con tu copia escrita. Si vuelve el mismo monedero, tu copia
+        de seguridad funciona. Si no vuelve, lo has aprendido sin que te cueste
+        nada. Este es el paso que la gente se salta, y es el que importa.
+      </li>
+      <li>
+        <b>7 · Envía primero una cantidad pequeña.</b> Recibe un poco, confirma que
+        llega y después manda algo de vuelta para confirmar que de verdad puedes
+        gastar desde este monedero. Solo entonces mueve el resto.
+      </li>
+    </ol>
+
+    <p>
+      <b>Receta B · Los dados y este póster.</b> Más lenta, auditable de principio a
+      fin. <a href="#roll">Genera la tuya</a> va recogiendo las tiradas e imprime
+      una hoja de trabajo para hacerlo en una mesa sin ninguna computadora.
+    </p>
+
+    <ol class="learn-mag">
+      <li>
+        <b>1 · Decide la longitud y la cuenta.</b> Doce palabras son 128 bits, que
+        son 64 tiradas aceptadas de un dado de seis caras. Como los cincos y los
+        seises se descartan, cuenta con tirar unas 96 veces en total.
+      </li>
+      <li>
+        <b>2 · Prepara la habitación.</b> Papel nuevo, un dado que hayas mirado,
+        ningún teléfono en la mesa, ninguna cámara en la habitación, nadie leyendo
+        por encima de tu hombro. Imprime primero la hoja de trabajo si vas a
+        trabajar lejos de la pantalla, e imprime el póster o tenlo en la pared.
+      </li>
+      <li>
+        <b>3 · Tira y anota, en orden.</b> Lee <code>1 2 3 4</code> como
+        <code>00 01 10 11</code>. Un <code>5</code> o un <code>6</code> no anota
+        nada y se vuelve a tirar; descartarlos es exactamente lo que mantiene igual
+        de probables los cuatro resultados. Nunca “arregles” una tirada que no te
+        guste, y nunca reutilices un conjunto de tiradas para un segundo monedero.
+      </li>
+      <li>
+        <b>4 · Corta los bits en palabras.</b> Escribe los bits en grupos de once.
+        Cada grupo es un índice de <code>0</code> a <code>2047</code>, y en el
+        póster lo lees directamente: los bits altos eligen la columna y los bajos
+        eligen la fila. En una frase de doce palabras, las once primeras salen
+        enteramente de tus propios bits.
+      </li>
+      <li>
+        <b>5 · Deja que una máquina termine la última palabra.</b> La duodécima
+        palabra mezcla los bits de entropía que te quedan con cuatro bits de
+        verificación tomados de SHA-256, que no puedes calcular a mano. Introduce
+        tus bits en una máquina sin conexión, o en un monedero hardware que acepte
+        entrada de dados o entropía en bruto. La máquina se entera de tu entropía en
+        cualquier caso; la gracia es que no la <em>eligió</em>.
+      </li>
+      <li>
+        <b>6 · Anota la frase terminada.</b> Numerada, en orden, a mano, igual que
+        en el paso 4 de la receta A.
+      </li>
+      <li>
+        <b>7 · Restaura y después destruye la hoja de trabajo.</b> Carga la frase en
+        el monedero que pienses usar, sin conexión, y confirma las direcciones.
+        Después quema o destruye todas las hojas de bits. Hasta que lo hagas, esa
+        hoja de trabajo es una segunda copia de tu semilla escrita a mano.
+      </li>
+      <li>
+        <b>8 · Primero una cantidad pequeña, y luego mete el resto.</b> Como arriba.
+        Recibe, gasta, confirma y solo entonces mueve algo que echarías de menos.
+      </li>
+    </ol>
+  </section>
+
+  <section class="learn-sec" id="es-start-offline">
+    <h2><span class="learn-num" aria-hidden="true">05</span> Qué significa “sin conexión” de verdad</h2>
+
+    <p>
+      Un air gap es una máquina sin ningún camino hacia una red, no una máquina cuya
+      red está apagada en este momento. La distinción es la idea entera. Apagar el
+      wifi es un ajuste, y los ajustes los cambian el software, las
+      actualizaciones, los ciclos de suspensión, las bases de conexión y las
+      personas. Quitar la tarjeta inalámbrica, o usar una máquina que nunca la tuvo,
+      es un hecho sobre el hardware.
+    </p>
+
+    <p>
+      <b>Tu teléfono no está sin conexión, y tu computadora de diario tampoco.</b>
+      Los dos están construidos para sincronizar. Se hacen copias de seguridad
+      solos, se restauran solos en dispositivos nuevos, indexan su propio contenido
+      para poder buscarlo, guardan copias de lo que hay en pantalla y ejecutan
+      software que tú no elegiste y no puedes inventariar. El modo avión es una
+      pausa, no una propiedad. Una fotografía tomada en modo avión se sube sola en
+      cuanto vuelve la conexión, que es el mecanismo por el que la mayoría de las
+      frases guardadas en teléfonos acaban saliendo del edificio.
+    </p>
+
+    <p>
+      <b>Una sesión live desde USB</b> te aporta algo real. Arrancar un sistema
+      operativo nuevo desde un medio extraíble, con el disco interno intacto,
+      significa que no está corriendo nada de lo que ya había en la máquina, y que
+      nada de lo que hagas sobrevive al corte de corriente. Reduce el problema al
+      hardware y a la imagen que arrancaste. No arregla un hardware que ya esté
+      comprometido, y no ayuda si vuelves a enchufar la red a mitad de camino.
+    </p>
+
+    <p>
+      <b>El navegador es el eslabón más débil en todas las versiones de esto.</b> No
+      suele ser porque la aleatoriedad sea mala; eso se lo pide al sistema
+      operativo. Es todo lo demás. Las extensiones pueden leer lo que hay en la
+      página. Las páginas se guardan en caché. La memoria acaba escrita en el swap.
+      Las sesiones se restauran tras un cierre inesperado, a veces con el contenido
+      intacto. Los portapapeles se comparten y se leen. Y tienes que acertar sobre
+      la copia de la página que cargaste, que es una afirmación sobre un servidor,
+      una red y una actualización que no viste suceder.
+    </p>
+
+    <p>
+      Así que, claramente: <b>generar una frase para dinero real en una pestaña del
+      navegador es la peor de las opciones aceptables</b>, y para casi todo el mundo
+      un monedero hardware es la mejor. Esta página existe para enseñar el mecanismo
+      y para que puedas verificarlo, que es un trabajo genuinamente distinto de
+      guardar unos ahorros.
+    </p>
+
+    <p>
+      Si aun así vas a usarla, el procedimiento que la hace menos mala es este, en
+      este orden. Descarga el archivo. Verifica su hash contra el publicado. Cópialo
+      a un medio extraíble. Desconecta la máquina o, mejor, usa una que no pueda
+      conectarse. Arranca una sesión live limpia. Abre el archivo local desde el
+      medio, sin ninguna red al alcance. Haz el trabajo y anota las palabras a mano.
+      Después destruye la copia de trabajo: apaga la sesión live, borra o destruye
+      el medio, y no guardes el archivo de vuelta en ningún disco que persista.
+    </p>
+
+    <p class="learn-note">
+      La razón de que esta página sea un solo archivo sin código de red es
+      precisamente que ese procedimiento se pueda llevar a cabo y se pueda
+      comprobar. No carga tipografías, imágenes, scripts ni estilos de ningún sitio,
+      no envía nada y no guarda nada. Eso lo impone la compilación en lugar de
+      prometerlo en prosa, y puedes confirmarlo leyendo el código fuente o
+      trabajando con el cable desenchufado.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="es-start-after">
+    <h2><span class="learn-num" aria-hidden="true">06</span> Cuando ya tienes las palabras</h2>
+
+    <p>
+      <b>Restaura antes de meter dinero.</b> Es la segunda vez que esta página lo
+      dice y no lo dirá una tercera. Una copia de seguridad que nunca has restaurado
+      es una suposición sobre el futuro, y el momento de descubrir que una palabra
+      es ilegible o está en la posición equivocada es mientras el monedero está
+      vacío.
+    </p>
+
+    <p>
+      <b>Papel o metal.</b> El papel escrito a mano es una copia de seguridad
+      perfectamente buena y no cuesta nada. También lo destruye el fuego y lo
+      arruina el agua, y esas son las dos cosas con más probabilidad de pasarle a
+      una casa. El metal grabado o punzonado sobrevive a las dos, a cambio de una
+      hora y de un equipo modesto. Una regla razonable es que la copia de seguridad
+      merezca aproximadamente tanto esfuerzo como la cantidad que protege: papel
+      mientras estás aprendiendo, metal cuando perderla doliera de verdad. Sea cual
+      sea el medio, guárdala en un sitio seco, privado y que no sea el mismo sitio
+      que el dispositivo.
+    </p>
+
+    <p>
+      <b>Cuatro cosas que nunca debes hacer</b>, y las cuatro son el mismo error
+      con distinta ropa.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>Nunca la fotografíes.</b> Una fotografía es un archivo, y los archivos en
+        los dispositivos modernos se copian solos a un servicio por defecto, se
+        indexan, los lee cualquier software con permiso para leer fotografías y
+        sobreviven al momento en que los tomaste.
+      </li>
+      <li>
+        <b>Nunca la teclees en un teléfono ni en una computadora</b>, salvo en el
+        monedero que estés restaurando a propósito, en un dispositivo que controles.
+        Los teclados recuerdan. Las aplicaciones de notas sincronizan. El
+        autocorrector aprende. Todo lo que tecleas ha pasado por software que no
+        auditaste.
+      </li>
+      <li>
+        <b>Nunca la guardes en un gestor de contraseñas ni en una nota en la
+        nube.</b> Los dos son servidores que tienen tus datos, protegidos por una
+        contraseña que ahora custodia todo lo que posees, y los dos están diseñados
+        para ser accesibles desde cualquier parte, que es justo la propiedad que
+        intentabas evitar.
+      </li>
+      <li>
+        <b>Nunca la repartas con un esquema ingenioso que hayas inventado.</b> La
+        mitad en un sitio y la mitad en otro, o seis palabras en casa de un
+        familiar, o un desplazamiento que vas a recordar. Estos esquemas son peores
+        en las dos direcciones a la vez.
+      </li>
+    </ul>
+
+    <p>
+      Ese último merece su explicación, porque siempre suena prudente. Partir una
+      frase por la mitad debilita cada mitad mucho más de lo que la gente espera:
+      seis palabras conocidas de una frase de doce dejan unos sesenta y dos bits,
+      que no quedan cómodamente fuera del alcance de un presupuesto grande de
+      hardware, así que quien encuentre una mitad tiene una posibilidad real en
+      lugar de ninguna.
+    </p>
+
+    <p>
+      Y más importante: los repartos caseros pierden monedas mucho más a menudo de
+      lo que evitan robos. El esquema vive en una sola cabeza. La memoria se
+      desdibuja, la gente se muda, los familiares mueren, el sobre acaba en la
+      basura durante una limpieza, y las instrucciones resultan ser ambiguas para
+      todo el mundo salvo para quien las escribió, que para entonces no está
+      disponible. La mayoría de las monedas que se pierden se pierden por
+      inaccesibilidad, no por robo. Si de verdad necesitas repartir la custodia, las
+      respuestas asentadas son los monederos multifirma y los esquemas
+      estandarizados de reparto de secretos, que también son fáciles de hacer mal
+      los dos y sobre los que merece la pena leer antes los dos. Una sola copia de
+      seguridad bien escondida que seguro que puedes encontrar es mejor que un
+      sistema ingenioso que solo puedes reconstruir casi del todo.
+    </p>
+  </section>
+
+  <section class="learn-sec" id="es-start-mistakes">
+    <h2><span class="learn-num" aria-hidden="true">07</span> Errores comunes</h2>
+
+    <p>
+      Casi todas las pérdidas que no fueron pérdidas de mercado están en esta lista.
+    </p>
+
+    <ul class="learn-mag">
+      <li>
+        <b>Comprar un dispositivo que llega precargado.</b> Un monedero cuya frase
+        de recuperación ya viene impresa en una tarjeta dentro de la caja no es una
+        comodidad. La frase la conoce quien la puso ahí, y esa persona está
+        esperando a que la dirección reciba fondos. Un dispositivo auténtico genera
+        su frase delante de ti, una sola vez, en su propia pantalla.
+      </li>
+      <li>
+        <b>Elegir las palabras a mano.</b> Escoger doce palabras que signifiquen
+        algo, o que parezcan arbitrarias, o que salieron de abrir un libro al azar.
+        El resultado es indistinguible a la vista de una buena frase y
+        catastróficamente más pequeño como espacio de búsqueda.
+      </li>
+      <li>
+        <b>Aceptar una frase que produjo otra persona.</b> De un amigo servicial, de
+        un servicio de configuración, de un tutorial, de un vídeo, de un agente de
+        soporte o de una captura de pantalla. No tienes forma de saber cuántas
+        copias existen. Trata cualquier frase que no hayas visto crearse como ya
+        comprometida.
+      </li>
+      <li>
+        <b>Probar la restauración solo después de meter dinero.</b> Para entonces la
+        prueba tiene algo en juego, así que no se hace, y el primer intento real de
+        restauración ocurre el día en que ya ha salido algo mal. Restaura mientras
+        el monedero está vacío y el ejercicio no cuesta nada.
+      </li>
+      <li>
+        <b>Marcar las palabras en una lista de palabras impresa.</b> Doce marcas en
+        una cuadrícula de 2048 son una copia en texto plano de tu frase de
+        recuperación, y más fácil de leer que tu propia letra.
+        <a href="#poster">El póster</a> es la lista pública del estándar y no tiene
+        nada de sensible colgarlo. Marcarlo es lo que lo convierte en un secreto, y
+        además mal protegido.
+      </li>
+    </ul>
+
+    <p class="learn-note">
+      Si quieres saber por qué todo esto es cierto en lugar de creerlo por
+      confianza, la <a href="#learn">guía de campo</a> recorre la aritmética: qué
+      mide la entropía, por qué la lista tiene exactamente 2048 palabras, qué
+      detecta y qué no detecta la suma de verificación y cuánto vale de verdad una
+      frase elegida. Nada de eso cambia el procedimiento de arriba. Solo significa
+      que no estás dando por bueno lo que diga nadie, que es la costumbre que merece
+      la pena tener aquí.
     </p>
   </section>
 
@@ -2053,7 +2843,7 @@ p.learn-lead em{color:var(--patina)}
 // Nothing below names a language, so adding one means adding those two files
 // and rebuilding. Keys missing from a translation fall back to the base
 // language one at a time, which lets a translation land over several commits.
-const I18N = {"en":{"_code":"en","_name":"English","bar.face":"Word face","bar.find":"Find word or index","bar.findPlaceholder":"abandon · 1024","bar.grid":"Grid","bar.orientation":"Orientation","bar.paper":"Paper","brand.tag":"entropy · words · print","btn.clear":"Clear","btn.pdf":"PDF","btn.print":"PRINT","btn.undo":"Undo","btn.worksheet":"Worksheet PDF","face.grot":"Grotesque","face.mono":"Monospace","face.serif":"Serif","grid.16x128":"16 × 128 · one sheet (4+7 bits)","grid.16x64":"16 × 64 · two sheets","grid.32x64":"32 × 64 · one sheet (5+6 bits)","grid.4x64":"4 × 64 · eight sheets","grid.8x128":"8 × 128 · two sheets","grid.8x64":"8 × 64 · four sheets","grid.auto":"Auto: largest type, one sheet","lang.label":"Language","nav.aria":"Sections","nav.learn":"Entropy","nav.poster":"Poster","nav.roll":"Roll your own","nav.save":"Save offline","nav.saveHint":"Save this page to disk. It is one self-contained file, so it keeps working with the network off.","nav.start":"Start here","orient.landscape":"Landscape","orient.portrait":"Portrait","pdf.colophonLead":"FIRST FOUR LETTERS ARE UNIQUE","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"HOW TO READ A WORD","pdf.decoderMath":"column {col} + row {row} = {idx}","pdf.eyebrow":"BIP-39 · ENGLISH · 2048 WORDS","pdf.sheetTag":"SHEET {n} / {of} · {lo}-{hi}","pdf.subtitle":"The high {c} bits pick a column, the low {r} pick a row, so every word's index is its coordinate on this sheet. The first four letters, set in black, are unique across all 2048; the grey tail is redundant.","pdf.title1":"THE ELEVEN-BIT","pdf.title2":"ADDRESS ","pdf.title3":"SPACE","pdf.titleTight":"THE ELEVEN-BIT ADDRESS ","readout.landscape":"landscape","readout.match":"1 match, index {i} · {word}","readout.matches":"{n} matches","readout.oneSheet":"one sheet","readout.portrait":"portrait","readout.preview":"preview at {pct} %, prints full size","readout.printTip":"Print at 100 % scale with background graphics on.","readout.sheets":"{n} sheets","readout.small":"Small. Try landscape, or A3, or split across sheets.","readout.split":"{a}+{b} bit split","readout.type":"word type {pt} pt","readout.warn":"Public standard list. Never mark your own recovery words on it.","roll.checksumLabel":"Checksum · first {n} bits of sha256(entropy)","roll.coin":"Coin: one flip","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dice: one d6","roll.disabled":"The entropy engine did not load, so this section is disabled.","roll.entropyLabel":"Entropy · {n} bits","roll.flips":"flips","roll.footnote":"These words are exactly as unpredictable as your throws were, and no more. A phrase made in a browser tab is for learning. Put nothing on it that you would mind losing.","roll.hintCoin":"Flip a real coin. Heads is 1, tails is 0. Press H or T, or 1 and 0. Backspace undoes the last flip.","roll.hintDice":"Throw a real d6 and press what you see. 1 to 4 carry two bits each. 5 and 6 carry nothing and are thrown again, which is what keeps the sixteen possible pairs equally likely. Backspace undoes the last throw.","roll.keyReroll":"reroll","roll.lead":"Twelve words are a 128-bit number plus a 4-bit checksum. Below you make that number yourself, one throw at a time, and watch it turn into words. Nothing here leaves the page, because there is no network code in this file at all.","roll.leadLink":"If the words entropy and checksum are doing no work for you yet, read {link} first.","roll.leadLinkText":"the field guide","roll.length":"Length","roll.rerolled":" · {n} rerolled","roll.source":"Source","roll.throws":"throws","roll.title":"Roll your own entropy","roll.warn":"A phrase generated in a browser is for {em}. For money you intend to keep, generate the phrase on a hardware wallet, or do this on a machine that is offline and stays offline. Never type an existing seed phrase into this or any other page.","roll.warnEm":"learning and verification","roll.warnLead":"Read this first.","roll.words12":"12 words · 128 bits","roll.words24":"24 words · 256 bits","roll.wordsLabel":"{n} words · each one eleven bits of the {total}-bit total","toggle.prefix":"Prefix emphasis","toggle.rules":"Row rules","ws.colIndex":"INDEX","ws.colWord":"WORD","ws.continued":"{words} words · continued","ws.eyebrow":"BIP-39 BY HAND","ws.foot1":"The first {n} words follow from your bits alone, so this sheet and the poster are enough for them.","ws.foot2":"The final word mixes the last entropy bits with a SHA-256 checksum. Enter your bits into an offline tool, or a wallet that accepts dice.","ws.foot3":"BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND.","ws.lastWord":"last word carries the checksum, so a machine has to finish this one","ws.note2":"Each throw is two bits: 1 is 00, 2 is 01, 3 is 10, 4 is 11. Fill the cells left to right, top to bottom.","ws.note3":"Eleven bits per word. Read the first four bits as a column and the last seven as a row, or the first five and last six on a 32 x 64 sheet. Write the index, then the word.","ws.noteCoin":"One coin, {n} times. Heads is 1, tails is 0. Write each result in a box, in order. A flip is already a bit, so there is nothing to convert.","ws.noteDice":"One die, until {n} boxes are full. Write 1, 2, 3 or 4 in the next box. A 5 or a 6 fills no box, so throw again. Rejecting them is what keeps the four outcomes equally likely.","ws.step1Coin":"FLIP","ws.step1Dice":"THROW","ws.step2":"TRANSCRIBE","ws.step3":"READ OFF THE POSTER","ws.sub":"{words} words · {bits} bits of entropy · {n} {unit}","ws.titleCoin":"Coin worksheet","ws.titleDice":"Dice worksheet","ws.unitFlips":"flips","ws.unitThrows":"accepted throws"},"es":{"_code":"es","_name":"Español","bar.face":"Tipografía","bar.find":"Buscar palabra o índice","bar.findPlaceholder":"abandon · 1024","bar.grid":"Cuadrícula","bar.orientation":"Orientación","bar.paper":"Papel","brand.tag":"entropía · palabras · imprimir","btn.clear":"Borrar","btn.pdf":"PDF","btn.print":"IMPRIMIR","btn.undo":"Deshacer","btn.worksheet":"Hoja de trabajo PDF","face.grot":"Grotesca","face.mono":"Monoespaciada","face.serif":"Serif","grid.16x128":"16 × 128 · una hoja (4+7 bits)","grid.16x64":"16 × 64 · dos hojas","grid.32x64":"32 × 64 · una hoja (5+6 bits)","grid.4x64":"4 × 64 · ocho hojas","grid.8x128":"8 × 128 · dos hojas","grid.8x64":"8 × 64 · cuatro hojas","grid.auto":"Auto: cuerpo mayor, una hoja","lang.label":"Idioma","nav.aria":"Secciones","nav.learn":"Entropía","nav.poster":"Póster","nav.roll":"Genera la tuya","nav.save":"Descargar","nav.saveHint":"Guarda esta página en tu disco. Es un único archivo autónomo, así que sigue funcionando con la red apagada.","nav.start":"Empieza aquí","orient.landscape":"Horizontal","orient.portrait":"Vertical","pdf.colophonLead":"CUATRO PRIMERAS LETRAS ÚNICAS","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"CÓMO LEER UNA PALABRA","pdf.decoderMath":"columna {col} + fila {row} = {idx}","pdf.eyebrow":"BIP-39 · INGLÉS · 2048 PALABRAS","pdf.sheetTag":"HOJA {n} / {of} · {lo}-{hi}","pdf.subtitle":"Los {c} bits altos eligen una columna y los {r} bajos eligen una fila, así que el índice de cada palabra es su coordenada en esta hoja. Las cuatro primeras letras, en negro, son únicas entre las 2048; la cola gris es redundante.","pdf.title1":"DIRECCIONES","pdf.title2":"DE ","pdf.title3":"ONCE BITS","pdf.titleTight":"DIRECCIONES DE ","readout.landscape":"horizontal","readout.match":"1 coincidencia, índice {i} · {word}","readout.matches":"{n} coincidencias","readout.oneSheet":"una hoja","readout.portrait":"vertical","readout.preview":"vista previa al {pct} %, se imprime a tamaño real","readout.printTip":"Imprime al 100 % de escala y con los gráficos de fondo activados.","readout.sheets":"{n} hojas","readout.small":"Pequeño. Prueba horizontal, o A3, o repartir en varias hojas.","readout.split":"división de bits {a}+{b}","readout.type":"cuerpo de palabra {pt} pt","readout.warn":"Lista pública del estándar. Nunca marques en ella tus propias palabras de recuperación.","roll.checksumLabel":"Suma de verificación · primeros {n} bits de sha256(entropía)","roll.coin":"Moneda: un lanzamiento","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dados: un d6","roll.disabled":"El motor de entropía no se cargó, así que esta sección está desactivada.","roll.entropyLabel":"Entropía · {n} bits","roll.flips":"lanzamientos","roll.footnote":"Estas palabras son exactamente tan impredecibles como lo fueron tus tiradas, y nada más. Una frase creada en una pestaña del navegador sirve para aprender. No pongas en ella nada que te importe perder.","roll.hintCoin":"Lanza una moneda real. Cara es 1, cruz es 0. Pulsa H o T, o 1 y 0. Retroceso deshace el último lanzamiento.","roll.hintDice":"Tira un d6 real y pulsa lo que veas. Del 1 al 4 llevan dos bits cada uno. El 5 y el 6 no llevan nada y se vuelven a tirar, que es lo que mantiene igual de probables los dieciséis pares posibles. Retroceso deshace la última tirada.","roll.keyReroll":"repetir","roll.lead":"Doce palabras son un número de 128 bits más una suma de verificación de 4 bits. Abajo construyes ese número tú, una tirada cada vez, y lo ves convertirse en palabras. Nada de esto sale de la página, porque en este archivo no hay ningún código de red.","roll.leadLink":"Si las palabras entropía y suma de verificación aún no te dicen nada, lee antes {link}.","roll.leadLinkText":"la guía de campo","roll.length":"Longitud","roll.rerolled":" · {n} repetidas","roll.source":"Fuente","roll.throws":"tiradas","roll.title":"Genera tu propia entropía","roll.warn":"Una frase generada en un navegador sirve para {em}. Para dinero que pienses conservar, genera la frase en un monedero hardware, o haz esto en una máquina que esté sin conexión y siga sin conexión. Nunca escribas una frase semilla existente en esta ni en ninguna otra página.","roll.warnEm":"aprender y verificar","roll.warnLead":"Lee esto primero.","roll.words12":"12 palabras · 128 bits","roll.words24":"24 palabras · 256 bits","roll.wordsLabel":"{n} palabras · cada una once bits del total de {total} bits","toggle.prefix":"Énfasis de prefijo","toggle.rules":"Líneas de fila","ws.colIndex":"ÍNDICE","ws.colWord":"PALABRA","ws.continued":"{words} palabras · continuación","ws.eyebrow":"BIP-39 A MANO","ws.foot1":"Las primeras {n} palabras salen solo de tus bits, así que esta hoja y el póster bastan para ellas.","ws.foot2":"La última palabra mezcla los últimos bits de entropía con una suma de verificación SHA-256. Introduce tus bits en una herramienta sin conexión, o en un monedero que acepte dados.","ws.foot3":"QUEMA O DESTRUYE ESTA HOJA CUANDO LA FRASE ESTÉ ANOTADA. ES TU SEMILLA ESCRITA A MANO.","ws.lastWord":"la última palabra lleva la suma de verificación, así que una máquina tiene que terminar esta","ws.note2":"Cada tirada son dos bits: 1 es 00, 2 es 01, 3 es 10, 4 es 11. Rellena las celdas de izquierda a derecha y de arriba abajo.","ws.note3":"Once bits por palabra. Lee los cuatro primeros bits como columna y los siete últimos como fila, o los cinco primeros y los seis últimos en una hoja de 32 x 64. Escribe el índice y luego la palabra.","ws.noteCoin":"Una moneda, {n} veces. Cara es 1, cruz es 0. Escribe cada resultado en una casilla, en orden. Un lanzamiento ya es un bit, así que no hay nada que convertir.","ws.noteDice":"Un dado, hasta llenar {n} casillas. Escribe 1, 2, 3 o 4 en la casilla siguiente. Un 5 o un 6 no llenan ninguna, así que vuelve a tirar. Rechazarlos es lo que mantiene igual de probables los cuatro resultados.","ws.step1Coin":"LANZA","ws.step1Dice":"TIRA","ws.step2":"TRANSCRIBE","ws.step3":"LEE EN EL PÓSTER","ws.sub":"{words} palabras · {bits} bits de entropía · {n} {unit}","ws.titleCoin":"Hoja de moneda","ws.titleDice":"Hoja de dados","ws.unitFlips":"lanzamientos","ws.unitThrows":"tiradas aceptadas"}};
+const I18N = {"en":{"_code":"en","_name":"English","bar.face":"Word face","bar.find":"Find word or index","bar.findPlaceholder":"abandon · 1024","bar.grid":"Grid","bar.orientation":"Orientation","bar.paper":"Paper","brand.tag":"entropy · words · print","btn.clear":"Clear","btn.pdf":"PDF","btn.print":"PRINT","btn.undo":"Undo","btn.worksheet":"Worksheet PDF","face.grot":"Grotesque","face.mono":"Monospace","face.serif":"Serif","grid.16x128":"16 × 128 · one sheet (4+7 bits)","grid.16x64":"16 × 64 · two sheets","grid.32x64":"32 × 64 · one sheet (5+6 bits)","grid.4x64":"4 × 64 · eight sheets","grid.8x128":"8 × 128 · two sheets","grid.8x64":"8 × 64 · four sheets","grid.auto":"Auto: largest type, one sheet","lang.label":"Language","nav.aria":"Sections","nav.learn":"Entropy","nav.poster":"Poster","nav.roll":"Roll your own","nav.save":"Save offline","nav.saveHint":"Save this page to disk. It is one self-contained file, so it keeps working with the network off.","nav.start":"Start here","orient.landscape":"Landscape","orient.portrait":"Portrait","pdf.colophonLead":"FIRST FOUR LETTERS ARE UNIQUE","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"HOW TO READ A WORD","pdf.decoderMath":"column {col} + row {row} = {idx}","pdf.eyebrow":"BIP-39 · ENGLISH · 2048 WORDS","pdf.sheetTag":"SHEET {n} / {of} · {lo}-{hi}","pdf.subtitle":"The high {c} bits pick a column, the low {r} pick a row, so every word's index is its coordinate on this sheet. The first four letters, set in black, are unique across all 2048; the grey tail is redundant.","pdf.title1":"THE ELEVEN-BIT","pdf.title2":"ADDRESS ","pdf.title3":"SPACE","pdf.titleTight":"THE ELEVEN-BIT ADDRESS ","readout.landscape":"landscape","readout.match":"1 match, index {i} · {word}","readout.matches":"{n} matches","readout.oneSheet":"one sheet","readout.portrait":"portrait","readout.preview":"preview at {pct} %, prints full size","readout.printTip":"Print at 100 % scale with background graphics on.","readout.sheets":"{n} sheets","readout.small":"Small. Try landscape, or A3, or split across sheets.","readout.split":"{a}+{b} bit split","readout.type":"word type {pt} pt","readout.warn":"Public standard list. Never mark your own recovery words on it.","roll.checksumLabel":"Checksum · first {n} bits of sha256(entropy)","roll.coin":"Coin: one flip","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dice: one d6","roll.disabled":"The entropy engine did not load, so this section is disabled.","roll.entropyLabel":"Entropy · {n} bits","roll.flips":"flips","roll.footnote":"These words are exactly as unpredictable as your throws were, and no more. A phrase made in a browser tab is for learning. Put nothing on it that you would mind losing.","roll.hintCoin":"Flip a real coin. Heads is 1, tails is 0. Press H or T, or 1 and 0. Backspace undoes the last flip.","roll.hintDice":"Throw a real d6 and press what you see. 1 to 4 carry two bits each. 5 and 6 carry nothing and are thrown again, which is what keeps the sixteen possible pairs equally likely. Backspace undoes the last throw.","roll.keyReroll":"reroll","roll.lead":"Twelve words are a 128-bit number plus a 4-bit checksum. Below you make that number yourself, one throw at a time, and watch it turn into words. Nothing here leaves the page, because there is no network code in this file at all.","roll.leadLink":"If the words entropy and checksum are doing no work for you yet, read {link} first.","roll.leadLinkText":"the field guide","roll.length":"Length","roll.rerolled":" · {n} rerolled","roll.source":"Source","roll.throws":"throws","roll.title":"Roll your own entropy","roll.warn":"A phrase generated in a browser is for {em}. For money you intend to keep, generate the phrase on a hardware wallet, or do this on a machine that is offline and stays offline. Never type an existing seed phrase into this or any other page.","roll.warnEm":"learning and verification","roll.warnLead":"Read this first.","roll.words12":"12 words · 128 bits","roll.words24":"24 words · 256 bits","roll.wordsLabel":"{n} words · each one eleven bits of the {total}-bit total","toggle.prefix":"Prefix emphasis","toggle.rules":"Row rules","ws.colIndex":"INDEX","ws.colWord":"WORD","ws.continued":"{words} words · continued","ws.eyebrow":"BIP-39 BY HAND","ws.foot1":"The first {n} words follow from your bits alone, so this sheet and the poster are enough for them.","ws.foot2":"The final word mixes the last entropy bits with a SHA-256 checksum. Enter your bits into an offline tool, or a wallet that accepts dice.","ws.foot3":"BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND.","ws.lastWord":"last word carries the checksum, so a machine has to finish this one","ws.note2":"Each throw is two bits: 1 is 00, 2 is 01, 3 is 10, 4 is 11. Fill the cells left to right, top to bottom.","ws.note3":"Eleven bits per word. Read the first four bits as a column and the last seven as a row, or the first five and last six on a 32 x 64 sheet. Write the index, then the word.","ws.noteCoin":"One coin, {n} times. Heads is 1, tails is 0. Write each result in a box, in order. A flip is already a bit, so there is nothing to convert.","ws.noteDice":"One die, until {n} boxes are full. Write 1, 2, 3 or 4 in the next box. A 5 or a 6 fills no box, so throw again. Rejecting them is what keeps the four outcomes equally likely.","ws.step1Coin":"FLIP","ws.step1Dice":"THROW","ws.step2":"TRANSCRIBE","ws.step3":"READ OFF THE POSTER","ws.sub":"{words} words · {bits} bits of entropy · {n} {unit}","ws.titleCoin":"Coin worksheet","ws.titleDice":"Dice worksheet","ws.unitFlips":"flips","ws.unitThrows":"accepted throws"},"es":{"_code":"es","_name":"Español","bar.face":"Tipografía","bar.find":"Buscar palabra o índice","bar.findPlaceholder":"abandon · 1024","bar.grid":"Cuadrícula","bar.orientation":"Orientación","bar.paper":"Papel","brand.tag":"entropía · palabras · imprimir","btn.clear":"Borrar","btn.pdf":"PDF","btn.print":"IMPRIMIR","btn.undo":"Deshacer","btn.worksheet":"Hoja de trabajo PDF","face.grot":"Grotesca","face.mono":"Monoespaciada","face.serif":"Serif","grid.16x128":"16 × 128 · una hoja (4+7 bits)","grid.16x64":"16 × 64 · dos hojas","grid.32x64":"32 × 64 · una hoja (5+6 bits)","grid.4x64":"4 × 64 · ocho hojas","grid.8x128":"8 × 128 · dos hojas","grid.8x64":"8 × 64 · cuatro hojas","grid.auto":"Auto: cuerpo mayor, una hoja","lang.label":"Idioma","nav.aria":"Secciones","nav.learn":"Entropía","nav.poster":"Póster","nav.roll":"Genera la tuya","nav.save":"Descargar","nav.saveHint":"Descarga esta página en tu disco. Es un único archivo autónomo, así que sigue funcionando con la red desconectada.","nav.start":"Empieza aquí","orient.landscape":"Horizontal","orient.portrait":"Vertical","pdf.colophonLead":"CUATRO PRIMERAS LETRAS ÚNICAS","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"CÓMO LEER UNA PALABRA","pdf.decoderMath":"columna {col} + fila {row} = {idx}","pdf.eyebrow":"BIP-39 · INGLÉS · 2048 PALABRAS","pdf.sheetTag":"HOJA {n} / {of} · {lo}-{hi}","pdf.subtitle":"Los {c} bits altos eligen una columna y los {r} bajos eligen una fila, así que el índice de cada palabra es su coordenada en esta hoja. Las cuatro primeras letras, en negro, son únicas entre las 2048; la cola gris es redundante.","pdf.title1":"DIRECCIONES","pdf.title2":"DE ","pdf.title3":"ONCE BITS","pdf.titleTight":"DIRECCIONES DE ","readout.landscape":"horizontal","readout.match":"1 coincidencia, índice {i} · {word}","readout.matches":"{n} coincidencias","readout.oneSheet":"una hoja","readout.portrait":"vertical","readout.preview":"vista previa al {pct} %, se imprime a tamaño real","readout.printTip":"Imprime al 100 % de escala y con los gráficos de fondo activados.","readout.sheets":"{n} hojas","readout.small":"Pequeño. Prueba horizontal, o A3, o repartir en varias hojas.","readout.split":"división de bits {a}+{b}","readout.type":"cuerpo de palabra {pt} pt","readout.warn":"Lista pública del estándar. Nunca marques en ella tus propias palabras de recuperación.","roll.checksumLabel":"Suma de verificación · primeros {n} bits de sha256(entropía)","roll.coin":"Moneda: un lanzamiento","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dados: un d6","roll.disabled":"El motor de entropía no se cargó, así que esta sección está desactivada.","roll.entropyLabel":"Entropía · {n} bits","roll.flips":"lanzamientos","roll.footnote":"Estas palabras son exactamente tan impredecibles como lo fueron tus tiradas, y nada más. Una frase creada en una pestaña del navegador sirve para aprender. No pongas en ella nada que te importe perder.","roll.hintCoin":"Lanza una moneda real. Cara es 1, cruz es 0. Pulsa H o T, o 1 y 0. Retroceso deshace el último lanzamiento.","roll.hintDice":"Tira un d6 real y pulsa lo que veas. Del 1 al 4 llevan dos bits cada uno. El 5 y el 6 no llevan nada y se vuelven a tirar, que es lo que mantiene igual de probables los dieciséis pares posibles. Retroceso deshace la última tirada.","roll.keyReroll":"repetir","roll.lead":"Doce palabras son un número de 128 bits más una suma de verificación de 4 bits. Abajo construyes ese número tú, una tirada cada vez, y lo ves convertirse en palabras. Nada de esto sale de la página, porque en este archivo no hay ningún código de red.","roll.leadLink":"Si las palabras entropía y suma de verificación aún no te dicen nada, lee antes {link}.","roll.leadLinkText":"la guía de campo","roll.length":"Longitud","roll.rerolled":" · {n} repetidas","roll.source":"Fuente","roll.throws":"tiradas","roll.title":"Genera tu propia entropía","roll.warn":"Una frase generada en un navegador sirve para {em}. Para dinero que pienses conservar, genera la frase en un monedero hardware, o haz esto en una máquina que esté sin conexión y siga sin conexión. Nunca escribas una frase semilla existente en esta ni en ninguna otra página.","roll.warnEm":"aprender y verificar","roll.warnLead":"Lee esto primero.","roll.words12":"12 palabras · 128 bits","roll.words24":"24 palabras · 256 bits","roll.wordsLabel":"{n} palabras · cada una once bits del total de {total} bits","toggle.prefix":"Énfasis de prefijo","toggle.rules":"Líneas de fila","ws.colIndex":"ÍNDICE","ws.colWord":"PALABRA","ws.continued":"{words} palabras · continuación","ws.eyebrow":"BIP-39 A MANO","ws.foot1":"Las primeras {n} palabras salen solo de tus bits, así que esta hoja y el póster bastan para ellas.","ws.foot2":"La última palabra mezcla los últimos bits de entropía con una suma de verificación SHA-256. Introduce tus bits en una herramienta sin conexión, o en un monedero que acepte dados.","ws.foot3":"QUEMA O DESTRUYE ESTA HOJA CUANDO LA FRASE ESTÉ ANOTADA. ES TU SEMILLA ESCRITA A MANO.","ws.lastWord":"la última palabra lleva la suma de verificación, así que una máquina tiene que terminar esta","ws.note2":"Cada tirada son dos bits: 1 es 00, 2 es 01, 3 es 10, 4 es 11. Rellena las celdas de izquierda a derecha y de arriba abajo.","ws.note3":"Once bits por palabra. Lee los cuatro primeros bits como columna y los siete últimos como fila, o los cinco primeros y los seis últimos en una hoja de 32 x 64. Escribe el índice y luego la palabra.","ws.noteCoin":"Una moneda, {n} veces. Cara es 1, cruz es 0. Escribe cada resultado en una casilla, en orden. Un lanzamiento ya es un bit, así que no hay nada que convertir.","ws.noteDice":"Un dado, hasta llenar {n} casillas. Escribe 1, 2, 3 o 4 en la casilla siguiente. Un 5 o un 6 no llenan ninguna, así que vuelve a tirar. Rechazarlos es lo que mantiene igual de probables los cuatro resultados.","ws.step1Coin":"LANZA","ws.step1Dice":"TIRA","ws.step2":"TRANSCRIBE","ws.step3":"LEE EN EL PÓSTER","ws.sub":"{words} palabras · {bits} bits de entropía · {n} {unit}","ws.titleCoin":"Hoja de moneda","ws.titleDice":"Hoja de dados","ws.unitFlips":"lanzamientos","ws.unitThrows":"tiradas aceptadas"}};
 const LANGS = [{"code":"en","name":"English"},{"code":"es","name":"Español"}];
 const BASE_LANG = "en";
 let LANG = BASE_LANG;
