@@ -1,24 +1,21 @@
 {
   "_name": "English",
   "_code": "en",
-
   "brand.tag": "entropy · words · print",
   "nav.aria": "Sections",
   "nav.poster": "Poster",
+  "nav.start": "Start here",
   "nav.learn": "Entropy",
   "nav.roll": "Roll your own",
   "lang.label": "Language",
-
   "bar.paper": "Paper",
   "bar.orientation": "Orientation",
   "bar.grid": "Grid",
   "bar.face": "Word face",
   "bar.find": "Find word or index",
   "bar.findPlaceholder": "abandon · 1024",
-
   "orient.portrait": "Portrait",
   "orient.landscape": "Landscape",
-
   "grid.auto": "Auto: largest type, one sheet",
   "grid.16x128": "16 × 128 · one sheet (4+7 bits)",
   "grid.32x64": "32 × 64 · one sheet (5+6 bits)",
@@ -26,16 +23,13 @@
   "grid.8x128": "8 × 128 · two sheets",
   "grid.8x64": "8 × 64 · four sheets",
   "grid.4x64": "4 × 64 · eight sheets",
-
   "face.grot": "Grotesque",
   "face.serif": "Serif",
   "face.mono": "Monospace",
-
   "toggle.prefix": "Prefix emphasis",
   "toggle.rules": "Row rules",
   "btn.pdf": "PDF",
   "btn.print": "PRINT",
-
   "readout.portrait": "portrait",
   "readout.landscape": "landscape",
   "readout.oneSheet": "one sheet",
@@ -48,7 +42,6 @@
   "readout.warn": "Public standard list. Never mark your own recovery words on it.",
   "readout.matches": "{n} matches",
   "readout.match": "1 match, index {i} · {word}",
-
   "roll.title": "Roll your own entropy",
   "roll.lead": "Twelve words are a 128-bit number plus a 4-bit checksum. Below you make that number yourself, one throw at a time, and watch it turn into words. Nothing here leaves the page, because there is no network code in this file at all.",
   "roll.leadLink": "If the words entropy and checksum are doing no work for you yet, read {link} first.",
@@ -57,7 +50,6 @@
   "roll.warn": "A phrase generated in a browser is for {em}. For money you intend to keep, generate the phrase on a hardware wallet, or do this on a machine that is offline and stays offline. Never type an existing seed phrase into this or any other page.",
   "roll.warnEm": "learning and verification",
   "roll.disabled": "The entropy engine did not load, so this section is disabled.",
-
   "roll.length": "Length",
   "roll.source": "Source",
   "roll.words12": "12 words · 128 bits",
@@ -67,7 +59,6 @@
   "btn.undo": "Undo",
   "btn.clear": "Clear",
   "btn.worksheet": "Worksheet PDF",
-
   "roll.keyReroll": "reroll",
   "roll.hintDice": "Throw a real d6 and press what you see. 1 to 4 carry two bits each. 5 and 6 carry nothing and are thrown again, which is what keeps the sixteen possible pairs equally likely. Backspace undoes the last throw.",
   "roll.hintCoin": "Flip a real coin. Heads is 1, tails is 0. Press H or T, or 1 and 0. Backspace undoes the last flip.",
@@ -79,7 +70,6 @@
   "roll.checksumLabel": "Checksum · first {n} bits of sha256(entropy)",
   "roll.wordsLabel": "{n} words · each one eleven bits of the {total}-bit total",
   "roll.footnote": "These words are exactly as unpredictable as your throws were, and no more. A phrase made in a browser tab is for learning. Put nothing on it that you would mind losing.",
-
   "pdf.eyebrow": "BIP-39 · ENGLISH · 2048 WORDS",
   "pdf.title1": "THE ELEVEN-BIT",
   "pdf.title2": "ADDRESS ",
@@ -91,7 +81,6 @@
   "pdf.sheetTag": "SHEET {n} / {of} · {lo}-{hi}",
   "pdf.colophonLead": "FIRST FOUR LETTERS ARE UNIQUE",
   "pdf.colophonSource": "bitcoin/bips · bip-0039 · english.txt",
-
   "ws.eyebrow": "BIP-39 BY HAND",
   "ws.titleDice": "Dice worksheet",
   "ws.titleCoin": "Coin worksheet",

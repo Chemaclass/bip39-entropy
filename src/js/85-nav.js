@@ -1,7 +1,13 @@
 /* ── views and routing ──────────────────────────────────────────── */
 // The hash carries both: #<lang>/<view>, e.g. #es/learn. A bare #learn still
-// works, so older links keep resolving.
-const VIEWS = ["poster", "learn", "roll"];
+// works, so older links keep resolving. The list of views is read off the tabs
+// rather than repeated here: a new section is a tab plus its content files.
+// Only tabs whose view actually exists count. A section is a tab plus its
+// content files, and the tab is allowed to land first: it hides until the
+// prose does, rather than routing to nothing.
+const VIEWS = [...document.querySelectorAll("#tabs a")]
+  .map(a => a.dataset.view)
+  .filter(v => document.getElementById("view-" + v));
 
 function parseHash(){
   const parts = location.hash.slice(1).split("/").filter(Boolean);
@@ -42,6 +48,9 @@ function setLang(code){
 }
 
 function navInit(){
+  document.querySelectorAll("#tabs a").forEach(a => {
+    a.hidden = !VIEWS.includes(a.dataset.view);
+  });
   addEventListener("hashchange", route);
   route();
 }

@@ -118,22 +118,34 @@ def load_i18n() -> tuple[dict, list[dict]]:
 
 
 def load_content(langs: list[dict]) -> tuple[str, list[str]]:
-    """Wrap each src/content/<name>.<lang>.html in a pane the runtime can switch."""
-    panes, names = [], []
+    """Turn src/content/<name>.<lang>.html into one view per name.
+
+    Each view holds a pane per language and the runtime shows one of them, so a
+    new section of the site is a set of files plus a tab in the template.
+    """
     known = {l["code"] for l in langs}
+    groups: dict[str, list[tuple[str, pathlib.Path]]] = {}
     for path in sorted(CONTENT_DIR.glob("*.html")):
         parts = path.stem.rsplit(".", 1)
         if len(parts) != 2 or parts[1] not in known:
             sys.exit(f"{path.relative_to(ROOT)} must be named <name>.<lang>.html "
                      f"with lang one of {sorted(known)}")
-        name, lang = parts
-        panes.append(f'<!-- {path.relative_to(ROOT)} -->\n'
-                     f'<div class="pane" data-pane="{name}" data-lang="{lang}" hidden>\n'
-                     f'{path.read_text().strip()}\n</div>')
-        names.append(path.name)
-    if not panes:
+        groups.setdefault(parts[0], []).append((parts[1], path))
+
+    if not groups:
         sys.exit("no content files in src/content")
-    return "\n\n".join(panes), names
+
+    views, names = [], []
+    for name, items in sorted(groups.items()):
+        panes = []
+        for lang, path in sorted(items):
+            panes.append(f'<!-- {path.relative_to(ROOT)} -->\n'
+                         f'<div class="pane" data-pane="{name}" data-lang="{lang}" hidden>\n'
+                         f'{path.read_text().strip()}\n</div>')
+            names.append(path.name)
+        views.append(f'<div class="view" id="view-{name}" hidden>\n'
+                     + "\n\n".join(panes) + "\n</div>")
+    return "\n\n".join(views), names
 
 
 def main() -> None:

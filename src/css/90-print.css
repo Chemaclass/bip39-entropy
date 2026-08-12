@@ -2,8 +2,8 @@
   body{background:#fff}
   .chrome,.bar,.readout{display:none !important}
   /* Printing always yields the poster, whichever section is on screen. */
+  .view{display:none !important}
   #view-poster{display:block !important}
-  #view-learn,#view-roll{display:none !important}
   .stage{padding:0;gap:0;display:block}
   .sheetwrap{display:block;width:auto !important;height:auto !important}
   .sheet{transform:none !important;box-shadow:none;break-after:page;page-break-after:always}
