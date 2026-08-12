@@ -404,10 +404,68 @@ p.learn-lead em{color:var(--patina)}
   .learn{display:none}
 }
 
+/* src/css/50-reading.css */
+/* ─────────── navbar groups ─────────── */
+/* Two kinds of thing sit in one bar: the guide, which is read in order, and the
+   tools, which are used. The separator carries the word so the grouping is
+   stated rather than implied by spacing alone. */
+.tabs{align-items:baseline;gap:0 8px}
+.tabs-g{display:flex;flex-wrap:wrap}
+.tabs-sep{font:500 9px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
+  color:#565f5c;padding:0 10px 0 12px;border-left:1px solid var(--chrome-3);
+  align-self:center}
+.tabs-tools a{color:#8b9793}
+.tabs-tools a:hover{color:var(--chrome-ink)}
+
+/* ─────────── section rail ─────────── */
+/* A long page gets a rail of its own headings, tracking as you scroll. It
+   appears only where there is room beside the column, so nothing is squeezed:
+   below that width the inline contents list at the top of the page does the
+   same job. */
+.rail{display:none}
+
+@media (min-width:1300px){
+  .view.has-rail{display:grid;grid-template-columns:210px minmax(0,1000px);
+    justify-content:center;column-gap:36px;align-items:start}
+  .view.has-rail .pane{grid-column:2}
+  /* auto side margins make a grid item shrink to its content instead of
+     filling the track, which collapsed these cards to the width of their text */
+  .view.has-rail .pager{grid-column:2;margin:0;max-width:none;padding-left:0;padding-right:0}
+  .view.has-rail .learn{margin:0;padding-left:0;padding-right:0}
+  .view.has-rail .learn-toc{display:none}
+
+  .rail{display:block;position:sticky;top:112px;grid-column:1;
+    padding:56px 0 0;max-height:calc(100vh - 140px);overflow:auto}
+  .rail a{display:block;padding:6px 12px 6px 11px;border-left:1px solid var(--chrome-3);
+    font:400 11.5px/1.45 var(--mono);color:#69736f;text-decoration:none}
+  .rail a:hover{color:var(--chrome-ink);border-left-color:var(--chrome-dim)}
+  .rail a.on{color:var(--patina);border-left-color:var(--patina)}
+}
+
+/* ─────────── pager ─────────── */
+/* What to read next, built from the tabs so it cannot fall out of step. */
+.pager{max-width:1000px;margin:0 auto;padding:0 18px 70px;display:flex;
+  gap:14px;justify-content:space-between;flex-wrap:wrap}
+.pager[hidden]{display:none}
+.pager a{flex:1 1 260px;display:flex;flex-direction:column;gap:6px;
+  border:1px solid var(--chrome-3);border-radius:3px;padding:14px 16px;
+  text-decoration:none;font:600 15px/1.2 var(--grot);color:var(--chrome-ink)}
+.pager a span{font:500 9.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
+  color:#69736f}
+.pager a:hover{border-color:var(--patina);color:var(--patina)}
+.pager a:hover span{color:var(--patina)}
+.pager-next{text-align:right;align-items:flex-end}
+
+@media (max-width:560px){
+  .tabs-sep{padding:0 7px 0 8px}
+  .pager{padding:0 14px 50px}
+  .pager a{flex-basis:100%}
+}
+
 /* src/css/90-print.css */
 @media print{
   body{background:#fff}
-  .chrome,.bar,.readout,.foot{display:none !important}
+  .chrome,.bar,.readout,.foot,.rail,.pager{display:none !important}
   /* Printing always yields the poster, whichever section is on screen. */
   .view{display:none !important}
   #view-poster{display:block !important}
@@ -428,11 +486,16 @@ p.learn-lead em{color:var(--patina)}
     <div class="top-in">
       <a class="brand" id="brandlink" href="#poster"><b>BIP-39</b><span data-t="brand.tag"></span></a>
       <nav class="tabs" id="tabs" data-t-attr="aria-label:nav.aria">
-        <a href="#poster" data-view="poster" data-t="nav.poster"></a>
-        <a href="#start" data-view="start" data-t="nav.start"></a>
-        <a href="#learn" data-view="learn" data-t="nav.learn"></a>
-        <a href="#roll" data-view="roll" data-t="nav.roll"></a>
-        <a href="#faq" data-view="faq" data-t="nav.faq"></a>
+        <span class="tabs-g">
+          <a href="#start" data-view="start" data-t="nav.start"></a>
+          <a href="#learn" data-view="learn" data-t="nav.learn"></a>
+          <a href="#faq" data-view="faq" data-t="nav.faq"></a>
+        </span>
+        <span class="tabs-sep" data-t="nav.tools"></span>
+        <span class="tabs-g tabs-tools">
+          <a href="#poster" data-view="poster" data-t="nav.poster"></a>
+          <a href="#roll" data-view="roll" data-t="nav.roll"></a>
+        </span>
       </nav>
       <a class="save" id="save" href="index.html" download="bip39-entropy.html"
          data-t="nav.save" data-t-attr="title:nav.saveHint"></a>
@@ -3719,7 +3782,7 @@ p.learn-lead em{color:var(--patina)}
 // Nothing below names a language, so adding one means adding those two files
 // and rebuilding. Keys missing from a translation fall back to the base
 // language one at a time, which lets a translation land over several commits.
-const I18N = {"en":{"_code":"en","_name":"English","bar.face":"Word face","bar.find":"Find word or index","bar.findPlaceholder":"abandon · 1024","bar.grid":"Grid","bar.orientation":"Orientation","bar.paper":"Paper","brand.tag":"entropy · words · print","btn.clear":"Clear","btn.load":"Load","btn.pdf":"PDF","btn.print":"PRINT","btn.undo":"Undo","btn.worksheet":"Worksheet PDF","face.grot":"Grotesque","face.mono":"Monospace","face.serif":"Serif","footer.aria":"Project links","footer.licence":"MIT licence © Chemaclass","footer.licenceLink":"Licence","footer.note":"Links open a browser tab and are the only thing on this page that reaches a network. Nothing loads or sends on its own.","footer.site":"chemaclass.com","footer.source":"Source","footer.sponsor":"Sponsor","grid.16x128":"16 × 128 · one sheet (4+7 bits)","grid.16x64":"16 × 64 · two sheets","grid.32x64":"32 × 64 · one sheet (5+6 bits)","grid.4x64":"4 × 64 · eight sheets","grid.8x128":"8 × 128 · two sheets","grid.8x64":"8 × 64 · four sheets","grid.auto":"Auto: largest type, one sheet","lang.label":"Language","nav.aria":"Sections","nav.faq":"Questions","nav.learn":"Entropy","nav.poster":"Poster","nav.roll":"Roll your own","nav.save":"Save offline","nav.saveHint":"Save this page to disk. It is one self-contained file, so it keeps working with the network off.","nav.start":"Start here","orient.landscape":"Landscape","orient.portrait":"Portrait","pdf.colophonLead":"FIRST FOUR LETTERS ARE UNIQUE","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"HOW TO READ A WORD","pdf.decoderMath":"column {col} + row {row} = {idx}","pdf.eyebrow":"BIP-39 · ENGLISH · 2048 WORDS","pdf.sheetTag":"SHEET {n} / {of} · {lo}-{hi}","pdf.subtitle":"The high {c} bits pick a column, the low {r} pick a row, so every word's index is its coordinate on this sheet. The first four letters, set in black, are unique across all 2048; the grey tail is redundant.","pdf.title1":"THE ELEVEN-BIT","pdf.title2":"ADDRESS ","pdf.title3":"SPACE","pdf.titleTight":"THE ELEVEN-BIT ADDRESS ","readout.landscape":"landscape","readout.match":"1 match, index {i} · {word}","readout.matches":"{n} matches","readout.oneSheet":"one sheet","readout.portrait":"portrait","readout.preview":"preview at {pct} %, prints full size","readout.printTip":"Print at 100 % scale with background graphics on.","readout.sheets":"{n} sheets","readout.small":"Small. Try landscape, or A3, or split across sheets.","readout.split":"{a}+{b} bit split","readout.type":"word type {pt} pt","readout.warn":"Public standard list. Never mark your own recovery words on it.","roll.checksumLabel":"Checksum · first {n} bits of sha256(entropy)","roll.coin":"Coin: one flip","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dice: one d6","roll.disabled":"The entropy engine did not load, so this section is disabled.","roll.entropyLabel":"Entropy · {n} bits","roll.flips":"flips","roll.footnote":"These words are exactly as unpredictable as your throws were, and no more. A phrase made in a browser tab is for learning. Put nothing on it that you would mind losing.","roll.hintCoin":"Flip a real coin. Heads is 1, tails is 0. Press H or T, or 1 and 0. Backspace undoes the last flip.","roll.hintDice":"Throw a real d6 and press what you see. 1 to 4 carry two bits each. 5 and 6 carry nothing and are thrown again, which is what keeps the sixteen possible pairs equally likely. Backspace undoes the last throw.","roll.keyReroll":"reroll","roll.lead":"Twelve words are a 128-bit number plus a 4-bit checksum. Below you make that number yourself, one throw at a time, and watch it turn into words. Nothing here leaves the page, because there is no network code in this file at all.","roll.leadLink":"If the words entropy and checksum are doing no work for you yet, read {link} first.","roll.leadLinkText":"the field guide","roll.length":"Length","roll.load":"Type in throws or bits","roll.loadBad":"Only 1 to 6 for dice, or 0 and 1 for bits. Letters are not accepted here, and a recovery phrase never should be.","roll.loadDone":"Loaded {n} {unit} from the worksheet.","roll.loadLong":"That is more than {need} bits. The extra was ignored.","roll.loadPlaceholder":"3 1 4 2 … or 0110 1001 …","roll.rerolled":" · {n} rerolled","roll.source":"Source","roll.throws":"throws","roll.title":"Roll your own entropy","roll.warn":"A phrase generated in a browser is for {em}. For money you intend to keep, generate the phrase on a hardware wallet, or do this on a machine that is offline and stays offline. Never type an existing seed phrase into this or any other page.","roll.warnEm":"learning and verification","roll.warnLead":"Read this first.","roll.words12":"12 words · 128 bits","roll.words24":"24 words · 256 bits","roll.wordsLabel":"{n} words · each one eleven bits of the {total}-bit total","toggle.prefix":"Prefix emphasis","toggle.rules":"Row rules","ws.colIndex":"INDEX","ws.colWord":"WORD","ws.continued":"{words} words · continued","ws.eyebrow":"BIP-39 BY HAND","ws.foot1":"The first {n} words follow from your bits alone, so this sheet and the poster are enough for them.","ws.foot2":"The final word mixes the last entropy bits with a SHA-256 checksum. Type your bits into the Roll your own section of this page, with the machine offline, or into a wallet that accepts dice.","ws.foot3":"BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND.","ws.lastWord":"last word carries the checksum, so a machine has to finish this one","ws.note2":"Each throw is two bits: 1 is 00, 2 is 01, 3 is 10, 4 is 11. Fill the cells left to right, top to bottom.","ws.note3":"Eleven bits per word. Read the first four bits as a column and the last seven as a row, or the first five and last six on a 32 x 64 sheet. Write the index, then the word.","ws.noteCoin":"One coin, {n} times. Heads is 1, tails is 0. Write each result in a box, in order. A flip is already a bit, so there is nothing to convert.","ws.noteDice":"One die, until {n} boxes are full. Write 1, 2, 3 or 4 in the next box. A 5 or a 6 fills no box, so throw again. Rejecting them is what keeps the four outcomes equally likely.","ws.step1Coin":"FLIP","ws.step1Dice":"THROW","ws.step2":"TRANSCRIBE","ws.step3":"READ OFF THE POSTER","ws.sub":"{words} words · {bits} bits of entropy · {n} {unit}","ws.titleCoin":"Coin worksheet","ws.titleDice":"Dice worksheet","ws.unitFlips":"flips","ws.unitThrows":"accepted throws"},"es":{"_code":"es","_name":"Español","bar.face":"Tipografía","bar.find":"Buscar palabra o índice","bar.findPlaceholder":"abandon · 1024","bar.grid":"Cuadrícula","bar.orientation":"Orientación","bar.paper":"Papel","brand.tag":"entropía · palabras · imprimir","btn.clear":"Borrar","btn.load":"Cargar","btn.pdf":"PDF","btn.print":"IMPRIMIR","btn.undo":"Deshacer","btn.worksheet":"Hoja de trabajo PDF","face.grot":"Grotesca","face.mono":"Monoespaciada","face.serif":"Serif","footer.aria":"Enlaces del proyecto","footer.licence":"Licencia MIT © Chemaclass","footer.licenceLink":"Licencia","footer.note":"Los enlaces abren una pestaña del navegador y son lo único de esta página que llega a una red. Nada se carga ni se envía por su cuenta.","footer.site":"chemaclass.com","footer.source":"Código","footer.sponsor":"Patrocinar","grid.16x128":"16 × 128 · una hoja (4+7 bits)","grid.16x64":"16 × 64 · dos hojas","grid.32x64":"32 × 64 · una hoja (5+6 bits)","grid.4x64":"4 × 64 · ocho hojas","grid.8x128":"8 × 128 · dos hojas","grid.8x64":"8 × 64 · cuatro hojas","grid.auto":"Auto: cuerpo mayor, una hoja","lang.label":"Idioma","nav.aria":"Secciones","nav.faq":"Preguntas","nav.learn":"Entropía","nav.poster":"Póster","nav.roll":"Genera la tuya","nav.save":"Descargar","nav.saveHint":"Descarga esta página en tu disco. Es un único archivo autónomo, así que sigue funcionando con la red desconectada.","nav.start":"Empieza aquí","orient.landscape":"Horizontal","orient.portrait":"Vertical","pdf.colophonLead":"CUATRO PRIMERAS LETRAS ÚNICAS","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"CÓMO LEER UNA PALABRA","pdf.decoderMath":"columna {col} + fila {row} = {idx}","pdf.eyebrow":"BIP-39 · INGLÉS · 2048 PALABRAS","pdf.sheetTag":"HOJA {n} / {of} · {lo}-{hi}","pdf.subtitle":"Los {c} bits altos eligen una columna y los {r} bajos eligen una fila, así que el índice de cada palabra es su coordenada en esta hoja. Las cuatro primeras letras, en negro, son únicas entre las 2048; la cola gris es redundante.","pdf.title1":"DIRECCIONES","pdf.title2":"DE ","pdf.title3":"ONCE BITS","pdf.titleTight":"DIRECCIONES DE ","readout.landscape":"horizontal","readout.match":"1 coincidencia, índice {i} · {word}","readout.matches":"{n} coincidencias","readout.oneSheet":"una hoja","readout.portrait":"vertical","readout.preview":"vista previa al {pct} %, se imprime a tamaño real","readout.printTip":"Imprime al 100 % de escala y con los gráficos de fondo activados.","readout.sheets":"{n} hojas","readout.small":"Pequeño. Prueba horizontal, o A3, o repartir en varias hojas.","readout.split":"división de bits {a}+{b}","readout.type":"cuerpo de palabra {pt} pt","readout.warn":"Lista pública del estándar. Nunca marques en ella tus propias palabras de recuperación.","roll.checksumLabel":"Suma de verificación · primeros {n} bits de sha256(entropía)","roll.coin":"Moneda: un lanzamiento","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dados: un d6","roll.disabled":"El motor de entropía no se cargó, así que esta sección está desactivada.","roll.entropyLabel":"Entropía · {n} bits","roll.flips":"lanzamientos","roll.footnote":"Estas palabras son exactamente tan impredecibles como lo fueron tus tiradas, y nada más. Una frase creada en una pestaña del navegador sirve para aprender. No pongas en ella nada que te importe perder.","roll.hintCoin":"Lanza una moneda real. Cara es 1, cruz es 0. Pulsa H o T, o 1 y 0. Retroceso deshace el último lanzamiento.","roll.hintDice":"Tira un d6 real y pulsa lo que veas. Del 1 al 4 llevan dos bits cada uno. El 5 y el 6 no llevan nada y se vuelven a tirar, que es lo que mantiene igual de probables los dieciséis pares posibles. Retroceso deshace la última tirada.","roll.keyReroll":"repetir","roll.lead":"Doce palabras son un número de 128 bits más una suma de verificación de 4 bits. Abajo construyes ese número tú, una tirada cada vez, y lo ves convertirse en palabras. Nada de esto sale de la página, porque en este archivo no hay ningún código de red.","roll.leadLink":"Si las palabras entropía y suma de verificación aún no te dicen nada, lee antes {link}.","roll.leadLinkText":"la guía de campo","roll.length":"Longitud","roll.load":"Escribe tiradas o bits","roll.loadBad":"Solo del 1 al 6 para dados, o 0 y 1 para bits. Aquí no se aceptan letras, y una frase de recuperación no debería escribirse nunca.","roll.loadDone":"Se cargaron {n} {unit} de la hoja de trabajo.","roll.loadLong":"Eso supera los {need} bits. Se ignoró lo que sobra.","roll.loadPlaceholder":"3 1 4 2 … o 0110 1001 …","roll.rerolled":" · {n} repetidas","roll.source":"Fuente","roll.throws":"tiradas","roll.title":"Genera tu propia entropía","roll.warn":"Una frase generada en un navegador sirve para {em}. Para dinero que pienses conservar, genera la frase en un monedero hardware, o haz esto en una máquina que esté sin conexión y siga sin conexión. Nunca escribas una frase semilla existente en esta ni en ninguna otra página.","roll.warnEm":"aprender y verificar","roll.warnLead":"Lee esto primero.","roll.words12":"12 palabras · 128 bits","roll.words24":"24 palabras · 256 bits","roll.wordsLabel":"{n} palabras · cada una once bits del total de {total} bits","toggle.prefix":"Énfasis de prefijo","toggle.rules":"Líneas de fila","ws.colIndex":"ÍNDICE","ws.colWord":"PALABRA","ws.continued":"{words} palabras · continuación","ws.eyebrow":"BIP-39 A MANO","ws.foot1":"Las primeras {n} palabras salen solo de tus bits, así que esta hoja y el póster bastan para ellas.","ws.foot2":"La última palabra mezcla los últimos bits de entropía con una suma de verificación SHA-256. Escribe tus bits en la sección Genera la tuya de esta página, con la máquina sin conexión, o en un monedero que acepte dados.","ws.foot3":"QUEMA O DESTRUYE ESTA HOJA CUANDO LA FRASE ESTÉ ANOTADA. ES TU SEMILLA ESCRITA A MANO.","ws.lastWord":"la última palabra lleva la suma de verificación, así que una máquina tiene que terminar esta","ws.note2":"Cada tirada son dos bits: 1 es 00, 2 es 01, 3 es 10, 4 es 11. Rellena las celdas de izquierda a derecha y de arriba abajo.","ws.note3":"Once bits por palabra. Lee los cuatro primeros bits como columna y los siete últimos como fila, o los cinco primeros y los seis últimos en una hoja de 32 x 64. Escribe el índice y luego la palabra.","ws.noteCoin":"Una moneda, {n} veces. Cara es 1, cruz es 0. Escribe cada resultado en una casilla, en orden. Un lanzamiento ya es un bit, así que no hay nada que convertir.","ws.noteDice":"Un dado, hasta llenar {n} casillas. Escribe 1, 2, 3 o 4 en la casilla siguiente. Un 5 o un 6 no llenan ninguna, así que vuelve a tirar. Rechazarlos es lo que mantiene igual de probables los cuatro resultados.","ws.step1Coin":"LANZA","ws.step1Dice":"TIRA","ws.step2":"TRANSCRIBE","ws.step3":"LEE EN EL PÓSTER","ws.sub":"{words} palabras · {bits} bits de entropía · {n} {unit}","ws.titleCoin":"Hoja de moneda","ws.titleDice":"Hoja de dados","ws.unitFlips":"lanzamientos","ws.unitThrows":"tiradas aceptadas"}};
+const I18N = {"en":{"_code":"en","_name":"English","bar.face":"Word face","bar.find":"Find word or index","bar.findPlaceholder":"abandon · 1024","bar.grid":"Grid","bar.orientation":"Orientation","bar.paper":"Paper","brand.tag":"entropy · words · print","btn.clear":"Clear","btn.load":"Load","btn.pdf":"PDF","btn.print":"PRINT","btn.undo":"Undo","btn.worksheet":"Worksheet PDF","face.grot":"Grotesque","face.mono":"Monospace","face.serif":"Serif","footer.aria":"Project links","footer.licence":"MIT licence © Chemaclass","footer.licenceLink":"Licence","footer.note":"Links open a browser tab and are the only thing on this page that reaches a network. Nothing loads or sends on its own.","footer.site":"chemaclass.com","footer.source":"Source","footer.sponsor":"Sponsor","grid.16x128":"16 × 128 · one sheet (4+7 bits)","grid.16x64":"16 × 64 · two sheets","grid.32x64":"32 × 64 · one sheet (5+6 bits)","grid.4x64":"4 × 64 · eight sheets","grid.8x128":"8 × 128 · two sheets","grid.8x64":"8 × 64 · four sheets","grid.auto":"Auto: largest type, one sheet","lang.label":"Language","nav.aria":"Sections","nav.faq":"Questions","nav.learn":"Entropy","nav.poster":"Poster","nav.roll":"Roll your own","nav.save":"Save offline","nav.saveHint":"Save this page to disk. It is one self-contained file, so it keeps working with the network off.","nav.start":"Start here","nav.tools":"Tools","orient.landscape":"Landscape","orient.portrait":"Portrait","pager.next":"Next","pager.prev":"Back to","pdf.colophonLead":"FIRST FOUR LETTERS ARE UNIQUE","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"HOW TO READ A WORD","pdf.decoderMath":"column {col} + row {row} = {idx}","pdf.eyebrow":"BIP-39 · ENGLISH · 2048 WORDS","pdf.sheetTag":"SHEET {n} / {of} · {lo}-{hi}","pdf.subtitle":"The high {c} bits pick a column, the low {r} pick a row, so every word's index is its coordinate on this sheet. The first four letters, set in black, are unique across all 2048; the grey tail is redundant.","pdf.title1":"THE ELEVEN-BIT","pdf.title2":"ADDRESS ","pdf.title3":"SPACE","pdf.titleTight":"THE ELEVEN-BIT ADDRESS ","readout.landscape":"landscape","readout.match":"1 match, index {i} · {word}","readout.matches":"{n} matches","readout.oneSheet":"one sheet","readout.portrait":"portrait","readout.preview":"preview at {pct} %, prints full size","readout.printTip":"Print at 100 % scale with background graphics on.","readout.sheets":"{n} sheets","readout.small":"Small. Try landscape, or A3, or split across sheets.","readout.split":"{a}+{b} bit split","readout.type":"word type {pt} pt","readout.warn":"Public standard list. Never mark your own recovery words on it.","roll.checksumLabel":"Checksum · first {n} bits of sha256(entropy)","roll.coin":"Coin: one flip","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dice: one d6","roll.disabled":"The entropy engine did not load, so this section is disabled.","roll.entropyLabel":"Entropy · {n} bits","roll.flips":"flips","roll.footnote":"These words are exactly as unpredictable as your throws were, and no more. A phrase made in a browser tab is for learning. Put nothing on it that you would mind losing.","roll.hintCoin":"Flip a real coin. Heads is 1, tails is 0. Press H or T, or 1 and 0. Backspace undoes the last flip.","roll.hintDice":"Throw a real d6 and press what you see. 1 to 4 carry two bits each. 5 and 6 carry nothing and are thrown again, which is what keeps the sixteen possible pairs equally likely. Backspace undoes the last throw.","roll.keyReroll":"reroll","roll.lead":"Twelve words are a 128-bit number plus a 4-bit checksum. Below you make that number yourself, one throw at a time, and watch it turn into words. Nothing here leaves the page, because there is no network code in this file at all.","roll.leadLink":"If the words entropy and checksum are doing no work for you yet, read {link} first.","roll.leadLinkText":"the field guide","roll.length":"Length","roll.load":"Type in throws or bits","roll.loadBad":"Only 1 to 6 for dice, or 0 and 1 for bits. Letters are not accepted here, and a recovery phrase never should be.","roll.loadDone":"Loaded {n} {unit} from the worksheet.","roll.loadLong":"That is more than {need} bits. The extra was ignored.","roll.loadPlaceholder":"3 1 4 2 … or 0110 1001 …","roll.rerolled":" · {n} rerolled","roll.source":"Source","roll.throws":"throws","roll.title":"Roll your own entropy","roll.warn":"A phrase generated in a browser is for {em}. For money you intend to keep, generate the phrase on a hardware wallet, or do this on a machine that is offline and stays offline. Never type an existing seed phrase into this or any other page.","roll.warnEm":"learning and verification","roll.warnLead":"Read this first.","roll.words12":"12 words · 128 bits","roll.words24":"24 words · 256 bits","roll.wordsLabel":"{n} words · each one eleven bits of the {total}-bit total","toggle.prefix":"Prefix emphasis","toggle.rules":"Row rules","ws.colIndex":"INDEX","ws.colWord":"WORD","ws.continued":"{words} words · continued","ws.eyebrow":"BIP-39 BY HAND","ws.foot1":"The first {n} words follow from your bits alone, so this sheet and the poster are enough for them.","ws.foot2":"The final word mixes the last entropy bits with a SHA-256 checksum. Type your bits into the Roll your own section of this page, with the machine offline, or into a wallet that accepts dice.","ws.foot3":"BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND.","ws.lastWord":"last word carries the checksum, so a machine has to finish this one","ws.note2":"Each throw is two bits: 1 is 00, 2 is 01, 3 is 10, 4 is 11. Fill the cells left to right, top to bottom.","ws.note3":"Eleven bits per word. Read the first four bits as a column and the last seven as a row, or the first five and last six on a 32 x 64 sheet. Write the index, then the word.","ws.noteCoin":"One coin, {n} times. Heads is 1, tails is 0. Write each result in a box, in order. A flip is already a bit, so there is nothing to convert.","ws.noteDice":"One die, until {n} boxes are full. Write 1, 2, 3 or 4 in the next box. A 5 or a 6 fills no box, so throw again. Rejecting them is what keeps the four outcomes equally likely.","ws.step1Coin":"FLIP","ws.step1Dice":"THROW","ws.step2":"TRANSCRIBE","ws.step3":"READ OFF THE POSTER","ws.sub":"{words} words · {bits} bits of entropy · {n} {unit}","ws.titleCoin":"Coin worksheet","ws.titleDice":"Dice worksheet","ws.unitFlips":"flips","ws.unitThrows":"accepted throws"},"es":{"_code":"es","_name":"Español","bar.face":"Tipografía","bar.find":"Buscar palabra o índice","bar.findPlaceholder":"abandon · 1024","bar.grid":"Cuadrícula","bar.orientation":"Orientación","bar.paper":"Papel","brand.tag":"entropía · palabras · imprimir","btn.clear":"Borrar","btn.load":"Cargar","btn.pdf":"PDF","btn.print":"IMPRIMIR","btn.undo":"Deshacer","btn.worksheet":"Hoja de trabajo PDF","face.grot":"Grotesca","face.mono":"Monoespaciada","face.serif":"Serif","footer.aria":"Enlaces del proyecto","footer.licence":"Licencia MIT © Chemaclass","footer.licenceLink":"Licencia","footer.note":"Los enlaces abren una pestaña del navegador y son lo único de esta página que llega a una red. Nada se carga ni se envía por su cuenta.","footer.site":"chemaclass.com","footer.source":"Código","footer.sponsor":"Patrocinar","grid.16x128":"16 × 128 · una hoja (4+7 bits)","grid.16x64":"16 × 64 · dos hojas","grid.32x64":"32 × 64 · una hoja (5+6 bits)","grid.4x64":"4 × 64 · ocho hojas","grid.8x128":"8 × 128 · dos hojas","grid.8x64":"8 × 64 · cuatro hojas","grid.auto":"Auto: cuerpo mayor, una hoja","lang.label":"Idioma","nav.aria":"Secciones","nav.faq":"Preguntas","nav.learn":"Entropía","nav.poster":"Póster","nav.roll":"Genera la tuya","nav.save":"Descargar","nav.saveHint":"Descarga esta página en tu disco. Es un único archivo autónomo, así que sigue funcionando con la red desconectada.","nav.start":"Empieza aquí","nav.tools":"Herramientas","orient.landscape":"Horizontal","orient.portrait":"Vertical","pager.next":"Siguiente","pager.prev":"Volver a","pdf.colophonLead":"CUATRO PRIMERAS LETRAS ÚNICAS","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"CÓMO LEER UNA PALABRA","pdf.decoderMath":"columna {col} + fila {row} = {idx}","pdf.eyebrow":"BIP-39 · INGLÉS · 2048 PALABRAS","pdf.sheetTag":"HOJA {n} / {of} · {lo}-{hi}","pdf.subtitle":"Los {c} bits altos eligen una columna y los {r} bajos eligen una fila, así que el índice de cada palabra es su coordenada en esta hoja. Las cuatro primeras letras, en negro, son únicas entre las 2048; la cola gris es redundante.","pdf.title1":"DIRECCIONES","pdf.title2":"DE ","pdf.title3":"ONCE BITS","pdf.titleTight":"DIRECCIONES DE ","readout.landscape":"horizontal","readout.match":"1 coincidencia, índice {i} · {word}","readout.matches":"{n} coincidencias","readout.oneSheet":"una hoja","readout.portrait":"vertical","readout.preview":"vista previa al {pct} %, se imprime a tamaño real","readout.printTip":"Imprime al 100 % de escala y con los gráficos de fondo activados.","readout.sheets":"{n} hojas","readout.small":"Pequeño. Prueba horizontal, o A3, o repartir en varias hojas.","readout.split":"división de bits {a}+{b}","readout.type":"cuerpo de palabra {pt} pt","readout.warn":"Lista pública del estándar. Nunca marques en ella tus propias palabras de recuperación.","roll.checksumLabel":"Suma de verificación · primeros {n} bits de sha256(entropía)","roll.coin":"Moneda: un lanzamiento","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dados: un d6","roll.disabled":"El motor de entropía no se cargó, así que esta sección está desactivada.","roll.entropyLabel":"Entropía · {n} bits","roll.flips":"lanzamientos","roll.footnote":"Estas palabras son exactamente tan impredecibles como lo fueron tus tiradas, y nada más. Una frase creada en una pestaña del navegador sirve para aprender. No pongas en ella nada que te importe perder.","roll.hintCoin":"Lanza una moneda real. Cara es 1, cruz es 0. Pulsa H o T, o 1 y 0. Retroceso deshace el último lanzamiento.","roll.hintDice":"Tira un d6 real y pulsa lo que veas. Del 1 al 4 llevan dos bits cada uno. El 5 y el 6 no llevan nada y se vuelven a tirar, que es lo que mantiene igual de probables los dieciséis pares posibles. Retroceso deshace la última tirada.","roll.keyReroll":"repetir","roll.lead":"Doce palabras son un número de 128 bits más una suma de verificación de 4 bits. Abajo construyes ese número tú, una tirada cada vez, y lo ves convertirse en palabras. Nada de esto sale de la página, porque en este archivo no hay ningún código de red.","roll.leadLink":"Si las palabras entropía y suma de verificación aún no te dicen nada, lee antes {link}.","roll.leadLinkText":"la guía de campo","roll.length":"Longitud","roll.load":"Escribe tiradas o bits","roll.loadBad":"Solo del 1 al 6 para dados, o 0 y 1 para bits. Aquí no se aceptan letras, y una frase de recuperación no debería escribirse nunca.","roll.loadDone":"Se cargaron {n} {unit} de la hoja de trabajo.","roll.loadLong":"Eso supera los {need} bits. Se ignoró lo que sobra.","roll.loadPlaceholder":"3 1 4 2 … o 0110 1001 …","roll.rerolled":" · {n} repetidas","roll.source":"Fuente","roll.throws":"tiradas","roll.title":"Genera tu propia entropía","roll.warn":"Una frase generada en un navegador sirve para {em}. Para dinero que pienses conservar, genera la frase en un monedero hardware, o haz esto en una máquina que esté sin conexión y siga sin conexión. Nunca escribas una frase semilla existente en esta ni en ninguna otra página.","roll.warnEm":"aprender y verificar","roll.warnLead":"Lee esto primero.","roll.words12":"12 palabras · 128 bits","roll.words24":"24 palabras · 256 bits","roll.wordsLabel":"{n} palabras · cada una once bits del total de {total} bits","toggle.prefix":"Énfasis de prefijo","toggle.rules":"Líneas de fila","ws.colIndex":"ÍNDICE","ws.colWord":"PALABRA","ws.continued":"{words} palabras · continuación","ws.eyebrow":"BIP-39 A MANO","ws.foot1":"Las primeras {n} palabras salen solo de tus bits, así que esta hoja y el póster bastan para ellas.","ws.foot2":"La última palabra mezcla los últimos bits de entropía con una suma de verificación SHA-256. Escribe tus bits en la sección Genera la tuya de esta página, con la máquina sin conexión, o en un monedero que acepte dados.","ws.foot3":"QUEMA O DESTRUYE ESTA HOJA CUANDO LA FRASE ESTÉ ANOTADA. ES TU SEMILLA ESCRITA A MANO.","ws.lastWord":"la última palabra lleva la suma de verificación, así que una máquina tiene que terminar esta","ws.note2":"Cada tirada son dos bits: 1 es 00, 2 es 01, 3 es 10, 4 es 11. Rellena las celdas de izquierda a derecha y de arriba abajo.","ws.note3":"Once bits por palabra. Lee los cuatro primeros bits como columna y los siete últimos como fila, o los cinco primeros y los seis últimos en una hoja de 32 x 64. Escribe el índice y luego la palabra.","ws.noteCoin":"Una moneda, {n} veces. Cara es 1, cruz es 0. Escribe cada resultado en una casilla, en orden. Un lanzamiento ya es un bit, así que no hay nada que convertir.","ws.noteDice":"Un dado, hasta llenar {n} casillas. Escribe 1, 2, 3 o 4 en la casilla siguiente. Un 5 o un 6 no llenan ninguna, así que vuelve a tirar. Rechazarlos es lo que mantiene igual de probables los cuatro resultados.","ws.step1Coin":"LANZA","ws.step1Dice":"TIRA","ws.step2":"TRANSCRIBE","ws.step3":"LEE EN EL PÓSTER","ws.sub":"{words} palabras · {bits} bits de entropía · {n} {unit}","ws.titleCoin":"Hoja de moneda","ws.titleDice":"Hoja de dados","ws.unitFlips":"lanzamientos","ws.unitThrows":"tiradas aceptadas"}};
 const LANGS = [{"code":"en","name":"English"},{"code":"es","name":"Español"}];
 const BASE_LANG = "en";
 let LANG = BASE_LANG;
@@ -5111,6 +5174,10 @@ const VIEWS = [...document.querySelectorAll("#tabs a")]
   .map(a => a.dataset.view)
   .filter(v => document.getElementById("view-" + v));
 
+// The site is a guide with two tools attached, so an unaddressed visit opens
+// the guide. The tools are one click away and keep their own links.
+const HOME = VIEWS.includes("start") ? "start" : VIEWS[0];
+
 function parseHash(){
   const parts = location.hash.slice(1).split("/").filter(Boolean);
   return langKnown(parts[0])
@@ -5118,14 +5185,17 @@ function parseHash(){
     : { lang: null, view: parts[0] };
 }
 
-function showView(name){
-  if (!VIEWS.includes(name)) name = "poster";
+function showView(name, keepScroll){
+  if (!VIEWS.includes(name)) name = HOME;
   VIEWS.forEach(v => { $("view-" + v).hidden = v !== name; });
   document.querySelectorAll("#tabs a").forEach(a =>
     a.classList.toggle("on", a.dataset.view === name));
   $("bar").hidden = name !== "poster";
   // The stage measures itself, so it can only be laid out while it is visible.
   if (name === "poster") render();
+  // Arriving halfway down a section you have never seen reads as a broken page.
+  if (!keepScroll) scrollTo(0, 0);
+  readingInit(name);
 }
 
 function route(){
@@ -5147,20 +5217,20 @@ function route(){
   document.querySelectorAll("#tabs a").forEach(a => {
     a.href = "#" + LANG + "/" + a.dataset.view;
   });
-  $("brandlink").href = "#" + LANG + "/poster";
+  $("brandlink").href = "#" + LANG + "/" + HOME;
   if (rollReady()){ rollText(); rollPad(); rollRender(); }
 
   if (host){
-    showView(host.id.slice("view-".length));
+    showView(host.id.slice("view-".length), true);
     anchor.scrollIntoView({ block: "start" });
     return;
   }
-  showView(VIEWS.includes(view) ? view : "poster");
+  showView(VIEWS.includes(view) ? view : HOME);
 }
 
 function setLang(code){
   const { view } = parseHash();
-  location.hash = "#" + code + "/" + (VIEWS.includes(view) ? view : "poster");
+  location.hash = "#" + code + "/" + (VIEWS.includes(view) ? view : HOME);
   if (LANG === code) route();     // hash unchanged, so no hashchange to wait for
 }
 
@@ -5171,6 +5241,94 @@ function navInit(){
   addEventListener("hashchange", route);
   route();
 }
+
+/* src/js/86-reading.js */
+/* ── reading: section rail and pager ────────────────────────────── */
+// Both are built from whatever is on the page rather than written into it, so
+// a new section or a new language needs no work here: the rail reads the
+// headings of the visible pane, the pager reads the tabs.
+
+const RAIL_OFFSET = 130;        // px of chrome above the reading line
+
+function railFor(view){
+  const host = $("view-" + view);
+  const pane = [...host.querySelectorAll(".pane")].find(p => !p.hidden);
+  if (!pane) return null;
+
+  const secs = [...pane.querySelectorAll(".learn-sec[id]")]
+    .map(s => ({ id: s.id, el: s, label: (s.querySelector("h2") || {}).textContent || "" }))
+    .filter(s => s.label);
+  if (secs.length < 2) return null;      // one section is a page, not a contents list
+
+  let rail = host.querySelector(".rail");
+  if (!rail){
+    rail = document.createElement("nav");
+    rail.className = "rail";
+    host.insertBefore(rail, host.firstChild);
+  }
+  rail.replaceChildren();
+  rail.setAttribute("aria-label", t("nav.aria"));
+
+  for (const s of secs){
+    const a = document.createElement("a");
+    a.href = "#" + s.id;
+    // The number is already in the heading; the rail wants the words alone.
+    a.textContent = s.label.replace(/^\s*\d+\s*/, "");
+    a.dataset.for = s.id;
+    rail.appendChild(a);
+  }
+  host.classList.add("has-rail");
+  return secs;
+}
+
+let railSecs = null;
+
+function railSpy(){
+  if (!railSecs || !railSecs.length) return;
+  let current = railSecs[0].id;
+  for (const s of railSecs){
+    if (s.el.getBoundingClientRect().top <= RAIL_OFFSET) current = s.id;
+  }
+  document.querySelectorAll(".rail a").forEach(a =>
+    a.classList.toggle("on", a.dataset.for === current));
+}
+
+function pagerFor(view){
+  const host = $("view-" + view);
+  const i = VIEWS.indexOf(view);
+  let pager = host.querySelector(".pager");
+  if (!pager){
+    pager = document.createElement("nav");
+    pager.className = "pager";
+    host.appendChild(pager);
+  }
+  pager.replaceChildren();
+
+  const link = (target, kind) => {
+    const a = document.createElement("a");
+    a.className = "pager-" + kind;
+    a.href = "#" + LANG + "/" + target;
+    a.innerHTML = '<span>' + t("pager." + kind) + '</span>' + t("nav." + target);
+    return a;
+  };
+  if (i > 0) pager.appendChild(link(VIEWS[i - 1], "prev"));
+  if (i >= 0 && i < VIEWS.length - 1) pager.appendChild(link(VIEWS[i + 1], "next"));
+  pager.hidden = !pager.childElementCount;
+}
+
+// Called by the router once the view and language are settled.
+function readingInit(view){
+  railSecs = railFor(view);
+  if (!railSecs) $("view-" + view).classList.remove("has-rail");
+  pagerFor(view);
+  railSpy();
+}
+
+addEventListener("scroll", () => {
+  if (railSpy.pending) return;
+  railSpy.pending = true;
+  requestAnimationFrame(() => { railSpy.pending = false; railSpy(); });
+}, { passive: true });
 
 /* src/js/90-boot.js */
 /* ── events ─────────────────────────────────────────────────────── */

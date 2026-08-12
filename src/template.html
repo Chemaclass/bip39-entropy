@@ -17,11 +17,16 @@ __CSS__
     <div class="top-in">
       <a class="brand" id="brandlink" href="#poster"><b>BIP-39</b><span data-t="brand.tag"></span></a>
       <nav class="tabs" id="tabs" data-t-attr="aria-label:nav.aria">
-        <a href="#poster" data-view="poster" data-t="nav.poster"></a>
-        <a href="#start" data-view="start" data-t="nav.start"></a>
-        <a href="#learn" data-view="learn" data-t="nav.learn"></a>
-        <a href="#roll" data-view="roll" data-t="nav.roll"></a>
-        <a href="#faq" data-view="faq" data-t="nav.faq"></a>
+        <span class="tabs-g">
+          <a href="#start" data-view="start" data-t="nav.start"></a>
+          <a href="#learn" data-view="learn" data-t="nav.learn"></a>
+          <a href="#faq" data-view="faq" data-t="nav.faq"></a>
+        </span>
+        <span class="tabs-sep" data-t="nav.tools"></span>
+        <span class="tabs-g tabs-tools">
+          <a href="#poster" data-view="poster" data-t="nav.poster"></a>
+          <a href="#roll" data-view="roll" data-t="nav.roll"></a>
+        </span>
       </nav>
       <a class="save" id="save" href="index.html" download="bip39-entropy.html"
          data-t="nav.save" data-t-attr="title:nav.saveHint"></a>

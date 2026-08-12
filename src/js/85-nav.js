@@ -9,6 +9,10 @@ const VIEWS = [...document.querySelectorAll("#tabs a")]
   .map(a => a.dataset.view)
   .filter(v => document.getElementById("view-" + v));
 
+// The site is a guide with two tools attached, so an unaddressed visit opens
+// the guide. The tools are one click away and keep their own links.
+const HOME = VIEWS.includes("start") ? "start" : VIEWS[0];
+
 function parseHash(){
   const parts = location.hash.slice(1).split("/").filter(Boolean);
   return langKnown(parts[0])
@@ -16,14 +20,17 @@ function parseHash(){
     : { lang: null, view: parts[0] };
 }
 
-function showView(name){
-  if (!VIEWS.includes(name)) name = "poster";
+function showView(name, keepScroll){
+  if (!VIEWS.includes(name)) name = HOME;
   VIEWS.forEach(v => { $("view-" + v).hidden = v !== name; });
   document.querySelectorAll("#tabs a").forEach(a =>
     a.classList.toggle("on", a.dataset.view === name));
   $("bar").hidden = name !== "poster";
   // The stage measures itself, so it can only be laid out while it is visible.
   if (name === "poster") render();
+  // Arriving halfway down a section you have never seen reads as a broken page.
+  if (!keepScroll) scrollTo(0, 0);
+  readingInit(name);
 }
 
 function route(){
@@ -45,20 +52,20 @@ function route(){
   document.querySelectorAll("#tabs a").forEach(a => {
     a.href = "#" + LANG + "/" + a.dataset.view;
   });
-  $("brandlink").href = "#" + LANG + "/poster";
+  $("brandlink").href = "#" + LANG + "/" + HOME;
   if (rollReady()){ rollText(); rollPad(); rollRender(); }
 
   if (host){
-    showView(host.id.slice("view-".length));
+    showView(host.id.slice("view-".length), true);
     anchor.scrollIntoView({ block: "start" });
     return;
   }
-  showView(VIEWS.includes(view) ? view : "poster");
+  showView(VIEWS.includes(view) ? view : HOME);
 }
 
 function setLang(code){
   const { view } = parseHash();
-  location.hash = "#" + code + "/" + (VIEWS.includes(view) ? view : "poster");
+  location.hash = "#" + code + "/" + (VIEWS.includes(view) ? view : HOME);
   if (LANG === code) route();     // hash unchanged, so no hashchange to wait for
 }
 
