@@ -10,6 +10,10 @@
 
 .roll-ctl{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end;margin-bottom:22px}
 
+#rollload{width:230px;font:400 12px/1 var(--mono);letter-spacing:.04em}
+.roll-err{font:400 11.5px/1.6 var(--mono);color:var(--patina);margin:0 0 16px;max-width:68ch}
+.roll-err.bad{color:var(--amber)}
+
 .roll-pad{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:9px}
 .roll-key{width:64px;height:64px;font:700 21px/1 var(--mono);color:var(--chrome-ink);
   background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;

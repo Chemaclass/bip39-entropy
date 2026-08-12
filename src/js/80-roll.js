@@ -50,6 +50,53 @@ function rollText(){
   $("rollwarntext").replaceChildren(warn[0] || "", em, warn[1] || "");
 }
 
+// Typing in a worksheet. The field accepts throws (1 to 6) or bits (0 and 1),
+// and nothing else: letters are refused, so a recovery phrase cannot be pasted
+// here even by accident. Returns null when the text is not one of the two.
+function rollParseInput(text){
+  const s = text.replace(/[^0-9A-Za-z]/g, "").toUpperCase();
+  if (!s) return null;
+  if (/[^0-6HT]/.test(s)) return null;
+
+  if (/[HT]/.test(s)){
+    if (/[2-6]/.test(s)) return null;                 // heads or tails, not dice
+    return { method: "coin", throws: [...s].map(c => (c === "H" || c === "1" ? 1 : 0)) };
+  }
+  if (/[2-6]/.test(s)){
+    if (s.includes("0")) return null;                 // a die has no zero face
+    return { method: "dice", throws: [...s].map(Number) };
+  }
+  if (s.includes("0")) return { method: "coin", throws: [...s].map(Number) };
+  // Only ones: valid as bits and as dice faces alike, so the selected source
+  // decides rather than the input silently switching it.
+  return { method: ROLL.method, throws: [...s].map(Number) };
+}
+
+function rollLoad(){
+  const parsed = rollParseInput($("rollload").value);
+  const err = $("rollerr");
+  if (!parsed){
+    err.textContent = t("roll.loadBad");
+    err.hidden = false;
+    return;
+  }
+
+  ROLL.method = parsed.method;
+  $("method").value = parsed.method;
+  ROLL.throws = parsed.throws;
+  rollPad();
+  rollRender();
+
+  const spec = rollSpec();
+  const over = rollBits().bits.length > spec.entBits;
+  const unit = t(parsed.method === "coin" ? "roll.flips" : "roll.throws");
+  err.textContent = over
+    ? t("roll.loadLong", { need: spec.entBits })
+    : t("roll.loadDone", { n: parsed.throws.length, unit });
+  err.hidden = false;
+  err.classList.toggle("bad", over);
+}
+
 function rollPush(face){
   const v = ROLL.method === "coin"
     ? (face === "H" ? 1 : 0)
@@ -126,6 +173,8 @@ function rollRender(){
 
 function rollReset(){
   ROLL.throws = [];
+  $("rollload").value = "";
+  $("rollerr").hidden = true;
   rollRender();
 }
 
@@ -145,6 +194,8 @@ function rollInit(){
   });
   $("rollundo").addEventListener("click", () => { ROLL.throws.pop(); rollRender(); });
   $("rollclear").addEventListener("click", rollReset);
+  $("rollloadgo").addEventListener("click", rollLoad);
+  $("rollload").addEventListener("keydown", e => { if (e.key === "Enter") rollLoad(); });
   if (typeof worksheetPDF === "function")
     $("rollsheet").addEventListener("click", worksheetPDF);
   else $("rollsheet").hidden = true;

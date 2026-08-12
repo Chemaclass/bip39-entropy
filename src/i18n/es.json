@@ -60,6 +60,12 @@
   "roll.coin": "Moneda: un lanzamiento",
   "btn.undo": "Deshacer",
   "btn.clear": "Borrar",
+  "roll.load": "Escribe tiradas o bits",
+  "roll.loadPlaceholder": "3 1 4 2 … o 0110 1001 …",
+  "btn.load": "Cargar",
+  "roll.loadBad": "Solo del 1 al 6 para dados, o 0 y 1 para bits. Aquí no se aceptan letras, y una frase de recuperación no debería escribirse nunca.",
+  "roll.loadLong": "Eso supera los {need} bits. Se ignoró lo que sobra.",
+  "roll.loadDone": "Se cargaron {n} {unit} de la hoja de trabajo.",
   "btn.worksheet": "Hoja de trabajo PDF",
   "roll.keyReroll": "repetir",
   "roll.hintDice": "Tira un d6 real y pulsa lo que veas. Del 1 al 4 llevan dos bits cada uno. El 5 y el 6 no llevan nada y se vuelven a tirar, que es lo que mantiene igual de probables los dieciséis pares posibles. Retroceso deshace la última tirada.",
@@ -102,6 +108,6 @@
   "ws.colWord": "PALABRA",
   "ws.lastWord": "la última palabra lleva la suma de verificación, así que una máquina tiene que terminar esta",
   "ws.foot1": "Las primeras {n} palabras salen solo de tus bits, así que esta hoja y el póster bastan para ellas.",
-  "ws.foot2": "La última palabra mezcla los últimos bits de entropía con una suma de verificación SHA-256. Introduce tus bits en una herramienta sin conexión, o en un monedero que acepte dados.",
+  "ws.foot2": "La última palabra mezcla los últimos bits de entropía con una suma de verificación SHA-256. Escribe tus bits en la sección Genera la tuya de esta página, con la máquina sin conexión, o en un monedero que acepte dados.",
   "ws.foot3": "QUEMA O DESTRUYE ESTA HOJA CUANDO LA FRASE ESTÉ ANOTADA. ES TU SEMILLA ESCRITA A MANO."
 }

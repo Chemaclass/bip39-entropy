@@ -125,6 +125,14 @@ __CONTENT__
           </select>
         </div>
         <div class="ctl">
+          <label for="rollload" data-t="roll.load"></label>
+          <div class="toggles">
+            <input id="rollload" type="text" inputmode="numeric" autocomplete="off"
+                   spellcheck="false" data-t-attr="placeholder:roll.loadPlaceholder">
+            <button id="rollloadgo" data-t="btn.load"></button>
+          </div>
+        </div>
+        <div class="ctl">
           <label>&nbsp;</label>
           <div class="toggles">
             <button id="rollundo" data-t="btn.undo"></button>
@@ -133,6 +141,8 @@ __CONTENT__
           </div>
         </div>
       </div>
+
+      <p class="roll-err" id="rollerr" hidden></p>
 
       <div class="roll-pad" id="rollpad"></div>
       <p class="roll-hint" id="rollhint"></p>

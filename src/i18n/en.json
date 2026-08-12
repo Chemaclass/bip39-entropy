@@ -60,6 +60,12 @@
   "roll.coin": "Coin: one flip",
   "btn.undo": "Undo",
   "btn.clear": "Clear",
+  "roll.load": "Type in throws or bits",
+  "roll.loadPlaceholder": "3 1 4 2 … or 0110 1001 …",
+  "btn.load": "Load",
+  "roll.loadBad": "Only 1 to 6 for dice, or 0 and 1 for bits. Letters are not accepted here, and a recovery phrase never should be.",
+  "roll.loadLong": "That is more than {need} bits. The extra was ignored.",
+  "roll.loadDone": "Loaded {n} {unit} from the worksheet.",
   "btn.worksheet": "Worksheet PDF",
   "roll.keyReroll": "reroll",
   "roll.hintDice": "Throw a real d6 and press what you see. 1 to 4 carry two bits each. 5 and 6 carry nothing and are thrown again, which is what keeps the sixteen possible pairs equally likely. Backspace undoes the last throw.",
@@ -102,6 +108,6 @@
   "ws.colWord": "WORD",
   "ws.lastWord": "last word carries the checksum, so a machine has to finish this one",
   "ws.foot1": "The first {n} words follow from your bits alone, so this sheet and the poster are enough for them.",
-  "ws.foot2": "The final word mixes the last entropy bits with a SHA-256 checksum. Enter your bits into an offline tool, or a wallet that accepts dice.",
+  "ws.foot2": "The final word mixes the last entropy bits with a SHA-256 checksum. Type your bits into the Roll your own section of this page, with the machine offline, or into a wallet that accepts dice.",
   "ws.foot3": "BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND."
 }
