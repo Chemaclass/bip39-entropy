@@ -21,9 +21,8 @@
 .learn-head,.learn-warn,.learn-toc,.learn-sec{
   max-width:100%;margin-left:auto;margin-right:auto;
 }
-/* Running prose still stops short of the full column: a 1000px line is too
-   long to track comfortably, while headings, tables and rules want the width. */
-.learn-sec p,.learn-lead,.learn-note,.learn-mag li{max-width:78ch}
+/* Prose fills the column. The container is the only measure on the page, so
+   paragraphs end on the same edge as the headings and the rules above them. */
 
 /* ─────────── masthead ─────────── */
 .learn-eyebrow{

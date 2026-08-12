@@ -1,17 +1,17 @@
 /* ─────────── roll your own ─────────── */
 .roll{max-width:1000px;margin:0 auto;padding:30px 18px 70px}
 .roll-h{font:700 21px/1.2 var(--mono);letter-spacing:-.01em;margin:0 0 12px}
-.roll-lead{font:400 14px/1.7 var(--grot);color:#aab3af;max-width:68ch;margin:0 0 22px}
+.roll-lead{font:400 14px/1.7 var(--grot);color:#aab3af;margin:0 0 22px}
 
 .roll-warn{border-left:2px solid var(--amber);background:var(--chrome-2);
-  padding:13px 17px;font:400 13px/1.65 var(--grot);color:#c7cfcb;margin:0 0 26px;max-width:68ch}
+  padding:13px 17px;font:400 13px/1.65 var(--grot);color:#c7cfcb;margin:0 0 26px}
 .roll-warn b{color:var(--amber);font-weight:700}
 .roll-warn em{font-style:normal;color:var(--chrome-ink)}
 
 .roll-ctl{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end;margin-bottom:22px}
 
 #rollload{width:230px;font:400 12px/1 var(--mono);letter-spacing:.04em}
-.roll-err{font:400 11.5px/1.6 var(--mono);color:var(--patina);margin:0 0 16px;max-width:68ch}
+.roll-err{font:400 11.5px/1.6 var(--mono);color:var(--patina);margin:0 0 16px}
 .roll-err.bad{color:var(--amber)}
 
 .roll-pad{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:9px}
@@ -24,7 +24,7 @@
 .roll-key.rej span{color:var(--amber)}
 .roll-key[disabled]{opacity:.4;cursor:not-allowed}
 
-.roll-hint{font:400 11px/1.6 var(--mono);color:#69736f;margin:0 0 18px;max-width:68ch}
+.roll-hint{font:400 11px/1.6 var(--mono);color:#69736f;margin:0 0 18px}
 
 .roll-meter{height:5px;background:var(--chrome-3);overflow:hidden}
 .roll-meter-fill{height:100%;width:0;background:var(--patina);transition:width .15s linear}
