@@ -14,7 +14,11 @@
 .tabs a:hover{color:var(--chrome-ink)}
 .tabs a.on{color:var(--patina);border-bottom-color:var(--patina)}
 
-.langsel{margin-left:auto;display:flex;align-items:center}
+.save{margin-left:auto;font:500 10px/1 var(--mono);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--chrome-dim);text-decoration:none;
+  border:1px solid var(--chrome-3);border-radius:3px;padding:8px 10px}
+.save:hover{color:var(--patina);border-color:var(--patina)}
+.langsel{display:flex;align-items:center;margin-left:14px}
 .langsel select{min-height:28px;padding:5px 22px 5px 8px;font-size:11px;letter-spacing:.06em}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}

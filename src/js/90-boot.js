@@ -20,6 +20,11 @@ window.addEventListener("resize", () => {
   resizeTimer = setTimeout(render, 140);
 });
 
+// The save link fetches index.html from the server it was served by. On a
+// file:// URL the reader already has the file, and the relative href would
+// point at a name that need not exist.
+if (location.protocol === "file:") $("save").hidden = true;
+
 langInit();
 rollInit();
 navInit();
