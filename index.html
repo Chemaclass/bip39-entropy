@@ -128,12 +128,13 @@ body.plain .w{color:var(--ink)}
 /* ─────────── site chrome: header, tabs, views ─────────── */
 .chrome{position:sticky;top:0;z-index:20;background:rgba(25,29,31,.94);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--chrome-3)}
-.top{padding:9px 18px 0}
+.top{padding:9px 18px 10px}
 .top-in{max-width:1500px;margin:0 auto;display:flex;align-items:flex-end;gap:10px 26px;flex-wrap:wrap}
 .brand{text-decoration:none;color:inherit}
 .brand:hover span{color:var(--chrome-ink)}
 
-.tabs{display:flex;gap:2px;margin-bottom:-1px}
+/* The active tab's underline is its own mark, not a join with the bar below. */
+.tabs{display:flex;gap:2px}
 .tabs a{font:600 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
   color:var(--chrome-dim);text-decoration:none;padding:10px 13px;
   border-bottom:2px solid transparent}
