@@ -22,7 +22,7 @@ function wsBoxes(d, x, y, cols, rows, bw, bh, n, label){
 }
 
 function wsHead(d, title, sub){
-  d.text(15, 20, "BIP-39 BY HAND",
+  d.text(15, 20, t("ws.eyebrow"),
          { size: 7, font: "cour", rgb: WS_VERD, tracking: 0.3 });
   d.text(15, 30, title, { size: 19, font: "courB", rgb: WS_INK });
   d.text(15, 37.5, sub, { size: 8.5, font: "helv", rgb: WS_SUB });
@@ -42,26 +42,19 @@ function worksheetPDF(){
   const throws = coin ? spec.entBits : spec.entBits / 2;
   const d = PDF.doc({ w: 210, h: 297 });
 
-  wsHead(d,
-    coin ? "Coin worksheet" : "Dice worksheet",
-    spec.words + " words · " + spec.entBits + " bits of entropy · " +
-    throws + (coin ? " flips" : " accepted throws"));
+  wsHead(d, t(coin ? "ws.titleCoin" : "ws.titleDice"),
+    t("ws.sub", { words: spec.words, bits: spec.entBits, n: throws,
+                  unit: t(coin ? "ws.unitFlips" : "ws.unitThrows") }));
 
-  let y = wsSection(d, 50, "01", coin ? "FLIP" : "THROW",
-    coin
-      ? "One coin, " + throws + " times. Heads is 1, tails is 0. Write each result in a box, in order — " +
-        "a flip is already a bit, so there is nothing to convert."
-      : "One die, until " + throws + " boxes are full. Write 1, 2, 3 or 4 in the next box. " +
-        "A 5 or a 6 fills no box — throw again. Rejecting them is what keeps the four outcomes equally likely.");
+  let y = wsSection(d, 50, "01", t(coin ? "ws.step1Coin" : "ws.step1Dice"),
+    t(coin ? "ws.noteCoin" : "ws.noteDice", { n: throws }));
 
   const bw = 180 / 16;
   y = wsBoxes(d, 15, y, 16, throws / 16, bw, 7.2, throws, 16) + 9;
 
   // A coin needs no transcription step; a die does, two bits at a time.
   if (!coin){
-    y = wsSection(d, y, "02", "TRANSCRIBE",
-      "Each throw is two bits: 1 is 00, 2 is 01, 3 is 10, 4 is 11. " +
-      "Fill the cells left to right, top to bottom.");
+    y = wsSection(d, y, "02", t("ws.step2"), t("ws.note2"));
     for (let r = 0; r < spec.entBits / 16; r++){
       const ry = y + r * 6.4;
       for (let c = 0; c < 16; c++)
@@ -74,11 +67,9 @@ function worksheetPDF(){
   // The word table gets its own page: at 24 words it cannot share one, and a
   // sheet you fill at a table should not need turning back and forth anyway.
   d.page();
-  wsHead(d, coin ? "Coin worksheet" : "Dice worksheet",
-         spec.words + " words · continued");
-  y = wsSection(d, 50, coin ? "02" : "03", "READ OFF THE POSTER",
-    "Eleven bits per word. Read the first four bits as a column and the last seven as a row — " +
-    "or the first five and last six, on a 32 x 64 sheet. Write the index, then the word.");
+  wsHead(d, t(coin ? "ws.titleCoin" : "ws.titleDice"),
+         t("ws.continued", { words: spec.words }));
+  y = wsSection(d, 50, coin ? "02" : "03", t("ws.step3"), t("ws.note3"));
 
   // 24 rows plus the closing notes do not fit at a comfortable row height, so
   // the rows give way rather than the notes: the notes are the safety warning.
@@ -95,26 +86,20 @@ function worksheetPDF(){
     d.line(86, ry + rowH - 1.6, 108, ry + rowH - 1.6, { rgb: WS_RULE, lw: 0.15 });
     d.line(112, ry + rowH - 1.6, 195, ry + rowH - 1.6, { rgb: WS_RULE, lw: 0.15 });
     if (i === 0){
-      d.text(86, ry - 0.6, "INDEX", { size: 5.4, font: "cour", rgb: WS_SUB, tracking: 0.14 });
-      d.text(112, ry - 0.6, "WORD", { size: 5.4, font: "cour", rgb: WS_SUB, tracking: 0.14 });
+      d.text(86, ry - 0.6, t("ws.colIndex"), { size: 5.4, font: "cour", rgb: WS_SUB, tracking: 0.14 });
+      d.text(112, ry - 0.6, t("ws.colWord"), { size: 5.4, font: "cour", rgb: WS_SUB, tracking: 0.14 });
     }
     if (last)
-      d.text(24, ry + rowH * 0.62,
-             "last word carries the checksum — a machine has to finish this one",
+      d.text(24, ry + rowH * 0.62, t("ws.lastWord"),
              { size: 6.6, font: "helv", rgb: WS_VERD });
   }
   y += spec.words * rowH + 6;
 
   d.line(15, y, 195, y, { rgb: WS_INK, lw: 0.3 });
-  d.text(15, y + 5,
-    "The first " + (spec.words - 1) + " words follow from your bits alone, so this sheet and the poster " +
-    "are enough for them.", { size: 7.2, font: "helv", rgb: WS_SUB });
-  d.text(15, y + 10,
-    "The final word mixes the last entropy bits with a SHA-256 checksum: enter your bits into an offline " +
-    "tool, or a wallet that accepts dice.", { size: 7.2, font: "helv", rgb: WS_SUB });
-  d.text(15, y + 16.5,
-    "BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND.",
-    { size: 7, font: "courB", rgb: WS_INK, tracking: 0.06 });
+  d.text(15, y + 5, t("ws.foot1", { n: spec.words - 1 }),
+         { size: 7.2, font: "helv", rgb: WS_SUB });
+  d.text(15, y + 10, t("ws.foot2"), { size: 7.2, font: "helv", rgb: WS_SUB });
+  d.text(15, y + 16.5, t("ws.foot3"), { size: 7, font: "courB", rgb: WS_INK, tracking: 0.06 });
 
   PDF.save(d.blob(), "bip39-" + (coin ? "coin" : "dice") + "-worksheet-" + spec.words + "w.pdf");
 }
