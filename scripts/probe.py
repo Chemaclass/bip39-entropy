@@ -27,6 +27,7 @@ import tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGE = ROOT / "index.html"
+BASE_LANG_NOTE = "the base language"
 
 CANDIDATES = [
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -49,6 +50,32 @@ SMOKE = """
   say.sheets = document.querySelectorAll(".sheet").length;
   say.words = document.querySelectorAll(".w").length;
   document.title = "PROBE" + JSON.stringify(say);
+})();
+</script>
+"""
+
+LANGS = """
+<script>
+(function(){
+  const out = [];
+  const KEYISH = /^[a-z][a-zA-Z0-9]*(\\.[a-zA-Z0-9]+)+$/;   // "roll.title" leaked as text
+  for (const l of LANGS){          // a top-level const is not a window property
+    setLang(l.code);
+    route();
+    const shown = [...document.querySelectorAll(".pane")].filter(p => !p.hidden);
+    const leaked = [];
+    for (const el of document.querySelectorAll("[data-t], .roll-sec, .roll-count, #rollhint")){
+      const s = (el.textContent || "").trim();
+      if (!s || KEYISH.test(s)) leaked.push(el.dataset.t || el.id || el.className);
+    }
+    const missing = Object.keys(I18N[BASE_LANG])
+      .filter(k => !k.startsWith("_") && !(k in (I18N[l.code] || {})));
+    out.push({ code: l.code, name: l.name, htmlLang: document.documentElement.lang,
+               hash: location.hash, panes: shown.map(p => p.dataset.pane + ":" + p.dataset.lang),
+               leaked: leaked.slice(0, 5), leakedCount: leaked.length,
+               missing: missing.slice(0, 5), missingCount: missing.length });
+  }
+  document.title = "PROBE" + JSON.stringify(out);
 })();
 </script>
 """
@@ -195,6 +222,17 @@ def main() -> None:
         fail += 1
     else:
         print("  ok    2048 word cells")
+
+    for row in run(LANGS):
+        bad = row["leakedCount"] or not row["panes"] or row["htmlLang"] != row["code"]
+        print(f"  {'ok   ' if not bad else 'FAIL '} {row['code']} ({row['name']}): "
+              f"{row['hash']}  panes {row['panes']}  "
+              f"{row['missingCount']} key(s) falling back to {BASE_LANG_NOTE}")
+        if row["leakedCount"]:
+            print(f"        untranslated or empty in the page: {row['leaked']}")
+        if row["missingCount"]:
+            print(f"        missing keys: {row['missing']}")
+        fail += bool(bad)
 
     narrow = run_mobile()
     spill = [r for r in narrow if r["count"] or r["scroll"] > r["vw"]]
