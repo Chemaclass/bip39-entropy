@@ -2,11 +2,10 @@
 /* Two kinds of thing sit in one bar: the guide, which is read in order, and the
    tools, which are used. The separator carries the word so the grouping is
    stated rather than implied by spacing alone. */
-.tabs{align-items:baseline;gap:0 8px}
-.tabs-g{display:flex;flex-wrap:wrap}
-.tabs-sep{font:500 9px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
-  color:var(--text-4);padding:0 10px 0 12px;border-left:1px solid var(--chrome-3);
-  align-self:center}
+.tabs-g{display:flex;align-items:center;gap:2px}
+.tabs-sep{font:600 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  white-space:nowrap;color:var(--text-4);margin:0 5px;padding-left:11px;
+  border-left:1px solid var(--chrome-3)}
 .tabs-tools a{color:var(--text-2)}
 .tabs-tools a:hover{color:var(--chrome-ink)}
 
@@ -52,7 +51,7 @@
 .pager-next{text-align:right;align-items:flex-end}
 
 @media (max-width:560px){
-  .tabs-sep{padding:0 7px 0 8px}
+  .tabs-sep{margin:0 3px;padding-left:8px}
   .pager{padding:0 14px 50px}
   .pager a{flex-basis:100%}
 }

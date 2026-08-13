@@ -20,11 +20,27 @@ function parseHash(){
     : { lang: null, view: parts[0] };
 }
 
+// A phone shows the tab track a few tabs at a time. Land on #roll there and the
+// current tab is off to the right, which reads as no current tab at all.
+function centreTab(){
+  const track = $("tabs"), on = track.querySelector("a.on");
+  if (!on || track.scrollWidth <= track.clientWidth) return;
+  const off = on.getBoundingClientRect().left - track.getBoundingClientRect().left;
+  track.scrollLeft += off - (track.clientWidth - on.offsetWidth) / 2;
+}
+
 function showView(name, keepScroll){
   if (!VIEWS.includes(name)) name = HOME;
   VIEWS.forEach(v => { $("view-" + v).hidden = v !== name; });
-  document.querySelectorAll("#tabs a").forEach(a =>
-    a.classList.toggle("on", a.dataset.view === name));
+  document.querySelectorAll("#tabs a").forEach(a => {
+    const here = a.dataset.view === name;
+    a.classList.toggle("on", here);
+    // A colour is not an announcement. Screen readers get the same "you are
+    // here" the pill gives everyone else.
+    if (here) a.setAttribute("aria-current", "page");
+    else a.removeAttribute("aria-current");
+  });
+  centreTab();
   $("bar").hidden = name !== "poster";
   // The stage measures itself, so it can only be laid out while it is visible.
   if (name === "poster") render();
@@ -86,6 +102,10 @@ function navInit(){
   document.querySelectorAll("#tabs a").forEach(a => {
     a.hidden = !VIEWS.includes(a.dataset.view);
   });
+  const chrome = document.querySelector(".chrome");
+  const lift = () => chrome.classList.toggle("lift", scrollY > 4);
+  addEventListener("scroll", lift, { passive: true });
+  lift();
   addEventListener("hashchange", route);
   route();
 }

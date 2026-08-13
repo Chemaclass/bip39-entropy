@@ -27,6 +27,7 @@
   --accent-line:rgba(111,191,168,.35);
   --warn-wash:#2a2519;
   --patina-lift:#8ad3bd;
+  --lift:0 6px 20px rgba(0,0,0,.34);
 
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --grot:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",system-ui,sans-serif;
@@ -55,6 +56,7 @@
   --accent-line:rgba(29,110,89,.40);
   --warn-wash:#f6efdd;
   --patina-lift:#12523f;
+  --lift:0 6px 18px rgba(20,22,28,.12);
 }
 
 @media (prefers-color-scheme:light){
@@ -76,6 +78,7 @@
     --accent-line:rgba(29,110,89,.40);
     --warn-wash:#f6efdd;
     --patina-lift:#12523f;
+    --lift:0 6px 18px rgba(20,22,28,.12);
   }
 }
 
@@ -97,7 +100,14 @@ body{
 .ctl>label{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--chrome-dim)}
 select,input[type=search],button{font:500 12px/1 var(--mono);color:var(--chrome-ink);
   background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;padding:7px 9px;min-height:32px}
-select{padding-right:22px}
+/* The chevron is two gradients on the element itself, so every select on the
+   page carries the same one without a wrapper element around it. */
+select{appearance:none;-webkit-appearance:none;padding-right:26px;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--chrome-dim) 50%),
+    linear-gradient(135deg,var(--chrome-dim) 50%,transparent 50%);
+  background-position:calc(100% - 15px) center,calc(100% - 10px) center;
+  background-size:5px 5px;background-repeat:no-repeat}
+select:hover{border-color:var(--chrome-dim)}
 input[type=search]{width:180px}
 input[type=search]::placeholder{color:var(--text-3)}
 button{cursor:pointer}

@@ -37,6 +37,7 @@
   --accent-line:rgba(111,191,168,.35);
   --warn-wash:#2a2519;
   --patina-lift:#8ad3bd;
+  --lift:0 6px 20px rgba(0,0,0,.34);
 
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --grot:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",system-ui,sans-serif;
@@ -65,6 +66,7 @@
   --accent-line:rgba(29,110,89,.40);
   --warn-wash:#f6efdd;
   --patina-lift:#12523f;
+  --lift:0 6px 18px rgba(20,22,28,.12);
 }
 
 @media (prefers-color-scheme:light){
@@ -86,6 +88,7 @@
     --accent-line:rgba(29,110,89,.40);
     --warn-wash:#f6efdd;
     --patina-lift:#12523f;
+    --lift:0 6px 18px rgba(20,22,28,.12);
   }
 }
 
@@ -107,7 +110,14 @@ body{
 .ctl>label{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--chrome-dim)}
 select,input[type=search],button{font:500 12px/1 var(--mono);color:var(--chrome-ink);
   background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;padding:7px 9px;min-height:32px}
-select{padding-right:22px}
+/* The chevron is two gradients on the element itself, so every select on the
+   page carries the same one without a wrapper element around it. */
+select{appearance:none;-webkit-appearance:none;padding-right:26px;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--chrome-dim) 50%),
+    linear-gradient(135deg,var(--chrome-dim) 50%,transparent 50%);
+  background-position:calc(100% - 15px) center,calc(100% - 10px) center;
+  background-size:5px 5px;background-repeat:no-repeat}
+select:hover{border-color:var(--chrome-dim)}
 input[type=search]{width:180px}
 input[type=search]::placeholder{color:var(--text-3)}
 button{cursor:pointer}
@@ -196,30 +206,47 @@ main:focus{outline:none}
 
 .chrome{position:sticky;top:0;z-index:20;background:var(--veil);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--chrome-3)}
-.top{padding:9px 18px 10px}
-.top-in{max-width:1500px;margin:0 auto;display:flex;align-items:flex-end;gap:10px 26px;flex-wrap:wrap}
-.brand{text-decoration:none;color:inherit}
+/* A hairline reads as part of the page until something scrolls under it. */
+.chrome.lift{box-shadow:var(--lift)}
+.top{padding:8px 18px}
+.top-in{max-width:1500px;margin:0 auto;display:flex;align-items:center;gap:8px 18px;flex-wrap:wrap}
+.brand{text-decoration:none;color:inherit;flex:0 0 auto}
 .brand:hover span{color:var(--chrome-ink)}
 
-/* The active tab's underline is its own mark, not a join with the bar below.
-   Tabs wrap rather than widen the page: sections get added over time and a
-   narrow phone runs out of room before the design does. */
-.tabs{display:flex;gap:2px;flex-wrap:wrap}
-.tabs a{font:600 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
-  color:var(--chrome-dim);text-decoration:none;padding:10px 13px;
-  border-bottom:2px solid transparent;border-radius:3px 3px 0 0}
-.tabs a:hover{color:var(--chrome-ink);background:var(--tint)}
+/* One track holds both groups, so the bar reads as a single control rather than
+   six loose links. The track shrinks to fit and scrolls its own contents rather
+   than widening the page or stacking into rows: sections keep getting added and
+   a phone runs out of room before the design does. The row around it is what
+   claims the full width below the breakpoint, so the track itself can stay as
+   wide as its tabs instead of stretching. */
+.tabs-row{display:flex;min-width:0}
+.tabs{display:flex;align-items:center;gap:2px;padding:3px;
+  min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:none;
+  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:9px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{font:600 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--chrome-dim);text-decoration:none;white-space:nowrap;
+  padding:9px 12px;border-radius:6px}
+.tabs a:hover{color:var(--chrome-ink);background:var(--chrome-3)}
+/* Scrolling makes the track clip on both axes, and an offset ring is what gets
+   clipped. Inset it. */
+.tabs a:focus-visible{outline-offset:-2px}
 /* The selected tab is the only reliable "where am I": four long reading pages
-   share a layout, so a hairline underline is not enough to tell them apart. */
-.tabs a.on{color:var(--patina);border-bottom-color:var(--patina);
-  background:var(--accent-wash)}
+   share a layout, so a wash and a hairline are not enough to tell them apart. */
+.tabs a.on,.tabs a.on:hover{color:var(--chrome);background:var(--patina)}
 
-.save{margin-left:auto;font:500 10px/1 var(--mono);letter-spacing:.14em;
+.top-act{display:flex;align-items:center;gap:8px;margin-left:auto;flex:0 0 auto}
+.save{font:500 10px/1 var(--mono);letter-spacing:.14em;
   text-transform:uppercase;color:var(--chrome-dim);text-decoration:none;
-  border:1px solid var(--chrome-3);border-radius:3px;padding:8px 10px}
+  border:1px solid var(--chrome-3);border-radius:6px;padding:9px 11px}
 .save:hover{color:var(--patina);border-color:var(--patina)}
-.langsel{display:flex;align-items:center;margin-left:14px}
-.langsel select{min-height:28px;padding:5px 22px 5px 8px;font-size:11px;letter-spacing:.06em}
+.langsel{display:flex;align-items:center}
+.langsel select{min-height:32px;padding:6px 24px 6px 9px;font-size:11px;letter-spacing:.06em;
+  border-radius:6px}
+@media (prefers-reduced-motion:no-preference){
+  .tabs a,.save,.langsel select{transition:background-color .12s ease,color .12s ease,
+    border-color .12s ease}
+}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
@@ -233,11 +260,25 @@ main:focus{outline:none}
 .learn-sec a:hover,.roll-lead a:hover{border-bottom-color:var(--patina)}
 .roll-lead em{font-style:normal;color:var(--chrome-ink)}
 
+/* Below this the track stops fitting beside the brand and the controls, with or
+   without the save link. Sending it to a row of its own keeps the bar at two
+   rows on a phone instead of three, and keeps the controls reachable. */
+@media (max-width:1180px){
+  .tabs-row{order:2;flex:1 0 100%}
+  .top-act{order:1}
+}
+
 @media (max-width:560px){
-  .top-in{gap:8px 14px}
-  .tabs{gap:0}
-  .tabs a{padding:9px 7px;letter-spacing:.06em;font-size:10px}
-  .save{padding:7px 8px;font-size:9px}
+  .top{padding:7px 14px}
+  .top-in{gap:7px 10px}
+  /* The tagline is decoration and the headline underneath says the same thing.
+     Its width is what buys the controls a place on the brand's row. Hidden
+     rather than dropped, so the brand link still reads out in full. */
+  .brand span{position:absolute;width:1px;height:1px;overflow:hidden;
+    clip:rect(0 0 0 0);white-space:nowrap}
+  .tabs a{padding:9px 9px;letter-spacing:.06em;font-size:10px}
+  .save{padding:8px 8px;font-size:9px}
+  .langsel select{min-height:30px;font-size:10.5px;padding:6px 22px 6px 8px}
 }
 
 /* ─────────── footer ─────────── */
@@ -508,11 +549,10 @@ p.learn-lead em{color:var(--patina)}
 /* Two kinds of thing sit in one bar: the guide, which is read in order, and the
    tools, which are used. The separator carries the word so the grouping is
    stated rather than implied by spacing alone. */
-.tabs{align-items:baseline;gap:0 8px}
-.tabs-g{display:flex;flex-wrap:wrap}
-.tabs-sep{font:500 9px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
-  color:var(--text-4);padding:0 10px 0 12px;border-left:1px solid var(--chrome-3);
-  align-self:center}
+.tabs-g{display:flex;align-items:center;gap:2px}
+.tabs-sep{font:600 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  white-space:nowrap;color:var(--text-4);margin:0 5px;padding-left:11px;
+  border-left:1px solid var(--chrome-3)}
 .tabs-tools a{color:var(--text-2)}
 .tabs-tools a:hover{color:var(--chrome-ink)}
 
@@ -558,7 +598,7 @@ p.learn-lead em{color:var(--patina)}
 .pager-next{text-align:right;align-items:flex-end}
 
 @media (max-width:560px){
-  .tabs-sep{padding:0 7px 0 8px}
+  .tabs-sep{margin:0 3px;padding-left:8px}
   .pager{padding:0 14px 50px}
   .pager a{flex-basis:100%}
 }
@@ -639,28 +679,32 @@ p.learn-lead em{color:var(--patina)}
   <div class="top">
     <div class="top-in">
       <a class="brand" id="brandlink" href="#poster"><b>BIP-39</b><span data-t="brand.tag"></span></a>
-      <nav class="tabs" id="tabs" data-t-attr="aria-label:nav.aria">
-        <span class="tabs-g">
-          <a href="#start" data-view="start" data-t="nav.start"></a>
-          <a href="#learn" data-view="learn" data-t="nav.learn"></a>
-          <a href="#protect" data-view="protect" data-t="nav.protect"></a>
-          <a href="#faq" data-view="faq" data-t="nav.faq"></a>
-        </span>
-        <span class="tabs-sep" data-t="nav.tools"></span>
-        <span class="tabs-g tabs-tools">
-          <a href="#poster" data-view="poster" data-t="nav.poster"></a>
-          <a href="#roll" data-view="roll" data-t="nav.roll"></a>
-        </span>
-      </nav>
-      <a class="save" id="save" href="index.html" download="bip39-entropy.html"
-         data-t="nav.save" data-t-attr="title:nav.saveHint"></a>
-      <div class="langsel">
-        <label for="theme" class="vh" data-t="theme.label"></label>
-        <select id="theme" data-t-attr="aria-label:theme.label;title:theme.hint"></select>
+      <div class="tabs-row">
+        <nav class="tabs" id="tabs" data-t-attr="aria-label:nav.aria">
+          <span class="tabs-g">
+            <a href="#start" data-view="start" data-t="nav.start"></a>
+            <a href="#learn" data-view="learn" data-t="nav.learn"></a>
+            <a href="#protect" data-view="protect" data-t="nav.protect"></a>
+            <a href="#faq" data-view="faq" data-t="nav.faq"></a>
+          </span>
+          <span class="tabs-sep" data-t="nav.tools"></span>
+          <span class="tabs-g tabs-tools">
+            <a href="#poster" data-view="poster" data-t="nav.poster"></a>
+            <a href="#roll" data-view="roll" data-t="nav.roll"></a>
+          </span>
+        </nav>
       </div>
-      <div class="langsel">
-        <label for="lang" class="vh" data-t="lang.label"></label>
-        <select id="lang" data-t-attr="aria-label:lang.label"></select>
+      <div class="top-act">
+        <a class="save" id="save" href="index.html" download="bip39-entropy.html"
+           data-t="nav.save" data-t-attr="title:nav.saveHint"></a>
+        <div class="langsel">
+          <label for="theme" class="vh" data-t="theme.label"></label>
+          <select id="theme" data-t-attr="aria-label:theme.label;title:theme.hint"></select>
+        </div>
+        <div class="langsel">
+          <label for="lang" class="vh" data-t="lang.label"></label>
+          <select id="lang" data-t-attr="aria-label:lang.label"></select>
+        </div>
       </div>
     </div>
   </div>
@@ -7472,11 +7516,27 @@ function parseHash(){
     : { lang: null, view: parts[0] };
 }
 
+// A phone shows the tab track a few tabs at a time. Land on #roll there and the
+// current tab is off to the right, which reads as no current tab at all.
+function centreTab(){
+  const track = $("tabs"), on = track.querySelector("a.on");
+  if (!on || track.scrollWidth <= track.clientWidth) return;
+  const off = on.getBoundingClientRect().left - track.getBoundingClientRect().left;
+  track.scrollLeft += off - (track.clientWidth - on.offsetWidth) / 2;
+}
+
 function showView(name, keepScroll){
   if (!VIEWS.includes(name)) name = HOME;
   VIEWS.forEach(v => { $("view-" + v).hidden = v !== name; });
-  document.querySelectorAll("#tabs a").forEach(a =>
-    a.classList.toggle("on", a.dataset.view === name));
+  document.querySelectorAll("#tabs a").forEach(a => {
+    const here = a.dataset.view === name;
+    a.classList.toggle("on", here);
+    // A colour is not an announcement. Screen readers get the same "you are
+    // here" the pill gives everyone else.
+    if (here) a.setAttribute("aria-current", "page");
+    else a.removeAttribute("aria-current");
+  });
+  centreTab();
   $("bar").hidden = name !== "poster";
   // The stage measures itself, so it can only be laid out while it is visible.
   if (name === "poster") render();
@@ -7538,6 +7598,10 @@ function navInit(){
   document.querySelectorAll("#tabs a").forEach(a => {
     a.hidden = !VIEWS.includes(a.dataset.view);
   });
+  const chrome = document.querySelector(".chrome");
+  const lift = () => chrome.classList.toggle("lift", scrollY > 4);
+  addEventListener("scroll", lift, { passive: true });
+  lift();
   addEventListener("hashchange", route);
   route();
 }
