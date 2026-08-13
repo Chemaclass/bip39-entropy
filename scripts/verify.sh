@@ -42,12 +42,13 @@ diff -q "$ROOT/index.html" "$tmp/index.rebuilt.html" >/dev/null \
 pass "committed index.html reproduces exactly"
 
 # 3. every word actually reached the page
-missing=0
-while read -r word; do
-  grep -q "\"$word\"" "$ROOT/index.html" || { echo "    missing: $word"; missing=$((missing + 1)); }
-done < "$ROOT/data/english.txt"
-[[ "$missing" == "0" ]] || fail "$missing words missing from index.html"
-pass "all 2048 words embedded in index.html"
+# One read, one pass. Grepping the file once per word took four seconds and,
+# worse, reported phantom misses whenever anything rebuilt index.html mid-run.
+if python3 "$ROOT/scripts/embedded.py" "$ROOT"; then
+  pass "all 2048 words embedded in index.html"
+else
+  fail "words missing from index.html"
+fi
 
 # 4. the page claims it cannot talk to a network, so hold it to that
 net_hits=""

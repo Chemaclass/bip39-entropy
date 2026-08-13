@@ -8,7 +8,7 @@
 .skip:focus{left:12px;top:12px}
 main:focus{outline:none}
 
-.chrome{position:sticky;top:0;z-index:20;background:rgba(25,29,31,.94);
+.chrome{position:sticky;top:0;z-index:20;background:var(--veil);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--chrome-3)}
 .top{padding:9px 18px 10px}
 .top-in{max-width:1500px;margin:0 auto;display:flex;align-items:flex-end;gap:10px 26px;flex-wrap:wrap}
@@ -22,11 +22,11 @@ main:focus{outline:none}
 .tabs a{font:600 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
   color:var(--chrome-dim);text-decoration:none;padding:10px 13px;
   border-bottom:2px solid transparent;border-radius:3px 3px 0 0}
-.tabs a:hover{color:var(--chrome-ink);background:rgba(255,255,255,.03)}
+.tabs a:hover{color:var(--chrome-ink);background:var(--tint)}
 /* The selected tab is the only reliable "where am I": four long reading pages
    share a layout, so a hairline underline is not enough to tell them apart. */
 .tabs a.on{color:var(--patina);border-bottom-color:var(--patina);
-  background:rgba(111,191,168,.10)}
+  background:var(--accent-wash)}
 
 .save{margin-left:auto;font:500 10px/1 var(--mono);letter-spacing:.14em;
   text-transform:uppercase;color:var(--chrome-dim);text-decoration:none;
@@ -43,7 +43,7 @@ main:focus{outline:none}
 
 /* Prose links, in both long-form sections. */
 .learn-sec a,.roll-lead a{color:var(--patina);text-decoration:none;
-  border-bottom:1px solid rgba(111,191,168,.35)}
+  border-bottom:1px solid var(--accent-line)}
 .learn-sec a:hover,.roll-lead a:hover{border-bottom-color:var(--patina)}
 .roll-lead em{font-style:normal;color:var(--chrome-ink)}
 
@@ -58,14 +58,14 @@ main:focus{outline:none}
 .foot{border-top:1px solid var(--chrome-3);margin-top:40px;padding:26px 18px 40px}
 .foot-in{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 26px;
   align-items:baseline;justify-content:space-between}
-.foot-lic{font:400 11px/1.5 var(--mono);letter-spacing:.06em;color:#69736f}
+.foot-lic{font:400 11px/1.5 var(--mono);letter-spacing:.06em;color:var(--text-3)}
 .foot-links{display:flex;flex-wrap:wrap;gap:8px 20px}
 .foot-links a{font:500 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;
   color:var(--chrome-dim);text-decoration:none;border-bottom:1px solid transparent}
 .foot-links a:hover{color:var(--patina);border-bottom-color:var(--patina)}
 .foot-links a.foot-sponsor{color:var(--amber)}
 .foot-links a.foot-sponsor:hover{border-bottom-color:var(--amber)}
-.foot-note{max-width:1000px;margin:16px auto 0;font:400 10.5px/1.6 var(--mono);color:#565f5c}
+.foot-note{max-width:1000px;margin:16px auto 0;font:400 10.5px/1.6 var(--mono);color:var(--text-4)}
 
 @media (max-width:560px){
   .foot{padding:20px 14px 34px}

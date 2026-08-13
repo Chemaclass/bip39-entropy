@@ -53,7 +53,22 @@ SMOKE = """
     if (!say.views[v]) say.paintedFor = say.paintedFor || {};
     if (!say.views[v]) say.paintedFor[v] = p;
   }
+  // The theme control must change what is painted, and the sheet must stay a
+  // sheet in both, because it is the printed artifact.
+  const bg = () => getComputedStyle(document.body).backgroundColor;
+  const sheetBg = () => { const s = document.querySelector(".sheet");
+    return s ? getComputedStyle(s).backgroundColor : null; };
+  const sel = document.getElementById("theme");
   showView("poster");
+  sel.value = "dark"; sel.dispatchEvent(new Event("change"));
+  const dark = { page: bg(), sheet: sheetBg() };
+  sel.value = "light"; sel.dispatchEvent(new Event("change"));
+  const light = { page: bg(), sheet: sheetBg() };
+  sel.value = "system"; sel.dispatchEvent(new Event("change"));
+  say.theme = { changed: dark.page !== light.page,
+                sheetStable: dark.sheet === light.sheet,
+                dark: dark.page, light: light.page, sheet: light.sheet };
+
   say.sheets = document.querySelectorAll(".sheet").length;
   say.words = document.querySelectorAll(".w").length;
   document.title = "PROBE" + JSON.stringify(say);
@@ -316,6 +331,12 @@ def main() -> None:
     missing = [v for v, shown in smoke["views"].items() if not shown]
     print(f"  {'ok   ' if not missing else 'FAIL '} views render: {list(smoke['views'])}")
     fail += bool(missing)
+
+    th = smoke.get("theme", {})
+    ok_theme = th.get("changed") and th.get("sheetStable")
+    print(f"  {'ok   ' if ok_theme else 'FAIL '} theme: page {th.get('dark')} -> {th.get('light')}, "
+          f"sheet stays {th.get('sheet')}")
+    fail += not ok_theme
 
     if smoke["words"] != 2048:
         print(f"  FAIL  {smoke['words']} word cells on the default sheet, expected 2048")

@@ -74,7 +74,7 @@
         ningún ataque que exista. Lo que compra es una cobertura frente a dos cosas.
         Una es el criptoanálisis futuro. La otra es la búsqueda cuántica al estilo
         de Grover, que en teoría reduce a la mitad la fuerza efectiva de un secreto
-        simétrico: 128 bits pasarían a ser 64, y 256 pasarían a ser 128. Que esa
+        simétrico. 128 bits pasarían a ser 64, y 256 pasarían a ser 128. Que esa
         aceleración llegue a ser práctica alguna vez está genuinamente en disputa.
         Todos los monederos que cumplen el estándar soportan las dos longitudes, y
         la más larga te cuesta más de anotar, más de comprobar y más de mantener
@@ -115,9 +115,9 @@
         que las convierte en una semilla. Las mismas doce palabras con una frase de
         contraseña distinta producen un monedero completamente distinto. Se toma al
         pie de la letra, incluidas las mayúsculas y los espacios. Lo que te aporta es
-        que el papel por sí solo ya no basta: quien encuentre tu copia de seguridad
-        obtiene un monedero vacío salvo que tenga también la frase de contraseña,
-        cosa que vale mucho frente al robo de la copia física. Lo que te cuesta es
+        que el papel por sí solo ya no basta. Quien encuentre tu copia de seguridad
+        obtiene un monedero vacío salvo que tenga también la frase de contraseña.
+        Eso vale mucho frente al robo de la copia física. Lo que te cuesta es
         que no hay nada contra lo que comprobarla. Toda frase de contraseña es
         válida, así que una equivocada no da ningún error. Abre otro monedero real y
         vacío, y ningún monedero, dispositivo ni servicio de ninguna parte registra
@@ -171,9 +171,9 @@
         un servicio por defecto, indexan y entregan a cualquier software con permiso
         para leer fotografías. Una tomada en modo avión se sube sola en cuanto vuelve
         la conexión. Una nota escrita sin conexión en una carpeta sincronizada no es
-        privada, está en cola. Incluso teclear las palabras es un riesgo en sí mismo:
-        los teclados aprenden, el historial del portapapeles se guarda y a menudo se
-        sincroniza, y los archivos de la shell y del editor recuerdan lo que
+        privada, está en cola. Incluso teclear las palabras es un riesgo en sí mismo.
+        Los teclados aprenden. El historial del portapapeles se guarda y a menudo se
+        sincroniza. Los archivos de la shell y del editor recuerdan lo que
         borraste. <b>Escríbela a mano, y tecléala solo en el monedero que estés
         restaurando a propósito.</b>
       </li>
@@ -199,8 +199,8 @@
         <b>¿Debería partir la frase por la mitad y guardar las partes por
         separado?</b> No con un esquema que te hayas inventado. La aritmética es peor
         de lo que suena. Seis palabras conocidas de una frase de doce dejan unos
-        sesenta y dos bits, que no quedan cómodamente fuera del alcance de un
-        presupuesto grande de hardware, así que quien encuentre una mitad tiene una
+        sesenta y dos bits. Eso no queda cómodamente fuera del alcance de un
+        presupuesto grande de hardware. Quien encuentre una mitad tiene una
         posibilidad real en lugar de ninguna. No has reducido a la mitad el trabajo
         del atacante. Has entregado la mitad del secreto y has dejado escaso lo que
         queda. El problema mayor va en la otra dirección. Los repartos caseros
@@ -225,9 +225,9 @@
         fuera honesto, porque el mismo servidor sirvió los dos. La más fuerte es
         clonar el repositorio y ejecutar <code>scripts/verify.sh</code>. Eso
         reconstruye <code>index.html</code> desde las fuentes y lo compara con el
-        archivo que hay en el repositorio, comprueba la lista de palabras contra el
-        hash canónico de BIP-39, confirma que las 2048 palabras llegaron a la página
-        y falla si la página ha ganado algún código capaz de usar la red. Un hash
+        archivo que hay en el repositorio. Comprueba la lista de palabras contra el
+        hash canónico de BIP-39. Confirma que las 2048 palabras llegaron a la
+        página. Y falla si la página ha ganado algún código capaz de usar la red. Un hash
         publicado es una afirmación que aceptas por confianza. Un build reproducible
         es una que compruebas tú. Más allá de eso, la página es un solo archivo que
         no carga nada y no envía nada. <b>Léela, o tira del cable y mírala seguir
@@ -237,7 +237,7 @@
       <li id="faq-quantum">
         <b>¿Cambia algo de esto la computación cuántica?</b> Hoy no, y la respuesta
         honesta tiene dos mitades. Para la frase en sí, el resultado relevante es la
-        búsqueda al estilo de Grover, que en teoría reduce a la mitad la fuerza
+        búsqueda al estilo de Grover. En teoría reduce a la mitad la fuerza
         efectiva de un secreto simétrico, llevando 128 bits a 64 y 256 a 128. Que esa
         aceleración llegue a ser práctica alguna vez está genuinamente en disputa, y
         es el único argumento real a favor de veinticuatro palabras. La cuestión
@@ -245,8 +245,8 @@
         que amenazaría un ordenador cuántico lo bastante grande, y ese es un problema
         a nivel de protocolo al que la red entera se enfrentaría en conjunto. No lo
         resuelves escribiendo más palabras en un papel. No existe hoy ninguna máquina
-        capaz de lo uno ni de lo otro, y que una llegara a ser plausible se vería
-        venir durante años en lugar de aparecer de la noche a la mañana. <b>Generar
+        capaz de lo uno ni de lo otro. Que una llegara a ser plausible se vería
+        venir durante años, en lugar de aparecer de la noche a la mañana. <b>Generar
         tu frase a partir de una fuente en la que confíes y mantener el papel a salvo
         siguen siendo las dos decisiones que determinan si conservas tus monedas.</b>
       </li>
@@ -315,7 +315,7 @@
       <b>frase de contraseña</b> es un secreto adicional mezclado en esa derivación,
       y es irrecuperable una vez olvidada. El <b>muestreo por rechazo</b> es la
       costumbre de tirar los resultados que no dividen de forma pareja, como un 5 o
-      un 6 en un dado de seis caras, y es lo que mantiene igual de probables los
+      un 6 en un dado de seis caras. Es lo que mantiene igual de probables los
       resultados que sí conservas.
     </p>
 

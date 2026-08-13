@@ -174,7 +174,7 @@ p.learn-lead em{color:var(--patina)}
 .learn-tldr ul{margin:0;padding:0;list-style:none}
 .learn-tldr li{
   position:relative;padding-left:18px;margin-top:9px;
-  font:400 14px/1.6 var(--grot);color:#c7cfcb;
+  font:400 14px/1.6 var(--grot);color:var(--text-1);
 }
 .learn-tldr li:first-child{margin-top:0}
 .learn-tldr li::before{
@@ -183,5 +183,5 @@ p.learn-lead em{color:var(--patina)}
 }
 .learn-tldr b{color:var(--chrome-ink);font-weight:600}
 .learn-tldr a{color:var(--patina);text-decoration:none;
-  border-bottom:1px solid rgba(111,191,168,.35)}
+  border-bottom:1px solid var(--accent-line)}
 .learn-tldr a:hover{border-bottom-color:var(--patina)}

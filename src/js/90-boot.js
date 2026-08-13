@@ -25,6 +25,7 @@ window.addEventListener("resize", () => {
 // point at a name that need not exist.
 if (location.protocol === "file:") $("save").hidden = true;
 
+themeInit();
 langInit();
 rollInit();
 // The router treats a hash as a language and a view. This one is neither, so

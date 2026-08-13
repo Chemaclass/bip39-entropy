@@ -5,9 +5,9 @@
 .tabs{align-items:baseline;gap:0 8px}
 .tabs-g{display:flex;flex-wrap:wrap}
 .tabs-sep{font:500 9px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
-  color:#565f5c;padding:0 10px 0 12px;border-left:1px solid var(--chrome-3);
+  color:var(--text-4);padding:0 10px 0 12px;border-left:1px solid var(--chrome-3);
   align-self:center}
-.tabs-tools a{color:#8b9793}
+.tabs-tools a{color:var(--text-2)}
 .tabs-tools a:hover{color:var(--chrome-ink)}
 
 /* ─────────── section rail ─────────── */
@@ -32,7 +32,7 @@
   .rail-head{font:700 10px/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;
     color:var(--chrome-ink);margin:0 0 12px;padding-left:11px}
   .rail a{display:block;padding:6px 12px 6px 11px;border-left:1px solid var(--chrome-3);
-    font:400 11.5px/1.45 var(--mono);color:#69736f;text-decoration:none}
+    font:400 11.5px/1.45 var(--mono);color:var(--text-3);text-decoration:none}
   .rail a:hover{color:var(--chrome-ink);border-left-color:var(--chrome-dim)}
   .rail a.on{color:var(--patina);border-left-color:var(--patina)}
 }
@@ -46,7 +46,7 @@
   border:1px solid var(--chrome-3);border-radius:3px;padding:14px 16px;
   text-decoration:none;font:600 15px/1.2 var(--grot);color:var(--chrome-ink)}
 .pager a span{font:500 9.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
-  color:#69736f}
+  color:var(--text-3)}
 .pager a:hover{border-color:var(--patina);color:var(--patina)}
 .pager a:hover span{color:var(--patina)}
 .pager-next{text-align:right;align-items:flex-end}
@@ -72,9 +72,9 @@
 .scale-field span{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
   color:var(--chrome-dim)}
 .scale-out{display:flex;flex-direction:column;gap:7px}
-.scale-line{margin:0;font:400 13px/1.6 var(--mono);color:#aab3af}
+.scale-line{margin:0;font:400 13px/1.6 var(--mono);color:var(--text-2)}
 .scale-line b{color:var(--chrome-ink);font-weight:600}
-.scale-dim{color:#69736f}
+.scale-dim{color:var(--text-3)}
 .scale-warn{color:var(--amber)}
 .scale-warn b{color:var(--amber)}
 
@@ -82,13 +82,13 @@
 .cl-widget{border:1px solid var(--chrome-3);background:var(--chrome-2);border-radius:3px;
   padding:16px 18px;margin:26px 0;display:flex;flex-wrap:wrap;gap:12px 18px;
   align-items:center;justify-content:space-between}
-.cl-note{margin:0;flex:1 1 320px;font:400 13px/1.6 var(--grot);color:#aab3af}
+.cl-note{margin:0;flex:1 1 320px;font:400 13px/1.6 var(--grot);color:var(--text-2)}
 .cl-widget button{font:700 11px/1 var(--mono);letter-spacing:.1em;padding:10px 14px}
 
 /* ─────────── back to the top ─────────── */
 .totop{position:fixed;right:18px;bottom:18px;z-index:30;
   font:600 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
-  color:var(--chrome-dim);background:rgba(25,29,31,.94);
+  color:var(--chrome-dim);background:var(--veil);
   border:1px solid var(--chrome-3);border-radius:3px;padding:11px 13px;cursor:pointer}
 .totop:hover{color:var(--patina);border-color:var(--patina)}
 .totop[hidden]{display:none}

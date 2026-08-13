@@ -52,7 +52,7 @@
 
   <nav class="learn-toc" aria-label="Sections on this page">
     <ol>
-      <li><a href="#learn-what">What a seed phrase actually is</a></li>
+      <li><a href="#learn-what">What a seed phrase is</a></li>
       <li><a href="#learn-entropy">Entropy, defined properly</a></li>
       <li><a href="#learn-2048">Why 2048 words</a></li>
       <li><a href="#learn-checksum">The checksum</a></li>
@@ -64,7 +64,7 @@
   </nav>
 
   <section class="learn-sec" id="learn-what">
-    <h2><span class="learn-num" aria-hidden="true">01</span> What a seed phrase actually is</h2>
+    <h2><span class="learn-num" aria-hidden="true">01</span> What a seed phrase is</h2>
 
     <p>
       A BIP-39 phrase is a number written in words. Each word is an index into a
@@ -137,7 +137,7 @@
       <li>
         <b>Grains of sand, squared.</b> The often-quoted estimate for the sand on
         Earth's beaches and deserts is around <code>7.5 × 10^18</code> grains; treat
-        that as very approximate. Replace every one of those grains with an entire
+        that as approximate. Replace every one of those grains with an entire
         Earth's worth of sand, which squares the figure, and the total is still
         smaller than <code>2^128</code>.
       </li>
@@ -147,7 +147,7 @@
       For honesty's sake, <code>2^128</code> is not enormous by every measure.
       <code>2^128</code> water molecules amount to about ten cubic kilometres of
       water, a cube a little over two kilometres on each edge, and the Earth
-      contains vastly more atoms than that. What makes 128 bits sufficient is not
+      contains vastly more atoms than that. What makes 128 bits enough is not
       that <code>2^128</code> counts more stuff than exists, but that no physical
       process can <em>visit</em> that many states one at a time.
     </p>
@@ -168,8 +168,8 @@
       <b>Entropy is measured against what an attacker knows about your process.</b>
       If you rolled dice, the answer is 128 bits. If you picked words that mean
       something to you, the honest answer is however many bits it takes to describe
-      your habit of choosing, and that number is small, no matter how arbitrary
-      the result feels from the inside.
+      your habit of choosing. That number is small. It stays small no matter how
+      arbitrary the result feels from the inside.
     </p>
 
     <div data-widget="scale"></div>
@@ -234,10 +234,10 @@
 
     <p class="learn-note">
       Whether 12 or 24 words is the better choice is not settled by entropy alone.
-      128 bits is already beyond brute force by the margins above; 24 words is
+      128 bits is already beyond brute force by the margins above. 24 words is
       chiefly a hedge against future cryptanalysis and against Grover-style quantum
-      search, which in theory halves the effective strength of a symmetric secret.
-      128 bits would become 64, and 256 would become 128. Whether that speedup is
+      search. That search in theory halves the effective strength of a symmetric
+      secret. 128 bits would become 64, and 256 would become 128. Whether that speedup is
       ever practical is genuinely disputed. Both lengths are supported everywhere,
       and longer phrases cost you more to record and more to check.
     </p>
@@ -301,7 +301,7 @@
       When the device and its firmware are sound, it is genuinely unpredictable.
       Its weakness is that you cannot audit it. You are trusting a chip, a firmware
       build and a supply chain, and there is a real history of generators that were
-      broken, weakened or simply misused by the software above them.
+      broken, weakened or misused by the software above them.
     </p>
 
     <p>
@@ -354,9 +354,9 @@
 
     <p>
       Everything above this point is arithmetic. What follows is the record. Weak
-      randomness is not a hypothetical raised by people who enjoy being careful;
-      it is the failure that has actually and repeatedly emptied wallets, and it
-      has done so through ordinary software that nobody suspected at the time.
+      randomness is not a hypothetical raised by people who enjoy being careful.
+      It is the failure that has repeatedly emptied wallets. It did so through
+      ordinary software that nobody suspected at the time.
     </p>
 
     <p>
@@ -413,9 +413,9 @@
         (<code>CVE-2013-7372</code>); the other left the OpenSSL generator unseeded
         across the process fork that every app is spawned from
         (<code>CVE-2013-7373</code>). The thefts came through the first. Signing
-        needs a fresh random nonce every time, and when one key signs twice with
-        the same nonce the private key drops out of a page of algebra, so
-        attackers scanned the public chain for the repeats and swept what they
+        needs a fresh random nonce every time. When one key signs twice with
+        the same nonce, the private key drops out of a page of algebra.
+        Attackers scanned the public chain for the repeats and swept what they
         found. About 55 BTC gathered at a single attacker address, worth some
         5,800 dollars at that week's rate. The bitcoin.org advisory of 11 August
         2013 declared every Android-generated wallet vulnerable and named Bitcoin
@@ -489,8 +489,8 @@
         phrases where a 12-word phrase should have <code>2^128</code> behind it.
         Extension versions <code>0.0.172</code> through <code>0.0.182</code> were
         affected. It was reported in November 2022 and fixed on a public
-        repository four days later, then exploited in the wild that December and
-        again in March 2023, before being disclosed the following April as
+        repository four days later. It was exploited in the wild that December,
+        and again in March 2023. The disclosure came the following April as
         <code>CVE-2023-31290</code>. The team that found it estimated every one of
         those four billion phrases could be generated on a single computer in a
         couple of hours.
@@ -517,11 +517,11 @@
         marketplace rather than from the company that made it can arrive already
         knowing its answer. The crude version puts the phrase in the box, on a
         pre-filled card or under a scratch panel, with instructions implying the
-        factory generated it. The thorough version is inside the device. A
-        counterfeit taken apart by security researchers in 2023, bought from a
-        classifieds seller the year before, had its microcontroller swapped for one
-        with readout protection disabled and its bootloader signature checks
-        stripped out, and its firmware substituted one of 20 phrases stored in
+        factory generated it. The thorough version is inside the device.
+        Security researchers took a counterfeit apart in 2023. It had been bought
+        from a classifieds seller the year before. Its microcontroller had been swapped
+        for one with readout protection disabled. Its bootloader signature checks
+        were stripped out. Its firmware substituted one of 20 phrases stored in
         advance for the one it appeared to generate. Twenty, rather than
         <code>2^128</code>, which is about four and a third bits. Its passphrase
         feature was gutted to match, using only the first character and leaving 64
@@ -535,7 +535,7 @@
     <p>
       Set the collapses side by side. The middle column is what the format
       implies: 256 bits for a raw private key, 128 for a 12-word phrase, at least
-      that for an SSH or TLS key. The one beside it is what was actually there.
+      that for an SSH or TLS key. The one beside it is what was there.
     </p>
 
     <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Documented entropy failures and the search space each left, scrollable table">
@@ -571,9 +571,9 @@
       <a href="#learn-source">The previous section</a> put a single machine at
       <code>2^40</code> in a fortnight. <code>2^32</code> is 256 times smaller
       than that, so the same machine finishes the entire space in a little over an
-      hour. The published estimates agree: a couple of hours on one
-      computer for the Trust Wallet phrases, under ten hours on a laptop to
-      precompute every key Profanity could produce, at most a few days on a gaming
+      hour. The published estimates agree. A couple of hours on one
+      computer for the Trust Wallet phrases. Under ten hours on a laptop to
+      precompute every key Profanity could produce. At most a few days on a gaming
       machine for Libbitcoin's. That is not a hardware budget. It is an afternoon.
     </p>
 
@@ -618,9 +618,9 @@
     <h2><span class="learn-num" aria-hidden="true">07</span> Doing it by hand</h2>
 
     <p class="learn-note">
-      Two things on this page put this section into practice:
+      Two things on this page put this section into practice.
       <a href="#roll">Roll your own</a> walks the throws in and shows the bits
-      becoming words, and the worksheet it prints lets you do the same at a table
+      becoming words. The worksheet it prints lets you do the same at a table
       with no computer at all. With a 12-word phrase only the last word needs a
       machine. The other eleven you can read straight off
       <a href="#poster">the poster</a>.
@@ -698,10 +698,10 @@
       <b>What a printed word list is.</b> The public BIP-39 English list, identical
       in every wallet that implements the standard and downloadable from the
       bitcoin/bips repository. There is nothing sensitive about it. Hanging it on a
-      wall reveals no more than hanging up a dictionary, and it is genuinely useful:
-      it turns bits into words, tells you the four-letter prefixes hardware wallets
-      ask for, and lets you confirm a word exists before you trust it to a metal
-      plate.
+      wall reveals no more than hanging up a dictionary. It is genuinely useful.
+      It turns bits into words. It tells you the four-letter prefixes hardware
+      wallets ask for. It lets you confirm a word exists before you trust it to a
+      metal plate.
     </p>
 
     <p>

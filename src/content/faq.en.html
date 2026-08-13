@@ -109,9 +109,9 @@
         them into a seed. The same twelve words with a different passphrase
         produce a completely different wallet. It's taken literally, including
         case and spacing. What it buys is that the paper alone is no longer
-        enough: somebody who finds your backup gets an empty wallet unless they
-        also have the passphrase, which is worth a great deal against theft of
-        the physical copy. What it costs is that there's nothing to check it
+        enough. Somebody who finds your backup gets an empty wallet unless they
+        also have the passphrase. Against theft of the physical copy, that is
+        worth a great deal. What it costs is that there's nothing to check it
         against. Every passphrase is valid, so a wrong one raises no error. It
         opens another real and empty wallet, and no wallet, device or service
         anywhere records what you chose. A forgotten or mistyped passphrase loses
@@ -187,8 +187,8 @@
       <li id="faq-split">
         <b>Should I split the phrase into halves and store them separately?</b>
         Not one you invented. The arithmetic is worse than it sounds. Six known
-        words of a twelve-word phrase leave about sixty-two bits, which is not
-        comfortably out of reach of a large hardware budget, so whoever finds one
+        words of a twelve-word phrase leave about sixty-two bits. That is not
+        comfortably out of reach of a large hardware budget. Whoever finds one
         half has a real chance rather than none. You haven't halved the
         attacker's work. You've handed over half the secret and left the rest
         thin. The larger problem runs the other way. Home-made splits lose coins
@@ -211,9 +211,10 @@
         It does not prove the server was honest, because the same server served
         both. The stronger one is to clone the repository and run
         <code>scripts/verify.sh</code>. That rebuilds <code>index.html</code>
-        from the sources and diffs it against the committed file, checks the word
-        list against the canonical BIP-39 hash, confirms all 2048 words reached
-        the page, and fails if the page has gained any network-capable code. A
+        from the sources and diffs it against the committed file. It checks the
+        word list against the canonical BIP-39 hash. It confirms all 2048 words
+        reached the page. It fails if the page has gained any network-capable
+        code. A
         published hash is a claim you take on trust. A reproducible build is one
         you check for yourself. Beyond that the page is a single file that loads
         nothing and sends nothing. <b>Read it, or pull the cable and watch it
@@ -300,8 +301,8 @@
       wallets that show you different addresses. A <b>passphrase</b> is an extra
       secret mixed into that derivation, and it's unrecoverable once forgotten.
       <b>Rejection sampling</b> is the habit of throwing out results that don't
-      divide evenly, such as a 5 or a 6 on a six-sided die, and it's what keeps
-      the results you do keep equally likely.
+      divide evenly, such as a 5 or a 6 on a six-sided die. It's what keeps the
+      results you do keep equally likely.
     </p>
 
     <p class="learn-note">
