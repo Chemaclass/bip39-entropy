@@ -104,10 +104,16 @@ function navInit(){
   document.querySelectorAll("#tabs a").forEach(a => {
     a.hidden = !VIEWS.includes(a.dataset.view);
   });
+  // A sentinel above the bar, watched rather than polled: the observer fires
+  // twice per page rather than on every scroll tick.
   const chrome = document.querySelector(".chrome");
-  const lift = () => chrome.classList.toggle("lift", scrollY > 4);
-  addEventListener("scroll", lift, { passive: true });
-  lift();
+  const mark = document.createElement("div");
+  mark.setAttribute("aria-hidden", "true");
+  mark.style.cssText = "position:absolute;top:0;left:0;height:4px;width:1px";
+  document.body.insertBefore(mark, document.body.firstChild);
+  new IntersectionObserver(
+    ([e]) => chrome.classList.toggle("lift", !e.isIntersecting)
+  ).observe(mark);
   addEventListener("hashchange", route);
   route();
 }

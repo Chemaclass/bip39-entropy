@@ -10,30 +10,39 @@
 .tabs-tools a:hover{color:var(--chrome-ink)}
 
 /* ─────────── section rail ─────────── */
-/* A long page gets a rail of its own headings, tracking as you scroll. It
-   appears only where there is room beside the column, so nothing is squeezed:
-   below that width the inline contents list at the top of the page does the
-   same job. */
+/* The contents list used to hold a 246px column open on every wide screen for
+   something read once. Now it is a mark in the gutter that opens the list over
+   the page, so the column keeps the middle of the window to itself.
+   Hover opens it for a mouse, the button opens it for a keyboard or a thumb. */
 .rail{display:none}
 
-@media (min-width:1300px){
-  .view.has-rail:not([hidden]){display:grid;grid-template-columns:210px minmax(0,1000px);
-    justify-content:center;column-gap:36px;align-items:start}
-  .view.has-rail .pane{grid-column:2}
-  /* auto side margins make a grid item shrink to its content instead of
-     filling the track, which collapsed these cards to the width of their text */
-  .view.has-rail .pager{grid-column:2;margin:0;max-width:none;padding-left:0;padding-right:0}
-  .view.has-rail .learn{margin:0;padding-left:0;padding-right:0}
-  .view.has-rail .learn-toc{display:none}
+@media (min-width:1100px){
+  .rail{display:block;position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:15}
+  .rail-btn{display:flex;align-items:center;justify-content:center;
+    width:34px;height:54px;padding:0;cursor:pointer;
+    color:var(--chrome-dim);background:var(--chrome-2);
+    border:1px solid var(--chrome-3);border-radius:9px}
+  .rail-btn::before{content:"";display:block;width:15px;height:17px;
+    background:repeating-linear-gradient(to bottom,currentColor 0 1.5px,transparent 1.5px 5.5px)}
+  .rail-btn:hover{color:var(--chrome-ink);border-color:var(--chrome-dim)}
 
-  .rail{display:block;position:sticky;top:124px;grid-column:1;
-    padding:56px 0 0;max-height:calc(100vh - 152px);overflow:auto}
-  .rail-head{font:700 10px/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;
-    color:var(--chrome-ink);margin:0 0 12px;padding-left:11px}
-  .rail a{display:block;padding:6px 12px 6px 11px;border-left:1px solid var(--chrome-3);
-    font:400 11.5px/1.45 var(--mono);color:var(--text-3);text-decoration:none}
-  .rail a:hover{color:var(--chrome-ink);border-left-color:var(--chrome-dim)}
-  .rail a.on{color:var(--patina);border-left-color:var(--patina)}
+  .rail-panel{position:absolute;left:calc(100% + 10px);top:50%;
+    transform:translateY(-50%);width:262px;padding:15px 8px 8px;
+    background:var(--chrome-2);border:1px solid var(--chrome-3);
+    border-radius:12px;box-shadow:var(--lift)}
+  /* The attribute keeps the links out of the tab order until the list is open.
+     Hover has no attribute to set, so it overrides the attribute in CSS alone. */
+  .rail-panel[hidden]{display:none}
+  .rail:hover .rail-panel[hidden]{display:block}
+  .rail-head{font:700 9.5px/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;
+    color:var(--text-3);margin:0 0 10px;padding:0 10px}
+  .rail a{display:block;padding:7px 10px;border-radius:6px;
+    font:400 12.5px/1.4 var(--grot);color:var(--text-2);text-decoration:none;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rail a:hover{color:var(--chrome-ink);background:var(--chrome-3)}
+  .rail a.on{color:var(--patina);font-weight:600}
+
+  .view.has-rail .learn-toc{display:none}
 }
 
 /* ─────────── pager ─────────── */

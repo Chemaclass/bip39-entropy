@@ -204,16 +204,18 @@ body.plain .w{color:var(--ink)}
 .skip:focus{left:12px;top:12px}
 main:focus{outline:none}
 
+/* No backdrop-filter: --veil is 94% opaque, so the blur behind it was measured
+   at zero differing pixels while still costing a compositing pass per frame. */
 .chrome{position:sticky;top:0;z-index:20;background:var(--veil);
-  backdrop-filter:blur(8px);border-bottom:1px solid var(--chrome-3)}
+  border-bottom:1px solid var(--chrome-3)}
 /* A hairline reads as part of the page until something scrolls under it. */
 .chrome.lift{box-shadow:var(--lift)}
-.top{padding:14px 18px}
-/* The bar lines up with what is under it: the brand sits on the section rail's
-   edge, not out at the window's. The poster is the exception, because its stage
-   is as wide as the paper, so the chrome widens for that view alone.
-   1246 = 210 rail + 36 gap + 1000 column, the reading grid in 50-reading.css. */
-.top-in{max-width:1246px;margin:0 auto;display:flex;align-items:center;gap:8px 18px;flex-wrap:wrap}
+.top{padding:14px 0}
+/* The bar shares its edges with the column under it, so the brand and the prose
+   start at the same x. The poster is the exception, because its stage is as wide
+   as the paper, so the chrome widens for that view alone. */
+.top-in{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;align-items:center;
+  gap:8px 12px;flex-wrap:wrap}
 .chrome.wide .top-in{max-width:1500px}
 .brand{text-decoration:none;color:inherit;flex:0 0 auto}
 .brand:hover span{color:var(--chrome-ink)}
@@ -229,9 +231,9 @@ main:focus{outline:none}
   min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:none;
   background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:9px}
 .tabs::-webkit-scrollbar{display:none}
-.tabs a{font:600 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+.tabs a{font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
   color:var(--chrome-dim);text-decoration:none;white-space:nowrap;
-  padding:9px 12px;border-radius:6px}
+  padding:9px 10px;border-radius:6px}
 .tabs a:hover{color:var(--chrome-ink);background:var(--chrome-3)}
 /* Scrolling makes the track clip on both axes, and an offset ring is what gets
    clipped. Inset it. */
@@ -241,16 +243,12 @@ main:focus{outline:none}
 .tabs a.on,.tabs a.on:hover{color:var(--chrome);background:var(--patina)}
 
 .top-act{display:flex;align-items:center;gap:8px;margin-left:auto;flex:0 0 auto}
-.save{font:500 10px/1 var(--mono);letter-spacing:.14em;
-  text-transform:uppercase;color:var(--chrome-dim);text-decoration:none;
-  border:1px solid var(--chrome-3);border-radius:6px;padding:9px 11px}
-.save:hover{color:var(--patina);border-color:var(--patina)}
 .langsel{display:flex;align-items:center}
-.langsel select{min-height:32px;padding:6px 24px 6px 9px;font-size:11px;letter-spacing:.06em;
+.langsel select{min-height:32px;padding:6px 22px 6px 8px;font-size:11px;letter-spacing:.04em;
   border-radius:6px}
 @media (prefers-reduced-motion:no-preference){
-  .tabs a,.save,.langsel select{transition:background-color .12s ease,color .12s ease,
-    border-color .12s ease}
+  .tabs a,.foot-links a,.langsel select{transition:background-color .12s ease,
+    color .12s ease,border-color .12s ease}
 }
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -265,24 +263,23 @@ main:focus{outline:none}
 .learn-sec a:hover,.roll-lead a:hover{border-bottom-color:var(--patina)}
 .roll-lead em{font-style:normal;color:var(--chrome-ink)}
 
-/* Below this the track stops fitting beside the brand and the controls, with or
-   without the save link. Sending it to a row of its own keeps the bar at two
-   rows on a phone instead of three, and keeps the controls reachable. */
-@media (max-width:1180px){
+/* Below this the track stops fitting beside the brand and the controls. Sending
+   it to a row of its own keeps the bar at two rows rather than three, and keeps
+   the controls reachable. */
+@media (max-width:1000px){
   .tabs-row{order:2;flex:1 0 100%}
   .top-act{order:1}
 }
 
 @media (max-width:560px){
-  .top{padding:7px 14px}
-  .top-in{gap:7px 10px}
+  .top{padding:7px 0}
+  .top-in{gap:7px 10px;padding:0 14px}
   /* The tagline is decoration and the headline underneath says the same thing.
      Its width is what buys the controls a place on the brand's row. Hidden
      rather than dropped, so the brand link still reads out in full. */
   .brand span{position:absolute;width:1px;height:1px;overflow:hidden;
     clip:rect(0 0 0 0);white-space:nowrap}
-  .tabs a{padding:9px 9px;letter-spacing:.06em;font-size:10px}
-  .save{padding:8px 8px;font-size:9px}
+  .tabs a{padding:9px 8px;letter-spacing:.06em;font-size:10px}
   .langsel select{min-height:30px;font-size:10.5px;padding:6px 22px 6px 8px}
 }
 
@@ -579,30 +576,39 @@ p.learn-lead em{color:var(--patina)}
 .tabs-tools a:hover{color:var(--chrome-ink)}
 
 /* ─────────── section rail ─────────── */
-/* A long page gets a rail of its own headings, tracking as you scroll. It
-   appears only where there is room beside the column, so nothing is squeezed:
-   below that width the inline contents list at the top of the page does the
-   same job. */
+/* The contents list used to hold a 246px column open on every wide screen for
+   something read once. Now it is a mark in the gutter that opens the list over
+   the page, so the column keeps the middle of the window to itself.
+   Hover opens it for a mouse, the button opens it for a keyboard or a thumb. */
 .rail{display:none}
 
-@media (min-width:1300px){
-  .view.has-rail:not([hidden]){display:grid;grid-template-columns:210px minmax(0,1000px);
-    justify-content:center;column-gap:36px;align-items:start}
-  .view.has-rail .pane{grid-column:2}
-  /* auto side margins make a grid item shrink to its content instead of
-     filling the track, which collapsed these cards to the width of their text */
-  .view.has-rail .pager{grid-column:2;margin:0;max-width:none;padding-left:0;padding-right:0}
-  .view.has-rail .learn{margin:0;padding-left:0;padding-right:0}
-  .view.has-rail .learn-toc{display:none}
+@media (min-width:1100px){
+  .rail{display:block;position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:15}
+  .rail-btn{display:flex;align-items:center;justify-content:center;
+    width:34px;height:54px;padding:0;cursor:pointer;
+    color:var(--chrome-dim);background:var(--chrome-2);
+    border:1px solid var(--chrome-3);border-radius:9px}
+  .rail-btn::before{content:"";display:block;width:15px;height:17px;
+    background:repeating-linear-gradient(to bottom,currentColor 0 1.5px,transparent 1.5px 5.5px)}
+  .rail-btn:hover{color:var(--chrome-ink);border-color:var(--chrome-dim)}
 
-  .rail{display:block;position:sticky;top:124px;grid-column:1;
-    padding:56px 0 0;max-height:calc(100vh - 152px);overflow:auto}
-  .rail-head{font:700 10px/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;
-    color:var(--chrome-ink);margin:0 0 12px;padding-left:11px}
-  .rail a{display:block;padding:6px 12px 6px 11px;border-left:1px solid var(--chrome-3);
-    font:400 11.5px/1.45 var(--mono);color:var(--text-3);text-decoration:none}
-  .rail a:hover{color:var(--chrome-ink);border-left-color:var(--chrome-dim)}
-  .rail a.on{color:var(--patina);border-left-color:var(--patina)}
+  .rail-panel{position:absolute;left:calc(100% + 10px);top:50%;
+    transform:translateY(-50%);width:262px;padding:15px 8px 8px;
+    background:var(--chrome-2);border:1px solid var(--chrome-3);
+    border-radius:12px;box-shadow:var(--lift)}
+  /* The attribute keeps the links out of the tab order until the list is open.
+     Hover has no attribute to set, so it overrides the attribute in CSS alone. */
+  .rail-panel[hidden]{display:none}
+  .rail:hover .rail-panel[hidden]{display:block}
+  .rail-head{font:700 9.5px/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;
+    color:var(--text-3);margin:0 0 10px;padding:0 10px}
+  .rail a{display:block;padding:7px 10px;border-radius:6px;
+    font:400 12.5px/1.4 var(--grot);color:var(--text-2);text-decoration:none;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rail a:hover{color:var(--chrome-ink);background:var(--chrome-3)}
+  .rail a.on{color:var(--patina);font-weight:600}
+
+  .view.has-rail .learn-toc{display:none}
 }
 
 /* ─────────── pager ─────────── */
@@ -717,8 +723,6 @@ p.learn-lead em{color:var(--patina)}
         </nav>
       </div>
       <div class="top-act">
-        <a class="save" id="save" href="index.html" download="bip39-entropy.html"
-           data-t="nav.save" data-t-attr="title:nav.saveHint"></a>
         <div class="langsel">
           <label for="theme" class="vh" data-t="theme.label"></label>
           <select id="theme" data-t-attr="aria-label:theme.label;title:theme.hint"></select>
@@ -3633,6 +3637,8 @@ p.learn-lead em{color:var(--patina)}
          rel="noopener" data-t="footer.licenceLink"></a>
       <a href="https://chemaclass.com" target="_blank" rel="noopener"
          data-t="footer.site"></a>
+      <a id="save" href="index.html" download="bip39-entropy.html"
+         data-t="nav.save" data-t-attr="title:nav.saveHint"></a>
       <a href="https://chemaclass.com/sponsor/" target="_blank" rel="noopener"
          class="foot-sponsor" data-t="footer.sponsor"></a>
     </nav>
@@ -5244,10 +5250,16 @@ function navInit(){
   document.querySelectorAll("#tabs a").forEach(a => {
     a.hidden = !VIEWS.includes(a.dataset.view);
   });
+  // A sentinel above the bar, watched rather than polled: the observer fires
+  // twice per page rather than on every scroll tick.
   const chrome = document.querySelector(".chrome");
-  const lift = () => chrome.classList.toggle("lift", scrollY > 4);
-  addEventListener("scroll", lift, { passive: true });
-  lift();
+  const mark = document.createElement("div");
+  mark.setAttribute("aria-hidden", "true");
+  mark.style.cssText = "position:absolute;top:0;left:0;height:4px;width:1px";
+  document.body.insertBefore(mark, document.body.firstChild);
+  new IntersectionObserver(
+    ([e]) => chrome.classList.toggle("lift", !e.isIntersecting)
+  ).observe(mark);
   addEventListener("hashchange", route);
   route();
 }
@@ -5272,19 +5284,24 @@ function railFor(view){
 
   let rail = host.querySelector(".rail");
   if (!rail){
-    rail = document.createElement("nav");
+    rail = document.createElement("div");
     rail.className = "rail";
+    rail.append(railButton(), document.createElement("nav"));
+    rail.lastChild.className = "rail-panel";
+    rail.lastChild.hidden = true;
     host.insertBefore(rail, host.firstChild);
   }
-  rail.replaceChildren();
-  rail.setAttribute("aria-label", t("nav.aria"));
+  const btn = rail.firstChild, panel = rail.lastChild;
+  btn.setAttribute("aria-label", t("nav.aria"));
+  panel.replaceChildren();
+  panel.setAttribute("aria-label", t("nav.aria"));
 
   // Name the page. Four reading pages share one layout, and a list of section
   // titles alone does not say which page you are on.
   const head = document.createElement("p");
   head.className = "rail-head";
   head.textContent = t("nav." + view);
-  rail.appendChild(head);
+  panel.appendChild(head);
 
   for (const s of secs){
     const a = document.createElement("a");
@@ -5292,11 +5309,48 @@ function railFor(view){
     // The number is already in the heading; the rail wants the words alone.
     a.textContent = s.label.replace(/^\s*\d+\s*/, "");
     a.dataset.for = s.id;
-    rail.appendChild(a);
+    a.title = a.textContent;
+    a.addEventListener("click", () => railOpen(rail, false));
+    panel.appendChild(a);
   }
   host.classList.add("has-rail");
   return secs;
 }
+
+// Hover is enough for a mouse, and CSS does that on its own. This is the path
+// for a keyboard or a thumb, which have no hover to give.
+function railOpen(rail, open){
+  rail.classList.toggle("open", open);
+  rail.firstChild.setAttribute("aria-expanded", String(open));
+  rail.lastChild.hidden = !open;
+}
+
+function railButton(){
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "rail-btn";
+  b.setAttribute("aria-expanded", "false");
+  b.addEventListener("click", e => {
+    e.stopPropagation();
+    railOpen(b.parentNode, !b.parentNode.classList.contains("open"));
+  });
+  return b;
+}
+
+// Anywhere else, and Escape, closes it. A contents list that stays open over the
+// prose is worse than one that costs a click.
+addEventListener("click", e => {
+  document.querySelectorAll(".rail.open").forEach(r => {
+    if (!r.contains(e.target)) railOpen(r, false);
+  });
+});
+addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  document.querySelectorAll(".rail.open").forEach(r => {
+    railOpen(r, false);
+    r.firstChild.focus();
+  });
+});
 
 let railSecs = null;
 let railCurrent = null;      // the section the reader is looking at

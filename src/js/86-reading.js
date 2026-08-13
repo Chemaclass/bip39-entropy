@@ -17,19 +17,24 @@ function railFor(view){
 
   let rail = host.querySelector(".rail");
   if (!rail){
-    rail = document.createElement("nav");
+    rail = document.createElement("div");
     rail.className = "rail";
+    rail.append(railButton(), document.createElement("nav"));
+    rail.lastChild.className = "rail-panel";
+    rail.lastChild.hidden = true;
     host.insertBefore(rail, host.firstChild);
   }
-  rail.replaceChildren();
-  rail.setAttribute("aria-label", t("nav.aria"));
+  const btn = rail.firstChild, panel = rail.lastChild;
+  btn.setAttribute("aria-label", t("nav.aria"));
+  panel.replaceChildren();
+  panel.setAttribute("aria-label", t("nav.aria"));
 
   // Name the page. Four reading pages share one layout, and a list of section
   // titles alone does not say which page you are on.
   const head = document.createElement("p");
   head.className = "rail-head";
   head.textContent = t("nav." + view);
-  rail.appendChild(head);
+  panel.appendChild(head);
 
   for (const s of secs){
     const a = document.createElement("a");
@@ -37,11 +42,48 @@ function railFor(view){
     // The number is already in the heading; the rail wants the words alone.
     a.textContent = s.label.replace(/^\s*\d+\s*/, "");
     a.dataset.for = s.id;
-    rail.appendChild(a);
+    a.title = a.textContent;
+    a.addEventListener("click", () => railOpen(rail, false));
+    panel.appendChild(a);
   }
   host.classList.add("has-rail");
   return secs;
 }
+
+// Hover is enough for a mouse, and CSS does that on its own. This is the path
+// for a keyboard or a thumb, which have no hover to give.
+function railOpen(rail, open){
+  rail.classList.toggle("open", open);
+  rail.firstChild.setAttribute("aria-expanded", String(open));
+  rail.lastChild.hidden = !open;
+}
+
+function railButton(){
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "rail-btn";
+  b.setAttribute("aria-expanded", "false");
+  b.addEventListener("click", e => {
+    e.stopPropagation();
+    railOpen(b.parentNode, !b.parentNode.classList.contains("open"));
+  });
+  return b;
+}
+
+// Anywhere else, and Escape, closes it. A contents list that stays open over the
+// prose is worse than one that costs a click.
+addEventListener("click", e => {
+  document.querySelectorAll(".rail.open").forEach(r => {
+    if (!r.contains(e.target)) railOpen(r, false);
+  });
+});
+addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  document.querySelectorAll(".rail.open").forEach(r => {
+    railOpen(r, false);
+    r.firstChild.focus();
+  });
+});
 
 let railSecs = null;
 let railCurrent = null;      // the section the reader is looking at
