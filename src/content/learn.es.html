@@ -14,6 +14,30 @@
     </p>
   </header>
 
+  <aside class="learn-tldr">
+    <p class="learn-tldr-label">En resumen</p>
+    <ul>
+      <li>La <a href="#learn-entropy">entropía</a> cuenta de cuántos números igual
+        de probables salió el tuyo, así que mide <b>el proceso que lo eligió</b>,
+        nunca lo aleatorias que parecen las palabras.</li>
+      <li>La lista tiene <a href="#learn-2048">2048 palabras</a> porque 2048 es dos
+        elevado a once, así que cada palabra lleva exactamente once bits y <b>doce
+        palabras llevan 128 bits de entropía más una suma de verificación de 4
+        bits</b>.</li>
+      <li>La <a href="#learn-checksum">suma de verificación</a> detecta unos quince
+        errores de transcripción de cada dieciséis y no dice <b>nada sobre lo
+        adivinable que es tu frase</b>, así que un monedero que acepta una frase no
+        es una comprobación de seguridad.</li>
+      <li>Saca tu aleatoriedad de <a href="#learn-source">dados, monedas o un
+        generador por hardware en el que tengas motivos para confiar</a>, y nunca de
+        tu propia cabeza, porque las palabras que elige una persona valen unas pocas
+        docenas de bits como mucho.</li>
+      <li>Todo monedero vaciado por <a href="#learn-failed">aleatoriedad débil</a>
+        se vació porque el número detrás de la frase era pequeño, <b>no porque
+        BIP-39 fallara</b>, y nadie podría haberlo visto mirando las palabras.</li>
+    </ul>
+  </aside>
+
   <aside class="learn-warn">
     <p class="learn-warn-label">Advertencia</p>
     <p>
@@ -105,7 +129,7 @@
         esto subestima con generosidad el coste real.
       </li>
       <li>
-        <b>Todas las computadoras de la Tierra.</b> Supón diez mil millones de
+        <b>Todos los ordenadores de la Tierra.</b> Supón diez mil millones de
         dispositivos (<code>10^10</code>), cada uno probando mil millones de
         candidatos por segundo (<code>10^9</code>). Eso son <code>10^19</code> por
         segundo, y <code>2^128</code> sigue llevando <b>unos 1.1 billones de
@@ -290,7 +314,7 @@
       <b>Un generador de números aleatorios por hardware</b>, en un monedero o en
       un teléfono, es rápido. Cuando el dispositivo y su firmware son sólidos, es
       genuinamente impredecible. Su debilidad es que no puedes auditarlo. Estás
-      confiando en un chip, en una compilación de firmware y en una cadena de
+      confiando en un chip, en un build de firmware y en una cadena de
       suministro, y hay un historial real de generadores rotos, debilitados o
       simplemente mal usados por el software que tenían encima.
     </p>
@@ -357,15 +381,37 @@
 
     <p>
       Léelos por el mecanismo y no por el drama, y fíjate en lo único que comparten.
-      En todos los casos el monedero funcionaba. Las direcciones eran válidas, las
-      transacciones se firmaban y se confirmaban, la frase se parecía exactamente a
-      cualquier otra frase, y <a href="#learn-checksum">la suma de verificación</a>
-      pasaba, porque una suma de verificación no tiene nada que decir sobre de dónde
-      vino un número. Nadie de aquí podría haberlo detectado estudiando sus propias
-      palabras. No había nada que ver en ellas.
+      En todos los casos el software funcionaba. Las claves eran válidas, las
+      direcciones eran válidas, las transacciones se firmaban y se confirmaban, y
+      donde había una frase se parecía exactamente a cualquier otra frase y
+      <a href="#learn-checksum">la suma de verificación</a> pasaba, porque una suma
+      de verificación no tiene nada que decir sobre de dónde vino un número. Nadie
+      de aquí podría haberlo detectado estudiando sus propias palabras. No había
+      nada que ver en ellas.
     </p>
 
     <ul class="learn-mag">
+      <li>
+        <b>El OpenSSL de Debian, de septiembre de 2006 a mayo de 2008.</b> Un
+        maintainer comentó dos líneas idénticas de <code>md_rand.c</code> que metían
+        un buffer de memoria sin inicializar en el pool de aleatoriedad. Valgrind,
+        una herramienta de comprobación de memoria, las había marcado por leer datos
+        sin inicializar. La queja era correcta y las líneas no eran un bug. Sin
+        ellas, la única entrada variable que le quedaba al generador era el id de
+        proceso, y Linux reparte como mucho 32,768 de esos. Toda clave que
+        produjeron los paquetes afectados salía de 32,767 posibilidades para un tipo
+        de clave, un tamaño de clave y una arquitectura dados. Eso son quince bits,
+        donde el formato da a entender un espacio que nadie podría enumerar. Estuvo
+        así veinte meses, desde la subida del 17 de septiembre de 2006 hasta el
+        aviso del 13 de mayo de 2008 (<code>CVE-2008-0166</code>), y afectó a claves
+        SSH, claves OpenVPN, claves DNSSEC y las claves dentro de certificados
+        X.509. Parchear el paquete no arreglaba nada por sí solo, porque las claves
+        ya existían y ya se habían copiado a otras máquinas, así que Debian publicó
+        listas negras de las claves débiles para que los servidores las rechazaran.
+        Este es anterior a Bitcoin. Está aquí porque es el patrón: un cambio
+        cuidadoso, hecho por una buena razón, que quitó aleatoriedad y dejó todo
+        funcionando.
+      </li>
       <li>
         <b>Brainwallets, desde alrededor de 2011.</b> Una frase de contraseña que te
         inventabas tú se pasaba por un único <code>SHA-256</code> sin sal, y los 32
@@ -436,8 +482,8 @@
         días después, y luego se explotó en entornos reales ese diciembre y otra vez
         en marzo de 2023, antes de divulgarse el abril siguiente como
         <code>CVE-2023-31290</code>. El equipo que lo encontró estimó que cada una
-        de esas cuatro mil millones de frases se podía generar en una sola
-        computadora en un par de horas.
+        de esas cuatro mil millones de frases se podía generar en un solo
+        ordenador en un par de horas.
       </li>
       <li>
         <b>Milk Sad, 2023.</b> Libbitcoin Explorer, una herramienta de línea de
@@ -454,7 +500,7 @@
         preparado se llevó unos 29.65 BTC, que entonces valían más de 850,000
         dólares, y los investigadores situaron el total movido entre cadenas por
         encima de 900,000 dólares. Estimaron los 4.29 mil millones de candidatos
-        completos en no más de unos pocos días en una computadora para juegos
+        completos en no más de unos pocos días en un ordenador de juegos
         corriente. Divulgado el 8 de agosto de 2023 como
         <code>CVE-2023-39910</code>.
       </li>
@@ -567,7 +613,7 @@
       Dos cosas de esta página llevan esta sección a la práctica:
       <a href="#roll">Genera la tuya</a> va recogiendo las tiradas y muestra cómo
       los bits se convierten en palabras, y la hoja de trabajo que imprime te deja
-      hacer lo mismo en una mesa sin ninguna computadora. Con una frase de 12
+      hacer lo mismo en una mesa sin ningún ordenador. Con una frase de 12
       palabras solo la última palabra necesita una máquina. Las otras once puedes
       leerlas directamente en <a href="#poster">el póster</a>.
     </p>
@@ -691,7 +737,7 @@
       Esta página no pide nada y no transmite nada. No tiene ninguna entrada que
       acepte una frase de recuperación, no contiene analítica, no carga tipografías,
       imágenes, scripts ni estilos de ningún sitio, y funciona con la red
-      desconectada. Eso es una restricción de diseño que impone la compilación, no
+      desconectada. Eso es una restricción de diseño que impone el build, no
       una promesa: lee el código fuente, o ábrela en una máquina sin ninguna
       conexión.
     </p>
