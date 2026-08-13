@@ -152,6 +152,8 @@ ANCHORS = """
   // entry that routes to an unknown view silently bounces to the poster.
   const bad = [], seen = new Set();
   for (const a of document.querySelectorAll('a[href^="#"]')){
+    // The skip link points at <main> on purpose and never routes.
+    if (a.classList.contains("skip")) continue;
     const id = a.getAttribute("href").slice(1);
     if (!id || seen.has(id)) continue;
     seen.add(id);
