@@ -108,12 +108,11 @@
       </li>
 
       <li id="faq-print">
-        <b>Is it safe to print or hang the whole word list?</b> Yes.
-        <a href="#poster">The poster</a> is the public BIP-39 list, downloadable by
-        anyone, so hanging it reveals no more than hanging up a dictionary. Print it
-        at a copy shop over any network you like, and the blank worksheet is equally
-        safe. What is dangerous is a marked list, because twelve ticks on a grid of
-        2048 is your phrase in plaintext.
+        <b>Is it safe to print or hang the whole word list?</b> Yes, and
+        <a href="#poster">the poster</a> is the public BIP-39 list, so hanging it
+        reveals no more than hanging up a dictionary, and the blank worksheet is
+        equally safe. What is dangerous is a marked list, because twelve ticks on a
+        grid of 2048 is your phrase in plaintext.
       </li>
 
       <li id="faq-storage">
@@ -125,11 +124,11 @@
 
       <li id="faq-otherwallet">
         <b>Will the same words work in a different wallet?</b> Yes, and that
-        portability is why the standard exists. What people hit instead is a restore
-        that comes back empty, and the usual cause is the derivation path. One seed
-        holds an unlimited tree of keys, and wallets read different branches by
-        default. A valid phrase that isn't yours also restores a real, empty wallet, so
-        <b>an empty wallet is a question, not an answer</b>.
+        portability is why the standard exists. What people hit is a restore that
+        comes back empty, and the usual cause is the derivation path, since one seed
+        holds an unlimited tree of keys. A valid phrase that isn't yours also restores
+        a real, empty wallet, so <b>an empty wallet is a question, not an
+        answer</b>.
       </li>
 
       <li id="faq-split">
@@ -143,17 +142,15 @@
       <li id="faq-verify">
         <b>How do I know this page is what it claims?</b> Two checks, proving
         different amounts. The hash is the weaker one: every deploy publishes the
-        file's SHA-256 as <code>index.html.sha256</code>, which catches a truncated or
-        substituted download but says nothing about the server's honesty. The stronger
-        one is cloning the repository and running <code>scripts/verify.sh</code>, which
-        rebuilds the page from source and diffs it, and fails if the page has gained
-        any network-capable code. <b>A published hash is a claim. A reproducible build
-        is a check.</b>
+        file's SHA-256 as <code>index.html.sha256</code>, which says nothing about
+        the server's honesty. The stronger one is cloning the repository and running
+        <code>scripts/verify.sh</code>, which rebuilds the page from source and diffs
+        it. <b>A published hash is a claim. A reproducible build is a check.</b>
       </li>
 
       <li id="faq-quantum">
-        <b>Does quantum computing change any of this?</b> Not today. For the phrase
-        the relevant result is Grover-style search, which in theory halves a symmetric
+        <b>Does quantum computing change any of this?</b> Not today, and for the
+        phrase the relevant result is Grover-style search, which in theory halves a symmetric
         secret's effective strength and is the one real argument for twenty-four words.
         The larger question isn't about your phrase: public-key signatures are the part
         a large quantum computer would threaten, and that is a protocol problem the
@@ -162,13 +159,11 @@
     </ul>
 
     <p class="learn-note">
-      One question isn't on this list, and it's asked too rarely: who else has
-      seen this phrase? Treat any phrase you didn't watch being created as
-      already compromised. That covers a helpful friend, a setup service, a
-      tutorial, a video, and a card in the box.
-      <a href="#roll">Roll your own</a> exists so you can watch every bit of one
-      arrive. <a href="#start">Start here</a> explains why a hardware wallet is
-      still the right default for most people.
+      One question isn't on this list, and it's asked too rarely: who else has seen
+      this phrase? Treat any phrase you didn't watch being created as already
+      compromised, which covers a friend, a setup service, a tutorial and a card in
+      the box. <a href="#roll">Roll your own</a> exists so you can watch every bit of
+      one arrive.
     </p>
   </section>
 

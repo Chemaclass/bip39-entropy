@@ -915,12 +915,11 @@ p.learn-lead em{color:var(--patina)}
       </li>
 
       <li id="en-faq-print">
-        <b>Is it safe to print or hang the whole word list?</b> Yes.
-        <a href="#poster">The poster</a> is the public BIP-39 list, downloadable by
-        anyone, so hanging it reveals no more than hanging up a dictionary. Print it
-        at a copy shop over any network you like, and the blank worksheet is equally
-        safe. What is dangerous is a marked list, because twelve ticks on a grid of
-        2048 is your phrase in plaintext.
+        <b>Is it safe to print or hang the whole word list?</b> Yes, and
+        <a href="#poster">the poster</a> is the public BIP-39 list, so hanging it
+        reveals no more than hanging up a dictionary, and the blank worksheet is
+        equally safe. What is dangerous is a marked list, because twelve ticks on a
+        grid of 2048 is your phrase in plaintext.
       </li>
 
       <li id="en-faq-storage">
@@ -932,11 +931,11 @@ p.learn-lead em{color:var(--patina)}
 
       <li id="en-faq-otherwallet">
         <b>Will the same words work in a different wallet?</b> Yes, and that
-        portability is why the standard exists. What people hit instead is a restore
-        that comes back empty, and the usual cause is the derivation path. One seed
-        holds an unlimited tree of keys, and wallets read different branches by
-        default. A valid phrase that isn't yours also restores a real, empty wallet, so
-        <b>an empty wallet is a question, not an answer</b>.
+        portability is why the standard exists. What people hit is a restore that
+        comes back empty, and the usual cause is the derivation path, since one seed
+        holds an unlimited tree of keys. A valid phrase that isn't yours also restores
+        a real, empty wallet, so <b>an empty wallet is a question, not an
+        answer</b>.
       </li>
 
       <li id="en-faq-split">
@@ -950,17 +949,15 @@ p.learn-lead em{color:var(--patina)}
       <li id="en-faq-verify">
         <b>How do I know this page is what it claims?</b> Two checks, proving
         different amounts. The hash is the weaker one: every deploy publishes the
-        file's SHA-256 as <code>index.html.sha256</code>, which catches a truncated or
-        substituted download but says nothing about the server's honesty. The stronger
-        one is cloning the repository and running <code>scripts/verify.sh</code>, which
-        rebuilds the page from source and diffs it, and fails if the page has gained
-        any network-capable code. <b>A published hash is a claim. A reproducible build
-        is a check.</b>
+        file's SHA-256 as <code>index.html.sha256</code>, which says nothing about
+        the server's honesty. The stronger one is cloning the repository and running
+        <code>scripts/verify.sh</code>, which rebuilds the page from source and diffs
+        it. <b>A published hash is a claim. A reproducible build is a check.</b>
       </li>
 
       <li id="en-faq-quantum">
-        <b>Does quantum computing change any of this?</b> Not today. For the phrase
-        the relevant result is Grover-style search, which in theory halves a symmetric
+        <b>Does quantum computing change any of this?</b> Not today, and for the
+        phrase the relevant result is Grover-style search, which in theory halves a symmetric
         secret's effective strength and is the one real argument for twenty-four words.
         The larger question isn't about your phrase: public-key signatures are the part
         a large quantum computer would threaten, and that is a protocol problem the
@@ -969,13 +966,11 @@ p.learn-lead em{color:var(--patina)}
     </ul>
 
     <p class="learn-note">
-      One question isn't on this list, and it's asked too rarely: who else has
-      seen this phrase? Treat any phrase you didn't watch being created as
-      already compromised. That covers a helpful friend, a setup service, a
-      tutorial, a video, and a card in the box.
-      <a href="#roll">Roll your own</a> exists so you can watch every bit of one
-      arrive. <a href="#start">Start here</a> explains why a hardware wallet is
-      still the right default for most people.
+      One question isn't on this list, and it's asked too rarely: who else has seen
+      this phrase? Treat any phrase you didn't watch being created as already
+      compromised, which covers a friend, a setup service, a tutorial and a card in
+      the box. <a href="#roll">Roll your own</a> exists so you can watch every bit of
+      one arrive.
     </p>
   </section>
 
@@ -1030,12 +1025,14 @@ p.learn-lead em{color:var(--patina)}
     <p class="learn-eyebrow">Preguntas · y un glosario</p>
     <h1 class="learn-title">Las preguntas<br>que surgen<br>siempre</h1>
     <p class="learn-lead">
-      Algunas de estas se preguntan antes de que exista una primera frase. Otras se
-      preguntan años después. Cada respuesta es tan corta como permite la pregunta,
-      y no más. Cuando una respuesta se apoya en la aritmética, la <em>guía de
-      campo</em> enseña el cálculo. Cuando se apoya en un procedimiento,
-      <em>empieza aquí</em> da los pasos. La segunda mitad es un glosario. La mayor
-      parte de la confusión con las frases semilla es vocabulario, no matemáticas.
+      Algunas de estas se preguntan antes de que exista una primera frase, y otras
+      años después. Cada respuesta es tan corta como permite la pregunta, y no más.
+    </p>
+
+    <p class="learn-lead">
+      Cuando una respuesta se apoya en la aritmética, la <em>guía de campo</em> enseña
+      el cálculo. Cuando se apoya en un procedimiento, <em>empieza aquí</em> da los
+      pasos. La segunda mitad es un glosario.
     </p>
   </header>
 
@@ -1155,12 +1152,10 @@ p.learn-lead em{color:var(--patina)}
 
       <li id="es-faq-otherwallet">
         <b>¿Funcionarán las mismas palabras en otro monedero?</b> Sí, y esa
-        portabilidad es la razón de que el estándar exista. Con lo que se topa la gente
-        es con una restauración que vuelve vacía, y la causa habitual es la ruta de
-        derivación. Una semilla contiene un árbol ilimitado de claves, y cada monedero
-        lee ramas distintas por defecto. Una frase válida que no es tuya también
-        restaura un monedero real y vacío, así que <b>un monedero vacío es una
-        pregunta, no una respuesta</b>.
+        portabilidad es la razón de que el estándar exista. Lo que se encuentra la
+        gente es una restauración vacía, y la causa habitual es la ruta de derivación.
+        Una frase válida que no es tuya también restaura un monedero real y vacío, así
+        que <b>un monedero vacío es una pregunta, no una respuesta</b>.
       </li>
 
       <li id="es-faq-split">
@@ -1173,34 +1168,30 @@ p.learn-lead em{color:var(--patina)}
       </li>
 
       <li id="es-faq-verify">
-        <b>¿Cómo sé que esta página es lo que dice?</b> Dos comprobaciones, que
-        demuestran cosas distintas. El hash es la débil: cada despliegue publica el
-        SHA-256 del archivo como <code>index.html.sha256</code>, que detecta una descarga
-        truncada o sustituida pero no dice nada sobre la honestidad del servidor. La
-        fuerte es clonar el repositorio y pasar <code>scripts/verify.sh</code>, que
-        reconstruye la página desde las fuentes y la compara, y falla si la página ha
-        ganado código capaz de usar la red. <b>Un hash publicado es una afirmación. Un
-        build reproducible es una comprobación.</b>
+        <b>¿Cómo sé que esta página es lo que dice?</b> Dos comprobaciones. El hash es
+        la débil: cada despliegue publica el SHA-256 del archivo como
+        <code>index.html.sha256</code>, que no dice nada sobre la honestidad del
+        servidor. La fuerte es clonar el repositorio y pasar
+        <code>scripts/verify.sh</code>, que reconstruye la página y la compara.
+        <b>Un hash publicado es una afirmación. Un build reproducible es una
+        comprobación.</b>
       </li>
 
       <li id="es-faq-quantum">
         <b>¿La computación cuántica cambia algo de esto?</b> Hoy no. Para la frase, el
-        resultado relevante es la búsqueda al estilo de Grover, que en teoría reduce a la
-        mitad un secreto simétrico. Es el único argumento real para veinticuatro
-        palabras. La pregunta grande no va de tu frase. Las firmas de clave pública son
-        la parte que amenazaría un ordenador cuántico grande, y eso es un problema de
-        protocolo que la red entera afrontaría junta.
+        resultado relevante es la búsqueda al estilo de Grover, el único argumento
+        real para veinticuatro palabras. La pregunta grande no va de tu frase: las
+        firmas de clave pública son la parte que amenazaría un ordenador cuántico
+        grande, y eso lo afrontaría la red entera junta.
       </li>
     </ul>
 
     <p class="learn-note">
       Una pregunta no está en esta lista, y se hace demasiado poco: ¿quién más ha
       visto esta frase? Trata cualquier frase que no hayas visto crearse como ya
-      comprometida. Eso incluye a un amigo servicial, un servicio de setup, un
-      tutorial, un vídeo y una tarjeta en la caja.
-      <a href="#roll">Genera la tuya</a> existe para que puedas ver llegar cada bit
-      de una. <a href="#start">Empieza aquí</a> explica por qué un monedero hardware
-      sigue siendo el valor por defecto correcto para la mayoría.
+      comprometida, y eso incluye a un amigo, un servicio de setup, un tutorial y una
+      tarjeta en la caja. <a href="#roll">Genera la tuya</a> existe para que puedas ver
+      llegar cada bit de una.
     </p>
   </section>
 
@@ -1314,12 +1305,15 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       A BIP-39 phrase is a number written in words. Each word is an index into a
-      fixed, public list of 2048 entries, so <code>abandon</code> is <code>0</code>
-      and <code>zoo</code> is <code>2047</code>, and nothing else about a word
-      matters. Your wallet doesn't store the words: it joins them, runs
-      <code>PBKDF2-HMAC-SHA-512</code> over the string for 2048 iterations, and
-      derives every key from the 512-bit seed that comes out. That is why the same
-      words rebuild the same wallet anywhere, forever.
+      fixed, public list of 2048 entries, so <code>abandon</code> is  2<code>3  and
+      <code>zoo</code> is <code>2047</code>, and nothing else about a word matters.
+    </p>
+
+    <p>
+      Your wallet doesn't store the words: it joins them, runs
+      <code>PBKDF2-HMAC-SHA-512</code> over the string for 2048 iterations, and derives
+      every key from the 512-bit seed that comes out. That is why the same words
+      rebuild the same wallet anywhere, forever.
     </p>
 
     <p>
@@ -1512,12 +1506,16 @@ p.learn-lead em{color:var(--patina)}
     <h2><span class="learn-num" aria-hidden="true">05</span> Where the randomness comes from</h2>
 
     <p>
-      A person is not a random number generator, and this is not a matter of trying
-      harder. Asked for a random digit, people over-choose 7 and shy away from 0 and
-      5. Asked for a sequence they avoid repeats and long runs, and asked for words
-      they reach for concrete nouns, names and dates. Every one of those tendencies
-      is a pattern an attacker can rank candidates by, and an attacker who ranks does
-      not have to enumerate.
+      A person is not a random number generator, and this is not a matter of
+      trying harder. Asked for a random digit, people over-choose 7 and shy away
+      from 0 and 5.
+    </p>
+
+    <p>
+      Asked for a sequence they avoid repeats and long runs, and asked for words
+      they reach for concrete nouns, names and dates. Every one of those
+      tendencies is a pattern an attacker can rank candidates by, and an
+      attacker who ranks does not have to enumerate.
     </p>
 
     <p>
@@ -1546,11 +1544,10 @@ p.learn-lead em{color:var(--patina)}
       <li>
         <b>A careful change that removed the randomness.</b> Debian's OpenSSL, 2006
         to 2008. A maintainer removed two lines that fed uninitialised memory into the
-        random pool, which Valgrind had correctly flagged. The only varying input left
-        was the process id, and Linux hands out at most 32,768 of those, so every key
-        came from fifteen bits (<code>CVE-2008-0166</code>). The keys already existed
-        and had been copied elsewhere, so patching fixed nothing and Debian shipped
-        blacklists instead.
+        random pool, which Valgrind had correctly flagged. That left the process id as
+        the only varying input, and Linux hands out at most 32,768 of those, so every
+        key came from fifteen bits (<code>CVE-2008-0166</code>). Patching fixed
+        nothing, because the keys already existed.
       </li>
       <li>
         <b>A secret a person chose.</b> Brainwallets, from around 2011. A passphrase
@@ -1563,10 +1560,10 @@ p.learn-lead em{color:var(--patina)}
       <li>
         <b>A generator seeded with 32 bits.</b> Milk Sad, 2023. Libbitcoin Explorer's
         <code>bx seed</code> used a Mersenne Twister seeded with 32 bits of system
-        clock, so asking for 256 bits returned one clock reading stretched to fill the
-        space. The output passed every test a user could apply, because the shortfall
-        was in the input. The same 32-bit mistake produced Profanity and the Trust
-        Wallet extension in 2022, both in the table below.
+        clock, so asking for 256 bits returned one clock reading stretched to fill
+        the space. The output passed every test a user could apply, because the
+        shortfall was in the input. The same mistake produced Profanity and the Trust
+        Wallet extension.
       </li>
     </ul>
 
@@ -1604,51 +1601,57 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       The three 32-bit cases deserve the arithmetic spelled out. 32 bits doesn't
-      sound small until you count it. <code>2^32</code> is
-      <code>4294967296</code>, about 4.3 billion.
-      <a href="#en-learn-source">The previous section</a> put a single machine at
-      <code>2^40</code> in a fortnight. <code>2^32</code> is 256 times smaller
-      than that, so the same machine finishes the entire space in a little over an
-      hour. The published estimates agree. A couple of hours on one
-      computer for the Trust Wallet phrases. Under ten hours on a laptop to
-      precompute every key Profanity could produce. At most a few days on a gaming
-      machine for Libbitcoin's. That is not a hardware budget. It is an afternoon.
+      sound small until you count it. <code>2^32</code> is <code>4294967296</code>, about 4.3
+      billion. <a href="#en-learn-source">The previous section</a> put a single machine at <code>2^40</code> in
+      a fortnight. <code>2^32</code> is 256 times smaller than that, so the same
+      machine finishes the entire space in a little over an hour.
+    </p>
+
+    <p>
+      The published estimates agree. A couple of hours on one computer for the
+      Trust Wallet phrases. Under ten hours on a laptop to precompute every key
+      Profanity could produce. At most a few days on a gaming machine for
+      Libbitcoin's. That is not a hardware budget. It is an afternoon.
     </p>
 
     <p>
       <b>None of this was a failure of BIP-39.</b> Wherever the standard was in
       the picture, it held. The word list was the same public 2048 words,
-      correctly indexed. The
-      derivation was correct. The checksum was correct, and it passed every time,
-      because a well-formed phrase is the only thing it was ever asked to certify.
-      What failed was the number underneath, and the number is the one part of the
-      system nobody can inspect afterwards. A phrase does not record its own
-      origin. There is no field in it for provenance, no timestamp, no signature,
-      nothing that distinguishes 128 bits of physics from 32 bits of clock. Twelve
-      words drawn from four billion possibilities are twelve perfectly ordinary
-      words.
+      correctly indexed. The derivation was correct. The checksum was correct,
+      and it passed every time, because a well-formed phrase is the only thing
+      it was ever asked to certify.
     </p>
 
     <p>
-      This is why <a href="#en-learn-source">the section on sources</a> prefers what
-      can be audited, and why it says of hardware generators that the problem is
-      not that they are bad but that you cannot check them. Dice are not more
-      random than a sound hardware generator. They are more <em>accountable</em>,
-      and every case above is an argument about accountability rather than about
-      randomness. A phrase handed to you by a device you cannot see inside is a
-      trust decision. It may be a perfectly good one, made about a reputable maker
-      with a published design and a supply chain you have reason to believe in. It
-      is still a decision about whom to trust, and not something you can check by
-      looking at the words.
+      What failed was the number underneath, and the number is the one part of
+      the system nobody can inspect afterwards. A phrase does not record its own
+      origin. There is no field in it for provenance, no timestamp, no
+      signature, nothing that distinguishes 128 bits of physics from 32 bits of
+      clock. Twelve words drawn from four billion possibilities are twelve
+      perfectly ordinary words.
+    </p>
+
+    <p>
+      This is why <a href="#en-learn-source">the section on sources</a> prefers what can be audited, and
+      why it says of hardware generators that the problem is not that they are
+      bad but that you cannot check them. Dice are not more random than a sound
+      hardware generator. They are more <em>accountable</em>, and every case above
+      is an argument about accountability rather than about randomness.
+    </p>
+
+    <p>
+      A phrase handed to you by a device you cannot see inside is a trust
+      decision. It may be a perfectly good one, made about a reputable maker
+      with a published design and a supply chain you have reason to believe in.
+      It is still a decision about whom to trust, and not something you can
+      check by looking at the words.
     </p>
 
     <p class="learn-note">
-      Two caveats, in fairness. Most of the figures above are estimates by the
-      researchers who found the flaw rather than audited totals, and the amounts
-      stolen are lower bounds, because they count only what could be traced. More
-      importantly, this is a list of the failures that were <em>found</em>. A
-      generator that is merely predictable to whoever built it, and never exploited
-      loudly enough to draw attention, leaves no trace in a record like this one.
+      Two caveats, in fairness. The figures above are the disclosing researchers'
+      estimates rather than audited totals, and the amounts stolen are lower
+      bounds, because they count only what could be traced. More importantly, this
+      is a list of the failures that were <em>found</em>.
     </p>
   </section>
 
@@ -1656,13 +1659,16 @@ p.learn-lead em{color:var(--patina)}
     <h2><span class="learn-num" aria-hidden="true">07</span> Doing it by hand</h2>
 
     <p>
-      A six-sided die doesn't produce whole bits, so use rejection sampling: read
-      <code>1 2 3 4</code> as <code>00 01 10 11</code> and reroll <code>5</code> and
-      <code>6</code>. Each accepted roll is exactly two bits with no bias from the
-      mapping. Coins are simpler at one flip per bit. If you doubt the coin is fair,
-      flip in pairs and use von Neumann's trick: <code>HT</code> is <code>1</code>,
-      <code>TH</code> is <code>0</code>, and matching pairs are discarded.
-      <a href="#start">Recipe B</a> walks the procedure.
+      A six-sided die doesn't produce whole bits, so use rejection sampling:
+      read <code>1 2 3 4</code> as <code>00 01 10 11</code> and reroll <code>5</code> and <code>6</code>.
+      Each accepted roll is exactly two bits with no bias from the mapping.
+    </p>
+
+    <p>
+      Coins are simpler at one flip per bit. If you doubt the coin is fair, flip
+      in pairs and use von Neumann's trick: <code>HT</code> is  2</code>3 , <code>TH</code> is
+       6<code>7 , and matching pairs are discarded. <a href="#start">Recipe B</a> walks the
+      procedure.
     </p>
 
     <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Dice and coin counts by phrase length, scrollable table">
@@ -1697,12 +1703,16 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       <b>The last word is where a hand process stops.</b> Seven of your remaining
-      entropy bits and four checksum bits share the final word, and those four bits
-      are <code>SHA-256</code> output. You cannot compute SHA-256 by hand in any
-      practical sense. So the honest procedure is: generate the entropy physically,
-      then use an offline machine or a hardware wallet that accepts raw entropy or
-      dice input to compute the final word. Several wallets support exactly this.
-      The machine learns your entropy either way. The point of doing it by hand is
+      entropy bits and four checksum bits share the final word, and those four
+      bits are <code>SHA-256</code> output. You cannot compute SHA-256 by hand in any
+      practical sense.
+    </p>
+
+    <p>
+      So the honest procedure is: generate the entropy physically, then use an
+      offline machine or a hardware wallet that accepts raw entropy or dice
+      input to compute the final word. Several wallets support exactly this. The
+      machine learns your entropy either way. The point of doing it by hand is
       that the machine did not <em>choose</em> it.
     </p>
 
@@ -1806,14 +1816,17 @@ p.learn-lead em{color:var(--patina)}
     <h2><span class="learn-num" aria-hidden="true">01</span> Qué es realmente una frase semilla</h2>
 
     <p>
-      Una frase BIP-39 es un número escrito en palabras. Cada palabra es un índice
-      dentro de una lista fija y pública de 2048 entradas, así que
-      <code>abandon</code> es <code>0</code> y <code>zoo</code> es
-      <code>2047</code>, y nada más de una palabra importa. Tu monedero no guarda las
-      palabras: las une, ejecuta <code>PBKDF2-HMAC-SHA-512</code> sobre la cadena
-      durante 2048 iteraciones y deriva cada clave de la semilla de 512 bits que
-      sale. Por eso las mismas palabras reconstruyen el mismo monedero en cualquier
-      parte, para siempre.
+      Una frase BIP-39 es un número escrito en palabras. Cada palabra es un
+      índice dentro de una lista fija y pública de 2048 entradas, así que
+      <code>abandon</code> es  2<code>3  y <code>zoo</code> es <code>2047</code>, y nada más de una
+      palabra importa.
+    </p>
+
+    <p>
+      Tu monedero no guarda las palabras: las une, ejecuta
+      <code>PBKDF2-HMAC-SHA-512</code> sobre la cadena durante 2048 iteraciones y
+      deriva cada clave de la semilla de 512 bits que sale. Por eso las mismas
+      palabras reconstruyen el mismo monedero en cualquier parte, para siempre.
     </p>
 
     <p>
@@ -1837,11 +1850,15 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       Un asidero para un número así. La red de minería de Bitcoin es el mayor
-      esfuerzo de computación construido para un solo fin que ha existido, al orden
-      de <code>10^21</code> hashes por segundo. A ese ritmo, solo contar hasta
-      <code>2^128</code> lleva unos <b>11 mil millones de años</b>, aproximadamente
-      la edad actual del universo. Un hash pelado es mucho más barato que una prueba
-      completa, así que eso subestima el coste real.
+      esfuerzo de computación construido para un solo fin que ha existido, al
+      orden de <code>10^21</code> hashes por segundo.
+    </p>
+
+    <p>
+      A ese ritmo, solo contar hasta <code>2^128</code> lleva unos <b>11 mil millones
+      de años</b>, aproximadamente la edad actual del universo. Un hash pelado es
+      mucho más barato que una prueba completa, así que eso subestima el coste
+      real.
     </p>
 
     <p>
@@ -1952,24 +1969,24 @@ p.learn-lead em{color:var(--patina)}
     </div>
 
     <p>
-      La última columna es una consecuencia que conviene conocer: la palabra final
-      de una frase nunca es libre. Con las once primeras palabras fijadas, solo
-      <code>2048 ÷ 16 = 128</code> de las 2048 palabras completan una frase válida
-      de 12 palabras. Con veintitrés fijadas, solo <code>2048 ÷ 256 = 8</code>
-      completan una de 24. Dicho de otro modo, una secuencia de 12 palabras escrita
-      al azar es una frase válida una vez de cada dieciséis.
+      La última columna es una consecuencia que conviene conocer: la palabra
+      final de una frase nunca es libre. Con las once primeras palabras fijadas,
+      solo <code>2048 ÷ 16 = 128</code> de las 2048 palabras completan una frase válida
+      de 12 palabras.
+    </p>
+
+    <p>
+      Con veintitrés fijadas, solo <code>2048 ÷ 256 = 8</code> completan una de 24.
+      Dicho de otro modo, una secuencia de 12 palabras escrita al azar es una
+      frase válida una vez de cada dieciséis.
     </p>
 
     <p class="learn-note">
-      Si 12 o 24 palabras es la mejor elección no lo decide la entropía por sí
-      sola. 128 bits ya quedan fuera del alcance de la fuerza bruta por los
-      márgenes de arriba. 24 palabras son sobre todo una cobertura frente al
-      criptoanálisis futuro y frente a la búsqueda cuántica al estilo de Grover.
-      Esa búsqueda, en teoría, reduce a la mitad la fuerza efectiva de un secreto
-      simétrico. 128 bits pasarían a ser 64, y 256 pasarían a ser 128. Que esa aceleración
-      llegue a ser práctica alguna vez está genuinamente en disputa. Las dos
-      longitudes están soportadas en todas partes, y las frases más largas te
-      cuestan más de anotar y más de comprobar.
+      Si 12 o 24 palabras es la mejor elección no lo decide la entropía sola, porque
+      128 bits ya quedan fuera del alcance de la fuerza bruta. 24 palabras cubren el
+      criptoanálisis futuro y la búsqueda cuántica al estilo de Grover, que en teoría
+      reduce un secreto simétrico a la mitad. Si eso llega a ser práctico está en
+      disputa.
     </p>
   </section>
 
@@ -2005,20 +2022,28 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       Una persona no es un generador de números aleatorios, y esto no va de
-      esforzarse más. Si les pides un dígito al azar, la gente elige el 7 de más y
-      esquiva el 0 y el 5. Si les pides una secuencia evitan repeticiones y series
-      largas, y si les pides palabras tiran de nombres concretos, nombres propios y
-      fechas. Cada una de esas tendencias es un patrón por el que un atacante puede
-      ordenar candidatos, y quien ordena no tiene que enumerar.
+      esforzarse más. Si les pides un dígito al azar, la gente elige el 7 de más
+      y esquiva el 0 y el 5.
     </p>
 
     <p>
-      La aritmética es cruda. Elige cada una de tus doce palabras de forma uniforme
-      entre las 16 que te resulten más memorables, que ya es disciplina inusual. Eso
-      son 4 bits por palabra y <b>48 bits para la frase</b>, frente a los 128 que el
-      formato implica. Amplía la lista a 32 y llegas a 60 bits, que un presupuesto de
-      hardware serio sigue atravesando. <b>Las palabras se ven igual en los dos
-      casos.</b>
+      Si les pides una secuencia evitan repeticiones y series largas, y si les
+      pides palabras tiran de nombres concretos, nombres propios y fechas. Cada
+      una de esas tendencias es un patrón por el que un atacante puede ordenar
+      candidatos, y quien ordena no tiene que enumerar.
+    </p>
+
+    <p>
+      La aritmética es cruda. Elige cada una de tus doce palabras de forma
+      uniforme entre las 16 que te resulten más memorables, que ya es disciplina
+      inusual.
+    </p>
+
+    <p>
+      Eso son 4 bits por palabra y <b>48 bits para la frase</b>, frente a los 128
+      que el formato implica. Amplía la lista a 32 y llegas a 60 bits, que un
+      presupuesto de hardware serio sigue atravesando. <b>Las palabras se ven
+      igual en los dos casos.</b>
     </p>
 
   </section>
@@ -2040,29 +2065,26 @@ p.learn-lead em{color:var(--patina)}
         <b>Un cambio cuidadoso que quitó la aleatoriedad.</b> El OpenSSL de Debian,
         2006 a 2008. Un maintainer quitó dos líneas que metían memoria sin
         inicializar en el pool de aleatoriedad, algo que Valgrind había señalado con
-        razón. La única entrada que variaba era el id del proceso, y Linux reparte
-        como mucho 32.768, así que cada clave venía de quince bits
-        (<code>CVE-2008-0166</code>). Las claves ya existían y ya se habían copiado a
-        otras máquinas, así que parchear no arreglaba nada y Debian publicó listas
-        negras.
+        razón. Eso dejaba el id del proceso como única entrada variable, y Linux
+        reparte como mucho 32.768, así que cada clave venía de quince bits
+        (<code>CVE-2008-0166</code>).
       </li>
       <li>
         <b>Un secreto que eligió una persona.</b> Los brainwallets, desde alrededor
         de 2011. Una contraseña que te inventabas pasaba por un solo
         <code>SHA-256</code> sin sal y se convertía en la clave privada, así que el
         mapa completo se podía calcular por adelantado. El estudio de Financial
-        Cryptography de 2016 encontró 884 brainwallets con fondos y todos menos 21
-        habían sido vaciados, la mitad en los 21 minutos siguientes. Una contraseña
-        elegida por una persona vale unos 20 bits.
+        Cryptography de 2016 encontró 884 brainwallets con fondos, y todos menos 21
+        habían sido vaciados. Una contraseña elegida por una persona vale unos 20
+        bits.
       </li>
       <li>
         <b>Un generador sembrado con 32 bits.</b> Milk Sad, 2023. El comando
         <code>bx seed</code> de Libbitcoin Explorer usaba un Mersenne Twister
         sembrado con 32 bits del reloj del sistema, así que pedirle 256 bits devolvía
-        una lectura de reloj estirada para llenar el espacio. La salida pasaba
-        cualquier prueba que un usuario pudiera aplicar, porque la carencia estaba en
-        la entrada. El mismo error de 32 bits produjo Profanity y la extensión de
-        Trust Wallet en 2022, las dos en la tabla de abajo.
+        una lectura de reloj estirada. La salida pasaba cualquier prueba que un usuario
+        pudiera aplicar, porque la carencia estaba en la entrada. El mismo error
+        produjo Profanity y la extensión de Trust Wallet.
       </li>
     </ul>
 
@@ -2101,53 +2123,61 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       Los tres casos de 32 bits merecen que se escriba la aritmética. 32 bits no
-      suena a poco hasta que lo cuentas. <code>2^32</code> es
-      <code>4294967296</code>, unos 4.3 mil millones.
-      <a href="#es-learn-source">La sección anterior</a> situaba una sola máquina en
-      <code>2^40</code> en dos semanas. <code>2^32</code> es 256 veces más pequeño
-      que eso, así que la misma máquina termina el espacio entero en poco más de
-      una hora. Las estimaciones publicadas coinciden. Un par de horas en un
-      ordenador para las frases de Trust Wallet. Menos de diez horas en un portátil
-      para precalcular todas las claves que Profanity podía producir. Como mucho
-      unos pocos días en un ordenador de juegos para las de Libbitcoin. Eso no es un
+      suena a poco hasta que lo cuentas. <code>2^32</code> es <code>4294967296</code>, unos
+      4.3 mil millones. <a href="#es-learn-source">La sección anterior</a> situaba una sola máquina en
+      <code>2^40</code> en dos semanas. <code>2^32</code> es 256 veces más pequeño que eso,
+      así que la misma máquina termina el espacio entero en poco más de una
+      hora.
+    </p>
+
+    <p>
+      Las estimaciones publicadas coinciden. Un par de horas en un ordenador
+      para las frases de Trust Wallet. Menos de diez horas en un portátil para
+      precalcular todas las claves que Profanity podía producir. Como mucho unos
+      pocos días en un ordenador de juegos para las de Libbitcoin. Eso no es un
       presupuesto de hardware. Es una tarde.
     </p>
 
     <p>
-      <b>Nada de esto fue un fallo de BIP-39.</b> Allá donde el estándar entraba en
-      juego, aguantó. La lista de palabras eran las mismas 2048 palabras públicas,
-      correctamente indexadas. La derivación era correcta. La suma de verificación
-      era correcta, y pasó todas las veces, porque una frase bien formada es lo
-      único que se le pidió certificar jamás. Lo que falló fue el número de debajo,
-      y el número es la única parte del sistema que nadie puede inspeccionar
-      después. Una frase no registra su propio origen. No hay en ella ningún campo
-      para la procedencia, ni marca de tiempo, ni firma, nada que distinga 128 bits
-      de física de 32 bits de reloj. Doce palabras extraídas de cuatro mil millones
-      de posibilidades son doce palabras perfectamente corrientes.
+      <b>Nada de esto fue un fallo de BIP-39.</b> Allá donde el estándar entraba
+      en juego, aguantó. La lista de palabras eran las mismas 2048 palabras
+      públicas, correctamente indexadas. La derivación era correcta. La suma de
+      verificación era correcta, y pasó todas las veces, porque una frase bien
+      formada es lo único que se le pidió certificar jamás.
     </p>
 
     <p>
-      Por eso <a href="#es-learn-source">la sección sobre las fuentes</a> prefiere lo
-      que se puede auditar. Y por eso dice de los generadores por hardware que el
-      problema no es que sean malos, sino que no puedes comprobarlos. Los dados no
-      son más aleatorios que un generador de hardware sólido. Son más
+      Lo que falló fue el número de debajo, y el número es la única parte del
+      sistema que nadie puede inspeccionar después. Una frase no registra su
+      propio origen. No hay en ella ningún campo para la procedencia, ni marca
+      de tiempo, ni firma, nada que distinga 128 bits de física de 32 bits de
+      reloj. Doce palabras extraídas de cuatro mil millones de posibilidades son
+      doce palabras perfectamente corrientes.
+    </p>
+
+    <p>
+      Por eso <a href="#es-learn-source">la sección sobre las fuentes</a> prefiere lo que se puede
+      auditar. Y por eso dice de los generadores por hardware que el problema no
+      es que sean malos, sino que no puedes comprobarlos. Los dados no son más
+      aleatorios que un generador de hardware sólido. Son más
       <em>verificables</em>, y todos los casos de arriba son un argumento sobre la
-      verificabilidad y no sobre la aleatoriedad. Una frase que te entrega un
-      dispositivo en cuyo interior no puedes mirar es una decisión de confianza.
-      Puede ser perfectamente buena, tomada sobre un fabricante de prestigio con un
-      diseño publicado y una cadena de suministro en la que tienes motivos para
-      creer. Sigue siendo una decisión sobre en quién confiar, y no algo que puedas
-      comprobar mirando las palabras.
+      verificabilidad y no sobre la aleatoriedad.
+    </p>
+
+    <p>
+      Una frase que te entrega un dispositivo en cuyo interior no puedes mirar
+      es una decisión de confianza. Puede ser perfectamente buena, tomada sobre
+      un fabricante de prestigio con un diseño publicado y una cadena de
+      suministro en la que tienes motivos para creer. Sigue siendo una decisión
+      sobre en quién confiar, y no algo que puedas comprobar mirando las
+      palabras.
     </p>
 
     <p class="learn-note">
-      Dos salvedades, en justicia. La mayoría de las cifras de arriba son
-      estimaciones de quienes encontraron el fallo y no totales auditados, y las
-      cantidades robadas son cotas inferiores, porque solo cuentan lo que se pudo
-      rastrear. Más importante todavía: esta es una lista de los fallos que se
-      <em>encontraron</em>. Un generador que simplemente es predecible para quien lo
-      construyó, y que nunca se explotó de forma lo bastante ruidosa como para
-      llamar la atención, no deja rastro en un historial como este.
+      Dos salvedades, en justicia. Las cifras de arriba son estimaciones de quienes
+      encontraron el fallo y no totales auditados, y las cantidades robadas son cotas
+      inferiores, porque solo cuentan lo que se pudo rastrear. Más importante todavía:
+      esta es una lista de los fallos que se <em>encontraron</em>.
     </p>
   </section>
 
@@ -2156,13 +2186,16 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       Un dado de seis caras no produce bits enteros, así que usa muestreo por
-      rechazo: lee <code>1 2 3 4</code> como <code>00 01 10 11</code> y vuelve a
-      tirar con <code>5</code> y <code>6</code>. Cada tirada aceptada son exactamente
-      dos bits, sin sesgo del mapeo. Las monedas son más simples, a un lanzamiento
-      por bit. Si dudas de que la moneda sea justa, lanza por parejas con el truco de
-      von Neumann. Cara y cruz es <code>1</code>, cruz y cara es <code>0</code>, y las
-      parejas iguales se descartan. La <a href="#start">Receta B</a> recorre el
-      procedimiento.
+      rechazo: lee <code>1 2 3 4</code> como <code>00 01 10 11</code> y vuelve a tirar con
+      <code>5</code> y <code>6</code>. Cada tirada aceptada son exactamente dos bits, sin
+      sesgo del mapeo.
+    </p>
+
+    <p>
+      Las monedas son más simples, a un lanzamiento por bit. Si dudas de que la
+      moneda sea justa, lanza por parejas con el truco de von Neumann. Cara y
+      cruz es <code>1</code>, cruz y cara es  2<code>3 , y las parejas iguales se
+      descartan. La <a href="#start">Receta B</a> recorre el procedimiento.
     </p>
 
     <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Tiradas de dado y lanzamientos de moneda por longitud de frase, tabla desplazable">
@@ -2196,15 +2229,19 @@ p.learn-lead em{color:var(--patina)}
     </p>
 
     <p>
-      <b>La última palabra es donde se detiene un proceso a mano.</b> Siete de los
-      bits de entropía que te quedan y cuatro bits de verificación comparten la
-      palabra final, y esos cuatro bits son salida de <code>SHA-256</code>. No
+      <b>La última palabra es donde se detiene un proceso a mano.</b> Siete de
+      los bits de entropía que te quedan y cuatro bits de verificación comparten
+      la palabra final, y esos cuatro bits son salida de <code>SHA-256</code>. No
       puedes calcular SHA-256 a mano en ningún sentido práctico. Así que el
-      procedimiento honesto es este. Genera la entropía físicamente. Después usa
-      una máquina sin conexión o un monedero hardware que acepte entropía en bruto
-      o entrada de dados para calcular la palabra final. Varios monederos admiten
-      justo esto. La máquina se entera de tu entropía en cualquier caso. La gracia
-      de hacerlo a mano es que la máquina no la <em>eligió</em>.
+      procedimiento honesto es este.
+    </p>
+
+    <p>
+      Genera la entropía físicamente. Después usa una máquina sin conexión o un
+      monedero hardware que acepte entropía en bruto o entrada de dados para
+      calcular la palabra final. Varios monederos admiten justo esto. La máquina
+      se entera de tu entropía en cualquier caso. La gracia de hacerlo a mano es
+      que la máquina no la <em>eligió</em>.
     </p>
 
     <p class="learn-note">
@@ -2250,13 +2287,15 @@ p.learn-lead em{color:var(--patina)}
     <p class="learn-eyebrow">Protection · layers and their costs</p>
     <h1 class="learn-title">Every layer<br>has a price</h1>
     <p class="learn-lead">
-      Suppose the hard part is done. The phrase was generated properly, it's
-      written on paper, and nobody has seen it. This page is about what people
-      add on top: what each layer buys, and what each one costs. There are only
-      a few real layers. Every one of them blocks a threat by creating a new way
-      to lose access. That's the trade, every time. None of this is a
-      recommendation to add all of them. The honest default is to add none of
-      them and get the paper <em>right</em> first.
+      Suppose the hard part is done. The phrase was generated properly, it's written
+      on paper, and nobody has seen it. This page is about what people add on top:
+      what each layer buys, and what each one costs.
+    </p>
+
+    <p class="learn-lead">
+      There are only a few real layers, and every one of them blocks a threat by
+      creating a new way to lose access. That's the trade, every time. The honest
+      default is to add none of them and get the paper <em>right</em> first.
     </p>
   </header>
 
@@ -2370,12 +2409,15 @@ p.learn-lead em{color:var(--patina)}
     <h2><span class="learn-num" aria-hidden="true">02</span> The passphrase</h2>
 
     <p>
-      Wallets call it the “25th word”, a friendly name for something that is neither
-      a word nor part of the phrase. It is an extra secret mixed into the same
-      derivation, in the salt, so the same twelve words with a different passphrase
-      produce a completely different wallet. It is taken literally, so case, spacing
-      and accents count, and there is no list of valid passphrases because every
-      possible string is one.
+      Wallets call it the “25th word”, a friendly name for something that is
+      neither a word nor part of the phrase. It is an extra secret mixed into
+      the same derivation, in the salt, so the same twelve words with a
+      different passphrase produce a completely different wallet.
+    </p>
+
+    <p>
+      It is taken literally, so case, spacing and accents count, and there is no
+      list of valid passphrases because every possible string is one.
     </p>
 
     <p>
@@ -2385,13 +2427,17 @@ p.learn-lead em{color:var(--patina)}
     </p>
 
     <p>
-      <b>What it costs.</b> The absence of any recovery path. No wallet, device or
-      service records what you chose, because nothing ever sees it in a form it could
-      store, so there is no reset, no support desk and no clever forensic path.
+      <b>What it costs.</b> The absence of any recovery path. No wallet, device
+      or service records what you chose, because nothing ever sees it in a form
+      it could store, so there is no reset, no support desk and no clever
+      forensic path.
+    </p>
+
+    <p>
       <b>Forget it and the coins are gone, as completely as if you had burnt the
-      phrase</b>, not partially and not with the right expert. You can be holding a
-      perfect, legible, fireproof backup of your seed, reading it, and be locked out
-      forever.
+      phrase</b>, not partially and not with the right expert. You can be holding
+      a perfect, legible, fireproof backup of your seed, reading it, and be
+      locked out forever.
     </p>
 
     <p class="learn-note">
@@ -2486,14 +2532,16 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       <b>A seed on paper isn't the placeholder option.</b> Generated properly
-      it's already beyond brute force by margins the <a href="#learn">field
-      guide</a> works through, so the only realistic ways to lose it are
-      physical and local. Keep it in one dry, private place that isn't the
-      drawer beside the computer, copy it to a second building, and it defeats
-      almost everything on the threat list. Two exceptions: a thief who finds
-      it, and your own mortality. For most people, most of the time, it's the
-      correct answer, and the effort belongs in the backup rather than in a
-      scheme.
+      it's already beyond brute force by margins the <a href="#learn">field guide</a> works
+      through, so the only realistic ways to lose it are physical and local.
+    </p>
+
+    <p>
+      Keep it in one dry, private place that isn't the drawer beside the
+      computer, copy it to a second building, and it defeats almost everything
+      on the threat list. Two exceptions: a thief who finds it, and your own
+      mortality. For most people, most of the time, it's the correct answer, and
+      the effort belongs in the backup rather than in a scheme.
     </p>
 
     <p>
@@ -2524,11 +2572,15 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       Before any layer, the object. The two failures that happen to ordinary
-      households are heat and water, which is the reason metal exists as an option.
-      Handwritten paper is a perfectly good backup and costs nothing, and stamped
-      metal survives both for an hour of work. The rule is proportion: paper while
-      you're learning, metal once losing it would hurt. Use ordinary pen and paper,
-      never a receipt printer's thermal paper, which fades to blank on its own.
+      households are heat and water, which is the reason metal exists as an
+      option. Handwritten paper is a perfectly good backup and costs nothing,
+      and stamped metal survives both for an hour of work.
+    </p>
+
+    <p>
+      The rule is proportion: paper while you're learning, metal once losing it
+      would hurt. Use ordinary pen and paper, never a receipt printer's thermal
+      paper, which fades to blank on its own.
     </p>
 
     <p>
@@ -2564,12 +2616,16 @@ p.learn-lead em{color:var(--patina)}
     </p>
 
     <p>
-      <b>Restore from the backup you wrote</b>, not from the screen, not from memory,
-      and not from the copy on the device that's still working. What is being tested is
-      the object you will one day be holding: your handwriting, your abbreviations,
-      whether you noted the derivation path. Success is the same wallet coming back,
-      with the same addresses in the same order. A small spend afterwards proves you
-      hold the key, where receiving only proves you copied an address correctly.
+      <b>Restore from the backup you wrote</b>, not from the screen, not from
+      memory, and not from the copy on the device that's still working. What is
+      being tested is the object you will one day be holding: your handwriting,
+      your abbreviations, whether you noted the derivation path.
+    </p>
+
+    <p>
+      Success is the same wallet coming back, with the same addresses in the
+      same order. A small spend afterwards proves you hold the key, where
+      receiving only proves you copied an address correctly.
     </p>
 
   </section>
@@ -2579,11 +2635,14 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       A backup nobody else can find, or can find but cannot use, is a lost one.
-      Whatever you leave has to be written for someone who doesn't know what any of
-      this is. What the words are and what they control. That they must never be
-      typed into a website or sent to anyone offering help. Which software and
-      derivation path, whether a passphrase exists and where, and for multisig where
-      each key and the descriptor live.
+      Whatever you leave has to be written for someone who doesn't know what any
+      of this is. What the words are and what they control.
+    </p>
+
+    <p>
+      That they must never be typed into a website or sent to anyone offering
+      help. Which software and derivation path, whether a passphrase exists and
+      where, and for multisig where each key and the descriptor live.
     </p>
 
     <p>
@@ -2613,12 +2672,14 @@ p.learn-lead em{color:var(--patina)}
     <h1 class="learn-title">Cada capa<br>tiene un precio</h1>
     <p class="learn-lead">
       Supón que la parte difícil ya está hecha. La frase se generó correctamente,
-      está escrita en papel y nadie la ha visto. Esta página va de lo que la
-      gente añade encima: qué te da cada capa y qué te cuesta cada una. Solo hay
-      unas pocas capas reales. Todas bloquean una amenaza creando una forma nueva
-      de perder el acceso. Ese es el intercambio, siempre. Nada de esto es una
-      recomendación de añadirlas todas. El valor por defecto honesto es no añadir
-      ninguna y hacer <em>bien</em> el papel primero.
+      está escrita en papel y nadie la ha visto. Esta página va de lo que la gente
+      añade encima: qué te da cada capa y qué te cuesta cada una.
+    </p>
+
+    <p class="learn-lead">
+      Solo hay unas pocas capas reales, y todas bloquean una amenaza creando una forma
+      nueva de perder el acceso. Ese es el intercambio, siempre. El valor por defecto
+      honesto es no añadir ninguna y hacer <em>bien</em> el papel primero.
     </p>
   </header>
 
@@ -2735,12 +2796,16 @@ p.learn-lead em{color:var(--patina)}
     <h2><span class="learn-num" aria-hidden="true">02</span> La frase de contraseña</h2>
 
     <p>
-      Los monederos la llaman la “palabra 25”, un nombre amable para algo que no es
-      una palabra ni forma parte de la frase. Es un secreto extra mezclado en la
-      misma derivación, en la sal, así que las mismas doce palabras con otra
-      passphrase producen un monedero completamente distinto. Se toma literalmente,
-      así que mayúsculas, espacios y acentos cuentan, y no hay lista de passphrases
-      válidas porque cualquier cadena posible lo es.
+      Los monederos la llaman la “palabra 25”, un nombre amable para algo que no
+      es una palabra ni forma parte de la frase.
+    </p>
+
+    <p>
+      Es un secreto extra mezclado en la misma derivación, en la sal, así que
+      las mismas doce palabras con otra passphrase producen un monedero
+      completamente distinto. Se toma literalmente, así que mayúsculas, espacios
+      y acentos cuentan, y no hay lista de passphrases válidas porque cualquier
+      cadena posible lo es.
     </p>
 
     <p>
@@ -2751,12 +2816,16 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       <b>Qué cuesta.</b> La ausencia de cualquier vía de recuperación. Ningún
-      monedero, dispositivo ni servicio registra lo que elegiste, porque nada llega a
-      verla en una forma que pudiera guardar, así que no hay restablecimiento, ni
-      soporte, ni ningún camino forense ingenioso. <b>Olvídala y las monedas se han
-      ido, tan por completo como si hubieras quemado la frase</b>, no en parte y no
-      con el experto adecuado. Puedes tener en la mano una copia perfecta, legible e
-      ignífuga de tu semilla, estar leyéndola, y estar fuera para siempre.
+      monedero, dispositivo ni servicio registra lo que elegiste, porque nada
+      llega a verla en una forma que pudiera guardar, así que no hay
+      restablecimiento, ni soporte, ni ningún camino forense ingenioso.
+    </p>
+
+    <p>
+      <b>Olvídala y las monedas se han ido, tan por completo como si hubieras
+      quemado la frase</b>, no en parte y no con el experto adecuado. Puedes
+      tener en la mano una copia perfecta, legible e ignífuga de tu semilla,
+      estar leyéndola, y estar fuera para siempre.
     </p>
 
     <p class="learn-note">
@@ -2852,14 +2921,21 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       <b>Una semilla en papel no es la opción provisional.</b> Generada
-      correctamente ya está fuera del alcance de la fuerza bruta por márgenes que
-      desarrolla la <a href="#learn">guía de campo</a>, así que las únicas formas
-      realistas de perderla son físicas y locales. Guárdala en un sitio seco y
-      privado que no sea el cajón de al lado del ordenador, cópiala a un
-      segundo edificio, y derrota casi todo lo de la lista de amenazas. Dos
-      excepciones: un ladrón que la encuentre, y tu propia mortalidad. Para la
-      mayoría de la gente, la mayor parte del tiempo, es la respuesta correcta, y
-      el esfuerzo va en la copia de seguridad y no en un esquema.
+      correctamente ya está fuera del alcance de la fuerza bruta por márgenes
+      que desarrolla la <a href="#learn">guía de campo</a>, así que las únicas formas realistas
+      de perderla son físicas y locales.
+    </p>
+
+    <p>
+      Guárdala en un sitio seco y privado que no sea el cajón de al lado del
+      ordenador, cópiala a un segundo edificio, y derrota casi todo lo de la lista de
+      amenazas. Quedan dos excepciones: un ladrón que la encuentre, y tu propia
+      mortalidad.
+    </p>
+
+    <p>
+      Para la mayoría de la gente, la mayor parte del tiempo, es la respuesta
+      correcta, y el esfuerzo va en la copia de seguridad y no en un esquema.
     </p>
 
     <p>
@@ -2891,12 +2967,16 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       Antes de cualquier capa, el objeto. Los dos fallos que le pasan a un hogar
-      normal son el calor y el agua, y esa es la razón de que el metal exista como
-      opción. El papel escrito a mano es una copia perfectamente buena y no cuesta
-      nada, y el metal grabado sobrevive a los dos por una hora de trabajo. La regla
-      es la proporción: papel mientras aprendes, metal cuando perderlo dolería. Usa
-      boli y papel normales, nunca el papel térmico de una impresora de recibos, que
-      se borra solo.
+      normal son el calor y el agua, y esa es la razón de que el metal exista
+      como opción.
+    </p>
+
+    <p>
+      El papel escrito a mano es una copia perfectamente buena y no cuesta nada,
+      y el metal grabado sobrevive a los dos por una hora de trabajo. La regla
+      es la proporción: papel mientras aprendes, metal cuando perderlo dolería.
+      Usa boli y papel normales, nunca el papel térmico de una impresora de
+      recibos, que se borra solo.
     </p>
 
     <p>
@@ -2934,12 +3014,15 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       <b>Restaura desde la copia que escribiste</b>, no desde la pantalla, no de
-      memoria y no desde la copia del dispositivo que todavía funciona. Lo que se
-      prueba es el objeto que algún día tendrás en la mano: tu letra, tus abreviaturas
-      y si anotaste la ruta de derivación. El éxito es que vuelva el mismo monedero,
-      con las mismas direcciones en el mismo orden. Un gasto pequeño después demuestra
-      que tienes la clave, donde recibir solo demuestra que copiaste bien una
-      dirección.
+      memoria y no desde la copia del dispositivo que todavía funciona. Lo que
+      se prueba es el objeto que algún día tendrás en la mano: tu letra, tus
+      abreviaturas y si anotaste la ruta de derivación.
+    </p>
+
+    <p>
+      El éxito es que vuelva el mismo monedero, con las mismas direcciones en el
+      mismo orden. Un gasto pequeño después demuestra que tienes la clave, donde
+      recibir solo demuestra que copiaste bien una dirección.
     </p>
 
   </section>
@@ -2948,12 +3031,16 @@ p.learn-lead em{color:var(--patina)}
     <h2><span class="learn-num" aria-hidden="true">07</span> Herencia e incapacidad</h2>
 
     <p>
-      Una copia que nadie más puede encontrar, o que puede encontrar pero no usar, es
-      una copia perdida. Lo que dejes tiene que estar escrito para alguien que no sabe
-      qué es nada de esto. Qué son las palabras y qué controlan. Que no deben
-      teclearse nunca en una web ni enviarse a nadie que ofrezca ayuda. Qué software y
-      qué ruta de derivación, si existe una passphrase y dónde, y en multifirma dónde
-      vive cada clave y el descriptor.
+      Una copia que nadie más puede encontrar, o que puede encontrar pero no
+      usar, es una copia perdida. Lo que dejes tiene que estar escrito para
+      alguien que no sabe qué es nada de esto. Qué son las palabras y qué
+      controlan.
+    </p>
+
+    <p>
+      Que no deben teclearse nunca en una web ni enviarse a nadie que ofrezca
+      ayuda. Qué software y qué ruta de derivación, si existe una passphrase y
+      dónde, y en multifirma dónde vive cada clave y el descriptor.
     </p>
 
     <p>
@@ -3051,11 +3138,14 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       Whoever knows that number owns the coins, and nothing else counts. Not the
-      person holding the device, not the person whose name is on anything. There is
-      no account to recover and no support desk that can step in. So one thing
-      stands between your coins and everyone else, which is that nobody can guess
-      the number. <b>Whether that holds was decided the instant the phrase was
-      created</b>, before you wrote anything down.
+      person holding the device, not the person whose name is on anything. There
+      is no account to recover and no support desk that can step in.
+    </p>
+
+    <p>
+      So one thing stands between your coins and everyone else, which is that
+      nobody can guess the number. <b>Whether that holds was decided the instant
+      the phrase was created</b>, before you wrote anything down.
     </p>
   </section>
 
@@ -3212,13 +3302,17 @@ p.learn-lead em{color:var(--patina)}
     </p>
 
     <p>
-      <b>An air gap is a fact about hardware, not a setting</b>, because settings get
-      changed by software, updates and sleep cycles. Unplug the cable, then disable
-      wifi <em>and</em> bluetooth separately, since a paired phone is a route to the
-      internet. <b>Your phone is never offline in the sense that matters</b>, because
-      it synchronises and indexes its own contents, so a photograph taken in airplane
-      mode uploads itself the moment the connection returns. A live session booted
-      from a USB stick is the honest way to get a clean machine.
+      <b>An air gap is a fact about hardware, not a setting</b>, because settings
+      get changed by software, updates and sleep cycles. Unplug the cable, then
+      disable wifi <em>and</em> bluetooth separately, since a paired phone is a
+      route to the internet.
+    </p>
+
+    <p>
+      <b>Your phone is never offline in the sense that matters</b>, because it
+      synchronises and indexes its own contents, so a photograph taken in
+      airplane mode uploads itself the moment the connection returns. A live
+      session booted from a USB stick is the honest way to get a clean machine.
     </p>
 
     <p>
@@ -3248,11 +3342,15 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       <b>Four things never to do</b>, all the same mistake in different clothes.
-      Never photograph it. Never type it anywhere except the wallet you are restoring
-      on purpose, never store it in a password manager or a cloud note, and never
-      split it in a scheme you invented. The first three turn a local secret into a
-      remote one, and the fourth leaves about sixty-two bits in each half. Home-made
-      splits lose coins far more often than they prevent theft.
+      Never photograph it. Never type it anywhere except the wallet you are
+      restoring on purpose, never store it in a password manager or a cloud
+      note, and never split it in a scheme you invented.
+    </p>
+
+    <p>
+      The first three turn a local secret into a remote one, and the fourth
+      leaves about sixty-two bits in each half. Home-made splits lose coins far
+      more often than they prevent theft.
     </p>
 
     <p class="learn-note">
@@ -3345,10 +3443,13 @@ p.learn-lead em{color:var(--patina)}
     <p>
       Quien conoce ese número posee las monedas, y nada más cuenta. No quien
       sostiene el dispositivo, no quien tiene su nombre en algún sitio. No hay
-      cuenta que recuperar ni servicio de soporte que pueda intervenir. Así que una
-      sola cosa se interpone entre tus monedas y todo el mundo, y es que nadie puede
-      adivinar el número. <b>Que eso se sostenga se decidió en el instante en que se
-      creó la frase</b>, antes de que anotaras nada.
+      cuenta que recuperar ni servicio de soporte que pueda intervenir.
+    </p>
+
+    <p>
+      Así que una sola cosa se interpone entre tus monedas y todo el mundo, y es
+      que nadie puede adivinar el número. <b>Que eso se sostenga se decidió en
+      el instante en que se creó la frase</b>, antes de que anotaras nada.
     </p>
 
   </section>
@@ -3515,10 +3616,13 @@ p.learn-lead em{color:var(--patina)}
       ajustes los cambian el software, las actualizaciones y los ciclos de
       suspensión. Desenchufa el cable y desactiva el wifi <em>y</em> el bluetooth
       por separado, porque un teléfono emparejado es un camino a internet.
-      <b>Tu teléfono nunca está sin conexión en el sentido que importa</b>, porque
-      sincroniza e indexa su propio contenido, así que una foto hecha en modo avión
-      se sube en cuanto vuelve la conexión. Una sesión en vivo arrancada desde un USB
-      es la forma honesta de tener una máquina limpia.
+    </p>
+
+    <p>
+      <b>Tu teléfono nunca está sin conexión en el sentido que importa</b>,
+      porque sincroniza e indexa su propio contenido, así que una foto hecha en
+      modo avión se sube en cuanto vuelve la conexión. Una sesión en vivo
+      arrancada desde un USB es la forma honesta de tener una máquina limpia.
     </p>
 
     <p>
@@ -3551,10 +3655,13 @@ p.learn-lead em{color:var(--patina)}
     <p>
       <b>Cuatro cosas que no hacer nunca</b>, todas el mismo error con otra ropa.
       Nunca la fotografíes. Nunca la teclees salvo en el monedero que estés
-      restaurando a propósito. Nunca la guardes en un gestor de contraseñas ni en una
-      nota en la nube, y nunca la partas con un esquema propio. Las tres primeras
-      convierten un secreto local en uno remoto, y la cuarta deja unos sesenta y dos
-      bits en cada mitad. Los esquemas caseros pierden
+      restaurando a propósito. Nunca la guardes en un gestor de contraseñas ni
+      en una nota en la nube, y nunca la partas con un esquema propio.
+    </p>
+
+    <p>
+      Las tres primeras convierten un secreto local en uno remoto, y la cuarta
+      deja unos sesenta y dos bits en cada mitad. Los esquemas caseros pierden
       monedas mucho más a menudo de lo que evitan robos.
     </p>
 

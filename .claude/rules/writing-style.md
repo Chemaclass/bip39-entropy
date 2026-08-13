@@ -34,6 +34,8 @@ first. Uniform short sentences read as machine-made, which is the one impression
 a page about trusting your own hands cannot afford.
 
 - Baseline is 6 to 15 words. Almost never over 35.
+- **A block caps at 70 words**, whether it is a paragraph or a list item. A reader
+  meets the wall one paragraph at a time.
 - **Never more than two short sentences in a row.** A longer one has to reset the
   rhythm before you go short again.
 - Expand, then contract. The paragraph explains at length, then a fragment

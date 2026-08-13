@@ -4,12 +4,14 @@
     <p class="learn-eyebrow">Preguntas · y un glosario</p>
     <h1 class="learn-title">Las preguntas<br>que surgen<br>siempre</h1>
     <p class="learn-lead">
-      Algunas de estas se preguntan antes de que exista una primera frase. Otras se
-      preguntan años después. Cada respuesta es tan corta como permite la pregunta,
-      y no más. Cuando una respuesta se apoya en la aritmética, la <em>guía de
-      campo</em> enseña el cálculo. Cuando se apoya en un procedimiento,
-      <em>empieza aquí</em> da los pasos. La segunda mitad es un glosario. La mayor
-      parte de la confusión con las frases semilla es vocabulario, no matemáticas.
+      Algunas de estas se preguntan antes de que exista una primera frase, y otras
+      años después. Cada respuesta es tan corta como permite la pregunta, y no más.
+    </p>
+
+    <p class="learn-lead">
+      Cuando una respuesta se apoya en la aritmética, la <em>guía de campo</em> enseña
+      el cálculo. Cuando se apoya en un procedimiento, <em>empieza aquí</em> da los
+      pasos. La segunda mitad es un glosario.
     </p>
   </header>
 
@@ -129,12 +131,10 @@
 
       <li id="faq-otherwallet">
         <b>¿Funcionarán las mismas palabras en otro monedero?</b> Sí, y esa
-        portabilidad es la razón de que el estándar exista. Con lo que se topa la gente
-        es con una restauración que vuelve vacía, y la causa habitual es la ruta de
-        derivación. Una semilla contiene un árbol ilimitado de claves, y cada monedero
-        lee ramas distintas por defecto. Una frase válida que no es tuya también
-        restaura un monedero real y vacío, así que <b>un monedero vacío es una
-        pregunta, no una respuesta</b>.
+        portabilidad es la razón de que el estándar exista. Lo que se encuentra la
+        gente es una restauración vacía, y la causa habitual es la ruta de derivación.
+        Una frase válida que no es tuya también restaura un monedero real y vacío, así
+        que <b>un monedero vacío es una pregunta, no una respuesta</b>.
       </li>
 
       <li id="faq-split">
@@ -147,34 +147,30 @@
       </li>
 
       <li id="faq-verify">
-        <b>¿Cómo sé que esta página es lo que dice?</b> Dos comprobaciones, que
-        demuestran cosas distintas. El hash es la débil: cada despliegue publica el
-        SHA-256 del archivo como <code>index.html.sha256</code>, que detecta una descarga
-        truncada o sustituida pero no dice nada sobre la honestidad del servidor. La
-        fuerte es clonar el repositorio y pasar <code>scripts/verify.sh</code>, que
-        reconstruye la página desde las fuentes y la compara, y falla si la página ha
-        ganado código capaz de usar la red. <b>Un hash publicado es una afirmación. Un
-        build reproducible es una comprobación.</b>
+        <b>¿Cómo sé que esta página es lo que dice?</b> Dos comprobaciones. El hash es
+        la débil: cada despliegue publica el SHA-256 del archivo como
+        <code>index.html.sha256</code>, que no dice nada sobre la honestidad del
+        servidor. La fuerte es clonar el repositorio y pasar
+        <code>scripts/verify.sh</code>, que reconstruye la página y la compara.
+        <b>Un hash publicado es una afirmación. Un build reproducible es una
+        comprobación.</b>
       </li>
 
       <li id="faq-quantum">
         <b>¿La computación cuántica cambia algo de esto?</b> Hoy no. Para la frase, el
-        resultado relevante es la búsqueda al estilo de Grover, que en teoría reduce a la
-        mitad un secreto simétrico. Es el único argumento real para veinticuatro
-        palabras. La pregunta grande no va de tu frase. Las firmas de clave pública son
-        la parte que amenazaría un ordenador cuántico grande, y eso es un problema de
-        protocolo que la red entera afrontaría junta.
+        resultado relevante es la búsqueda al estilo de Grover, el único argumento
+        real para veinticuatro palabras. La pregunta grande no va de tu frase: las
+        firmas de clave pública son la parte que amenazaría un ordenador cuántico
+        grande, y eso lo afrontaría la red entera junta.
       </li>
     </ul>
 
     <p class="learn-note">
       Una pregunta no está en esta lista, y se hace demasiado poco: ¿quién más ha
       visto esta frase? Trata cualquier frase que no hayas visto crearse como ya
-      comprometida. Eso incluye a un amigo servicial, un servicio de setup, un
-      tutorial, un vídeo y una tarjeta en la caja.
-      <a href="#roll">Genera la tuya</a> existe para que puedas ver llegar cada bit
-      de una. <a href="#start">Empieza aquí</a> explica por qué un monedero hardware
-      sigue siendo el valor por defecto correcto para la mayoría.
+      comprometida, y eso incluye a un amigo, un servicio de setup, un tutorial y una
+      tarjeta en la caja. <a href="#roll">Genera la tuya</a> existe para que puedas ver
+      llegar cada bit de una.
     </p>
   </section>
 

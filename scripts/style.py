@@ -35,6 +35,7 @@ SPANISH_ONLY = {"usted", "computadora", "celular", "ordenadores portátiles"}
 # Rhythm, per the guide's "never more than 2-3 in a row before a longer sentence
 # resets" and "expand, then contract". Uniform short sentences are what readers
 # name as machine-written, and the page cannot afford that impression.
+MAX_PARAGRAPH = 70          # words in one <p> or <li>; walls of text lose people
 SHORT_SENTENCE = 8          # words or fewer counts as short
 MAX_RUN = 2                 # short sentences in a row before a longer one resets
 MAX_SHORT_SHARE = 0.34      # of all sentences in a file
@@ -110,6 +111,16 @@ def scan(label: str, text: str, lang: str) -> list[str]:
     return hits
 
 
+def paragraphs(chunks: list[str]) -> list[str]:
+    """One block, one idea, and short enough to look at without flinching.
+
+    Counted per block rather than per page, because a reader meets the wall one
+    paragraph at a time.
+    """
+    return [f"long paragraph ({len(c.split())} words): {c[:90]}…"
+            for c in chunks if len(c.split()) > MAX_PARAGRAPH]
+
+
 def rhythm(chunks: list[str]) -> list[str]:
     """Rhythm reads across a whole page, not inside one sentence.
 
@@ -154,7 +165,9 @@ def main() -> None:
         chunks = blocks(path.read_text())
         for _, block in chunks:
             hits += scan(path.name, block, lang)
-        hits += rhythm([text for tag, text in chunks if tag in PROSE])
+        prose = [text for tag, text in chunks if tag in PROSE]
+        hits += rhythm(prose)
+        hits += paragraphs(prose)
         if hits:
             findings[str(path.relative_to(ROOT))] = hits
 
