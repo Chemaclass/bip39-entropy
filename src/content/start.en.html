@@ -4,27 +4,58 @@
     <p class="learn-eyebrow">Start here · first phrase</p>
     <h1 class="learn-title">Somebody told you<br>to write down<br>twelve words</h1>
     <p class="learn-lead">
-      This page is for the moment before that. It explains what those words are,
-      what is actually at stake, where the randomness behind them should come
-      from, and a procedure you can follow tonight without needing to trust
-      anyone's opinion, including this one. It is deliberately short and
-      practical. The <em>field guide</em> alongside it has the arithmetic and the
-      proofs; you do not need them to do this correctly.
+      This page is for the moment before that. What those words are. What is at
+      stake. Where the randomness behind them should come from. And a procedure
+      you can follow tonight without trusting anyone's opinion, including this
+      one. Short and practical on purpose. The <em>field guide</em> next to it
+      has the arithmetic and the proofs. You don't need them to do this right.
     </p>
   </header>
+
+  <aside class="learn-tldr">
+    <p class="learn-tldr-label">The short version</p>
+    <ul>
+      <li>
+        A seed phrase is a number written as words, and
+        <b>whoever knows the number owns the coins</b>.
+      </li>
+      <li>
+        <b>Its strength was decided the instant it was created</b>, and nothing
+        you do afterwards adds any.
+      </li>
+      <li>
+        No test on a finished phrase tells you it was generated well, so the
+        <a href="#start-random">process behind it</a> is the only evidence you
+        ever get.
+      </li>
+      <li>
+        Let a hardware wallet generate it, or throw
+        <a href="#start-sources">dice</a> if you want to check every bit
+        yourself, and <b>never pick the words yourself</b>.
+      </li>
+      <li>
+        <a href="#start-offline">Offline</a> is a fact about hardware, not a
+        setting, and your phone is never offline in the sense that matters.
+      </li>
+      <li>
+        Write the words on paper by hand,
+        <a href="#start-after">restore from that paper before you fund the
+        wallet</a>, and never photograph or type them.
+      </li>
+    </ul>
+  </aside>
 
   <aside class="learn-warn">
     <p class="learn-warn-label">Before anything else</p>
     <p>
-      This page never asks for a recovery phrase, and no legitimate tool ever
-      will. Not a wallet maker, not an exchange, not a support agent, not a
-      “validator” or a “recovery service”. There is no situation in which a
-      stranger needs your words. The request is the attack, every time, with no
-      exceptions worth learning.
+      This page never asks for a recovery phrase. No legitimate tool ever will.
+      Not a wallet maker, not an exchange, not a support agent, not a
+      “validator” or a “recovery service”. No stranger ever needs your words.
+      The request is the attack. Every time.
     </p>
     <p>
-      Nothing here has a field that accepts a phrase, and nothing here talks to a
-      network. You can confirm that by reading the source or by pulling the cable.
+      Nothing here has a field that takes a phrase. Nothing here talks to a
+      network. Read the source, or pull the cable, and check.
     </p>
   </aside>
 
@@ -47,33 +78,33 @@
     <p>
       A seed phrase is a number written as words. Twelve words are a 128-bit
       number, plus four bits of checksum that catch typing mistakes. The words
-      themselves carry nothing; each one is just an entry in a public list of
-      2048, the same list in every wallet, the same list printed on
+      carry nothing by themselves. Each one is an entry in a public list of
+      2048. The same list in every wallet. The same list printed on
       <a href="#poster">the poster</a>.
     </p>
 
     <p>
       Whoever knows that number owns the coins. Not the person holding the
-      device, not the person who bought them, not the person whose name is on
+      device. Not the person who bought them. Not the person whose name is on
       anything. There is no account, no password reset, no support desk that can
-      intervene, in either direction. If you lose the number the coins are gone,
-      and if someone else learns it they are gone just as completely.
+      step in, in either direction. Lose the number and the coins are gone.
+      Someone else learns it and they are gone the same way.
     </p>
 
     <p>
-      The only thing standing between your coins and everyone else is that nobody
-      can guess the number. That is not a metaphor. It is the entire security
-      model, and whether it holds was decided in the instant the phrase was
-      created, before you wrote anything down, before you chose a wallet, before
-      you thought about where to hide the paper. Everything else on this page
-      follows from that one fact.
+      One thing stands between your coins and everyone else: nobody can guess
+      the number. That isn't a metaphor. It's the entire security model.
+      <b>Whether it holds was decided the instant the phrase was created.</b>
+      Before you wrote anything down. Before you chose a wallet. Before you
+      thought about where to hide the paper. Everything else on this page
+      follows from that.
     </p>
 
     <p class="learn-note">
-      Everything here is stated rather than proved, because the procedure matters
-      more than the arithmetic when you are starting. The
-      <a href="#learn">field guide</a> proves it: what entropy actually measures,
-      why the list holds exactly 2048 words, and what the checksum can and cannot
+      Everything here is stated, not proved. When you are starting, the
+      procedure matters more than the arithmetic. The
+      <a href="#learn">field guide</a> does the proving: what entropy measures,
+      why the list holds exactly 2048 words, and what the checksum can and can't
       tell you.
     </p>
   </section>
@@ -83,54 +114,54 @@
 
     <p>
       A phrase generated properly is one of <code>2^128</code> equally likely
-      possibilities, about <code>3.4 × 10^38</code>. Here is one handle on that
-      number. Bitcoin's mining network, the largest purpose-built computing effort
-      that has ever existed, runs on the order of <code>10^21</code> hashes per
-      second. At that rate, merely <em>counting</em> to <code>2^128</code> takes
-      <code>3.4 × 10^17</code> seconds, or about 11 billion years, roughly the
-      present age of the universe. Nobody is guessing your phrase.
+      possibilities. That's about <code>3.4 × 10^38</code>. Here is one handle
+      on that number. Bitcoin's mining network is the largest purpose-built
+      computing effort that has ever existed. It runs on the order of
+      <code>10^21</code> hashes per second. At that rate, <em>counting</em> to
+      <code>2^128</code> takes <code>3.4 × 10^17</code> seconds. That's about
+      11 billion years, roughly the present age of the universe. Nobody is
+      guessing your phrase.
     </p>
 
     <p>
       But that figure describes a phrase drawn uniformly from all
-      <code>2^128</code>. It says nothing about a phrase drawn from a smaller set,
-      and an attacker does not have to break any mathematics to profit. They only
-      have to search a set smaller than you believed you were using.
+      <code>2^128</code>. It says nothing about a phrase drawn from a smaller
+      set. An attacker doesn't have to break any mathematics to make money. They
+      have to search a set smaller than you thought you were using.
     </p>
 
     <p>
-      This is not hypothetical, and it is the one failure mode that has actually
-      cost people money at scale. Two versions of it recur.
+      This isn't hypothetical. It's the one failure that has cost people money
+      at scale. Two versions of it keep coming back.
     </p>
 
     <ul class="learn-mag">
       <li>
-        <b>Secrets that a person chose.</b> Before seed phrases were standard, it
-        was common to derive a key from a passphrase you invented yourself, a
-        practice known as a brainwallet. Attackers generated keys from song
-        lyrics, scripture, book titles, quotations and password dumps, and swept
-        the funds. Some balances were emptied within seconds of arriving, because
-        the addresses had been precomputed and were simply being watched. Human
-        choice is not a large space, however original the result feels from the
+        <b>Secrets that a person chose.</b> Before seed phrases were standard,
+        people derived a key from a passphrase they invented themselves. The
+        practice was called a brainwallet. Attackers generated keys from song
+        lyrics, scripture, book titles, quotations and password dumps, then
+        swept the funds. Some balances were emptied seconds after they arrived,
+        because the addresses were already precomputed and being watched. Human
+        choice is a small space, however original the result feels from the
         inside.
       </li>
       <li>
-        <b>Generators that were broken.</b> Software that seeds its randomness
-        from something predictable, such as the clock or a fixed value, produces
-        phrases that look perfectly ordinary and sit in a set small enough to
-        enumerate. This has happened repeatedly, in wallet programs and in the
-        platform libraries beneath them. The output is indistinguishable from a
-        good phrase by inspection. You cannot look at twelve words and tell.
+        <b>Generators that were broken.</b> Some software seeds its randomness
+        from something predictable, like the clock or a fixed value. The phrases
+        it makes look perfectly ordinary and sit in a set small enough to list
+        out. It has happened again and again, in wallet programs and in the
+        platform libraries under them. Nothing about the output looks wrong.
+        <b>You can't look at twelve words and tell.</b>
       </li>
     </ul>
 
     <p class="learn-note">
-      That last point is worth stating on its own. There is no test you can
-      perform on a finished phrase to learn whether it was well generated. A
-      wallet accepting it proves only that the checksum matches, which a
-      hand-picked phrase can satisfy just as easily. The only evidence you will
-      ever have about a phrase's strength is what you know about the process that
-      produced it, which is why the rest of this page is about process.
+      That last point deserves its own paragraph. No test on a finished phrase
+      tells you whether it was generated well. A wallet accepting it proves the
+      checksum matches, and a hand-picked phrase matches too. The only evidence
+      you will ever have about a phrase's strength is what you know about the
+      process that produced it. So the rest of this page is about process.
     </p>
 
     <div data-widget="scale"></div>
@@ -140,10 +171,10 @@
     <h2><span class="learn-num" aria-hidden="true">03</span> Where randomness can come from</h2>
 
     <p>
-      Every option involves trusting something. The useful question is not which
-      one is perfect, but which thing you are trusting, and whether you are able
-      to check it. The table is the summary, a word per cell. The honest version
-      of each row follows it.
+      Every option asks you to trust something. The question isn't which one is
+      perfect. It's what you are trusting, and whether you can check it. The
+      table is the summary, a word per cell. The honest version of each row
+      comes after.
     </p>
 
     <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Sources of randomness compared, scrollable table">
@@ -206,55 +237,56 @@
     </div>
 
     <p>
-      Every one of those verdicts has a caveat, and the caveats are the reason
-      people get this wrong.
+      Every verdict in that table has a catch. The catches are where people go
+      wrong.
     </p>
 
     <ul class="learn-mag">
       <li>
         <b>A hardware wallet's own generator</b> is the right answer for almost
-        everyone, and you cannot audit it. Both halves are true. You are trusting
-        a chip, a firmware build, and the shipping route the box travelled. What
-        you get in exchange is that the phrase is produced inside a device that
-        was designed to keep it, never appears on a general-purpose computer, and
-        never passes through a screen that something else might be reading. That
-        trade is a good one, because the realistic threats to a first-time owner
-        are ordinary malware and ordinary mistakes, not a compromised chip.
+        everyone. You also can't audit it. Both halves are true. You are
+        trusting a chip, a firmware build, and the route the box travelled to
+        reach you. In exchange, the phrase is made inside a device designed to
+        keep it. It never appears on a general-purpose computer. It never
+        crosses a screen that something else might be reading. <b>That trade is
+        a good one.</b> The realistic threats to a first-time owner are ordinary
+        malware and ordinary mistakes, not a compromised chip.
       </li>
       <li>
-        <b>Dice and coins</b> are auditable, which is genuinely rare and the only
-        reason to prefer them. You watch every bit arrive. They are also slow and
-        easy to fumble: a die with rounded edges, a throw recorded in the wrong
-        box, a worksheet left on a desk, a phone in the room. Hand-generated
-        entropy is not <em>more</em> random than a sound hardware source. It is
-        merely checkable, and only if you are the kind of person who will actually
-        be careful for the full hour it takes.
+        <b>Dice and coins</b> can be audited, which is rare, and it is the only
+        reason to prefer them. You watch every bit arrive. They are also slow
+        and easy to fumble: a die with rounded edges, a throw written in the
+        wrong box, a worksheet left on a desk, a phone in the room.
+        Hand-generated entropy is not <em>more</em> random than a sound hardware
+        source. It's checkable. And only if you will stay careful for the full
+        hour it takes.
       </li>
       <li>
-        <b>An operating system's generator</b>, meaning <code>/dev/urandom</code>
-        on Unix-like systems and the equivalent call elsewhere, is genuinely good
-        cryptography, continuously reseeded and heavily reviewed. Its weakness is
-        not the algorithm. It is that you are trusting the entire machine it runs
-        on: the kernel, the drivers, whatever else is installed, and whatever the
-        machine has been exposed to. On a clean, offline system this is a strong
-        choice. On your everyday laptop it is a guess about your everyday laptop.
+        <b>An operating system's generator</b> is good cryptography:
+        <code>/dev/urandom</code> on Unix-like systems, the equivalent call
+        elsewhere. It is reseeded constantly and reviewed hard. The weakness
+        isn't the algorithm. It's that you are trusting the whole machine it
+        runs on: the kernel, the drivers, whatever else is installed, whatever
+        the machine has been exposed to. On a clean, offline system it's a
+        strong choice. On your everyday laptop it's a guess about your everyday
+        laptop.
       </li>
       <li>
-        <b>A website or a browser tab</b> ultimately calls the same operating
-        system generator, so the randomness itself is usually fine. Everything
+        <b>A website or a browser tab</b> calls that same operating system
+        generator in the end, so the randomness is usually fine. Everything
         around it is the problem: extensions that can read the page, the page
-        cache, memory that gets written to disk, screenshots, session restore, and
-        the question of whether the copy you loaded is the copy the author wrote.
-        Useful for learning how this works. Not where you make a phrase that will
-        hold savings.
+        cache, memory written to disk, screenshots, session restore, and whether
+        the copy you loaded is the copy the author wrote. Good for learning how
+        this works. Not for making a phrase that will hold savings.
       </li>
       <li>
-        <b>Choosing words yourself</b> is the one option with no defence. People
-        asked for random things produce patterns: concrete nouns, things in the
-        room, names, dates, avoidance of repeats. Even if you disciplined yourself
-        into picking twelve words uniformly from a shortlist of thirty-two you
-        find memorable, that is sixty bits, which a serious hardware budget works
-        through. It is not a weaker kind of security. It is the absence of it.
+        <b>Choosing words yourself</b> is the one option with no defence. Ask a
+        person for random things and you get patterns: concrete nouns, things in
+        the room, names, dates, no repeats. Say you disciplined yourself into
+        picking twelve words uniformly from a shortlist of thirty-two you find
+        memorable. That is sixty bits, and a serious hardware budget works
+        through sixty bits. <b>It isn't weaker security. It's the absence of
+        it.</b>
       </li>
     </ul>
   </section>
@@ -264,9 +296,9 @@
 
     <p>
       Two procedures. The first is what most people should do. The second is for
-      someone who wants to see every bit of their own entropy arrive, and who is
-      willing to spend an evening on it. The order of the steps matters in both,
-      particularly the restore test, which comes before the money and not after.
+      the person who wants to watch every bit of their own entropy arrive, and
+      who will spend an evening on it. The order of the steps matters in both.
+      Above all the restore test, which comes before the money, not after.
     </p>
 
     <p>
@@ -275,88 +307,88 @@
 
     <ol class="learn-mag">
       <li>
-        <b>1 · Buy it from the maker.</b> Order directly from the manufacturer or
-        an authorised reseller they list themselves. Not a marketplace listing,
-        not an auction, not secondhand, not a gift from someone in a chat. If the
-        box arrives with a recovery phrase already written on a card inside, the
+        <b>1 · Buy it from the maker.</b> Order from the manufacturer, or from a
+        reseller they list themselves. Not a marketplace listing, not an
+        auction, not secondhand, not a gift from someone in a chat. If the box
+        arrives with a recovery phrase already written on a card inside, the
         device is a trap. Stop and return it.
       </li>
       <li>
-        <b>2 · Verify the device before it holds anything.</b> Follow the
-        manufacturer's own authenticity check, install or confirm the firmware
-        from their official channel, and read the firmware version off the
-        device's own screen rather than off the computer. A device that asks you
-        to install software from a link you were sent is not the device you
-        ordered.
+        <b>2 · Check the device before it holds anything.</b> Run the
+        manufacturer's own authenticity check. Install or confirm the firmware
+        from their official channel. Read the firmware version off the device's
+        own screen, not off the computer. A device that asks you to install
+        software from a link you were sent isn't the device you ordered.
       </li>
       <li>
-        <b>3 · Let the device generate the phrase.</b> Choose the option that
-        creates a new wallet. The words appear on the device's screen and should
-        never appear on your computer screen at any point. Set a PIN when it asks.
+        <b>3 · Let the device generate the phrase.</b> Pick the option that
+        creates a new wallet. The words appear on the device's screen. They
+        should never appear on your computer screen, at any point. Set a PIN
+        when it asks.
       </li>
       <li>
         <b>4 · Write the words down by hand.</b> Paper, pen, numbered one to
-        twelve, in order, spelled exactly as shown. Write legibly enough that a
-        stranger could read it, because in the worst case that is the point. Do
-        not photograph the screen. Do not type the words anywhere.
+        twelve, in order, spelled exactly as shown. Write clearly enough that a
+        stranger could read it, because in the worst case that is the point.
+        Don't photograph the screen. Don't type the words anywhere.
       </li>
       <li>
         <b>5 · Confirm from your copy, not from memory.</b> The device will ask
-        you to re-enter some or all of the words. Read them off the paper you just
-        wrote. This is the only moment when a transcription error is cheap to
-        find, and reading from memory defeats the check entirely.
+        you to re-enter some or all of the words. Read them off the paper in
+        front of you. This is the only moment when a copying error is cheap to
+        find. Reading from memory kills the check.
       </li>
       <li>
-        <b>6 · Restore before you fund it.</b> Wipe the device, then restore it
-        from your written copy alone. If the same wallet comes back, your backup
-        works. If it does not, you have learned that for the price of nothing.
-        This step is the one people skip, and it is the one that matters.
+        <b>6 · Restore before you fund it.</b> Wipe the device. Restore it from
+        your written copy alone. If the same wallet comes back, your backup
+        works. If it doesn't, you found that out for free. <b>This is the step
+        people skip, and it's the one that matters.</b>
       </li>
       <li>
-        <b>7 · Send a small amount first.</b> Receive a little, confirm it
-        arrives, then send some of it back out to confirm you can actually spend
-        from this wallet. Only then move the rest.
+        <b>7 · Send a small amount first.</b> Receive a little. Confirm it
+        arrives. Send some of it back out, so you know you can spend from this
+        wallet. Only then move the rest.
       </li>
     </ol>
 
     <p>
-      <b>Recipe B · Dice and this poster.</b> Slower, auditable end to end. The
-      <a href="#roll">roller</a> walks the throws in and prints a worksheet for
-      doing it at a table with no computer at all.
+      <b>Recipe B · Dice and this poster.</b> Slower. Auditable end to end. The
+      <a href="#roll">roller</a> takes the throws one by one, and prints a
+      worksheet so you can do it at a table with no computer at all.
     </p>
 
     <ol class="learn-mag">
       <li>
-        <b>1 · Decide the length and the count.</b> Twelve words is 128 bits,
-        which is 64 accepted throws of one six-sided die. Because fifths and
-        sixths are discarded, expect to throw about 96 times in total.
+        <b>1 · Decide the length and the count.</b> Twelve words is 128 bits.
+        That is 64 accepted throws of one six-sided die. Fifths and sixths get
+        discarded, so expect about 96 throws in total.
       </li>
       <li>
         <b>2 · Set the room up.</b> Fresh paper, a die you have looked at, no
         phone on the table, no camera in the room, nobody reading over your
         shoulder. Print the worksheet first if you are working away from the
-        screen, and print the poster or have it on the wall.
+        screen. Print the poster too, or have it on the wall.
       </li>
       <li>
         <b>3 · Throw and record, in order.</b> Read <code>1 2 3 4</code> as
         <code>00 01 10 11</code>. A <code>5</code> or a <code>6</code> records
-        nothing and is thrown again; discarding them is exactly what keeps the
-        four outcomes equally likely. Never “fix” a throw you dislike, and never
-        reuse a set of throws for a second wallet.
+        nothing and gets thrown again. Discarding them is what keeps the four
+        outcomes equally likely. Never “fix” a throw you don't like. Never reuse
+        a set of throws for a second wallet.
       </li>
       <li>
         <b>4 · Cut the bits into words.</b> Write the bits out in groups of
-        eleven. Each group is an index from <code>0</code> to <code>2047</code>,
-        and on the poster you read it straight off: the high bits pick the column,
-        the low bits pick the row. For a twelve-word phrase the first eleven words
-        come entirely from your own bits.
+        eleven. Each group is an index from <code>0</code> to <code>2047</code>.
+        On the poster you read it straight off: the high bits pick the column,
+        the low bits pick the row. For a twelve-word phrase, the first eleven
+        words come entirely from your own bits.
       </li>
       <li>
-        <b>5 · Let a machine finish the last word.</b> The twelfth word mixes your
-        remaining entropy bits with four checksum bits taken from SHA-256, which
-        you cannot compute by hand. Enter your bits into an offline machine, or
-        into a hardware wallet that accepts dice input or raw entropy. The machine
-        learns your entropy either way; the point is that it did not
+        <b>5 · Let a machine finish the last word.</b> The twelfth word mixes
+        your remaining entropy bits with four checksum bits from SHA-256, and
+        you can't compute SHA-256 by hand. Enter your bits into an offline
+        machine, or into a hardware wallet that takes dice input or raw entropy.
+        The machine learns your entropy either way. The point is that it did not
         <em>choose</em> it.
       </li>
       <li>
@@ -365,13 +397,13 @@
       </li>
       <li>
         <b>7 · Restore, then destroy the worksheet.</b> Load the phrase into the
-        wallet you intend to use, offline, and confirm the addresses. Then burn or
+        wallet you plan to use, offline, and confirm the addresses. Then burn or
         shred every sheet of bits. Until you do, that worksheet is a second copy
         of your seed in longhand.
       </li>
       <li>
         <b>8 · Small amount first, then fund it.</b> As above. Receive, spend,
-        confirm, and only then move anything you would miss.
+        confirm. Only then move anything you would miss.
       </li>
     </ol>
   </section>
@@ -381,128 +413,125 @@
 
     <p>
       Most people reading this should stop at Recipe A and let a hardware wallet
-      do it. That is not a hedge, it is the recommendation. What follows is for
-      two narrower cases: you have decided to generate the entropy yourself and
-      want the machine involved to be as inert as possible, or you are about to
-      print something and would rather the printing step did not quietly undo the
-      care taken everywhere else.
+      do the work. That is not a hedge. That is the recommendation. What follows
+      is for two narrower cases. You have decided to generate the entropy
+      yourself, and you want the machine involved to do as little as possible.
+      Or you are about to print something, and you would rather the printing
+      step did not undo the care you took everywhere else.
     </p>
 
     <p>
       <b>An air gap is a fact about hardware, not a setting.</b> It means a
-      machine with no path to a network at all, not a machine whose network is
-      currently switched off. Settings are changed by software, updates, sleep
-      cycles, docking stations and people. Removing the wireless card, or using a
-      machine that never had one, is a different kind of claim.
+      machine with no path to a network at all. Not a machine whose network is
+      switched off right now. Settings get changed by software, updates, sleep
+      cycles, docking stations and people. Take the wireless card out, or use a
+      machine that never had one. That is a different kind of claim.
     </p>
 
     <p>
-      <b>Turning the network off, for real.</b> Unplug the ethernet cable, and
-      separately disable wifi <em>and</em> bluetooth, because bluetooth is a
-      network and a paired phone is a route to the internet. Airplane mode is a
-      pause rather than a property: many devices re-enable radios on wake, on
-      reboot, or when an update decides connectivity is needed. If the machine
-      cannot be made to stay off, use a different machine.
+      <b>Turning the network off, for real.</b> Unplug the ethernet cable. Then
+      disable wifi <em>and</em> bluetooth, separately. Bluetooth is a network,
+      and a paired phone is a route to the internet. Airplane mode is a pause,
+      not a property. Plenty of devices switch the radios back on when they
+      wake, when they reboot, or when an update decides it needs the connection.
+      If the machine won't stay off, use a different machine.
     </p>
 
     <p>
-      <b>Your phone is never offline in the sense that matters.</b> It is built to
-      synchronise. It backs itself up, restores itself onto new devices, indexes
-      its own contents to make them searchable, saves copies of what is on screen,
-      and runs software you did not choose and cannot inventory. A photograph
-      taken in airplane mode uploads itself the moment the connection returns,
-      which is the mechanism by which most phrases stored on phones eventually
-      leave the building. Your daily laptop is the same machine with a bigger
-      screen.
+      <b>Your phone is never offline in the sense that matters.</b> It is built
+      to synchronise. It backs itself up. It restores itself onto new devices.
+      It indexes its own contents so you can search them. It saves copies of
+      what is on screen. It runs software you didn't choose and can't list. A
+      photograph taken in airplane mode uploads itself the moment the connection
+      returns. That is how most phrases stored on phones leave the building.
+      Your daily laptop is the same machine with a bigger screen.
     </p>
 
     <p>
-      <b>Getting this page off the network</b>, in this order. The point of each
-      step is that the next one can happen with nothing listening.
+      <b>Getting this page off the network</b>, in this order. Each step exists
+      so the next one can happen with nothing listening.
     </p>
 
     <ol class="learn-mag">
       <li>
         <b>1 · Save it to disk.</b> The header has a “Save offline” control that
-        writes this page out as a single file. That works because the page is
-        genuinely self-contained: no fonts, images, scripts or styles are loaded
-        from anywhere, so the saved copy is the whole thing rather than a shell
-        that breaks the moment it cannot reach a server.
+        writes this page out as a single file. It works because the page is
+        self-contained. No fonts, images, scripts or styles come from anywhere
+        else. The saved copy is the whole thing, not a shell that breaks the
+        moment it can't reach a server.
       </li>
       <li>
         <b>2 · Check what you downloaded.</b> Every deploy publishes the file's
         SHA-256 beside it, as <code>index.html.sha256</code>. Compare it against
-        the file you saved before you trust the copy. Be clear about what this
-        proves: the same server served both, so it catches a truncated, cached or
-        substituted-in-transit download, and it does not prove the server itself
-        was honest. The strong version is cloning the repository and running its
-        verify script, which rebuilds the page from source and diffs the result.
+        the file you saved before you trust the copy. Be clear about what that
+        proves. The same server served both, so it catches a download that was
+        truncated, cached or swapped in transit. It does not prove the server
+        itself was honest. The strong version is cloning the repository and
+        running its verify script, which rebuilds the page from source and diffs
+        the result.
       </li>
       <li>
         <b>3 · Move it on removable media</b> to the machine that will do the
-        work, rather than downloading it there. A machine that never fetched
+        work, instead of downloading it there. A machine that never fetched
         anything has less to explain.
       </li>
       <li>
         <b>4 · Disconnect, then open it.</b> Not the other way round. Open the
-        local file with the network already down, so that at no point is there a
-        tab with your entropy in it and a route to the outside world at the same
-        time.
+        local file with the network already down. At no point should a tab
+        holding your entropy sit on a machine with a route to the outside world.
       </li>
       <li>
-        <b>5 · Do the work, write the words by hand</b>, and leave the machine in
-        that state until you have finished transcribing and checking. Reconnecting
-        “just to look something up” in the middle is the step that undoes the
-        other four.
+        <b>5 · Do the work, write the words by hand</b>, and leave the machine
+        that way until you have finished copying and checking. Reconnecting “to
+        look something up” in the middle undoes the other four.
       </li>
     </ol>
 
     <p>
-      <b>A clean environment.</b> For a general-purpose computer, the strongest
-      realistic option is booting a live session from a USB stick with persistence
-      switched off. You get an operating system that has never been used, so
-      nothing that was already installed on the machine is running, and a session
-      that exists only in memory, so nothing you do survives the reboot. That is
-      the whole appeal: the cleanup is a power cycle rather than a list of things
-      to remember to delete.
+      <b>A clean environment.</b> On a general-purpose computer, the strongest
+      realistic option is a live session booted from a USB stick with
+      persistence switched off. You get an operating system that has never been
+      used, so nothing already installed on the machine is running. You get a
+      session that exists only in memory, so nothing you do survives the reboot.
+      That is the whole appeal. The cleanup is a power cycle, not a list of
+      things to remember to delete.
     </p>
 
     <p>
-      The trade-offs are worth stating rather than glossing, especially if you
-      have never done it. You need a second working computer to prepare the stick,
-      and you should check the image's signature or hash while you are still
-      online, because a live session built from a tampered image is worse than not
-      bothering. The machine may need its boot order or secure boot settings
-      changed. Printers and wifi may not work without drivers you would have to
-      fetch, which is inconvenient by design. And it does not fix hardware that is
-      already compromised, nor does it help if you reconnect halfway through. It
-      narrows the problem to the hardware and the image, which is a much smaller
-      problem than the one you started with.
+      The trade-offs are worth saying out loud, especially if you have never
+      done it. You need a second working computer to prepare the stick. Check
+      the image's signature or hash while you are still online, because a live
+      session built from a tampered image is worse than not bothering. The
+      machine may need its boot order or its secure boot settings changed.
+      Printers and wifi may not work without drivers you would have to fetch,
+      which is inconvenient by design. It does not fix hardware that is already
+      compromised. It does not help if you reconnect halfway through. What it
+      does is narrow the problem to the hardware and the image. That is a much
+      smaller problem than the one you started with.
     </p>
 
     <p>
-      <b>The browser is still the weakest link.</b> Not normally because the
-      randomness is bad, since the browser asks the operating system for that. It
-      is everything around it. Extensions can read what is on the page. Pages get
+      <b>The browser is still the weakest link.</b> Not because the randomness
+      is bad, since the browser asks the operating system for that. It is
+      everything around it. Extensions can read what is on the page. Pages get
       cached. Memory gets written to swap. Sessions get restored after a crash,
       sometimes with the contents intact. Clipboards are shared and read. A live
-      session removes most of that at a stroke, which is precisely why it is worth
-      the trouble if you are going to use a browser at all.
+      session removes most of that in one move. That is why it is worth the
+      trouble if you are going to use a browser at all.
     </p>
 
     <p>
       So, plainly: <b>generating a phrase for real money in a browser tab is the
-      worst of the acceptable options</b>, and for nearly everyone a hardware
-      wallet is the better one. This page exists to teach the mechanism and to let
-      you verify it, which is a genuinely different job from holding savings.
+      worst of the acceptable options</b>. For nearly everyone, a hardware wallet
+      is the better one. This page exists to teach the mechanism and to let you
+      check it. That is a different job from holding savings.
     </p>
 
     <p class="learn-note">
-      The reason this page is one file with no network code is precisely so that
-      the procedure above is possible to carry out and possible to check. It loads
-      nothing from anywhere, sends nothing, and stores nothing. That is enforced
-      by the build rather than promised in prose, and you can confirm it by
-      reading the source or by working with the cable pulled.
+      This page is one file with no network code so that the procedure above is
+      possible to carry out and possible to check. It loads nothing, sends
+      nothing, stores nothing. The build enforces that, rather than the prose
+      promising it. Read the source, or work with the cable pulled.
     </p>
   </section>
 
@@ -510,120 +539,120 @@
     <h2><span class="learn-num" aria-hidden="true">06</span> Staying offline</h2>
 
     <p>
-      Going offline is a moment. Staying offline is the harder half, because a
-      modern computer is full of features whose entire job is to remember things
-      for you and hand them to another machine later. None of these need a network
-      at the time. They wait.
+      Going offline is a moment. Staying offline is the hard half. A modern
+      computer is full of features whose whole job is to remember things for you
+      and hand them to another machine later. None of them need a network at the
+      time. They wait.
     </p>
 
     <ul class="learn-mag">
       <li>
         <b>Screenshots and screen recording.</b> A screenshot is a file in a
-        folder that is very often a synchronised album, and it uploads when the
-        machine reconnects. Screen recording and meeting software can be running
-        without a visible window. If you would not photograph the words, do not
-        put them on a screen you have not accounted for.
+        folder, and that folder is very often a synchronised album. It uploads
+        when the machine reconnects. Screen recording and meeting software can
+        run with no visible window. If you wouldn't photograph the words, don't
+        put them on a screen you haven't accounted for.
       </li>
       <li>
-        <b>Clipboard history.</b> Copying is not transient any more. Operating
+        <b>Clipboard history.</b> Copying isn't temporary any more. Operating
         systems and clipboard managers keep a scrollback of everything copied,
-        sometimes on disk, sometimes synchronised between your own devices, which
-        turns one copy-and-paste into a permanent record on hardware you were not
+        sometimes on disk, sometimes synchronised between your own devices. One
+        copy-and-paste becomes a permanent record on hardware you weren't
         thinking about.
       </li>
       <li>
-        <b>Shell history.</b> Anything typed at a command line is appended to a
-        history file, including the arguments. A phrase or a set of raw entropy
-        bits passed to a tool on the command line is now written to your home
-        directory in plain text, and it is backed up with everything else.
+        <b>Shell history.</b> Anything typed at a command line goes into a
+        history file, arguments included. Pass a phrase or a set of raw entropy
+        bits to a tool that way and it is now written to your home directory in
+        plain text. Backed up with everything else.
       </li>
       <li>
         <b>Editors and their safety nets.</b> Autosave, swap and recovery files,
-        undo history, and the recent-documents list all exist to survive a crash,
-        which means they survive you closing the file without saving. Do not use a
-        text editor as scratch paper for this. Use actual paper.
+        undo history, the recent-documents list. They all exist to survive a
+        crash, which means they survive you closing the file without saving.
+        Don't use a text editor as scratch paper for this. Use actual paper.
       </li>
       <li>
-        <b>Voice assistants and always-on input.</b> Reading the words aloud while
-        a microphone is listening is a transcription waiting to be uploaded. This
-        includes phones and speakers in the room, not just the machine in front of
-        you.
+        <b>Voice assistants and always-on input.</b> Read the words aloud near a
+        listening microphone and you have made a transcript waiting to be
+        uploaded. That includes phones and speakers in the room, not only the
+        machine in front of you.
       </li>
       <li>
         <b>Sync folders.</b> The desktop, the documents folder and the downloads
-        folder are commonly synchronised. A file written there while offline is
-        not private, it is queued. It will upload the moment the machine comes
-        back, without asking you again.
+        folder are commonly synchronised. A file written there while you are
+        offline isn't private. It's queued. It uploads the moment the machine
+        comes back, and it won't ask you again.
       </li>
     </ul>
 
     <p class="learn-note">
       Every item on that list is a reason to prefer the live session or the
-      hardware wallet. On a machine with no persistent disk and no accounts signed
-      in, most of these traps do not exist, because there is nowhere for the
-      remembered copy to live and nothing to sync it to later.
+      hardware wallet. On a machine with no persistent disk and no accounts
+      signed in, most of these traps don't exist. There is nowhere for the
+      remembered copy to live, and nothing to sync it to later.
     </p>
 
     <p>
-      <b>Printing, which is the point of this project.</b> A printer is a computer
-      that you have not thought about in those terms. Many keep a spool of recent
-      jobs, and office models often have an internal disk that retains them for a
-      long time. Shared and networked printers keep job logs naming the document
+      <b>Printing, which is the point of this project.</b> A printer is a
+      computer you have never thought of as one. Many keep a spool of recent
+      jobs, and office models often hold them on an internal disk for a long
+      time. Shared and networked printers keep job logs with the document name
       and the person who sent it. A printer shared over wifi is a network device
-      by definition: the job crosses a network to reach it, and it is reachable by
-      anything else on that network.
+      by definition. The job crosses a network to reach it, and anything else on
+      that network can reach it too.
     </p>
 
     <p>
-      The good news is that this project's printed output is not secret. <b>The
-      poster is the public BIP-39 word list</b>, shipped in every wallet and
-      downloadable by anyone, so printing it at work, at a copy shop or over any
-      network you like reveals nothing. <b>The blank worksheet is equally safe</b>,
-      because it contains boxes and instructions and no results. Print those
-      wherever is convenient, and print them in advance.
+      The good news: this project's printed output is not secret. <b>The poster
+      is the public BIP-39 word list</b>, shipped in every wallet, downloadable
+      by anyone. Print it at work, at a copy shop, over any network you like. It
+      reveals nothing. <b>The blank worksheet is equally safe</b>, because it
+      holds boxes and instructions and no results. Print both wherever is
+      convenient, and print them in advance.
     </p>
 
     <p>
-      <b>What is dangerous is a worksheet you have filled in</b>, or anything else
-      carrying your words or your bits. That is your seed in longhand, and it
-      should never be sent to a printer at all. Write it by hand instead. If you
-      genuinely must print something derived from a real phrase, use a printer
-      connected directly by cable to the machine doing the work, never a shared or
-      network one, and treat the printer as having kept a copy afterwards.
+      <b>The dangerous sheet is the one you filled in</b>, or anything else
+      carrying your words or your bits. That is your seed in longhand. It should
+      never reach a printer. Write it by hand instead. If you must print
+      something derived from a real phrase, use a printer wired straight to the
+      machine doing the work, never a shared or network one, and assume the
+      printer kept a copy.
     </p>
 
     <p>
-      <b>Coming back online.</b> This is the step people forget, because by then
-      the interesting part is over.
+      <b>Coming back online.</b> People forget this step, because by then the
+      interesting part is over.
     </p>
 
     <ol class="learn-mag">
       <li>
-        <b>1 · Finish the paper first.</b> Transcribe, check the spelling, confirm
-        the order, and complete any restore test before anything reconnects. Once
-        the machine is online again you should not want to touch the phrase on it.
+        <b>1 · Finish the paper first.</b> Copy the words, check the spelling,
+        confirm the order, and finish any restore test before anything
+        reconnects. Once the machine is online again, you shouldn't want to
+        touch the phrase on it.
       </li>
       <li>
         <b>2 · Destroy the working copies.</b> Burn or shred the sheets of bits.
-        A filled-in worksheet is not a draft, it is a duplicate of the secret, and
-        it deserves the same end as any other copy you did not intend to keep.
+        A filled-in worksheet isn't a draft. It's a duplicate of the secret, and
+        it deserves the same ending as any other copy you didn't mean to keep.
       </li>
       <li>
         <b>3 · Power off the live session.</b> This is the clean ending, and the
-        reason to have used one. Cutting the power to a session with no
-        persistence discards the whole environment at once, with nothing left to
-        find and nothing left to remember to delete. Then wipe or destroy the
-        media you carried the file on, and do not save that file back to any disk
-        that persists.
+        reason to have used one. Cut the power to a session with no persistence
+        and the whole environment goes at once. Nothing left to find, nothing
+        left to remember to delete. Then wipe or destroy the media you carried
+        the file on, and don't save that file back to any disk that persists.
       </li>
       <li>
-        <b>4 · If you used an ordinary machine, assume it kept something.</b> Go
-        through the list above deliberately: clipboard history, shell history,
-        editor recovery files, the downloads and desktop folders, the trash, the
-        screenshots album. Then reconnect. If that list feels like too much to be
-        sure about, that is the honest signal that the secret should not have been
-        on that machine, and the phrase is worth generating again somewhere
-        cleaner while it still holds nothing.
+        <b>4 · If you used an ordinary machine, assume it kept something.</b>
+        Walk the list above on purpose: clipboard history, shell history, editor
+        recovery files, the downloads and desktop folders, the trash, the
+        screenshots album. Then reconnect. If that list feels like too much to
+        be sure about, take the hint. The secret should not have been on that
+        machine. Generate the phrase again somewhere cleaner, while it still
+        holds nothing.
       </li>
     </ol>
   </section>
@@ -632,81 +661,79 @@
     <h2><span class="learn-num" aria-hidden="true">07</span> After you have the words</h2>
 
     <p>
-      <b>Restore before you fund.</b> This page has now said so in both recipes
-      and it is saying so once more, because it is the step that gets skipped. A
-      backup you have never restored is a guess about the future, and the moment
-      to discover that a word is illegible or in the wrong position is while the
-      wallet is empty.
+      <b>Restore before you fund.</b> Both recipes said it. Here it is a third
+      time, because this is the step that gets skipped. A backup you have never
+      restored is a guess about the future. The moment to find out that a word
+      is unreadable or in the wrong position is while the wallet is empty.
     </p>
 
     <p>
-      <b>Paper or steel.</b> Paper written by hand is a perfectly good backup and
-      costs nothing. It is also destroyed by fire and ruined by water, and those
-      are the two things most likely to happen to a house. Stamped or punched
-      metal survives both, at the cost of an hour and a modest piece of equipment.
-      A reasonable rule is that the backup should be worth roughly as much trouble
-      as the amount it protects: paper while you are learning, metal once losing
-      it would genuinely hurt. Whatever the medium, store it somewhere that is dry,
-      private, and not the same place as the device.
+      <b>Paper or steel.</b> Paper written by hand is a good backup and costs
+      nothing. Fire destroys it and water ruins it, and those are the two things
+      most likely to happen to a house. Stamped or punched metal survives both,
+      for an hour of work and a modest piece of equipment. A fair rule: the
+      backup should be worth about as much trouble as the amount it protects.
+      Paper while you are learning. Metal once losing it would hurt. Either way,
+      store it somewhere dry, private, and not in the same place as the device.
     </p>
 
     <p>
-      <b>Four things never to do</b>, all of which are the same mistake in
-      different clothes.
+      <b>Four things never to do</b>, all the same mistake in different clothes.
     </p>
 
     <ul class="learn-mag">
       <li>
-        <b>Never photograph it.</b> A photograph is a file, and files on modern
-        devices copy themselves to a service by default, get indexed, get read by
-        whatever software has permission to read photographs, and outlive the
+        <b>Never photograph it.</b> A photograph is a file. Files on modern
+        devices copy themselves to a service by default, get indexed, get read
+        by whatever software has permission to read photographs, and outlive the
         moment you took them.
       </li>
       <li>
         <b>Never type it into a phone or a computer</b>, except into the wallet
-        you are deliberately restoring, on a device you control. Keyboards
-        remember. Notes applications synchronise. Autocorrect learns. Anything you
-        type has passed through software you did not audit.
+        you are restoring on purpose, on a device you control. Keyboards
+        remember. Notes applications synchronise. Autocorrect learns. Anything
+        you type has passed through software you never audited.
       </li>
       <li>
         <b>Never store it in a password manager or a cloud note.</b> Both are
-        servers holding your data, protected by a password that now guards
-        everything you own, and both are designed to be reachable from anywhere,
-        which is the property you were trying to avoid.
+        servers holding your data, behind one password that now guards
+        everything you own. Both are built to be reachable from anywhere. That
+        is the exact property you were trying to avoid.
       </li>
       <li>
-        <b>Never split it in a clever scheme you invented.</b> Half in one place
-        and half in another, or six words with a relative, or a shift you will
-        remember. These schemes are worse in both directions at once.
+        <b>Never split it in a clever scheme you invented.</b> Half here and
+        half there. Six words with a relative. A shift you will remember. These
+        schemes are worse in both directions at once.
       </li>
     </ul>
 
     <p>
-      That last one deserves its reason, because it always sounds prudent. Splitting
-      a phrase in half weakens each half far more than people expect: six known
-      words of a twelve-word phrase leave about sixty-two bits, which is not
-      comfortably out of reach of a large hardware budget, so whoever finds one
-      half has a real chance rather than none.
+      That last one needs its reason, because it always sounds careful.
+      Splitting a phrase in half weakens each half far more than people expect.
+      Six known words of a twelve-word phrase leave about sixty-two bits. That
+      is not comfortably out of reach of a large hardware budget. Whoever finds
+      one half has a real chance, not none.
     </p>
 
     <p>
-      More importantly, home-made splits lose coins far more often than they
-      prevent theft. The scheme lives in one head. Memory fades, people move house,
-      relatives die, the envelope gets thrown out during a clear-out, and the
-      instructions turn out to be ambiguous to everyone except the person who
-      wrote them, who is by then unavailable. Most coins that are lost are lost
-      through inaccessibility, not robbery. If you genuinely need to split
-      custody, the established answers are multisignature wallets and standardised
-      share schemes, both of which are also easy to get wrong and both of which
-      deserve reading about first. A single well-hidden backup you can definitely
-      find beats a clever system you can only mostly reconstruct.
+      Worse, home-made splits lose coins far more often than they prevent theft.
+      The scheme lives in one head. Memory fades. People move house. Relatives
+      die. The envelope goes out during a clear-out. The instructions turn out
+      to be unclear to everyone except the person who wrote them, and that
+      person is by then unavailable. Most coins that are lost are lost because
+      nobody could reach them, not because somebody stole them. If you truly
+      need to split custody, the established answers are multisignature wallets
+      and standardised share schemes. Both are easy to get wrong, and both
+      deserve reading about first. <b>A single well-hidden backup you can
+      definitely find beats a clever system you can only mostly
+      reconstruct.</b>
     </p>
 
     <p class="learn-note">
       Those layers, the passphrase and multisignature, are worked through on
-      <a href="#protect">Protect</a>: what each one buys, what it costs, and how each
-      one fails. Read it before adding either, because a layer you have not rehearsed
-      is a way to lose coins rather than a way to keep them.
+      <a href="#protect">Protect</a>: what each one buys, what it costs, and how
+      each one fails. Read it before you add either. A layer you have not
+      rehearsed is a way to lose coins, not a way to keep them.
     </p>
   </section>
 
@@ -714,51 +741,51 @@
     <h2><span class="learn-num" aria-hidden="true">08</span> Common mistakes</h2>
 
     <p>
-      Nearly every loss that was not a market loss is on this list.
+      Nearly every loss that wasn't a market loss is on this list.
     </p>
 
     <ul class="learn-mag">
       <li>
-        <b>Buying a device that arrives preloaded.</b> A wallet whose recovery
-        phrase is already printed on a card in the box is not a convenience. The
-        phrase is known to whoever put it there, and they are waiting for the
-        address to be funded. A genuine device generates its phrase in front of
-        you, once, on its own screen.
+        <b>Buying a device that arrives preloaded.</b> A wallet with its
+        recovery phrase already printed on a card in the box isn't a
+        convenience. Whoever put it there knows the phrase, and they are waiting
+        for the address to be funded. A genuine device generates its phrase in
+        front of you, once, on its own screen.
       </li>
       <li>
-        <b>Choosing the words by hand.</b> Picking twelve words that mean
-        something, or that feel arbitrary, or that came from opening a book at
-        random. The result is indistinguishable from a good phrase to look at and
-        catastrophically smaller as a search space.
+        <b>Choosing the words by hand.</b> Twelve words that mean something. Or
+        that feel arbitrary. Or that came from opening a book at random. The
+        result looks exactly like a good phrase and is catastrophically smaller
+        as a search space.
       </li>
       <li>
-        <b>Accepting a phrase somebody else produced.</b> From a helpful friend, a
-        setup service, a tutorial, a video, a support agent, or a screenshot. You
-        have no way to know how many copies exist. Treat any phrase you did not
+        <b>Accepting a phrase somebody else produced.</b> From a helpful friend,
+        a setup service, a tutorial, a video, a support agent, a screenshot. You
+        have no way to know how many copies exist. Treat any phrase you didn't
         watch being created as already compromised.
       </li>
       <li>
         <b>Testing the recovery only after funding.</b> By then the test has
-        stakes, so it does not get done, and the first real restore attempt
-        happens on the day something has already gone wrong. Restore while the
-        wallet is empty and the exercise costs nothing.
+        stakes, so it doesn't get done. The first real restore attempt happens
+        on the day something has already gone wrong. Restore while the wallet is
+        empty and the exercise costs nothing.
       </li>
       <li>
-        <b>Marking the words on a printed word list.</b> Twelve ticks on a grid of
-        2048 is a plaintext copy of your recovery phrase, and an easier one to
-        read than your own handwriting. <a href="#poster">The poster</a> is the
-        public standard list and there is nothing sensitive about hanging it up.
-        Marking it is what makes it a secret, and a badly protected one.
+        <b>Marking the words on a printed word list.</b> Twelve ticks on a grid
+        of 2048 is a plaintext copy of your recovery phrase, and easier to read
+        than your own handwriting. <a href="#poster">The poster</a> is the
+        public standard list, and hanging it up gives nothing away. Marking it
+        is what turns it into a secret, and a badly protected one.
       </li>
     </ul>
 
     <p class="learn-note">
-      If you want to know why any of this is true rather than taking it on
-      assurance, the <a href="#learn">field guide</a> works through the arithmetic:
-      what entropy measures, why the list has exactly 2048 words, what the checksum
-      does and does not catch, and what a chosen phrase is really worth. None of it
-      changes the procedure above. It just means you are not taking anyone's word
-      for it, which is the habit worth having here.
+      If you would rather know why this is true than take it on trust, the
+      <a href="#learn">field guide</a> works through the arithmetic: what entropy
+      measures, why the list has exactly 2048 words, what the checksum does and
+      does not catch, and what a chosen phrase is worth. None of it
+      changes the procedure above. It means you are not taking anyone's word for
+      it. That is the habit worth having here.
     </p>
   </section>
 
