@@ -93,7 +93,7 @@ PDFS = """
   const realDoc = PDF.doc;
   for (const l of LANGS){
     setLang(l.code); route();
-    for (const job of ["poster", "dice12", "dice24", "coin12", "coin24"]){
+    for (const job of ["poster", "checklist", "dice12", "dice24", "coin12", "coin24"]){
       let box = null;
       PDF.doc = (o) => {
         const d = realDoc(o);
@@ -121,7 +121,9 @@ PDFS = """
         };
         return d;
       };
-      if (job === "poster"){
+      if (job === "checklist"){
+        checklistPDF();
+      } else if (job === "poster"){
         document.getElementById("paper").value = "A4";
         document.getElementById("orient").value = "p";
         document.getElementById("split").value = "auto";

@@ -29,6 +29,8 @@
 
   .rail{display:block;position:sticky;top:112px;grid-column:1;
     padding:56px 0 0;max-height:calc(100vh - 140px);overflow:auto}
+  .rail-head{font:700 10px/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;
+    color:var(--chrome-ink);margin:0 0 12px;padding-left:11px}
   .rail a{display:block;padding:6px 12px 6px 11px;border-left:1px solid var(--chrome-3);
     font:400 11.5px/1.45 var(--mono);color:#69736f;text-decoration:none}
   .rail a:hover{color:var(--chrome-ink);border-left-color:var(--chrome-dim)}
@@ -75,3 +77,10 @@
 .scale-dim{color:#69736f}
 .scale-warn{color:var(--amber)}
 .scale-warn b{color:var(--amber)}
+
+/* ─────────── the checklist offer ─────────── */
+.cl-widget{border:1px solid var(--chrome-3);background:var(--chrome-2);border-radius:3px;
+  padding:16px 18px;margin:26px 0;display:flex;flex-wrap:wrap;gap:12px 18px;
+  align-items:center;justify-content:space-between}
+.cl-note{margin:0;flex:1 1 320px;font:400 13px/1.6 var(--grot);color:#aab3af}
+.cl-widget button{font:700 11px/1 var(--mono);letter-spacing:.1em;padding:10px 14px}

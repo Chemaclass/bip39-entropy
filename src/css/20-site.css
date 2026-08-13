@@ -12,9 +12,12 @@
 .tabs{display:flex;gap:2px;flex-wrap:wrap}
 .tabs a{font:600 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
   color:var(--chrome-dim);text-decoration:none;padding:10px 13px;
-  border-bottom:2px solid transparent}
-.tabs a:hover{color:var(--chrome-ink)}
-.tabs a.on{color:var(--patina);border-bottom-color:var(--patina)}
+  border-bottom:2px solid transparent;border-radius:3px 3px 0 0}
+.tabs a:hover{color:var(--chrome-ink);background:rgba(255,255,255,.03)}
+/* The selected tab is the only reliable "where am I": four long reading pages
+   share a layout, so a hairline underline is not enough to tell them apart. */
+.tabs a.on{color:var(--patina);border-bottom-color:var(--patina);
+  background:rgba(111,191,168,.10)}
 
 .save{margin-left:auto;font:500 10px/1 var(--mono);letter-spacing:.14em;
   text-transform:uppercase;color:var(--chrome-dim);text-decoration:none;

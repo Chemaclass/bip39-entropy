@@ -24,6 +24,13 @@ function railFor(view){
   rail.replaceChildren();
   rail.setAttribute("aria-label", t("nav.aria"));
 
+  // Name the page. Four reading pages share one layout, and a list of section
+  // titles alone does not say which page you are on.
+  const head = document.createElement("p");
+  head.className = "rail-head";
+  head.textContent = t("nav." + view);
+  rail.appendChild(head);
+
   for (const s of secs){
     const a = document.createElement("a");
     a.href = "#" + s.id;
@@ -77,6 +84,7 @@ function readingInit(view){
   if (!railSecs) $("view-" + view).classList.remove("has-rail");
   pagerFor(view);
   if (typeof scaleInit === "function") scaleInit();
+  if (typeof checklistInit === "function") checklistInit();
   railSpy();
 }
 
