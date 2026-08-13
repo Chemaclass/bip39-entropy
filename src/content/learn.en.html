@@ -237,9 +237,9 @@
       128 bits is already beyond brute force by the margins above. 24 words is
       chiefly a hedge against future cryptanalysis and against Grover-style quantum
       search. That search in theory halves the effective strength of a symmetric
-      secret. 128 bits would become 64, and 256 would become 128. Whether that speedup is
-      ever practical is genuinely disputed. Both lengths are supported everywhere,
-      and longer phrases cost you more to record and more to check.
+      secret. 128 bits would become 64, and 256 would become 128. Whether that
+      speedup is ever practical is genuinely disputed. Both lengths are supported
+      everywhere, and longer phrases cost you more to record and more to check.
     </p>
   </section>
 
@@ -518,17 +518,18 @@
         knowing its answer. The crude version puts the phrase in the box, on a
         pre-filled card or under a scratch panel, with instructions implying the
         factory generated it. The thorough version is inside the device.
-        Security researchers took a counterfeit apart in 2023. It had been bought
-        from a classifieds seller the year before. Its microcontroller had been swapped
-        for one with readout protection disabled. Its bootloader signature checks
-        were stripped out. Its firmware substituted one of 20 phrases stored in
-        advance for the one it appeared to generate. Twenty, rather than
-        <code>2^128</code>, which is about four and a third bits. Its passphrase
-        feature was gutted to match, using only the first character and leaving 64
-        combinations. The seller had only to wait, and in that instance waited a
-        month after the device was first funded. Every part of the ceremony was
-        intact. The owner watched a device generate a phrase, wrote it down, and it
-        was valid, and the checksum passed, and it was never theirs.
+        Security researchers took a counterfeit apart in 2023. It had been
+        bought from a classifieds seller the year before. Its microcontroller had
+        been swapped for one with readout protection disabled. Its bootloader
+        signature checks were stripped out. Its firmware substituted one of 20
+        phrases stored in advance for the one it appeared to generate. Twenty,
+        rather than <code>2^128</code>, which is about four and a third bits.
+        Its passphrase feature was gutted to match, using only the first
+        character and leaving 64 combinations. The seller had only to wait, and
+        in that instance waited a month after the device was first funded. Every
+        part of the ceremony was intact. The owner watched a device generate a
+        phrase, wrote it down, and it was valid, and the checksum passed, and it
+        was never theirs.
       </li>
     </ul>
 

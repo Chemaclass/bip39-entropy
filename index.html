@@ -1621,9 +1621,9 @@ p.learn-lead em{color:var(--patina)}
       128 bits is already beyond brute force by the margins above. 24 words is
       chiefly a hedge against future cryptanalysis and against Grover-style quantum
       search. That search in theory halves the effective strength of a symmetric
-      secret. 128 bits would become 64, and 256 would become 128. Whether that speedup is
-      ever practical is genuinely disputed. Both lengths are supported everywhere,
-      and longer phrases cost you more to record and more to check.
+      secret. 128 bits would become 64, and 256 would become 128. Whether that
+      speedup is ever practical is genuinely disputed. Both lengths are supported
+      everywhere, and longer phrases cost you more to record and more to check.
     </p>
   </section>
 
@@ -1902,17 +1902,18 @@ p.learn-lead em{color:var(--patina)}
         knowing its answer. The crude version puts the phrase in the box, on a
         pre-filled card or under a scratch panel, with instructions implying the
         factory generated it. The thorough version is inside the device.
-        Security researchers took a counterfeit apart in 2023. It had been bought
-        from a classifieds seller the year before. Its microcontroller had been swapped
-        for one with readout protection disabled. Its bootloader signature checks
-        were stripped out. Its firmware substituted one of 20 phrases stored in
-        advance for the one it appeared to generate. Twenty, rather than
-        <code>2^128</code>, which is about four and a third bits. Its passphrase
-        feature was gutted to match, using only the first character and leaving 64
-        combinations. The seller had only to wait, and in that instance waited a
-        month after the device was first funded. Every part of the ceremony was
-        intact. The owner watched a device generate a phrase, wrote it down, and it
-        was valid, and the checksum passed, and it was never theirs.
+        Security researchers took a counterfeit apart in 2023. It had been
+        bought from a classifieds seller the year before. Its microcontroller had
+        been swapped for one with readout protection disabled. Its bootloader
+        signature checks were stripped out. Its firmware substituted one of 20
+        phrases stored in advance for the one it appeared to generate. Twenty,
+        rather than <code>2^128</code>, which is about four and a third bits.
+        Its passphrase feature was gutted to match, using only the first
+        character and leaving 64 combinations. The seller had only to wait, and
+        in that instance waited a month after the device was first funded. Every
+        part of the ceremony was intact. The owner watched a device generate a
+        phrase, wrote it down, and it was valid, and the checksum passed, and it
+        was never theirs.
       </li>
     </ul>
 
@@ -2138,7 +2139,7 @@ p.learn-lead em{color:var(--patina)}
     <h1 class="learn-title">Doce palabras son<br>un número</h1>
     <p class="learn-lead">
       Todo lo que hace que ese número siga siendo tuyo se decide en el instante en
-      que se genera, antes de que escribas nada, antes de que elijas un monedero,
+      que se genera. Antes de que escribas nada, antes de que elijas un monedero,
       antes de que pienses en acero ignífugo. Esta página explica qué tiene que
       lograr ese instante, con la aritmética mostrada en lugar de afirmada. Está
       escrita para alguien que tiene bitcoin, está a punto de anotar una frase de
@@ -2253,7 +2254,7 @@ p.learn-lead em{color:var(--patina)}
         <b>Toda la red de minería de Bitcoin.</b> El mayor esfuerzo de computación
         construido para un solo fin que ha existido jamás funciona al orden de
         <code>10^21</code> hashes por segundo. A ese ritmo, solo contar hasta
-        <code>2^128</code> lleva <code>3.4 × 10^17</code> segundos, o sea unos
+        <code>2^128</code> lleva <code>3.4 × 10^17</code> segundos. Eso son unos
         <b>11 mil millones de años</b>, aproximadamente la edad actual del
         universo, que es de unos 13.8 mil millones de años. Y un hash pelado es
         mucho más barato que una prueba completa de una frase candidata, así que
@@ -2307,7 +2308,7 @@ p.learn-lead em{color:var(--patina)}
       <b>La entropía se mide frente a lo que un atacante sabe de tu proceso.</b>
       Si tiraste dados, la respuesta es 128 bits. Si elegiste palabras que
       significan algo para ti, la respuesta honesta son los bits que hagan falta
-      para describir tu manera de elegir, y ese número es pequeño, por muy
+      para describir tu manera de elegir. Ese número es pequeño, por muy
       arbitrario que te parezca el resultado desde dentro.
     </p>
 
@@ -2367,7 +2368,7 @@ p.learn-lead em{color:var(--patina)}
       La última columna es una consecuencia que conviene conocer: la palabra final
       de una frase nunca es libre. Con las once primeras palabras fijadas, solo
       <code>2048 ÷ 16 = 128</code> de las 2048 palabras completan una frase válida
-      de 12 palabras; con veintitrés fijadas, solo <code>2048 ÷ 256 = 8</code>
+      de 12 palabras. Con veintitrés fijadas, solo <code>2048 ÷ 256 = 8</code>
       completan una de 24. Dicho de otro modo, una secuencia de 12 palabras escrita
       al azar es una frase válida una vez de cada dieciséis.
     </p>
@@ -2375,10 +2376,10 @@ p.learn-lead em{color:var(--patina)}
     <p class="learn-note">
       Si 12 o 24 palabras es la mejor elección no lo decide la entropía por sí
       sola. 128 bits ya quedan fuera del alcance de la fuerza bruta por los
-      márgenes de arriba; 24 palabras son sobre todo una cobertura frente al
-      criptoanálisis futuro y frente a la búsqueda cuántica al estilo de Grover,
-      que en teoría reduce a la mitad la fuerza efectiva de un secreto simétrico.
-      128 bits pasarían a ser 64, y 256 pasarían a ser 128. Que esa aceleración
+      márgenes de arriba. 24 palabras son sobre todo una cobertura frente al
+      criptoanálisis futuro y frente a la búsqueda cuántica al estilo de Grover.
+      Esa búsqueda, en teoría, reduce a la mitad la fuerza efectiva de un secreto
+      simétrico. 128 bits pasarían a ser 64, y 256 pasarían a ser 128. Que esa aceleración
       llegue a ser práctica alguna vez está genuinamente en disputa. Las dos
       longitudes están soportadas en todas partes, y las frases más largas te
       cuestan más de anotar y más de comprobar.
@@ -2446,7 +2447,7 @@ p.learn-lead em{color:var(--patina)}
       un teléfono, es rápido. Cuando el dispositivo y su firmware son sólidos, es
       genuinamente impredecible. Su debilidad es que no puedes auditarlo. Estás
       confiando en un chip, en un build de firmware y en una cadena de
-      suministro, y hay un historial real de generadores rotos, debilitados o
+      suministro. Y hay un historial real de generadores rotos, debilitados o
       simplemente mal usados por el software que tenían encima.
     </p>
 
@@ -2470,9 +2471,9 @@ p.learn-lead em{color:var(--patina)}
     </p>
 
     <p>
-      La aritmética es cruda. Supón que lo hicieras con una disciplina inusual y
-      eligieras cada una de tus doce palabras de forma uniforme al azar dentro de
-      una lista corta de las 16 palabras que te resulten más memorables. Eso son 4
+      La aritmética es cruda. Supón una disciplina inusual. Eliges cada una de
+      tus doce palabras de forma uniforme al azar dentro de una lista corta de
+      las 16 palabras que te resulten más memorables. Eso son 4
       bits por palabra, <code>16^12 = 2^48</code> en total. A aproximadamente un
       millón de derivaciones candidatas por segundo y por GPU, mil GPU recorren
       <code>2^48</code> en unos <b>tres días</b>. Amplía la lista corta a 32
@@ -2505,8 +2506,8 @@ p.learn-lead em{color:var(--patina)}
     <p>
       Todo lo que hay por encima de este punto es aritmética. Lo que sigue es el
       historial. La aleatoriedad débil no es una hipótesis que plantea gente a la
-      que le gusta ser cuidadosa; es el fallo que de verdad ha vaciado monederos una
-      y otra vez, y lo ha hecho a través de software corriente que nadie sospechaba
+      que le gusta ser cuidadosa. Es el fallo que de verdad ha vaciado monederos una
+      y otra vez. Y lo ha hecho a través de software corriente que nadie sospechaba
       en su momento.
     </p>
 
@@ -2552,7 +2553,7 @@ p.learn-lead em{color:var(--patina)}
         2016, probó unas 300 mil millones de contraseñas candidatas e identificó 884
         brainwallets que habían tenido fondos entre 2011 y 2015. Todos menos 21
         habían sido vaciados. La mitad se vaciaron en los 21 minutos siguientes a
-        recibir fondos, y a finales de 2013 el intervalo se medía en segundos,
+        recibir fondos. A finales de 2013 el intervalo se medía en segundos,
         porque había bots vigilando las direcciones precalculadas y compitiendo por
         gastar primero. Un experimento de 2020 financió uno cuya clave salía de la
         primera línea de <em>Moby-Dick</em> y lo perdió en 0.67 segundos, desde la
@@ -2564,19 +2565,19 @@ p.learn-lead em{color:var(--patina)}
         <b>Android, agosto de 2013.</b> El <code>SecureRandom</code> de la
         plataforma no era lo que decía ser, por dos defectos encontrados a la vez.
         Uno limitaba a 64 bits de entropía una instancia sin sembrar
-        (<code>CVE-2013-7372</code>); el otro dejaba sin sembrar el generador de
+        (<code>CVE-2013-7372</code>). El otro dejaba sin sembrar el generador de
         OpenSSL al atravesar el fork de proceso del que nace toda aplicación
         (<code>CVE-2013-7373</code>). Los robos llegaron por el primero. Firmar
-        necesita un nonce aleatorio nuevo cada vez, y cuando una clave firma dos
-        veces con el mismo nonce la clave privada sale de una página de álgebra, así
-        que los atacantes rastrearon la cadena pública en busca de las repeticiones
-        y se llevaron lo que encontraron. Unos 55 BTC se acumularon en una sola
+        necesita un nonce aleatorio nuevo cada vez. Cuando una clave firma dos
+        veces con el mismo nonce, la clave privada sale de una página de álgebra.
+        Así que los atacantes rastrearon la cadena pública en busca de las
+        repeticiones y se llevaron lo que encontraron. Unos 55 BTC se acumularon en una sola
         dirección de atacante, que valían unos 5,800 dólares al cambio de esa
         semana. El aviso de bitcoin.org del 11 de agosto de 2013 declaró vulnerable
         todo monedero generado en Android y nombró Bitcoin Wallet, blockchain.info,
         BitcoinSpinner y Mycelium como una lista explícitamente incompleta. En rigor
-        esto rompió los números que se usan al firmar y no el número que hay detrás
-        de la frase, pero el aviso trató como sospechosa toda clave que la
+        esto rompió los números que se usan al firmar, no el número que hay detrás
+        de la frase. Aun así, el aviso trató como sospechosa toda clave que la
         plataforma hubiera producido y dijo a todo el mundo que las rotara. Desde el
         teléfono no había nada que pareciera mal. Las firmas eran válidas. La
         evidencia estaba en la cadena de bloques, legible para cualquiera que
@@ -2592,8 +2593,8 @@ p.learn-lead em{color:var(--patina)}
         <code>Math.random</code>, un generador congruencial lineal de 48 bits en los
         navegadores de aquella era, más una única lectura de temporizador. Quienes
         lo divulgaron en noviembre de 2023 situaron el resultado en bastante menos
-        de 48 bits, peor antes de marzo de 2012 y más difícil de explotar cada año a
-        partir de entonces, a medida que los navegadores mejoraban. Describieron
+        de 48 bits. Peor antes de marzo de 2012, y más difícil de explotar cada año
+        a partir de entonces, a medida que los navegadores mejoraban. Describieron
         millones de monederos afectados y confirmaron que el fallo es explotable.
         Tampoco se puede parchear en el sentido habitual, porque las claves se
         generaron hace años y ya existen; el único remedio es mover los fondos. Nada
@@ -2644,12 +2645,12 @@ p.learn-lead em{color:var(--patina)}
         WebAssembly de la biblioteca central del monedero generaba mnemónicos con un
         Mersenne Twister, un generador construido para simulaciones y expresamente
         no para criptografía. La variante que usaba, <code>mt19937</code>, toma un
-        único valor de 32 bits como semilla, así que la extensión solo podía llegar
-        a emitir <code>2^32</code> frases distintas donde una frase de 12 palabras
+        único valor de 32 bits como semilla. Así que la extensión solo podía llegar
+        a emitir <code>2^32</code> frases distintas, donde una frase de 12 palabras
         debería tener <code>2^128</code> detrás. Las versiones de la extensión de la
         <code>0.0.172</code> a la <code>0.0.182</code> estaban afectadas. Se informó
         de ello en noviembre de 2022 y se corrigió en un repositorio público cuatro
-        días después, y luego se explotó en entornos reales ese diciembre y otra vez
+        días después. Luego se explotó en entornos reales ese diciembre y otra vez
         en marzo de 2023, antes de divulgarse el abril siguiente como
         <code>CVE-2023-31290</code>. El equipo que lo encontró estimó que cada una
         de esas cuatro mil millones de frases se podía generar en un solo
@@ -2668,7 +2669,7 @@ p.learn-lead em{color:var(--patina)}
         lo que emite el comando cuando el reloj marca cero, una frase que empieza por
         <code>milk sad wage cup</code>. El 12 de julio de 2023 un actor bien
         preparado se llevó unos 29.65 BTC, que entonces valían más de 850,000
-        dólares, y los investigadores situaron el total movido entre cadenas por
+        dólares. Los investigadores situaron el total movido entre cadenas por
         encima de 900,000 dólares. Estimaron los 4.29 mil millones de candidatos
         completos en no más de unos pocos días en un ordenador de juegos
         corriente. Divulgado el 8 de agosto de 2023 como
@@ -2681,11 +2682,11 @@ p.learn-lead em{color:var(--patina)}
         tarjeta ya rellenada o bajo un panel de rascar, con instrucciones que dan a
         entender que la generó la fábrica. La versión concienzuda está dentro del
         dispositivo. Una falsificación que unos investigadores de seguridad
-        desmontaron en 2023, comprada el año anterior a un vendedor de anuncios
-        clasificados, tenía el microcontrolador cambiado por uno con la protección
-        de lectura desactivada y las comprobaciones de firma del gestor de arranque
-        eliminadas, y su firmware sustituía por una de 20 frases guardadas de
-        antemano la que aparentaba generar. Veinte, en lugar de <code>2^128</code>,
+        desmontaron en 2023 se había comprado el año anterior a un vendedor de
+        anuncios clasificados. Tenía el microcontrolador cambiado por uno con la
+        protección de lectura desactivada y las comprobaciones de firma del gestor
+        de arranque eliminadas. Su firmware sustituía por una de 20 frases
+        guardadas de antemano la que aparentaba generar. Veinte, en lugar de <code>2^128</code>,
         que son unos cuatro bits y un tercio. Su función de frase de contraseña
         estaba destripada a juego, usando solo el primer carácter y dejando 64
         combinaciones. Al vendedor solo le quedaba esperar, y en ese caso esperó un
@@ -2698,7 +2699,7 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       Pon los derrumbes uno al lado de otro. La columna del medio es lo que el
-      formato da a entender: 256 bits para una clave privada en bruto, 128 para una
+      formato da a entender. 256 bits para una clave privada en bruto, 128 para una
       frase de 12 palabras, y al menos eso para una clave SSH o TLS. La de al lado
       es lo que había en realidad.
     </p>
@@ -2736,9 +2737,9 @@ p.learn-lead em{color:var(--patina)}
       <a href="#es-learn-source">La sección anterior</a> situaba una sola máquina en
       <code>2^40</code> en dos semanas. <code>2^32</code> es 256 veces más pequeño
       que eso, así que la misma máquina termina el espacio entero en poco más de
-      una hora. Las estimaciones publicadas coinciden: un par de horas en un
-      ordenador para las frases de Trust Wallet, menos de diez horas en un portátil
-      para precalcular todas las claves que Profanity podía producir, como mucho
+      una hora. Las estimaciones publicadas coinciden. Un par de horas en un
+      ordenador para las frases de Trust Wallet. Menos de diez horas en un portátil
+      para precalcular todas las claves que Profanity podía producir. Como mucho
       unos pocos días en un ordenador de juegos para las de Libbitcoin. Eso no es un
       presupuesto de hardware. Es una tarde.
     </p>
@@ -2758,7 +2759,7 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       Por eso <a href="#es-learn-source">la sección sobre las fuentes</a> prefiere lo
-      que se puede auditar, y por eso dice de los generadores por hardware que el
+      que se puede auditar. Y por eso dice de los generadores por hardware que el
       problema no es que sean malos, sino que no puedes comprobarlos. Los dados no
       son más aleatorios que un generador de hardware sólido. Son más
       <em>verificables</em>, y todos los casos de arriba son un argumento sobre la
@@ -2785,9 +2786,9 @@ p.learn-lead em{color:var(--patina)}
     <h2><span class="learn-num" aria-hidden="true">07</span> Hacerlo a mano</h2>
 
     <p class="learn-note">
-      Dos cosas de esta página llevan esta sección a la práctica:
+      Dos cosas de esta página llevan esta sección a la práctica.
       <a href="#roll">Genera la tuya</a> va recogiendo las tiradas y muestra cómo
-      los bits se convierten en palabras, y la hoja de trabajo que imprime te deja
+      los bits se convierten en palabras. La hoja de trabajo que imprime te deja
       hacer lo mismo en una mesa sin ningún ordenador. Con una frase de 12
       palabras solo la última palabra necesita una máquina. Las otras once puedes
       leerlas directamente en <a href="#poster">el póster</a>.
@@ -2795,7 +2796,7 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       <b>Dados.</b> Un dado de seis caras no produce bits enteros, así que usa
-      muestreo por rechazo: lee <code>1 2 3 4</code> como <code>00 01 10 11</code>
+      muestreo por rechazo. Lee <code>1 2 3 4</code> como <code>00 01 10 11</code>
       y vuelve a tirar el <code>5</code> y el <code>6</code>. Cada tirada aceptada
       son exactamente dos bits, sin sesgo introducido por la correspondencia. 128
       bits necesitan por tanto 64 tiradas aceptadas; como se descarta un tercio de
@@ -2847,9 +2848,9 @@ p.learn-lead em{color:var(--patina)}
       bits de entropía que te quedan y cuatro bits de verificación comparten la
       palabra final, y esos cuatro bits son salida de <code>SHA-256</code>. No
       puedes calcular SHA-256 a mano en ningún sentido práctico. Así que el
-      procedimiento honesto es: genera la entropía físicamente y después usa una
-      máquina sin conexión o un monedero hardware que acepte entropía en bruto o
-      entrada de dados para calcular la palabra final. Varios monederos admiten
+      procedimiento honesto es este. Genera la entropía físicamente. Después usa
+      una máquina sin conexión o un monedero hardware que acepte entropía en bruto
+      o entrada de dados para calcular la palabra final. Varios monederos admiten
       justo esto. La máquina se entera de tu entropía en cualquier caso. La gracia
       de hacerlo a mano es que la máquina no la <em>eligió</em>.
     </p>
@@ -2869,9 +2870,9 @@ p.learn-lead em{color:var(--patina)}
       <b>Qué es una lista de palabras impresa.</b> La lista pública de BIP-39 en
       inglés, idéntica en todos los monederos que implementan el estándar y
       descargable del repositorio bitcoin/bips. No tiene nada de sensible. Colgarla
-      en una pared no revela más que colgar un diccionario, y es genuinamente útil:
-      convierte bits en palabras, te dice los prefijos de cuatro letras que piden
-      los monederos hardware y te deja confirmar que una palabra existe antes de
+      en una pared no revela más que colgar un diccionario. Y es genuinamente útil:
+      convierte bits en palabras y te dice los prefijos de cuatro letras que piden
+      los monederos hardware. Te deja confirmar que una palabra existe antes de
       confiársela a una placa de metal.
     </p>
 
@@ -2884,8 +2885,8 @@ p.learn-lead em{color:var(--patina)}
     <p>
       Marcarla cambia todo eso de golpe. Un póster con doce marcas de lápiz es tu
       frase de recuperación en texto plano, legible desde el otro lado de la
-      habitación, inmune a la excusa habitual de que la fotografía era “solo de la
-      pared”. Si necesitas seguir las palabras mientras transcribes, usa una hoja
+      habitación. Es inmune a la excusa habitual de que la fotografía era “solo de
+      la pared”. Si necesitas seguir las palabras mientras transcribes, usa una hoja
       aparte que destruyas después.
     </p>
 
@@ -3902,9 +3903,9 @@ p.learn-lead em{color:var(--patina)}
         de firma única es teclear doce palabras en casi cualquier monedero hecho
         en la última década. Restaurar este significa encontrar software que
         soporte la política que elegiste, reconstruir el monedero a partir del
-        descriptor, importar dos de las claves y producir una transacción que
-        reúna dos firmas, a menudo llevando una transacción parcialmente firmada
-        entre dispositivos. Lo soportan menos monederos, y las transacciones en
+        descriptor e importar dos de las claves. Después hay que producir una
+        transacción que reúna dos firmas, a menudo llevando una transacción
+        parcialmente firmada entre dispositivos. Lo soportan menos monederos, y las transacciones en
         sí son más grandes, así que cuestan más en comisiones.
       </li>
       <li>
@@ -4085,8 +4086,8 @@ p.learn-lead em{color:var(--patina)}
     <p>
       <b>Partir la frase por tu cuenta no es una estrategia de copia de
       seguridad.</b> La mitad en un sitio y la mitad en otro parece prudente. Es
-      peor de lo que parece por partida doble: las mitades son más débiles de lo
-      que la gente supone, y los repartos caseros pierden monedas mucho más a
+      peor de lo que parece por partida doble. Las mitades son más débiles de lo
+      que la gente supone. Y los repartos caseros pierden monedas mucho más a
       menudo de lo que evitan robos, porque el esquema vive en una sola cabeza.
       La <a href="#faq">página de preguntas</a> da la aritmética. Si el objetivo
       es repartir la custodia, para eso está la multifirma de arriba.
@@ -4114,15 +4115,15 @@ p.learn-lead em{color:var(--patina)}
       <b>Restaura antes de meter dinero.</b> Mientras el monedero está vacío la
       prueba no cuesta nada y un fallo es un descubrimiento afortunado. Una vez
       que tiene dinero la prueba tiene algo en juego, así que en silencio no
-      llega a hacerse nunca, y el primer intento real de restauración ocurre el
+      llega a hacerse nunca. El primer intento real de restauración ocurre el
       día en que ya ha salido algo mal.
     </p>
 
     <p>
       <b>Restaura desde la copia que escribiste.</b> No desde la pantalla. No de
       memoria. No desde la copia que hay en el dispositivo que todavía funciona.
-      Lo que se está probando es el objeto que algún día tendrás en la mano: tu
-      letra, tus abreviaturas, si anotaste la ruta de derivación, si la frase de
+      Lo que se está probando es el objeto que algún día tendrás en la mano. Tu
+      letra, tus abreviaturas, si anotaste la ruta de derivación. Si la frase de
       contraseña que escribiste es la frase de contraseña que tecleaste. Borra el
       dispositivo y restaura, o restaura en un segundo dispositivo, o en una
       instalación limpia y sin conexión. Una restauración que lee de algo que no
@@ -4136,7 +4137,7 @@ p.learn-lead em{color:var(--patina)}
       después una cantidad pequeña. Recibir solo demuestra que copiaste bien una
       dirección. Gastar demuestra que tienes la clave. En un monedero multifirma
       la prueba es la reconstrucción entera, a partir del descriptor y de dos
-      semillas, en una máquina que nunca ha visto este monedero, terminando en
+      semillas, en una máquina que nunca ha visto este monedero. Termina en
       una firma de cada uno de dos dispositivos.
     </p>
 
@@ -4155,9 +4156,10 @@ p.learn-lead em{color:var(--patina)}
 
     <p>
       <b>Repítelo de vez en cuando.</b> Una vez es una prueba sobre un solo día.
-      Hazlo otra vez después de una mudanza, después de cambiar de dispositivos,
-      después de que un firmware cambie algo en cómo se comporta un dispositivo y
-      después de cualquier cambio en quién tendría que hacer esto sin ti. Una
+      Hazlo otra vez después de una mudanza y después de cambiar de dispositivos.
+      Hazlo después de que un firmware cambie algo en cómo se comporta un
+      dispositivo. Y después de cualquier cambio en quién tendría que hacer esto
+      sin ti. Una
       costumbre anual es más de lo que consigue la mayoría y mucho más de lo que
       la mayoría necesita.
     </p>
@@ -4199,7 +4201,7 @@ p.learn-lead em{color:var(--patina)}
     <p>
       La tensión es inevitable y merece decirse con claridad. Toda instrucción
       que hace posible la recuperación para tu familia le facilita el robo a
-      cualquier otro que la lea, y una carta que explica exactamente dónde se
+      cualquier otro que la lea. Una carta que explica exactamente dónde se
       guardan los secretos es en sí misma un objetivo. La respuesta habitual es
       separar las dos cosas: instrucciones que se pueden encontrar y explican qué
       hacer, secretos que no se guardan con ellas. Qué montaje es apropiado, y cómo
