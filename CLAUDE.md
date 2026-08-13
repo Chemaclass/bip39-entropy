@@ -89,6 +89,16 @@ scripts/build.py      render index.html
 scripts/verify.sh     audit the word list and the build
 ```
 
+## Writing style
+
+Every reader-facing word on this site follows the owner's voice guide:
+`.claude/rules/writing-style.md`, which points at the canonical version on
+chemaclass.com. Short sentences, plain words, contractions, `you` while
+teaching, bold for punchlines, stamped endings, no em dash, no hedging, no
+filler adverbs. Spanish is derived from English and uses informal `tú`.
+
+Read that file before writing or editing any content, i18n string, or PDF label.
+
 ## Style
 
 - No build tooling, no bundler, no minifier, no package manager. Keep it that way.

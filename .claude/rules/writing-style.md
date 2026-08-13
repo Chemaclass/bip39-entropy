@@ -1,0 +1,65 @@
+# Writing style for every word on this site
+
+Canonical source, and the tie-breaker if this file drifts:
+<https://github.com/Chemaclass/chemaclass.com/blob/main/.claude/skills/writing-style/SKILL.md>
+Spanish reference:
+<https://github.com/Chemaclass/chemaclass.com/blob/main/.claude/skills/writing-style/references/spanish.md>
+
+This applies to all reader-facing text: `src/content/*.html`, every string in
+`src/i18n/*.json`, and the words printed on the poster and the worksheet.
+
+## Voice in one line
+
+Plain, blunt, earned. Short sentences with deliberate fragments for punch. Teach
+the reader directly. Stamp the ending.
+
+## Plain language first
+
+The reader skims on a phone, between meetings, often in their second language.
+They should never have to reread a sentence.
+
+- One idea per sentence. If it needs a second read, split it.
+- Plain word over fancy: "use" not "utilize", "about" not "regarding", "enough"
+  not "sufficient", "show" not "demonstrate".
+- No metaphor-jargon a B2 English speaker would miss: no "moat", "table stakes",
+  "north star", "load-bearing", "compound" as a verb.
+- Concrete over abstract. A real example beats a definition.
+- No long multi-clause subordinate sentences.
+
+## Diction
+
+- `you` while teaching. `we` for shared responsibility. `I` only for personal
+  narration, which this site has none of.
+- Contractions freely: isn't, don't, you'll, that's. This is technical writing,
+  not an essay.
+- Name technical terms precisely and gloss them in the same breath.
+- Backticks for every file, command and flag.
+- **Bold** for the punchline of an argument and for inline list labels.
+- Two-way contrast is the core engine: "A passphrase adds a second thing you
+  must not lose. Multisig adds a spare."
+
+## Openings and closings
+
+- Open with a fact, a scene, or a claim. Never throat-clearing.
+- Close with a stamp: a one-line aphorism, a two or three word imperative
+  cluster, or a hard one-liner that calls back to the opening. Never trail off.
+
+## Never
+
+- No em dash or en dash. The build fails on the em dash. Period, comma, colon,
+  or parentheses.
+- No hedging: "I think", "perhaps", "it seems", "arguably".
+- No filler adverbs: "just", "really", "basically", "actually", "simply".
+- No exclamation marks, no emoji, no corporate hype.
+- No unexplained jargon.
+
+## Spanish
+
+Spanish is derived from English. When they drift, fix Spanish to match.
+
+- Informal `tú` throughout, never `usted`. Peninsular vocabulary.
+- Keep borrowed tool nouns in English: `prompt`, `setup`, `output`, `hooks`,
+  `open source`, `trade-offs`, `bug`, `build`.
+- Translate idiomatically, not literally. Keep the paragraph count, the heading
+  structure and the fragment rhythm.
+- Quotes are `"..."`, never `«...»`.
