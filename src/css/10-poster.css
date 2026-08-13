@@ -91,8 +91,9 @@ body{
 }
 
 /* ─────────── control bar ─────────── */
-.bar{padding:10px 18px 12px}
-.bar-in{max-width:1500px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end}
+.bar{padding:10px 0 12px}
+.bar-in{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;flex-wrap:wrap;
+  gap:12px 18px;align-items:flex-end}
 .brand{display:flex;flex-direction:column;gap:2px;margin-right:6px}
 .brand b{font:600 13px/1 var(--mono);letter-spacing:.16em}
 .brand span{font:400 10px/1 var(--mono);letter-spacing:.14em;color:var(--patina);text-transform:uppercase}
@@ -120,7 +121,7 @@ button:hover{border-color:var(--patina);color:var(--patina)}
 .tg:hover{color:var(--chrome-ink)}
 :focus-visible{outline:2px solid var(--patina);outline-offset:2px}
 
-.readout{max-width:1500px;margin:9px auto 0;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
+.readout{max-width:1000px;margin:9px auto 0;padding:0 18px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
   font:400 10.5px/1.5 var(--mono);color:var(--text-3);letter-spacing:.02em}
 .readout .spec{color:var(--chrome-ink);font-weight:600;letter-spacing:.06em}
 .readout .pt{color:var(--patina);font-weight:700}

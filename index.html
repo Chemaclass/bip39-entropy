@@ -101,8 +101,9 @@ body{
 }
 
 /* ─────────── control bar ─────────── */
-.bar{padding:10px 18px 12px}
-.bar-in{max-width:1500px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end}
+.bar{padding:10px 0 12px}
+.bar-in{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;flex-wrap:wrap;
+  gap:12px 18px;align-items:flex-end}
 .brand{display:flex;flex-direction:column;gap:2px;margin-right:6px}
 .brand b{font:600 13px/1 var(--mono);letter-spacing:.16em}
 .brand span{font:400 10px/1 var(--mono);letter-spacing:.14em;color:var(--patina);text-transform:uppercase}
@@ -130,7 +131,7 @@ button:hover{border-color:var(--patina);color:var(--patina)}
 .tg:hover{color:var(--chrome-ink)}
 :focus-visible{outline:2px solid var(--patina);outline-offset:2px}
 
-.readout{max-width:1500px;margin:9px auto 0;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
+.readout{max-width:1000px;margin:9px auto 0;padding:0 18px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
   font:400 10.5px/1.5 var(--mono);color:var(--text-3);letter-spacing:.02em}
 .readout .spec{color:var(--chrome-ink);font-weight:600;letter-spacing:.06em}
 .readout .pt{color:var(--patina);font-weight:700}
@@ -211,12 +212,11 @@ main:focus{outline:none}
 /* A hairline reads as part of the page until something scrolls under it. */
 .chrome.lift{box-shadow:var(--lift)}
 .top{padding:14px 0}
-/* The bar shares its edges with the column under it, so the brand and the prose
-   start at the same x. The poster is the exception, because its stage is as wide
-   as the paper, so the chrome widens for that view alone. */
+/* The bar shares its edges with everything under it, on every view, so the brand
+   and the prose start at the same x and switching tabs moves nothing. The poster's
+   own control bar takes the same box, in 10-poster.css. */
 .top-in{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;align-items:center;
   gap:8px 12px;flex-wrap:wrap}
-.chrome.wide .top-in{max-width:1500px}
 .brand{text-decoration:none;color:inherit;flex:0 0 auto}
 .brand:hover span{color:var(--chrome-ink)}
 
@@ -785,7 +785,6 @@ p.learn-lead em{color:var(--patina)}
       </div>
 
       <div class="ctl">
-        <label>&nbsp;</label>
         <div class="toggles">
           <label class="tg"><input type="checkbox" id="prefix" checked> <span data-t="toggle.prefix"></span></label>
           <label class="tg"><input type="checkbox" id="rules" checked> <span data-t="toggle.rules"></span></label>
@@ -3604,7 +3603,6 @@ p.learn-lead em{color:var(--patina)}
           </div>
         </div>
         <div class="ctl">
-          <label>&nbsp;</label>
           <div class="toggles">
             <button id="rollundo" data-t="btn.undo"></button>
             <button id="rollclear" data-t="btn.clear"></button>
@@ -5188,8 +5186,6 @@ function showView(name, keepScroll){
   });
   centreTab();
   $("bar").hidden = name !== "poster";
-  // The poster's stage is as wide as the paper. Every other view is a column.
-  document.querySelector(".chrome").classList.toggle("wide", name === "poster");
   // The stage measures itself, so it can only be laid out while it is visible.
   if (name === "poster") render();
   // Arriving halfway down a section you have never seen reads as a broken page.

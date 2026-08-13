@@ -15,12 +15,11 @@ main:focus{outline:none}
 /* A hairline reads as part of the page until something scrolls under it. */
 .chrome.lift{box-shadow:var(--lift)}
 .top{padding:14px 0}
-/* The bar shares its edges with the column under it, so the brand and the prose
-   start at the same x. The poster is the exception, because its stage is as wide
-   as the paper, so the chrome widens for that view alone. */
+/* The bar shares its edges with everything under it, on every view, so the brand
+   and the prose start at the same x and switching tabs moves nothing. The poster's
+   own control bar takes the same box, in 10-poster.css. */
 .top-in{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;align-items:center;
   gap:8px 12px;flex-wrap:wrap}
-.chrome.wide .top-in{max-width:1500px}
 .brand{text-decoration:none;color:inherit;flex:0 0 auto}
 .brand:hover span{color:var(--chrome-ink)}
 
