@@ -41,10 +41,17 @@ SMOKE = """
 (function(){
   const say = { errors: window.__errs, seed: null, views: {} };
   try { say.seed = SEED.selfTest(); } catch (e){ say.seed = { pass:false, failures:[e.message] }; }
+  // Computed display, not the hidden attribute: a CSS rule can override the
+  // attribute and leave a "hidden" view painted on the page.
+  const painted = () => VIEWS.filter(v =>
+    getComputedStyle(document.getElementById("view-" + v)).display !== "none");
   for (const v of VIEWS){
     location.hash = "#" + v;
     showView(v);
-    say.views[v] = !document.getElementById("view-" + v).hidden;
+    const p = painted();
+    say.views[v] = p.length === 1 && p[0] === v;
+    if (!say.views[v]) say.paintedFor = say.paintedFor || {};
+    if (!say.views[v]) say.paintedFor[v] = p;
   }
   showView("poster");
   say.sheets = document.querySelectorAll(".sheet").length;

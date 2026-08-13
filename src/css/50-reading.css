@@ -18,7 +18,7 @@
 .rail{display:none}
 
 @media (min-width:1300px){
-  .view.has-rail{display:grid;grid-template-columns:210px minmax(0,1000px);
+  .view.has-rail:not([hidden]){display:grid;grid-template-columns:210px minmax(0,1000px);
     justify-content:center;column-gap:36px;align-items:start}
   .view.has-rail .pane{grid-column:2}
   /* auto side margins make a grid item shrink to its content instead of

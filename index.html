@@ -164,7 +164,9 @@ main:focus{outline:none}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
-.view[hidden]{display:none}
+/* Nothing may out-specify this. A later rule with equal specificity, such as
+   .view.has-rail{display:grid}, silently keeps a hidden view on the page. */
+.view[hidden]{display:none !important}
 
 /* Prose links, in both long-form sections. */
 .learn-sec a,.roll-lead a{color:var(--patina);text-decoration:none;
@@ -463,7 +465,7 @@ p.learn-lead em{color:var(--patina)}
 .rail{display:none}
 
 @media (min-width:1300px){
-  .view.has-rail{display:grid;grid-template-columns:210px minmax(0,1000px);
+  .view.has-rail:not([hidden]){display:grid;grid-template-columns:210px minmax(0,1000px);
     justify-content:center;column-gap:36px;align-items:start}
   .view.has-rail .pane{grid-column:2}
   /* auto side margins make a grid item shrink to its content instead of
