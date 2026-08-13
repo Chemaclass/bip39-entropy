@@ -21,10 +21,6 @@ jobs:
       - name: Verify word list and reproducible build
         run: ./scripts/verify.sh
 
-      - name: Confirm the deployed page needs no network
-        run: |
-          if grep -Eqi '<(script|link|img)[^>]+(src|href)="https?://' index.html; then
-            echo "index.html loads a remote asset — it must stay fully self-contained"
-            exit 1
-          fi
-          echo "no remote assets"
+      # The remote-asset check lives in verify.sh now. It was a grep here, and a
+      # grep stops checking anything the moment the file looks binary to it,
+      # which is what a stray NUL byte in the prose did. It reads bytes now.

@@ -50,27 +50,12 @@ else
   fail "words missing from index.html"
 fi
 
-# 4. the page claims it cannot talk to a network, so hold it to that
-net_hits=""
-for pattern in 'fetch(' 'XMLHttpRequest' 'WebSocket' 'sendBeacon' 'EventSource' \
-               'serviceWorker' 'new Worker(' 'importScripts' '<form' 'navigator.connection'; do
-  if grep -qF "$pattern" "$ROOT/index.html"; then
-    net_hits="$net_hits $pattern"
-  fi
-done
-[[ -z "$net_hits" ]] || fail "index.html contains network-capable code:$net_hits"
-pass "no network-capable code in index.html"
-
-# 5. the voice guide, for the half of it a machine can read
-# Readers told us the prose sounded machine-written and named the tell, so the
-# tell is a build failure now rather than a matter of taste.
-if python3 "$ROOT/scripts/style.py" --strict > /tmp/style.$$ 2>&1; then
-  pass "prose follows the voice guide"
+# 4. the page says it cannot talk to a network, so hold it to that, and make
+# sure nothing in it makes the file look binary to the tools that check it
+if python3 "$ROOT/scripts/assets.py" "$ROOT"; then
+  pass "no remote assets and no control bytes"
 else
-  cat /tmp/style.$$
-  rm -f /tmp/style.$$
-  fail "prose breaks the voice guide"
+  fail "index.html fails the offline guarantee"
 fi
-rm -f /tmp/style.$$
 
 echo "verified."

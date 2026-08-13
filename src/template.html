@@ -3,8 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BIP-39 · The Eleven-Bit Address Space</title>
-<meta name="description" content="What entropy is, why a seed phrase needs 128 bits of it, how to roll your own with dice or coins, and a printable poster of all 2048 BIP-39 words. Works offline, no network.">
+<title>BIP-39 seed phrase entropy: the 2048-word list, dice generation, and how not to lose your coins</title>
+<meta name="description" content="What entropy is and why a BIP-39 seed phrase needs 128 bits of it. The wallets emptied when the number was small. How to generate a phrase with dice, add a passphrase or multisig, and print the whole 2048-word list. Offline, no network code, no tracking.">
+<meta name="author" content="Chemaclass">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#191d1f" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f7f6" media="(prefers-color-scheme: light)">
+<link rel="canonical" href="https://chemaclass.github.io/bip39-entropy/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BIP-39 entropy">
+<meta property="og:url" content="https://chemaclass.github.io/bip39-entropy/">
+<meta property="og:title" content="BIP-39 seed phrase entropy, in one offline page">
+<meta property="og:description" content="Why a seed phrase is only as strong as the number behind it, the wallets emptied when that number was small, and how to make one yourself with dice. Plus the printable 2048-word list.">
+<meta property="og:locale" content="en">
+<meta property="og:locale:alternate" content="es">
+<meta property="og:image" content="https://chemaclass.github.io/bip39-entropy/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BIP-39 entropy: the 2048 word list as an eleven-bit address space">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BIP-39 seed phrase entropy, in one offline page">
+<meta name="twitter:description" content="Why a seed phrase is only as strong as the number behind it, and how to make one yourself with dice.">
+<meta name="twitter:image" content="https://chemaclass.github.io/bip39-entropy/og.png">
+
+<!-- A grid of the word list, drawn rather than fetched, so the tab icon costs no request. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23191d1f'/%3E%3Cg fill='%236fbfa8'%3E%3Crect x='6' y='7' width='5' height='3'/%3E%3Crect x='13' y='7' width='9' height='3'/%3E%3Crect x='6' y='12' width='9' height='3'/%3E%3Crect x='17' y='12' width='5' height='3'/%3E%3Crect x='6' y='17' width='5' height='3'/%3E%3Crect x='13' y='17' width='13' height='3'/%3E%3Crect x='6' y='22' width='13' height='3'/%3E%3C/g%3E%3C/svg%3E">
 <style id="pagestyle">@page { size: 210mm 297mm; margin: 0; }</style>
 <style>
 __CSS__
