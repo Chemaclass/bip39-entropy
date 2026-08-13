@@ -5,14 +5,21 @@
 
 const RAIL_OFFSET = 130;        // px of chrome above the reading line
 
-function railFor(view){
+// One reading of the page feeds the rail and the contents list both, so the
+// two can never disagree about what is on it.
+function secsFor(view){
   const host = $("view-" + view);
   const pane = [...host.querySelectorAll(".pane")].find(p => !p.hidden);
-  if (!pane) return null;
-
+  if (!pane) return { pane: null, secs: [] };
   const secs = [...pane.querySelectorAll(".learn-sec[id]")]
     .map(s => ({ id: s.id, el: s, label: (s.querySelector("h2") || {}).textContent || "" }))
     .filter(s => s.label);
+  return { pane, secs };
+}
+
+function railFor(view, pane, secs){
+  const host = $("view-" + view);
+  if (!pane) return null;
   if (secs.length < 2) return null;      // one section is a page, not a contents list
 
   let rail = host.querySelector(".rail");
@@ -48,6 +55,33 @@ function railFor(view){
   }
   host.classList.add("has-rail");
   return secs;
+}
+
+// The contents list at the top of a page, read off the same headings as the
+// rail. The content files used to carry their own copy of this list, one per
+// language, and keeping eight lists true to their sections was hand work that
+// failed silently. Now there is nothing to keep true.
+function tocFor(pane, secs){
+  if (!pane) return;
+  pane.querySelectorAll(".learn-toc").forEach(n => n.remove());
+  if (secs.length < 2) return;
+
+  const nav = document.createElement("nav");
+  nav.className = "learn-toc";
+  nav.setAttribute("aria-label", t("nav.toc"));
+  const ol = document.createElement("ol");
+  for (const s of secs){
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = "#" + s.id;
+    // The list numbers itself in CSS; the heading's number would double it.
+    a.textContent = s.label.replace(/^\s*\d+\s*/, "");
+    li.appendChild(a);
+    ol.appendChild(li);
+  }
+  nav.appendChild(ol);
+  const first = pane.querySelector(".learn-sec");
+  first.parentNode.insertBefore(nav, first);
 }
 
 // Hover is enough for a mouse, and CSS does that on its own. This is the path
@@ -95,8 +129,13 @@ function railSpy(){
     if (s.el.getBoundingClientRect().top <= RAIL_OFFSET) current = s.id;
   }
   railCurrent = current;
-  document.querySelectorAll(".rail a").forEach(a =>
-    a.classList.toggle("on", a.dataset.for === current));
+  document.querySelectorAll(".rail a").forEach(a => {
+    const on = a.dataset.for === current;
+    a.classList.toggle("on", on);
+    // The highlight is a colour; a screen reader needs the same "you are here".
+    if (on) a.setAttribute("aria-current", "true");
+    else a.removeAttribute("aria-current");
+  });
 }
 
 /* ── the next door ──────────────────────────────────────────────── */
@@ -135,7 +174,9 @@ function nextFor(view){
 // Called by the router once the view and language are settled.
 function readingInit(view){
   railCurrent = null;
-  railSecs = railFor(view);
+  const { pane, secs } = secsFor(view);
+  tocFor(pane, secs);
+  railSecs = railFor(view, pane, secs);
   if (!railSecs) $("view-" + view).classList.remove("has-rail");
   if (typeof scaleInit === "function") scaleInit();
   if (typeof checklistInit === "function") checklistInit();

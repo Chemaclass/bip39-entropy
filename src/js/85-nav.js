@@ -77,7 +77,13 @@ function route(){
     a.href = "#" + LANG + "/" + a.dataset.view;
   });
   $("brandlink").href = "#" + LANG + "/" + HOME;
-  if (rollReady()){ rollText(); rollPad(); rollRender(); }
+  // Only the language reaches into the roller's text; its state does not
+  // change with the hash. Without the guard, every anchor click rebuilt a
+  // rendered phrase's DOM for nothing.
+  if (rollReady() && route.lang !== LANG){
+    rollText(); rollPad(); rollRender();
+    route.lang = LANG;
+  }
 
   if (host){
     showView(host.id.slice("view-".length), true);

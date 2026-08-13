@@ -116,6 +116,9 @@ function rollRender(){
   const entBits = bits.slice(0, spec.entBits);
 
   $("rollfill").style.width = (100 * have / spec.entBits) + "%";
+  // A full phrase takes no more throws, and a key that does nothing should
+  // look like it. Undo and Clear stay live: they are how you leave this state.
+  $("rollpad").querySelectorAll(".roll-key").forEach(b => { b.disabled = full; });
   // The meter says how far; this says how much longer. A coin is one bit per
   // flip. A die is two bits per accepted throw, and a third of throws reject,
   // so each accepted pair costs one and a half throws on average.

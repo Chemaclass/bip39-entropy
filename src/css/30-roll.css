@@ -33,13 +33,13 @@
 .roll-count b{color:var(--chrome-ink);font-weight:700}
 
 .roll-bits{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:26px}
-.roll-bits .byte{font:400 12px/1.5 var(--mono);letter-spacing:.06em;color:#8d9793;
+.roll-bits .byte{font:400 12px/1.5 var(--mono);letter-spacing:.06em;color:var(--chrome-dim);
   background:var(--chrome-2);padding:3px 6px;border-radius:2px}
 .roll-bits .byte.cs{color:var(--amber);background:var(--warn-wash)}
 
 .roll-sec{font:500 9.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
   color:var(--patina);margin:0 0 10px}
-.roll-fact{font:400 12.5px/1.8 var(--mono);color:#8d9793;margin:0 0 22px;word-break:break-all}
+.roll-fact{font:400 12.5px/1.8 var(--mono);color:var(--chrome-dim);margin:0 0 22px;word-break:break-all}
 .roll-fact b{color:var(--chrome-ink);font-weight:600}
 
 .seed{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:2px;margin-bottom:26px}

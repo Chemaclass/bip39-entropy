@@ -101,7 +101,9 @@
 /* The landing page says what is here and which door is yours, before the essay
    starts. Four links, one line each, and the claim the site is built on. */
 .paths{margin:30px 0 6px}
-.paths-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2px}
+/* Five doors now. 190px lets them sit as one row on a desktop instead of four
+   plus a stretched orphan; below that they wrap like any grid. */
+.paths-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:2px}
 .path{display:flex;flex-direction:column;gap:6px;padding:16px 18px;
   background:var(--chrome-2);border:1px solid transparent;text-decoration:none}
 .path:hover{border-color:var(--patina);background:var(--accent-wash)}
