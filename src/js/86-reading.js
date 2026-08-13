@@ -88,6 +88,7 @@ function readingInit(view){
   pagerFor(view);
   if (typeof scaleInit === "function") scaleInit();
   if (typeof checklistInit === "function") checklistInit();
+  if (typeof pathsInit === "function") pathsInit();
   railSpy();
 }
 

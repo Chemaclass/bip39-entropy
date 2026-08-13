@@ -93,3 +93,17 @@
 .totop:hover{color:var(--patina);border-color:var(--patina)}
 .totop[hidden]{display:none}
 @media (max-width:560px){ .totop{right:12px;bottom:12px} }
+
+/* ─────────── the doors ─────────── */
+/* The landing page says what is here and which door is yours, before the essay
+   starts. Four links, one line each, and the claim the site is built on. */
+.paths{margin:30px 0 6px}
+.paths-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2px}
+.path{display:flex;flex-direction:column;gap:6px;padding:16px 18px;
+  background:var(--chrome-2);border:1px solid transparent;text-decoration:none}
+.path:hover{border-color:var(--patina);background:var(--accent-wash)}
+.path b{font:700 14px/1.2 var(--grot);color:var(--chrome-ink);letter-spacing:.01em}
+.path:hover b{color:var(--patina)}
+.path span{font:400 12.5px/1.55 var(--grot);color:var(--text-2)}
+.paths-trust{margin:14px 0 0;font:400 11px/1.6 var(--mono);color:var(--text-3);
+  letter-spacing:.02em}
