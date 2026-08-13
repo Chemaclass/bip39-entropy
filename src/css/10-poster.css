@@ -97,19 +97,21 @@ body{
 .brand{display:flex;flex-direction:column;gap:2px;margin-right:6px}
 .brand b{font:600 13px/1 var(--mono);letter-spacing:.16em}
 .brand span{font:400 10px/1 var(--mono);letter-spacing:.14em;color:var(--patina);text-transform:uppercase}
-.ctl{display:flex;flex-direction:column;gap:5px}
+.ctl{display:flex;flex-direction:column;gap:5px;min-width:0}
 .ctl>label{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--chrome-dim)}
 select,input[type=search],button{font:500 12px/1 var(--mono);color:var(--chrome-ink);
   background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;padding:7px 9px;min-height:32px}
 /* The chevron is two gradients on the element itself, so every select on the
    page carries the same one without a wrapper element around it. */
-select{appearance:none;-webkit-appearance:none;padding-right:26px;cursor:pointer;
+/* A select is as wide as its longest option, and one option here is a sentence.
+   Without the clamp that sets the width of a 320px phone. */
+select{max-width:100%;appearance:none;-webkit-appearance:none;padding-right:26px;cursor:pointer;
   background-image:linear-gradient(45deg,transparent 50%,var(--chrome-dim) 50%),
     linear-gradient(135deg,var(--chrome-dim) 50%,transparent 50%);
   background-position:calc(100% - 15px) center,calc(100% - 10px) center;
   background-size:5px 5px;background-repeat:no-repeat}
 select:hover{border-color:var(--chrome-dim)}
-input[type=search]{width:180px}
+input[type=search]{width:180px;max-width:100%}
 input[type=search]::placeholder{color:var(--text-3)}
 button{cursor:pointer}
 button:hover{border-color:var(--patina);color:var(--patina)}

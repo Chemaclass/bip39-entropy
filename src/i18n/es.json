@@ -32,8 +32,6 @@
   "theme.light": "Claro",
   "theme.dark": "Oscuro",
   "theme.hint": "No se guarda. Esta página no almacena nada, así que al recargar vuelve a seguir a tu sistema.",
-  "pager.prev": "Volver a",
-  "pager.next": "Siguiente",
   "bar.paper": "Papel",
   "bar.orientation": "Orientación",
   "bar.grid": "Cuadrícula",

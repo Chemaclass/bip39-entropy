@@ -32,8 +32,6 @@
   "theme.light": "Light",
   "theme.dark": "Dark",
   "theme.hint": "Not saved. This page stores nothing, so it follows your system again on reload.",
-  "pager.prev": "Back to",
-  "pager.next": "Next",
   "bar.paper": "Paper",
   "bar.orientation": "Orientation",
   "bar.grid": "Grid",

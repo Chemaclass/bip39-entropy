@@ -1,7 +1,7 @@
-/* ── reading: section rail and pager ────────────────────────────── */
-// Both are built from whatever is on the page rather than written into it, so
-// a new section or a new language needs no work here: the rail reads the
-// headings of the visible pane, the pager reads the tabs.
+/* ── reading: the section rail ───────────────────────────────────── */
+// Built from whatever is on the page rather than written into it, so a new
+// section or a new language needs no work here: it reads the headings of the
+// visible pane.
 
 const RAIL_OFFSET = 130;        // px of chrome above the reading line
 
@@ -99,35 +99,11 @@ function railSpy(){
     a.classList.toggle("on", a.dataset.for === current));
 }
 
-function pagerFor(view){
-  const host = $("view-" + view);
-  const i = VIEWS.indexOf(view);
-  let pager = host.querySelector(".pager");
-  if (!pager){
-    pager = document.createElement("nav");
-    pager.className = "pager";
-    host.appendChild(pager);
-  }
-  pager.replaceChildren();
-
-  const link = (target, kind) => {
-    const a = document.createElement("a");
-    a.className = "pager-" + kind;
-    a.href = "#" + LANG + "/" + target;
-    a.innerHTML = '<span>' + t("pager." + kind) + '</span>' + t("nav." + target);
-    return a;
-  };
-  if (i > 0) pager.appendChild(link(VIEWS[i - 1], "prev"));
-  if (i >= 0 && i < VIEWS.length - 1) pager.appendChild(link(VIEWS[i + 1], "next"));
-  pager.hidden = !pager.childElementCount;
-}
-
 // Called by the router once the view and language are settled.
 function readingInit(view){
   railCurrent = null;
   railSecs = railFor(view);
   if (!railSecs) $("view-" + view).classList.remove("has-rail");
-  pagerFor(view);
   if (typeof scaleInit === "function") scaleInit();
   if (typeof checklistInit === "function") checklistInit();
   if (typeof pathsInit === "function") pathsInit();

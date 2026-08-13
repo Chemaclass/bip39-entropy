@@ -45,26 +45,6 @@
   .view.has-rail .learn-toc{display:none}
 }
 
-/* ─────────── pager ─────────── */
-/* What to read next, built from the tabs so it cannot fall out of step. */
-.pager{max-width:1000px;margin:0 auto;padding:0 18px 70px;display:flex;
-  gap:14px;justify-content:space-between;flex-wrap:wrap}
-.pager[hidden]{display:none}
-.pager a{flex:1 1 260px;display:flex;flex-direction:column;gap:6px;
-  border:1px solid var(--chrome-3);border-radius:3px;padding:14px 16px;
-  text-decoration:none;font:600 15px/1.2 var(--grot);color:var(--chrome-ink)}
-.pager a span{font:500 9.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
-  color:var(--text-3)}
-.pager a:hover{border-color:var(--patina);color:var(--patina)}
-.pager a:hover span{color:var(--patina)}
-.pager-next{text-align:right;align-items:flex-end}
-
-@media (max-width:560px){
-  .tabs-sep{margin:0 3px;padding-left:8px}
-  .pager{padding:0 14px 50px}
-  .pager a{flex-basis:100%}
-}
-
 /* ─────────── the scale widget ─────────── */
 /* Sits inside the prose. Same chrome as the roller's controls, so it reads as
    a thing you operate rather than a thing you read. */

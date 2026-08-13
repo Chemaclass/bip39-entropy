@@ -74,16 +74,33 @@ main:focus{outline:none}
   .top-act{order:1}
 }
 
+/* Where the track has its own row, a tab is something you hit with a thumb.
+   28px was a mouse target. The word between the groups becomes the divider it
+   was drawn around, which gives the strip back 42 of the px it overflows by. */
+@media (max-width:1000px){
+  .tabs{padding:2px}
+  .tabs a{min-height:40px;display:flex;align-items:center}
+  /* A sideways scroller at its end hands the swipe to the browser, which reads
+     it as a back gesture. */
+  .tabs{overscroll-behavior-x:contain}
+  .tabs-sep{width:1px;padding:0;margin:0 6px;color:transparent;overflow:hidden;
+    align-self:stretch}
+}
+
 @media (max-width:560px){
-  .top{padding:7px 0}
-  .top-in{gap:7px 10px;padding:0 14px}
+  .top{padding:5px 0}
+  .top-in{gap:4px 10px;padding:0 14px}
   /* The tagline is decoration and the headline underneath says the same thing.
      Its width is what buys the controls a place on the brand's row. Hidden
      rather than dropped, so the brand link still reads out in full. */
   .brand span{position:absolute;width:1px;height:1px;overflow:hidden;
     clip:rect(0 0 0 0);white-space:nowrap}
-  .tabs a{padding:9px 8px;letter-spacing:.06em;font-size:10px}
-  .langsel select{min-height:30px;font-size:10.5px;padding:6px 22px 6px 8px}
+  .tabs a{padding:9px 10px;letter-spacing:.06em;font-size:10.5px}
+  /* iOS Safari zooms the page when a focused control's text is under 16px, and
+     it does not zoom back out. Every control on the page pays for that, so on a
+     phone they all get 16px whatever it costs in width. */
+  select,input[type=search],input[type=text],button{font-size:16px}
+  .langsel select{min-height:36px;padding:6px 26px 6px 9px;letter-spacing:0}
 }
 
 /* ─────────── footer ─────────── */
