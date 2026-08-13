@@ -15,26 +15,24 @@
   </header>
 
   <aside class="learn-tldr">
-    <p class="learn-tldr-label">En resumen</p>
+    <p class="learn-tldr-label">La versión corta</p>
     <ul>
-      <li>La <a href="#learn-entropy">entropía</a> cuenta de cuántos números igual
-        de probables salió el tuyo, así que mide <b>el proceso que lo eligió</b>,
-        nunca lo aleatorias que parecen las palabras.</li>
+      <li>La <a href="#learn-entropy">entropía</a> cuenta cuántos números podría
+        haber sido el tuyo. Mide <b>cómo lo elegiste</b>, nunca lo aleatorias que
+        parecen las palabras.</li>
       <li>La lista tiene <a href="#learn-2048">2048 palabras</a> porque 2048 es dos
-        elevado a once, así que cada palabra lleva exactamente once bits y <b>doce
+        elevado a once, así que <b>una palabra son exactamente once bits</b>. Doce
         palabras llevan 128 bits de entropía más una suma de verificación de 4
-        bits</b>.</li>
+        bits.</li>
       <li>La <a href="#learn-checksum">suma de verificación</a> detecta unos quince
-        errores de transcripción de cada dieciséis y no dice <b>nada sobre lo
-        adivinable que es tu frase</b>, así que un monedero que acepta una frase no
-        es una comprobación de seguridad.</li>
+        errores de copia de cada dieciséis. No dice <b>nada sobre lo adivinable que
+        es tu frase</b>, así que “mi monedero la aceptó” no demuestra nada.</li>
       <li>Saca tu aleatoriedad de <a href="#learn-source">dados, monedas o un
-        generador por hardware en el que tengas motivos para confiar</a>, y nunca de
-        tu propia cabeza, porque las palabras que elige una persona valen unas pocas
-        docenas de bits como mucho.</li>
+        generador por hardware en el que confíes</a>. Nunca de tu propia cabeza,
+        porque <b>las palabras que eliges valen unas pocas docenas de bits</b>.</li>
       <li>Todo monedero vaciado por <a href="#learn-failed">aleatoriedad débil</a>
-        se vació porque el número detrás de la frase era pequeño, <b>no porque
-        BIP-39 fallara</b>, y nadie podría haberlo visto mirando las palabras.</li>
+        se vació porque el número era pequeño. <b>El estándar aguantó todas las
+        veces</b>, y nadie podría haberlo visto en las palabras.</li>
     </ul>
   </aside>
 
@@ -382,35 +380,34 @@
     <p>
       Léelos por el mecanismo y no por el drama, y fíjate en lo único que comparten.
       En todos los casos el software funcionaba. Las claves eran válidas, las
-      direcciones eran válidas, las transacciones se firmaban y se confirmaban, y
-      donde había una frase se parecía exactamente a cualquier otra frase y
-      <a href="#learn-checksum">la suma de verificación</a> pasaba, porque una suma
-      de verificación no tiene nada que decir sobre de dónde vino un número. Nadie
-      de aquí podría haberlo detectado estudiando sus propias palabras. No había
-      nada que ver en ellas.
+      direcciones eran válidas, las transacciones se firmaban y se confirmaban.
+      Donde había una frase, se parecía a cualquier otra frase y
+      <a href="#learn-checksum">la suma de verificación</a> pasaba. Una suma de
+      verificación no tiene nada que decir sobre de dónde vino un número. Nadie de
+      aquí podría haberlo detectado estudiando sus propias palabras. No había nada
+      que ver en ellas.
     </p>
 
     <ul class="learn-mag">
       <li>
         <b>El OpenSSL de Debian, de septiembre de 2006 a mayo de 2008.</b> Un
-        maintainer comentó dos líneas idénticas de <code>md_rand.c</code> que metían
-        un buffer de memoria sin inicializar en el pool de aleatoriedad. Valgrind,
-        una herramienta de comprobación de memoria, las había marcado por leer datos
-        sin inicializar. La queja era correcta y las líneas no eran un bug. Sin
-        ellas, la única entrada variable que le quedaba al generador era el id de
-        proceso, y Linux reparte como mucho 32,768 de esos. Toda clave que
-        produjeron los paquetes afectados salía de 32,767 posibilidades para un tipo
-        de clave, un tamaño de clave y una arquitectura dados. Eso son quince bits,
-        donde el formato da a entender un espacio que nadie podría enumerar. Estuvo
+        maintainer comentó dos líneas idénticas de <code>md_rand.c</code>. Metían
+        un buffer de memoria sin inicializar en el pool de aleatoriedad, y
+        Valgrind, una herramienta de comprobación de memoria, las había marcado por
+        leer datos sin inicializar. La queja era correcta. Las líneas no eran un
+        bug. Sin ellas, la única entrada variable que le quedaba al generador era el
+        id de proceso, y Linux reparte como mucho 32,768 de esos. Toda clave que
+        produjeron esos paquetes salía de 32,767 posibilidades, para un tipo de
+        clave, un tamaño de clave y una arquitectura dados. Eso son quince bits. El
+        formato de clave da a entender un espacio que nadie podría enumerar. Estuvo
         así veinte meses, desde la subida del 17 de septiembre de 2006 hasta el
-        aviso del 13 de mayo de 2008 (<code>CVE-2008-0166</code>), y afectó a claves
+        aviso del 13 de mayo de 2008 (<code>CVE-2008-0166</code>). Afectó a claves
         SSH, claves OpenVPN, claves DNSSEC y las claves dentro de certificados
-        X.509. Parchear el paquete no arreglaba nada por sí solo, porque las claves
-        ya existían y ya se habían copiado a otras máquinas, así que Debian publicó
-        listas negras de las claves débiles para que los servidores las rechazaran.
-        Este es anterior a Bitcoin. Está aquí porque es el patrón: un cambio
-        cuidadoso, hecho por una buena razón, que quitó aleatoriedad y dejó todo
-        funcionando.
+        X.509. Parchear el paquete no arreglaba nada por sí solo. Las claves ya
+        existían, y ya se habían copiado a otras máquinas, así que Debian publicó
+        listas negras para que los servidores pudieran rechazarlas. Este es anterior
+        a Bitcoin. Está aquí porque es el patrón: un cambio cuidadoso, hecho por una
+        buena razón, que quitó la aleatoriedad y dejó todo funcionando.
       </li>
       <li>
         <b>Brainwallets, desde alrededor de 2011.</b> Una frase de contraseña que te
@@ -470,7 +467,47 @@
         en un monedero afectado parecía mal entonces, y nada parece mal en él ahora.
       </li>
       <li>
-        <b>Extensión de navegador de Trust Wallet, 2022.</b> La compilación a
+        <b>Nonces de firma repetidos, un patrón y no un incidente.</b> Los robos
+        de Android de arriba funcionaron porque dos firmas compartían un nonce. Dos
+        firmas, un nonce, y la clave se cae. Ese mecanismo no llegó con Android y
+        tampoco se fue con él. Ha aparecido en monederos, bibliotecas y años
+        distintos. A diferencia de una semilla débil, deja su evidencia a la vista.
+        Una firma se queda en un bloque para siempre, así que cualquiera puede
+        rastrear la cadena en busca de dos que coincidan. Y la gente lo hace.
+        Brengel y Rossow leyeron todas las firmas hasta enero de 2018, 647 millones,
+        y encontraron 1,068 valores de nonce usados más de una vez en 4,433 claves.
+        Con eso bastaba para llevarse 412.80 BTC. Breitner y Heninger, en Financial
+        Cryptography en 2019, trabajaron sobre una instantánea de septiembre de 2018
+        y calcularon 1,296 claves privadas de Bitcoin solo a partir de nonces
+        repetidos. Lo que había en esas direcciones es lo que hay que retener. Nada.
+        Todas estaban ya vacías. Los investigadores concluyeron que varias partes
+        rastrean la cadena en busca de repeticiones y se llevan lo que encuentran.
+        Un artículo de 2026 encontró el mismo error entre traders automatizados en
+        Polygon. Este no es historia.
+      </li>
+      <li>
+        <b>Profanity, septiembre de 2022.</b> Un generador popular de direcciones
+        vanity de Ethereum, de esas que empiezan con una ristra de ceros o deletrean
+        una palabra. Tomaba un valor de 32 bits del sistema y lo expandía con un
+        Mersenne Twister <code>mt19937_64</code> hasta una clave privada inicial de
+        256 bits. Luego iba recorriendo claves vecinas hasta que una dirección
+        encajaba con el patrón que pedías. Cada paso de eso es reproducible a partir
+        del valor de 32 bits. Así que todas las direcciones que llegó a producir
+        salían de <code>2^32</code> posibilidades. 1inch divulgó el fallo el 15 de
+        septiembre de 2022. Dos días después un investigador vio salir 3.3 millones
+        de dólares de direcciones de Profanity. El 20 de septiembre el market maker
+        Wintermute perdió unos 160 millones de dólares de un hot wallet, y rastreó
+        la dirección hasta la misma herramienta. Toma el total como un rango, no
+        como una cifra. 1inch situó el dinero en riesgo en decenas de millones,
+        posiblemente cientos de millones. Nunca se publicó un total auditado. El
+        coste del ataque es el número más firme. Amber Group precalculó los cuatro
+        mil millones de claves públicas en un MacBook en menos de diez horas, y
+        luego recuperó la clave de una dirección de siete ceros en unos cuarenta
+        minutos. Este es de Ethereum, no de Bitcoin. La cadena no es la lección. La
+        semilla sí, y esa misma semilla de 32 bits aparece dos veces más abajo.
+      </li>
+      <li>
+        <b>Extensión de navegador de Trust Wallet, 2022.</b> El build a
         WebAssembly de la biblioteca central del monedero generaba mnemónicos con un
         Mersenne Twister, un generador construido para simulaciones y expresamente
         no para criptografía. La variante que usaba, <code>mt19937</code>, toma un
@@ -529,7 +566,8 @@
     <p>
       Pon los derrumbes uno al lado de otro. La columna del medio es lo que el
       formato da a entender: 256 bits para una clave privada en bruto, 128 para una
-      frase de 12 palabras. La de al lado es lo que había en realidad.
+      frase de 12 palabras, y al menos eso para una clave SSH o TLS. La de al lado
+      es lo que había en realidad.
     </p>
 
     <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Fallos de entropía documentados y el espacio de búsqueda que dejó cada uno, tabla desplazable">
@@ -545,9 +583,12 @@
           </tr>
         </thead>
         <tbody>
+          <tr><th scope="row">Debian OpenSSL</th><td>2006 a 2008</td><td>128 o más</td><td>15</td><td>32,767</td></tr>
           <tr><th scope="row">Brainwallet</th><td>desde 2011</td><td>256</td><td>unos 20</td><td>2^20</td></tr>
           <tr><th scope="row">Android</th><td>2013</td><td>256</td><td>64</td><td>2^64</td></tr>
           <tr><th scope="row">Randstorm</th><td>2011 a 2015</td><td>256</td><td>menos de 48</td><td>menos de 2^48</td></tr>
+          <tr><th scope="row">Nonces repetidos</th><td>2011 a 2018</td><td>256</td><td>ninguno</td><td>1</td></tr>
+          <tr><th scope="row">Profanity</th><td>2022</td><td>256</td><td>32</td><td>2^32</td></tr>
           <tr><th scope="row">Trust Wallet</th><td>2022</td><td>128</td><td>32</td><td>2^32</td></tr>
           <tr><th scope="row">Milk Sad</th><td>2023</td><td>256</td><td>32</td><td>2^32</td></tr>
           <tr><th scope="row">Dispositivo precargado</th><td>2022</td><td>128</td><td>unos 4.3</td><td>20</td></tr>
@@ -556,21 +597,22 @@
     </div>
 
     <p>
-      Los dos casos de 32 bits merecen que se escriba la aritmética, porque 32 bits
-      no suena a poco hasta que lo cuentas. <code>2^32</code> es
+      Los tres casos de 32 bits merecen que se escriba la aritmética. 32 bits no
+      suena a poco hasta que lo cuentas. <code>2^32</code> es
       <code>4294967296</code>, unos 4.3 mil millones.
       <a href="#learn-source">La sección anterior</a> situaba una sola máquina en
-      <code>2^40</code> en dos semanas, y <code>2^32</code> es 256 veces más pequeño
-      que <code>2^40</code>, así que esa misma máquina termina el espacio entero en
-      poco más de una hora. Las estimaciones publicadas coinciden: un par de horas
-      en una computadora para las frases de Trust Wallet, como mucho unos pocos días
-      en una computadora para juegos para las de Libbitcoin. Eso no es un
+      <code>2^40</code> en dos semanas. <code>2^32</code> es 256 veces más pequeño
+      que eso, así que la misma máquina termina el espacio entero en poco más de
+      una hora. Las estimaciones publicadas coinciden: un par de horas en un
+      ordenador para las frases de Trust Wallet, menos de diez horas en un portátil
+      para precalcular todas las claves que Profanity podía producir, como mucho
+      unos pocos días en un ordenador de juegos para las de Libbitcoin. Eso no es un
       presupuesto de hardware. Es una tarde.
     </p>
 
     <p>
-      <b>Nada de esto fue un fallo de BIP-39.</b> El estándar aguantó en todo
-      momento. La lista de palabras eran las mismas 2048 palabras públicas,
+      <b>Nada de esto fue un fallo de BIP-39.</b> Allá donde el estándar entraba en
+      juego, aguantó. La lista de palabras eran las mismas 2048 palabras públicas,
       correctamente indexadas. La derivación era correcta. La suma de verificación
       era correcta, y pasó todas las veces, porque una frase bien formada es lo
       único que se le pidió certificar jamás. Lo que falló fue el número de debajo,

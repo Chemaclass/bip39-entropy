@@ -16,21 +16,21 @@
   <aside class="learn-tldr">
     <p class="learn-tldr-label">The short version</p>
     <ul>
-      <li><a href="#learn-entropy">Entropy</a> counts how many equally likely
-        numbers yours was drawn from, so it measures <b>the process that picked
-        it</b>, never how random the words look.</li>
+      <li><a href="#learn-entropy">Entropy</a> counts how many numbers yours
+        could have been. It measures <b>how you picked it</b>, never how random
+        the words look.</li>
       <li>The list holds <a href="#learn-2048">2048 words</a> because 2048 is two
-        to the eleventh, so each word carries exactly eleven bits and <b>twelve
-        words carry 128 bits of entropy plus a 4-bit checksum</b>.</li>
-      <li>The <a href="#learn-checksum">checksum</a> catches about fifteen
-        transcription mistakes in sixteen and says <b>nothing about how guessable
-        your phrase is</b>, so a wallet accepting a phrase is not a security check.</li>
+        to the eleventh, so <b>one word is exactly eleven bits</b>. Twelve words
+        carry 128 bits of entropy plus a 4-bit checksum.</li>
+      <li>The <a href="#learn-checksum">checksum</a> catches about fifteen copying
+        mistakes in sixteen. It says <b>nothing about how guessable your phrase
+        is</b>, so “my wallet accepted it” proves nothing.</li>
       <li>Take your randomness from <a href="#learn-source">dice, coins or a
-        hardware generator you have reason to trust</a>, and never from your own
-        head, because words a person chooses are worth a few dozen bits at best.</li>
+        hardware generator you trust</a>. Never from your own head, because
+        <b>words you choose are worth a few dozen bits</b>.</li>
       <li>Every wallet emptied by <a href="#learn-failed">weak randomness</a> was
-        emptied because the number behind the phrase was small, <b>not because
-        BIP-39 failed</b>, and nobody could have seen it by looking at the words.</li>
+        emptied because the number was small. <b>The standard held every time</b>,
+        and nobody could have seen it in the words.</li>
     </ul>
   </aside>
 
@@ -362,33 +362,32 @@
     <p>
       Read these for the mechanism rather than the drama, and notice the one thing
       they share. In every case the software worked. Keys were valid, addresses
-      were valid, transactions signed and confirmed, and where there was a phrase
-      it looked exactly like any other phrase and
-      <a href="#learn-checksum">the checksum</a> passed, because a checksum has
-      nothing to say about where a number came from. Nobody here could have caught
-      it by studying their own words. There was nothing in them to see.
+      were valid, transactions signed and confirmed. Where there was a phrase, it
+      looked like any other phrase and <a href="#learn-checksum">the checksum</a>
+      passed. A checksum has nothing to say about where a number came from. Nobody
+      here could have caught it by studying their own words. There was nothing in
+      them to see.
     </p>
 
     <ul class="learn-mag">
       <li>
         <b>Debian's OpenSSL, September 2006 to May 2008.</b> A maintainer
-        commented out two identical lines in <code>md_rand.c</code> that fed a
-        buffer of uninitialised memory into the random pool. Valgrind, a memory
-        checking tool, had flagged them for reading uninitialised data. The
-        complaint was correct and the lines were not a bug. With them gone, the
+        commented out two identical lines in <code>md_rand.c</code>. They fed a
+        buffer of uninitialised memory into the random pool, and Valgrind, a
+        memory checking tool, had flagged them for reading uninitialised data.
+        The complaint was correct. The lines weren't a bug. With them gone, the
         only varying input left to the generator was the process id, and Linux
-        hands out at most 32,768 of those. Every key the affected packages
-        produced came from 32,767 possibilities for a given key type, key size
-        and architecture. That is fifteen bits, where the format implies a space
-        nobody could enumerate. It ran for twenty months, from the upload of 17
-        September 2006 to the advisory of 13 May 2008
-        (<code>CVE-2008-0166</code>), and it covered SSH keys, OpenVPN keys,
-        DNSSEC keys and the keys inside X.509 certificates. Patching the package
-        fixed nothing by itself, because the keys already existed and had already
-        been copied on to other machines, so Debian shipped blacklists of the weak
-        keys for servers to refuse. This one predates Bitcoin. It is here because
-        it is the pattern: a careful change, made for a good reason, that removed
-        randomness and left everything working.
+        hands out at most 32,768 of those. Every key those packages produced came
+        from 32,767 possibilities, for a given key type, key size and
+        architecture. That's fifteen bits. The key format implies a space nobody
+        could enumerate. It ran for twenty months, from the upload of 17 September
+        2006 to the advisory of 13 May 2008 (<code>CVE-2008-0166</code>). It
+        covered SSH keys, OpenVPN keys, DNSSEC keys and the keys inside X.509
+        certificates. Patching the package fixed nothing on its own. The keys
+        already existed, and they'd already been copied to other machines, so
+        Debian shipped blacklists so servers could refuse them. This one predates
+        Bitcoin. It's here because it's the pattern: a careful change, made for a
+        good reason, that took the randomness out and left everything working.
       </li>
       <li>
         <b>Brainwallets, from around 2011.</b> A passphrase you invented yourself
@@ -445,41 +444,41 @@
       </li>
       <li>
         <b>Repeated signing nonces, a pattern rather than an incident.</b> The
-        Android thefts above worked because two signatures shared a nonce and gave
-        up the key between them. That mechanism did not arrive with Android and it
-        did not leave with it. It has surfaced across wallets, libraries and years,
-        and unlike a weak seed it leaves its evidence in the open: a signature sits
-        in a block forever, so anyone can scan the chain for two that match. People
-        do. Brengel and Rossow read every signature up to January 2018, 647 million
-        of them, and found 1,068 nonce values used more than once across 4,433
-        keys, enough for an attacker to have taken 412.80 BTC. Breitner and
-        Heninger, at Financial Cryptography in 2019, worked from a September 2018
-        snapshot and computed 1,296 Bitcoin private keys from repeated nonces
-        alone. What was in those addresses is the part worth keeping. Nothing.
-        Every one of them was already empty, and the researchers concluded that
-        several parties scan the chain for repeats continuously and take whatever
-        appears. A 2026 paper found the same mistake among automated traders on
-        Polygon, so this is not a closed chapter.
+        Android thefts above worked because two signatures shared a nonce. Two
+        signatures, one nonce, and the key falls out. That mechanism didn't arrive
+        with Android and it didn't leave with it. It has turned up across wallets,
+        libraries and years. Unlike a weak seed, it leaves its evidence in the
+        open. A signature sits in a block forever, so anyone can scan the chain for
+        two that match. People do. Brengel and Rossow read every signature up to
+        January 2018, 647 million of them, and found 1,068 nonce values used more
+        than once across 4,433 keys. That was enough to have taken 412.80 BTC.
+        Breitner and Heninger, at Financial Cryptography in 2019, worked from a
+        September 2018 snapshot and computed 1,296 Bitcoin private keys from
+        repeated nonces alone. What was in those addresses is the part worth
+        keeping. Nothing. Every one was already empty. The researchers concluded
+        that several parties scan the chain for repeats and take whatever they
+        find. A 2026 paper found the same mistake among automated traders on
+        Polygon. This one isn't history.
       </li>
       <li>
         <b>Profanity, September 2022.</b> A popular generator for vanity Ethereum
         addresses, the kind that open with a run of zeros or spell a word. It took
-        one 32-bit value from the system, expanded it with an
+        one 32-bit value from the system and expanded it with an
         <code>mt19937_64</code> Mersenne Twister into a starting 256-bit private
-        key, then stepped through neighbouring keys until an address matched the
+        key. Then it stepped through neighbouring keys until an address matched the
         pattern you asked for. Every step of that is reproducible from the 32-bit
-        value, so every address it ever produced came from <code>2^32</code>
+        value. So every address it ever produced came from <code>2^32</code>
         possibilities. 1inch disclosed the flaw on 15 September 2022. Two days
         later an investigator watched 3.3 million dollars leave Profanity
-        addresses, and on 20 September the market maker Wintermute lost about 160
-        million dollars from a hot wallet whose address it traced back to the same
-        tool. Take the total as a range rather than a figure: 1inch put the money
-        at risk at tens of millions and possibly hundreds of millions, and no
-        audited total was ever published. The cost of the attack is the firmer
-        number. Amber Group precomputed all four billion public keys on a MacBook
-        in under ten hours, then recovered the key to a seven-zero address in about
-        forty minutes. This one is Ethereum rather than Bitcoin. The chain is not
-        the lesson. The seed is, and the same 32-bit seed appears twice more below.
+        addresses. On 20 September the market maker Wintermute lost about 160
+        million dollars from a hot wallet, and traced the address back to the same
+        tool. Treat the total as a range, not a figure. 1inch put the money at risk
+        at tens of millions, possibly hundreds of millions. No audited total was
+        ever published. The cost of the attack is the firmer number. Amber
+        Group precomputed all four billion public keys on a MacBook in under ten
+        hours, then recovered the key to a seven-zero address in about forty
+        minutes. This one is Ethereum, not Bitcoin. The chain isn't the lesson.
+        The seed is, and the same 32-bit seed appears twice more below.
       </li>
       <li>
         <b>Trust Wallet browser extension, 2022.</b> The WebAssembly build of the
@@ -566,13 +565,13 @@
     </div>
 
     <p>
-      The three 32-bit cases deserve the arithmetic spelled out, because 32 bits
-      does not sound small until you count it. <code>2^32</code> is
+      The three 32-bit cases deserve the arithmetic spelled out. 32 bits doesn't
+      sound small until you count it. <code>2^32</code> is
       <code>4294967296</code>, about 4.3 billion.
       <a href="#learn-source">The previous section</a> put a single machine at
-      <code>2^40</code> in a fortnight, and <code>2^32</code> is 256 times smaller
-      than <code>2^40</code>, so that same machine finishes the entire space in a
-      little over an hour. The published estimates agree: a couple of hours on one
+      <code>2^40</code> in a fortnight. <code>2^32</code> is 256 times smaller
+      than that, so the same machine finishes the entire space in a little over an
+      hour. The published estimates agree: a couple of hours on one
       computer for the Trust Wallet phrases, under ten hours on a laptop to
       precompute every key Profanity could produce, at most a few days on a gaming
       machine for Libbitcoin's. That is not a hardware budget. It is an afternoon.
