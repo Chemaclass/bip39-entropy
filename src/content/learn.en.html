@@ -193,6 +193,62 @@
       the low seven choose the row.
     </p>
 
+    <figure class="bitfig">
+      <svg viewBox="0 0 560 196" role="img"
+           aria-label="The eleven bits of index 837 split into a high group of four, which is binary 0110 and picks column 768, and a low group of seven, which is binary 1000101 and picks row 69. Together they address the word hamster.">
+        <g class="bitfig-cells">
+          <rect class="bitfig-hi" x="14" y="44" width="44" height="38" rx="3"/>
+          <rect class="bitfig-hi" x="60" y="44" width="44" height="38" rx="3"/>
+          <rect class="bitfig-hi" x="106" y="44" width="44" height="38" rx="3"/>
+          <rect class="bitfig-hi" x="152" y="44" width="44" height="38" rx="3"/>
+          <rect class="bitfig-lo" x="198" y="44" width="44" height="38" rx="3"/>
+          <rect class="bitfig-lo" x="244" y="44" width="44" height="38" rx="3"/>
+          <rect class="bitfig-lo" x="290" y="44" width="44" height="38" rx="3"/>
+          <rect class="bitfig-lo" x="336" y="44" width="44" height="38" rx="3"/>
+          <rect class="bitfig-lo" x="382" y="44" width="44" height="38" rx="3"/>
+          <rect class="bitfig-lo" x="428" y="44" width="44" height="38" rx="3"/>
+          <rect class="bitfig-lo" x="474" y="44" width="44" height="38" rx="3"/>
+        </g>
+        <g class="bitfig-bit">
+          <text x="36" y="69">0</text>
+          <text x="82" y="69">1</text>
+          <text x="128" y="69">1</text>
+          <text x="174" y="69">0</text>
+          <text x="220" y="69">1</text>
+          <text x="266" y="69">0</text>
+          <text x="312" y="69">0</text>
+          <text x="358" y="69">0</text>
+          <text x="404" y="69">1</text>
+          <text x="450" y="69">0</text>
+          <text x="496" y="69">1</text>
+        </g>
+        <g class="bitfig-cap">
+          <text x="105" y="32">high 4 bits</text>
+          <text x="358" y="32">low 7 bits</text>
+        </g>
+        <g class="bitfig-rule">
+          <path d="M14 92 h182"/>
+          <path d="M105 92 v9"/>
+          <path d="M198 92 h320"/>
+          <path d="M358 92 v9"/>
+        </g>
+        <g class="bitfig-lead">
+          <text x="105" y="120">column 768</text>
+          <text x="358" y="120">row 69</text>
+        </g>
+        <g class="bitfig-sum">
+          <text x="266" y="156">768 + 69 = 837</text>
+        </g>
+        <g class="bitfig-word">
+          <text x="266" y="184">hamster</text>
+        </g>
+      </svg>
+      <figcaption>
+        One word, two coordinates. Reading an index off the poster is reading the
+        column and the row, because the bits are the coordinates.
+      </figcaption>
+    </figure>
+
     <p>
       Twelve words therefore carry <code>12 × 11 = 132</code> bits. BIP-39 does not
       spend all 132 on entropy. It generates <code>ENT</code> bits of randomness,
@@ -354,182 +410,130 @@
 
     <p>
       Everything above this point is arithmetic. What follows is the record. Weak
-      randomness is not a hypothetical raised by people who enjoy being careful.
-      It is the failure that has repeatedly emptied wallets. It did so through
-      ordinary software that nobody suspected at the time.
+      randomness is the failure that has repeatedly emptied wallets, and it did so
+      through ordinary software that nobody suspected at the time.
     </p>
 
     <p>
       Read these for the mechanism rather than the drama, and notice the one thing
-      they share. In every case the software worked. Keys were valid, addresses
-      were valid, transactions signed and confirmed. Where there was a phrase, it
-      looked like any other phrase and <a href="#learn-checksum">the checksum</a>
-      passed. A checksum has nothing to say about where a number came from. Nobody
-      here could have caught it by studying their own words. There was nothing in
-      them to see.
+      they share. In every case the software worked: keys were valid, addresses
+      were valid, transactions signed and confirmed. Where there was a phrase it
+      looked like any other and <a href="#learn-checksum">the checksum</a> passed,
+      because a checksum has nothing to say about where a number came from. Nobody
+      here could have caught it by studying their own words.
     </p>
 
     <ul class="learn-mag">
       <li>
         <b>Debian's OpenSSL, September 2006 to May 2008.</b> A maintainer
-        commented out two identical lines in <code>md_rand.c</code>. They fed a
-        buffer of uninitialised memory into the random pool, and Valgrind, a
-        memory checking tool, had flagged them for reading uninitialised data.
-        The complaint was correct. The lines weren't a bug. With them gone, the
-        only varying input left to the generator was the process id, and Linux
-        hands out at most 32,768 of those. Every key those packages produced came
-        from 32,767 possibilities, for a given key type, key size and
-        architecture. That's fifteen bits. The key format implies a space nobody
-        could enumerate. It ran for twenty months, from the upload of 17 September
-        2006 to the advisory of 13 May 2008 (<code>CVE-2008-0166</code>). It
-        covered SSH keys, OpenVPN keys, DNSSEC keys and the keys inside X.509
-        certificates. Patching the package fixed nothing on its own. The keys
-        already existed, and they'd already been copied to other machines, so
-        Debian shipped blacklists so servers could refuse them. This one predates
-        Bitcoin. It's here because it's the pattern: a careful change, made for a
-        good reason, that took the randomness out and left everything working.
+        commented out two lines in <code>md_rand.c</code> that fed uninitialised
+        memory into the random pool, which Valgrind had correctly flagged as
+        reading uninitialised data. With them gone, the only varying input left
+        was the process id, and Linux hands out at most 32,768 of those, so every
+        key came from fifteen bits. It ran for twenty months
+        (<code>CVE-2008-0166</code>) across SSH, OpenVPN, DNSSEC and X.509 keys.
+        Patching fixed nothing on its own, because the keys already existed and had
+        been copied elsewhere, so Debian shipped blacklists instead. This one
+        predates Bitcoin, and it is here because it is the pattern: a careful
+        change, made for a good reason, that took the randomness out and left
+        everything working.
       </li>
       <li>
         <b>Brainwallets, from around 2011.</b> A passphrase you invented yourself
-        was put through a single unsalted <code>SHA-256</code>, and the 32 bytes
-        that came out were used directly as the private key. No salt, no
-        stretching, no per-user variation, so a given phrase always produced the
-        same address and the whole mapping could be computed in advance. The study
-        that measured this, published at Financial Cryptography in 2016, tested
-        roughly 300 billion candidate passwords and identified 884 brainwallets
-        that had held funds between 2011 and 2015. All but 21 had been drained.
-        Half were emptied within 21 minutes of being funded, and by late 2013 the
-        gap was measured in seconds, because bots were watching the precomputed
-        addresses and competing to spend first. A 2020 experiment funded one keyed
-        on the opening line of <em>Moby-Dick</em> and lost it in 0.67 seconds, out
-        of the memory pool, before the funding transaction had confirmed. A
-        human-chosen passphrase is worth something like 20 bits against an offline
-        attacker, not 256.
+        went through a single unsalted <code>SHA-256</code>, and those 32 bytes
+        became the private key. With no salt and no stretching, a given phrase
+        always produced the same address, so the whole mapping could be computed in
+        advance. The study published at Financial Cryptography in 2016 tested
+        roughly 300 billion candidates and found 884 brainwallets that had held
+        funds, of which all but 21 had been drained. Half were emptied within 21
+        minutes of being funded, and by late 2013 the gap was seconds, because bots
+        were watching the precomputed addresses. A human-chosen passphrase is worth
+        something like 20 bits against an offline attacker.
       </li>
       <li>
-        <b>Android, August 2013.</b> The platform's <code>SecureRandom</code> was
-        not what it claimed to be, through two defects found at once. One capped
-        an unseeded instance at 64 bits of entropy
-        (<code>CVE-2013-7372</code>); the other left the OpenSSL generator unseeded
-        across the process fork that every app is spawned from
-        (<code>CVE-2013-7373</code>). The thefts came through the first. Signing
-        needs a fresh random nonce every time. When one key signs twice with
-        the same nonce, the private key drops out of a page of algebra.
-        Attackers scanned the public chain for the repeats and swept what they
-        found. About 55 BTC gathered at a single attacker address, worth some
-        5,800 dollars at that week's rate. The bitcoin.org advisory of 11 August
-        2013 declared every Android-generated wallet vulnerable and named Bitcoin
-        Wallet, blockchain.info, BitcoinSpinner and Mycelium as an explicitly
-        incomplete list. Strictly this broke the numbers used in signing rather
-        than the number behind the phrase, but the advisory treated every key the
-        platform had ever produced as suspect and told everyone to rotate. From
-        the phone, nothing looked wrong. The signatures were valid. The evidence
-        sat in the blockchain, legible to anyone who compared two transactions,
-        and the owners learned of it when the money was gone.
+        <b>Android, August 2013.</b> The platform's <code>SecureRandom</code>
+        capped an unseeded instance at 64 bits (<code>CVE-2013-7372</code>), and
+        the thefts came through the signing nonces it produced. Signing needs a
+        fresh random nonce every time, and when one key signs twice with the same
+        nonce the private key drops out of a page of algebra. Attackers scanned the
+        chain for repeats and swept about 55 BTC into a single address. The
+        bitcoin.org advisory of 11 August 2013 declared every Android-generated
+        wallet suspect. Strictly this broke the numbers used in signing rather than
+        the number behind the phrase, and from the phone nothing looked wrong.
       </li>
       <li>
-        <b>Randstorm, browser wallets of roughly 2011 to 2015.</b> BitcoinJS, which
-        sat underneath a great many web wallets of the period, produced keys
-        through the <code>SecureRandom</code> function in the JSBN library. A type
-        error meant the browser's real cryptographic generator was never read
-        from. What got used instead was <code>Math.random</code>, a 48-bit linear
-        congruential generator in the browsers of that era, plus a single timer
-        reading. The researchers who disclosed this in November 2023 put the
-        result at substantially less than 48 bits, worst before March 2012 and
-        harder to exploit each year after as browsers improved. They described
-        millions of affected wallets and confirmed the flaw is exploitable. It is
-        also unpatchable in the usual sense, because the keys were generated years
-        ago and already exist; the only remedy is to move the funds. Nothing about
-        an affected wallet looked wrong then, and nothing looks wrong about it now.
+        <b>Randstorm, browser wallets of roughly 2011 to 2015.</b> BitcoinJS sat
+        underneath a great many web wallets and produced keys through the
+        <code>SecureRandom</code> function in JSBN, where a type error meant the
+        browser's real cryptographic generator was never read from. What got used
+        instead was <code>Math.random</code>, a 48-bit linear congruential
+        generator in the browsers of that era. The researchers who disclosed this
+        in November 2023 put the result at substantially less than 48 bits and
+        described millions of affected wallets. It is unpatchable in the usual
+        sense, because the keys were generated years ago and already exist, so the
+        only remedy is to move the funds.
       </li>
       <li>
-        <b>Repeated signing nonces, a pattern rather than an incident.</b> The
-        Android thefts above worked because two signatures shared a nonce. Two
+        <b>Repeated signing nonces, a pattern rather than an incident.</b> Two
         signatures, one nonce, and the key falls out. That mechanism didn't arrive
-        with Android and it didn't leave with it. It has turned up across wallets,
-        libraries and years. Unlike a weak seed, it leaves its evidence in the
-        open. A signature sits in a block forever, so anyone can scan the chain for
-        two that match. People do. Brengel and Rossow read every signature up to
-        January 2018, 647 million of them, and found 1,068 nonce values used more
-        than once across 4,433 keys. That was enough to have taken 412.80 BTC.
-        Breitner and Heninger, at Financial Cryptography in 2019, worked from a
-        September 2018 snapshot and computed 1,296 Bitcoin private keys from
-        repeated nonces alone. What was in those addresses is the part worth
-        keeping. Nothing. Every one was already empty. The researchers concluded
-        that several parties scan the chain for repeats and take whatever they
-        find. A 2026 paper found the same mistake among automated traders on
-        Polygon. This one isn't history.
+        with Android and it didn't leave with it, and unlike a weak seed it leaves
+        its evidence in the open, because a signature sits in a block forever.
+        Brengel and Rossow read 647 million signatures up to January 2018 and found
+        1,068 nonce values used more than once across 4,433 keys, enough to have
+        taken 412.80 BTC. Breitner and Heninger computed 1,296 Bitcoin private keys
+        from repeated nonces alone. Every one of those addresses was already empty,
+        because several parties scan the chain continuously and take what they find.
+        A 2026 paper found the same mistake among automated traders on Polygon.
       </li>
       <li>
         <b>Profanity, September 2022.</b> A popular generator for vanity Ethereum
-        addresses, the kind that open with a run of zeros or spell a word. It took
-        one 32-bit value from the system and expanded it with an
-        <code>mt19937_64</code> Mersenne Twister into a starting 256-bit private
-        key. Then it stepped through neighbouring keys until an address matched the
-        pattern you asked for. Every step of that is reproducible from the 32-bit
-        value. So every address it ever produced came from <code>2^32</code>
-        possibilities. 1inch disclosed the flaw on 15 September 2022. Two days
-        later an investigator watched 3.3 million dollars leave Profanity
-        addresses. On 20 September the market maker Wintermute lost about 160
-        million dollars from a hot wallet, and traced the address back to the same
-        tool. Treat the total as a range, not a figure. 1inch put the money at risk
-        at tens of millions, possibly hundreds of millions. No audited total was
-        ever published. The cost of the attack is the firmer number. Amber
-        Group precomputed all four billion public keys on a MacBook in under ten
-        hours, then recovered the key to a seven-zero address in about forty
-        minutes. This one is Ethereum, not Bitcoin. The chain isn't the lesson.
-        The seed is, and the same 32-bit seed appears twice more below.
+        addresses took one 32-bit value from the system and expanded it with an
+        <code>mt19937_64</code> Mersenne Twister into a starting 256-bit key. Then
+        it stepped through neighbouring keys until the address matched your
+        pattern.
+        Every step of that is reproducible from the 32-bit value, so every address
+        it ever produced came from <code>2^32</code> possibilities. 1inch disclosed
+        the flaw on 15 September 2022, and five days later the market maker
+        Wintermute lost about 160 million dollars from a hot wallet traced back to
+        the same tool. The cost of the attack is the firmer number: Amber Group
+        precomputed all four billion public keys on a MacBook in under ten hours.
       </li>
       <li>
         <b>Trust Wallet browser extension, 2022.</b> The WebAssembly build of the
-        wallet's core library generated mnemonics with a Mersenne Twister, a
-        generator built for simulations and expressly not for cryptography. The
-        variant it used, <code>mt19937</code>, takes a single 32-bit value as its
-        seed, so the extension could only ever emit <code>2^32</code> distinct
-        phrases where a 12-word phrase should have <code>2^128</code> behind it.
-        Extension versions <code>0.0.172</code> through <code>0.0.182</code> were
-        affected. It was reported in November 2022 and fixed on a public
-        repository four days later. It was exploited in the wild that December,
-        and again in March 2023. The disclosure came the following April as
-        <code>CVE-2023-31290</code>. The team that found it estimated every one of
-        those four billion phrases could be generated on a single computer in a
-        couple of hours.
+        wallet's core library generated mnemonics with <code>mt19937</code>, a
+        generator built for simulations and expressly not for cryptography, which
+        takes a single 32-bit value as its seed. The extension could therefore only
+        ever emit <code>2^32</code> distinct phrases where a 12-word phrase should
+        have <code>2^128</code> behind it. Versions <code>0.0.172</code> through
+        <code>0.0.182</code> were affected, and it was exploited in the wild that
+        December and again in March 2023, disclosed the following April as
+        <code>CVE-2023-31290</code>.
       </li>
       <li>
-        <b>Milk Sad, 2023.</b> Libbitcoin Explorer, a long-established command line
-        tool, offered a <code>bx seed</code> command for producing entropy. From
-        version <code>3.0.0</code> in 2017 to <code>3.6.0</code> in 2019 it used
-        that same <code>mt19937</code> Mersenne Twister, seeded with 32 bits of
-        system clock. Ask it for 256 bits and it returned 256 bits: a 32-bit clock
-        reading run through the twister and stretched to fill the space, with no
-        new information added at any point. The output passed every test a user
-        could think to apply, because the shortfall was in the input. The name is
-        what the command emits when the clock reads zero, a phrase starting
-        <code>milk sad wage cup</code>. On 12 July 2023 one well-prepared actor
-        took about 29.65 BTC, then worth upwards of 850,000 dollars, and the
-        researchers put the total moved across chains above 900,000 dollars. They
-        estimated the full 4.29 billion candidates at no more than a few days on
-        an ordinary gaming machine. Disclosed 8 August 2023 as
-        <code>CVE-2023-39910</code>.
+        <b>Milk Sad, 2023.</b> Libbitcoin Explorer's <code>bx seed</code> command
+        used that same <code>mt19937</code> twister from version
+        <code>3.0.0</code> to <code>3.6.0</code>, seeded with 32 bits of system
+        clock. Ask it for 256 bits and it returned 256 bits, all of it a 32-bit
+        clock reading stretched to fill the space with no new information added.
+        The output passed every test a user could think to apply, because the
+        shortfall was in the input. The name is what the command emits when the
+        clock reads zero. On 12 July 2023 one well-prepared actor took about 29.65
+        BTC, and the researchers put the total moved across chains above 900,000
+        dollars (<code>CVE-2023-39910</code>).
       </li>
       <li>
         <b>Preloaded and tampered devices.</b> A hardware wallet bought through a
-        marketplace rather than from the company that made it can arrive already
-        knowing its answer. The crude version puts the phrase in the box, on a
-        pre-filled card or under a scratch panel, with instructions implying the
-        factory generated it. The thorough version is inside the device.
-        Security researchers took a counterfeit apart in 2023. It had been
-        bought from a classifieds seller the year before. Its microcontroller had
-        been swapped for one with readout protection disabled. Its bootloader
-        signature checks were stripped out. Its firmware substituted one of 20
-        phrases stored in advance for the one it appeared to generate. Twenty,
-        rather than <code>2^128</code>, which is about four and a third bits.
-        Its passphrase feature was gutted to match, using only the first
-        character and leaving 64 combinations. The seller had only to wait, and
-        in that instance waited a month after the device was first funded. Every
-        part of the ceremony was intact. The owner watched a device generate a
-        phrase, wrote it down, and it was valid, and the checksum passed, and it
-        was never theirs.
+        marketplace rather than from its maker can arrive already knowing its
+        answer. The crude version puts the phrase in the box, on a pre-filled card
+        or under a scratch panel. The thorough version is inside the device.
+        Security researchers took a counterfeit apart in 2023. Its microcontroller
+        had been swapped for one with readout protection disabled and its bootloader
+        signature checks stripped out. Its firmware substituted one of 20 phrases
+        stored in advance for the one it appeared to generate. Twenty
+        possibilities is about four and a third bits, and the passphrase feature
+        had been gutted to match, using only the first character. Every part of the
+        ceremony was intact. The owner watched a device generate a phrase, wrote it
+        down, and it was valid, and the checksum passed, and it was never theirs.
       </li>
     </ul>
 

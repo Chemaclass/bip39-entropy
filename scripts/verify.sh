@@ -61,4 +61,16 @@ done
 [[ -z "$net_hits" ]] || fail "index.html contains network-capable code:$net_hits"
 pass "no network-capable code in index.html"
 
+# 5. the voice guide, for the half of it a machine can read
+# Readers told us the prose sounded machine-written and named the tell, so the
+# tell is a build failure now rather than a matter of taste.
+if python3 "$ROOT/scripts/style.py" --strict > /tmp/style.$$ 2>&1; then
+  pass "prose follows the voice guide"
+else
+  cat /tmp/style.$$
+  rm -f /tmp/style.$$
+  fail "prose breaks the voice guide"
+fi
+rm -f /tmp/style.$$
+
 echo "verified."
