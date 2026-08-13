@@ -27,5 +27,14 @@ if (location.protocol === "file:") $("save").hidden = true;
 
 langInit();
 rollInit();
+// The router treats a hash as a language and a view. This one is neither, so
+// it moves focus directly instead of navigating.
+$("skip").addEventListener("click", e => {
+  e.preventDefault();
+  const m = $("main-content");
+  m.focus({ preventScroll: true });
+  scrollTo({ top: 0, behavior: "auto" });
+});
+
 topInit();
 navInit();
