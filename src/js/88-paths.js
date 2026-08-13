@@ -5,6 +5,7 @@
 const PATHS = [
   { view: "learn", key: "paths.learn" },
   { view: "protect", key: "paths.protect" },
+  { view: "faq", key: "paths.faq" },
   { view: "roll", key: "paths.roll" },
   { view: "poster", key: "paths.poster" },
 ];

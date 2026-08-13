@@ -6,8 +6,8 @@
     <p class="learn-lead">
       Esta página es para el momento anterior a eso: qué son esas palabras, qué está
       en juego y un procedimiento que puedes seguir esta noche. La
-      <em>guía de campo</em> que va al lado tiene la aritmética, y no la necesitas
-      para hacer esto bien.
+      <a href="#learn"><em>guía de campo</em></a> que va al lado tiene la
+      aritmética, y no la necesitas para hacer esto bien.
     </p>
   </header>
 
@@ -93,8 +93,9 @@
       Una frase generada como toca es una de <code>2^128</code> posibilidades, y
       nada llega ahí. Un atacante no necesita romper ninguna matemática, solo buscar
       en un conjunto más pequeño del que creías estar usando. Eso ya ha vaciado
-      monederos, con generadores sembrados con el reloj y con contraseñas que la
-      gente se inventaba, y en todos los casos la frase parecía normal.
+      monederos, con <a href="#es/learn-failed">generadores sembrados con el
+      reloj</a> y con contraseñas que la gente se inventaba, y en todos los casos
+      la frase parecía normal.
       <b>No puedes mirar doce palabras y saberlo.</b>
     </p>
 
@@ -142,8 +143,9 @@
       <b>Un monedero hardware es la respuesta correcta para casi todo el mundo</b>,
       y cambias un chip que no puedes auditar por una frase que nunca cruza una
       pantalla. <b>Elegir las palabras tú no tiene ninguna defensa</b>, porque doce
-      palabras entre treinta y dos que te resulten memorables son sesenta bits, y un
-      presupuesto de hardware serio atraviesa sesenta bits.
+      palabras entre treinta y dos que te resulten memorables son
+      <a href="#es/learn-source">sesenta bits</a>, y un presupuesto de hardware
+      serio atraviesa sesenta bits.
     </p>
 
     <div data-widget="scale"></div>
@@ -214,7 +216,8 @@
       <li>
         <b>3 · Corta los bits en palabras.</b> Cada grupo de once bits es un índice
         de <code>0</code> a <code>2047</code>, y en el póster los bits altos eligen
-        la columna y los bajos la fila.
+        la columna y los bajos la fila. La
+        <a href="#es/learn-2048">guía de campo lo dibuja</a>.
       </li>
       <li>
         <b>4 · Deja que una máquina remate la última palabra</b>, porque la
@@ -285,17 +288,33 @@
     </p>
 
     <p>
-      <b>Cuatro cosas que no hacer nunca</b>, todas el mismo error con otra ropa.
-      Nunca la fotografíes. Nunca la teclees salvo en el monedero que estés
-      restaurando a propósito. Nunca la guardes en un gestor de contraseñas ni
-      en una nota en la nube, y nunca la partas con un esquema propio.
+      <b>Cuatro cosas que no hacer nunca</b>, todas el mismo error con otra ropa:
+      cada una convierte un secreto local en uno remoto, o en un rompecabezas
+      para tu yo del futuro.
     </p>
 
-    <p>
-      Las tres primeras convierten un secreto local en uno remoto, y la cuarta
-      deja unos sesenta y dos bits en cada mitad. Los esquemas caseros pierden
-      monedas mucho más a menudo de lo que evitan robos.
-    </p>
+    <ol class="learn-mag">
+      <li>
+        <b>1 · Nunca la fotografíes.</b> Una foto se sincroniza sola en cuanto
+        vuelve la conexión, y desde ese momento la frase vive donde viva esa
+        cuenta.
+      </li>
+      <li>
+        <b>2 · Nunca la teclees</b> salvo en el monedero que estés restaurando a
+        propósito. Un teclado es la interfaz que todo malware ya vigila.
+      </li>
+      <li>
+        <b>3 · Nunca la guardes en un gestor de contraseñas ni en una nota en la
+        nube</b>, porque eso cambia tu papel por el servidor de otro y su página
+        de login.
+      </li>
+      <li>
+        <b>4 · Nunca la partas con un esquema propio.</b> Una mitad encontrada
+        le deja al que la encuentra solo sesenta y dos bits que buscar, y los
+        esquemas caseros pierden monedas mucho más a menudo de lo que evitan
+        robos.
+      </li>
+    </ol>
 
     <p class="learn-note">
       La passphrase y la multifirma se trabajan en

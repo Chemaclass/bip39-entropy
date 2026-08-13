@@ -5,8 +5,9 @@
     <h1 class="learn-title">Somebody told you<br>to write down<br>twelve words</h1>
     <p class="learn-lead">
       This page is for the moment before that: what those words are, what is at
-      stake, and a procedure you can follow tonight. The <em>field guide</em> next
-      to it has the arithmetic, which you don't need to do this right.
+      stake, and a procedure you can follow tonight. The
+      <a href="#learn"><em>field guide</em></a> next to it has the arithmetic,
+      which you don't need to do this right.
     </p>
   </header>
 
@@ -89,8 +90,9 @@
       A phrase generated properly is one of <code>2^128</code> possibilities, and
       nothing reaches that. An attacker doesn't need to break any mathematics, only
       to search a set smaller than you thought you were using. That has already
-      emptied wallets, through generators seeded from the clock and through
-      passphrases people invented, and in every case the phrase looked ordinary.
+      emptied wallets, through <a href="#en/learn-failed">generators seeded from
+      the clock</a> and through passphrases people invented, and in every case the
+      phrase looked ordinary.
       <b>You can't look at twelve words and tell.</b>
     </p>
 
@@ -138,7 +140,8 @@
       <b>A hardware wallet is the right answer for almost everyone</b>, trading an
       unauditable chip for a phrase that never crosses a screen.
       <b>Choosing words yourself has no defence at all</b>, because twelve words
-      picked from thirty-two you find memorable is sixty bits, and a serious hardware
+      picked from thirty-two you find memorable is
+      <a href="#en/learn-source">sixty bits</a>, and a serious hardware
       budget works through sixty bits.
     </p>
 
@@ -209,7 +212,8 @@
       <li>
         <b>3 · Cut the bits into words.</b> Each group of eleven bits is an index
         from <code>0</code> to <code>2047</code>, and on the poster the high bits
-        pick the column while the low bits pick the row.
+        pick the column while the low bits pick the row. The
+        <a href="#en/learn-2048">field guide draws it</a>.
       </li>
       <li>
         <b>4 · Let a machine finish the last word</b>, because the twelfth mixes your
@@ -274,17 +278,32 @@
     </p>
 
     <p>
-      <b>Four things never to do</b>, all the same mistake in different clothes.
-      Never photograph it. Never type it anywhere except the wallet you are
-      restoring on purpose, never store it in a password manager or a cloud
-      note, and never split it in a scheme you invented.
+      <b>Four things never to do</b>, all the same mistake in different clothes:
+      each one turns a local secret into a remote one, or into a puzzle for your
+      future self.
     </p>
 
-    <p>
-      The first three turn a local secret into a remote one, and the fourth
-      leaves about sixty-two bits in each half. Home-made splits lose coins far
-      more often than they prevent theft.
-    </p>
+    <ol class="learn-mag">
+      <li>
+        <b>1 · Never photograph it.</b> A photo synchronises itself the moment a
+        connection returns, and from then on the phrase lives wherever that
+        account does.
+      </li>
+      <li>
+        <b>2 · Never type it</b> anywhere except the wallet you are restoring on
+        purpose. A keyboard is the interface every piece of malware already
+        watches.
+      </li>
+      <li>
+        <b>3 · Never store it in a password manager or a cloud note</b>, because
+        that trades your paper for somebody else's server and its login page.
+      </li>
+      <li>
+        <b>4 · Never split it in a scheme you invented.</b> A found half leaves
+        the finder only sixty-two bits to search, and home-made splits lose
+        coins far more often than they prevent theft.
+      </li>
+    </ol>
 
     <p class="learn-note">
       The passphrase and multisignature are worked through on

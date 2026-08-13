@@ -116,10 +116,18 @@ function rollRender(){
   const entBits = bits.slice(0, spec.entBits);
 
   $("rollfill").style.width = (100 * have / spec.entBits) + "%";
+  // The meter says how far; this says how much longer. A coin is one bit per
+  // flip. A die is two bits per accepted throw, and a third of throws reject,
+  // so each accepted pair costs one and a half throws on average.
+  const left = spec.entBits - have;
+  const togo = ROLL.method === "coin"
+    ? t("roll.togoCoin", { n: left })
+    : t("roll.togoDice", { n: Math.round(Math.ceil(left / 2) * 1.5) });
   $("rollcount").textContent =
     t("roll.count", { have, need: spec.entBits, throws: ROLL.throws.length,
                       unit: t(ROLL.method === "coin" ? "roll.flips" : "roll.throws") }) +
-    (rejected ? t("roll.rerolled", { n: rejected }) : "");
+    (rejected ? t("roll.rerolled", { n: rejected }) : "") +
+    (full ? "" : togo);
 
   const cs = full ? SEED.checksumBits(SEED.bitsToBytes(entBits)) : "";
   const all = entBits + cs;
@@ -167,6 +175,16 @@ function rollRender(){
     grid.appendChild(cell);
   });
   out.appendChild(grid);
+
+  // Each cell's chunk and the poster's coordinates are the same number. Said
+  // here, where the words land, with the link doing the pointing. Assembled
+  // from parts like the lead, so the translation stays plain text.
+  const readoff = add("roll-fact", "");
+  const plink = document.createElement("a");
+  plink.href = "#" + LANG + "/poster";
+  plink.textContent = t("roll.readOffLinkText");
+  const roParts = t("roll.readOff").split("{link}");
+  readoff.replaceChildren(roParts[0] || "", plink, roParts[1] || "");
 
   // How far from even the throws landed. Any single result is as likely as any
   // other, so this says nothing about the phrase. It says something about the

@@ -222,6 +222,13 @@
       in sixteen.
     </p>
 
+    <p>
+      The <a href="#roll">roller</a> shows the same fact from your side of the
+      table. Once your entropy is thrown, the last word has sixteen consecutive
+      candidates on the list, and the checksum picks one. It draws the sixteen
+      and marks yours.
+    </p>
+
     <p class="learn-note">
       Whether 12 or 24 words is better is not settled by entropy alone, because 128
       bits is already beyond brute force by the margins above. 24 words is chiefly a
@@ -254,6 +261,12 @@
       entropy values and computes the checksum as the standard prescribes, so those
       four bits cost them nothing. <b>“My wallet accepted it”
       says nothing about how guessable it is.</b>
+    </p>
+
+    <p>
+      You can watch these bits get made. Throw dice on the
+      <a href="#roll">roller</a> and it computes the checksum from your entropy,
+      labels the four bits in amber, and shows where they land in the last word.
     </p>
 
   </section>
@@ -357,17 +370,26 @@
 
     <p>
       The three 32-bit cases deserve the arithmetic spelled out. 32 bits doesn't
-      sound small until you count it. <code>2^32</code> is <code>4294967296</code>, about 4.3
-      billion. <a href="#learn-source">The previous section</a> put a single machine at <code>2^40</code> in
-      a fortnight. <code>2^32</code> is 256 times smaller than that, so the same
-      machine finishes the entire space in a little over an hour.
+      sound small until you count it. <code>2^32</code> is <code>4294967296</code>,
+      about 4.3 billion. A single machine testing a million phrases a second,
+      PBKDF2 and all, walks that entire space in a little over an hour.
     </p>
 
     <p>
-      The published estimates agree. A couple of hours on one computer for the
-      Trust Wallet phrases. Under ten hours on a laptop to precompute every key
-      Profanity could produce. At most a few days on a gaming machine for
-      Libbitcoin's. That is not a hardware budget. It is an afternoon.
+      The published estimates agree, case by case.
+    </p>
+
+    <ul class="learn-mag">
+      <li><b>Trust Wallet.</b> A couple of hours on one computer for every phrase
+        the extension could ever have produced.</li>
+      <li><b>Profanity.</b> Under ten hours on a laptop to precompute every key
+        the tool could generate.</li>
+      <li><b>Milk Sad.</b> At most a few days on a gaming machine for the whole
+        of Libbitcoin's seed space.</li>
+    </ul>
+
+    <p>
+      That is not a hardware budget. It is an afternoon.
     </p>
 
     <p>
@@ -388,11 +410,12 @@
     </p>
 
     <p>
-      This is why <a href="#learn-source">the section on sources</a> prefers what can be audited, and
-      why it says of hardware generators that the problem is not that they are
-      bad but that you cannot check them. Dice are not more random than a sound
-      hardware generator. They are more <em>accountable</em>, and every case above
-      is an argument about accountability rather than about randomness.
+      This is why <a href="#en/start-random">the table of sources</a> ranks each
+      one by whether you can check it. The problem with a hardware generator is
+      not that it is bad. It is that you cannot audit it. Dice are not more
+      random than a sound hardware generator. They are more <em>accountable</em>,
+      and every case above is an argument about accountability rather than about
+      randomness.
     </p>
 
     <p>
@@ -470,6 +493,12 @@
       input to compute the final word. Several wallets support exactly this. The
       machine learns your entropy either way. The point of doing it by hand is
       that the machine did not <em>choose</em> it.
+    </p>
+
+    <p>
+      The <a href="#roll">roller</a> runs this whole procedure inside the page,
+      and its worksheet PDF puts the same steps on paper for a table with no
+      computer on it.
     </p>
 
     <p class="learn-note">

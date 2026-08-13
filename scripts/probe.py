@@ -182,7 +182,11 @@ ANCHORS = """
     if (LANGS.some(l => l.code === id) || VIEWS.includes(id)) continue;
     const parts = id.split("/");
     if (LANGS.some(l => l.code === parts[0]) && VIEWS.includes(parts[1])) continue;
-    const el = document.getElementById(id);
+    // #<lang>/<section-id> resolves through the id the build prefixed with its
+    // language, which is how route() follows a cross-section link.
+    const el = document.getElementById(id) ||
+      (parts.length === 2 && LANGS.some(l => l.code === parts[0])
+        ? document.getElementById(parts[0] + "-" + parts[1]) : null);
     if (!el){ bad.push(id + ": no such id"); continue; }
     const host = el.closest(".view");
     if (!host){ bad.push(id + ": not inside a view"); continue; }

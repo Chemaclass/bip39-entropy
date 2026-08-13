@@ -53,14 +53,22 @@ function route(){
   const { lang, view } = parseHash();
 
   // A hash that names neither a language nor a view may be an anchor inside a
-  // section, like #en-learn-checksum from a table of contents. Follow it to the
-  // view that contains it instead of treating it as an unknown view and
+  // section: #en-learn-checksum from a table of contents, or the same target
+  // written as #en/learn-checksum from another section's prose. Follow it to
+  // the view that contains it instead of treating it as an unknown view and
   // bouncing the reader to the poster.
-  const anchor = view && !VIEWS.includes(view) ? document.getElementById(view) : null;
+  const anchor = view && !VIEWS.includes(view)
+    ? document.getElementById(view) ||
+      (lang ? document.getElementById(lang + "-" + view) : null)
+    : null;
   const pane = anchor && anchor.closest(".pane");
   const host = anchor && anchor.closest(".view");
 
-  LANG = pickLang(pane ? pane.dataset.lang : lang);
+  // A bare #learn carries no language. On the first route the browser picks;
+  // after that the reader's current language holds, so a prose link written as
+  // #poster cannot silently drop an es reader back into en.
+  LANG = pickLang(pane ? pane.dataset.lang : lang || (route.done ? LANG : null));
+  route.done = true;
   $("lang").value = LANG;
   applyI18n();
   showPanes();

@@ -163,26 +163,37 @@ def report_pane_drift(groups: dict) -> None:
 
 
 def check_anchors(groups: dict, html: str) -> None:
-    """Every in-page link must point at an id in the same pane.
+    """Every in-page link must point at something that will exist on the page.
 
-    A table of contents entry whose target does not exist is silent: the reader
-    clicks and nothing happens, or the router treats it as an unknown view and
-    shows the poster. Fatal, because unlike a missing translation there is no
-    sensible fallback and the fix is always local to one file.
+    A link whose target does not exist is silent: the reader clicks and nothing
+    happens, or the router treats it as an unknown view and shows the poster.
+    Fatal, because unlike a missing translation there is no sensible fallback
+    and the fix is always local to one file. Three forms resolve: an id in the
+    same file, a view name, and #<lang>/<target> where the target is a view or
+    a section id in any file of that language, which is how one section's prose
+    reaches inside another.
     """
     views = set(re.findall(r'data-view="([^"]+)"', html))
     langs = {p.stem for p in I18N_DIR.glob("*.json")}
+    ids_by_lang: dict[str, set[str]] = {}
+    for name, items in sorted(groups.items()):
+        for lang, path in items:
+            ids_by_lang.setdefault(lang, set()).update(
+                re.findall(r'id="([^"]+)"', path.read_text()))
     broken = []
     for name, items in sorted(groups.items()):
         for lang, path in items:
             text = path.read_text()
             ids = set(re.findall(r'id="([^"]+)"', text))
             for href in set(re.findall(r'href="#([^"]+)"', text)):
-                head = href.split("/")[0]
-                if href in ids or head in views or head in langs:
+                head, _, rest = href.partition("/")
+                if href in ids or head in views:
+                    continue
+                if head in langs and (not rest or rest in views
+                                      or rest in ids_by_lang.get(head, set())):
                     continue
                 broken.append(f"  {path.relative_to(ROOT)}: #{href} matches no id "
-                              f"in that file, no view and no language")
+                              f"in that file, no view and no language section")
     if broken:
         sys.exit("in-page link with no target:\n" + "\n".join(broken[:12]))
 

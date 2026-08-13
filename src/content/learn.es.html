@@ -230,6 +230,13 @@
       frase válida una vez de cada dieciséis.
     </p>
 
+    <p>
+      El <a href="#roll">tirador</a> enseña el mismo hecho desde tu lado de la
+      mesa. Con tu entropía ya tirada, la última palabra tiene dieciséis
+      candidatas seguidas en la lista, y la suma de verificación elige una.
+      Dibuja las dieciséis y marca la tuya.
+    </p>
+
     <p class="learn-note">
       Si 12 o 24 palabras es la mejor elección no lo decide la entropía sola, porque
       128 bits ya quedan fuera del alcance de la fuerza bruta. 24 palabras cubren el
@@ -262,6 +269,13 @@
       de entropía y calcula la suma tal como manda el estándar, así que esos cuatro
       bits no le cuestan nada. <b>“Mi monedero la aceptó” no dice nada sobre lo
       adivinable que es.</b>
+    </p>
+
+    <p>
+      Puedes ver cómo se hacen estos bits. Tira dados en el
+      <a href="#roll">tirador</a>: calcula la suma de verificación a partir de
+      tu entropía, marca los cuatro bits en ámbar y enseña dónde caen en la
+      última palabra.
     </p>
 
   </section>
@@ -372,19 +386,27 @@
 
     <p>
       Los tres casos de 32 bits merecen que se escriba la aritmética. 32 bits no
-      suena a poco hasta que lo cuentas. <code>2^32</code> es <code>4294967296</code>, unos
-      4.3 mil millones. <a href="#learn-source">La sección anterior</a> situaba una sola máquina en
-      <code>2^40</code> en dos semanas. <code>2^32</code> es 256 veces más pequeño que eso,
-      así que la misma máquina termina el espacio entero en poco más de una
-      hora.
+      suena a poco hasta que lo cuentas. <code>2^32</code> es
+      <code>4294967296</code>, unos 4.3 mil millones. Una sola máquina probando
+      un millón de frases por segundo, con su PBKDF2 y todo, recorre ese espacio
+      entero en poco más de una hora.
     </p>
 
     <p>
-      Las estimaciones publicadas coinciden. Un par de horas en un ordenador
-      para las frases de Trust Wallet. Menos de diez horas en un portátil para
-      precalcular todas las claves que Profanity podía producir. Como mucho unos
-      pocos días en un ordenador de juegos para las de Libbitcoin. Eso no es un
-      presupuesto de hardware. Es una tarde.
+      Las estimaciones publicadas coinciden, caso por caso.
+    </p>
+
+    <ul class="learn-mag">
+      <li><b>Trust Wallet.</b> Un par de horas en un ordenador para todas las
+        frases que la extensión pudo producir jamás.</li>
+      <li><b>Profanity.</b> Menos de diez horas en un portátil para precalcular
+        todas las claves que la herramienta podía generar.</li>
+      <li><b>Milk Sad.</b> Como mucho unos pocos días en un ordenador de juegos
+        para el espacio de semillas entero de Libbitcoin.</li>
+    </ul>
+
+    <p>
+      Eso no es un presupuesto de hardware. Es una tarde.
     </p>
 
     <p>
@@ -405,9 +427,9 @@
     </p>
 
     <p>
-      Por eso <a href="#learn-source">la sección sobre las fuentes</a> prefiere lo que se puede
-      auditar. Y por eso dice de los generadores por hardware que el problema no
-      es que sean malos, sino que no puedes comprobarlos. Los dados no son más
+      Por eso <a href="#es/start-random">la tabla de fuentes</a> ordena cada una
+      según si puedes comprobarla. El problema de un generador por hardware no
+      es que sea malo. Es que no puedes auditarlo. Los dados no son más
       aleatorios que un generador de hardware sólido. Son más
       <em>verificables</em>, y todos los casos de arriba son un argumento sobre la
       verificabilidad y no sobre la aleatoriedad.
@@ -491,6 +513,12 @@
       calcular la palabra final. Varios monederos admiten justo esto. La máquina
       se entera de tu entropía en cualquier caso. La gracia de hacerlo a mano es
       que la máquina no la <em>eligió</em>.
+    </p>
+
+    <p>
+      El <a href="#roll">tirador</a> ejecuta este procedimiento entero dentro de
+      la página, y su hoja de trabajo en PDF pone los mismos pasos sobre papel,
+      para una mesa sin ordenador encima.
     </p>
 
     <p class="learn-note">

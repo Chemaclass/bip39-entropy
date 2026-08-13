@@ -60,10 +60,12 @@ main:focus{outline:none}
    .view.has-rail{display:grid}, silently keeps a hidden view on the page. */
 .view[hidden]{display:none !important}
 
-/* Prose links, in both long-form sections. */
-.learn-sec a,.roll-lead a{color:var(--patina);text-decoration:none;
-  border-bottom:1px solid var(--accent-line)}
-.learn-sec a:hover,.roll-lead a:hover{border-bottom-color:var(--patina)}
+/* Prose links: the long-form sections, the masthead lead, and the facts the
+   roller prints under a finished phrase. */
+.learn-sec a,.learn-lead a,.roll-lead a,.roll-fact a{color:var(--patina);
+  text-decoration:none;border-bottom:1px solid var(--accent-line)}
+.learn-sec a:hover,.learn-lead a:hover,.roll-lead a:hover,
+.roll-fact a:hover{border-bottom-color:var(--patina)}
 .roll-lead em{font-style:normal;color:var(--chrome-ink)}
 
 /* Below this the track stops fitting beside the brand and the controls. Sending
