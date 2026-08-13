@@ -42,6 +42,8 @@ function showView(name, keepScroll){
   });
   centreTab();
   $("bar").hidden = name !== "poster";
+  // The poster's stage is as wide as the paper. Every other view is a column.
+  document.querySelector(".chrome").classList.toggle("wide", name === "poster");
   // The stage measures itself, so it can only be laid out while it is visible.
   if (name === "poster") render();
   // Arriving halfway down a section you have never seen reads as a broken page.

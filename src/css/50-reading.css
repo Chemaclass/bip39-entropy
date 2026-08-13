@@ -26,8 +26,8 @@
   .view.has-rail .learn{margin:0;padding-left:0;padding-right:0}
   .view.has-rail .learn-toc{display:none}
 
-  .rail{display:block;position:sticky;top:112px;grid-column:1;
-    padding:56px 0 0;max-height:calc(100vh - 140px);overflow:auto}
+  .rail{display:block;position:sticky;top:124px;grid-column:1;
+    padding:56px 0 0;max-height:calc(100vh - 152px);overflow:auto}
   .rail-head{font:700 10px/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;
     color:var(--chrome-ink);margin:0 0 12px;padding-left:11px}
   .rail a{display:block;padding:6px 12px 6px 11px;border-left:1px solid var(--chrome-3);

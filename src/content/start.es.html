@@ -4,12 +4,11 @@
     <p class="learn-eyebrow">Empieza aquí · primera frase</p>
     <h1 class="learn-title">Alguien te dijo<br>que anotaras<br>doce palabras</h1>
     <p class="learn-lead">
-      Esta página es para el momento anterior a eso. Qué son esas palabras. Qué
-      está en juego. De dónde debería venir la aleatoriedad que hay detrás. Y un
-      procedimiento que puedes seguir esta noche sin fiarte de la opinión de
-      nadie, tampoco de esta. Corta y práctica a propósito. La
-      <em>guía de campo</em> que va al lado tiene la aritmética y las
-      demostraciones. No las necesitas para hacer esto bien.
+      Esta página es para el momento anterior a eso: qué son esas palabras, qué
+      está en juego y de dónde debería venir la aleatoriedad que hay detrás.
+      Termina con un procedimiento que puedes seguir esta noche sin fiarte de la
+      opinión de nadie, tampoco de esta. La <em>guía de campo</em> que va al lado
+      tiene la aritmética, y no la necesitas para hacer esto bien.
     </p>
   </header>
 
@@ -52,14 +51,15 @@
   <aside class="learn-warn">
     <p class="learn-warn-label">Antes de nada</p>
     <p>
-      Esta página nunca pide una frase de recuperación. Ninguna herramienta
-      legítima lo hará jamás. Ni un fabricante de monederos, ni un exchange, ni
-      un agente de soporte, ni un “validador” o un “servicio de recuperación”.
-      Ningún desconocido necesita tus palabras. La petición es el ataque. Siempre.
+      Esta página nunca pide una frase de recuperación, y ninguna herramienta
+      legítima lo hará jamás. Ni un fabricante de monederos, ni un exchange, ni un
+      agente de soporte, ni un “validador” o un “servicio de recuperación”. Nadie
+      necesita tus palabras salvo tú.
+      <b>Cuando alguien te las pide, la petición es el ataque.</b>
     </p>
     <p>
-      Aquí no hay ningún campo que acepte una frase. Aquí nada habla con una red.
-      Lee el código fuente, o tira del cable, y compruébalo.
+      Aquí no hay ningún campo que acepte una frase, y aquí nada habla con una
+      red. Lee el código fuente, o tira del cable, y compruébalo.
     </p>
   </aside>
 
@@ -69,8 +69,7 @@
       <li><a href="#start-random">Por qué la aleatoriedad lo es todo</a></li>
       <li><a href="#start-sources">De dónde puede venir la aleatoriedad</a></li>
       <li><a href="#start-recipe">Una receta que puedes seguir</a></li>
-      <li><a href="#start-offline">Desconectarse</a></li>
-      <li><a href="#start-staying">Seguir sin conexión</a></li>
+      <li><a href="#start-offline">Sin conexión, y seguir así</a></li>
       <li><a href="#start-after">Cuando ya tienes las palabras</a></li>
       <li><a href="#start-mistakes">Errores comunes</a></li>
     </ol>
@@ -81,35 +80,34 @@
 
     <p>
       Una frase semilla es un número escrito en palabras. Doce palabras son un
-      número de 128 bits, más cuatro bits de suma de verificación que detectan
-      errores de tecleo. Las palabras no llevan nada por sí solas. Cada una es
-      una entrada de una lista pública de 2048. La misma lista en todos los
-      monederos. La misma lista impresa en <a href="#poster">el póster</a>.
+      número de 128 bits más cuatro bits de checksum que detectan errores de
+      copia. Las palabras no llevan nada por sí solas, porque cada una es una
+      entrada de una lista pública de 2048. La misma lista en todos los monederos,
+      y la misma lista impresa en <a href="#poster">el póster</a>.
     </p>
 
     <p>
-      Quien conoce ese número posee las monedas. No quien sostiene el
-      dispositivo. No quien las compró. No quien tiene su nombre escrito en algún
-      sitio. No hay cuenta, ni restablecimiento de contraseña, ni soporte que
-      pueda intervenir, en ninguna de las dos direcciones. Pierde el número y las
-      monedas se han ido. Que lo averigüe otro y se han ido igual.
+      Quien conoce ese número posee las monedas, y nada más cuenta. No quien
+      sostiene el dispositivo, no quien las compró, no quien tiene su nombre en
+      algún sitio. No hay cuenta que recuperar ni servicio de soporte que pueda
+      intervenir en ninguna de las dos direcciones. Pierde el número y las monedas
+      se han ido. Otro lo aprende y se han ido igual.
     </p>
 
     <p>
-      Una sola cosa se interpone entre tus monedas y todo el mundo: nadie puede
-      adivinar el número. Eso no es una metáfora. Es el modelo de seguridad
-      entero. <b>Si se sostiene o no se decidió en el instante en que se creó la
-      frase.</b> Antes de que anotaras nada. Antes de que eligieras un monedero.
-      Antes de que pensaras dónde esconder el papel. Todo lo demás de esta página
-      se sigue de ahí.
+      Una sola cosa se interpone entre tus monedas y todo el mundo, y es que nadie
+      puede adivinar el número. Ese es el modelo de seguridad completo, no una
+      metáfora de él. <b>Que se sostenga se decidió en el instante en que se creó
+      la frase</b>, antes de que anotaras nada y antes de que eligieras un
+      monedero. Todo lo demás de aquí se deriva de ese hecho.
     </p>
 
     <p class="learn-note">
-      Aquí todo se afirma, no se demuestra. Cuando estás empezando, el
-      procedimiento importa más que la aritmética. La
-      <a href="#learn">guía de campo</a> hace la demostración: qué mide la
-      entropía, por qué la lista tiene exactamente 2048 palabras y qué puede y
-      qué no puede decirte la suma de verificación.
+      Todo lo de esta página se afirma en lugar de demostrarse, porque cuando
+      empiezas el procedimiento importa más que la aritmética. La
+      <a href="#learn">guía de campo</a> hace las demostraciones: qué mide la
+      entropía, por qué la lista tiene exactamente 2048 palabras y qué no te puede
+      decir el checksum.
     </p>
   </section>
 
@@ -117,59 +115,50 @@
     <h2><span class="learn-num" aria-hidden="true">02</span> Por qué la aleatoriedad lo es todo</h2>
 
     <p>
-      Una frase generada correctamente es una de <code>2^128</code> posibilidades
-      igual de probables. Son unos <code>3.4 × 10^38</code>. Aquí va un asidero
-      para ese número. La red de minería de Bitcoin es el mayor esfuerzo de
-      computación construido para un solo fin que ha existido jamás. Funciona al
-      orden de <code>10^21</code> hashes por segundo. A ese ritmo,
-      <em>contar</em> hasta <code>2^128</code> lleva <code>3.4 × 10^17</code>
-      segundos. Son unos 11 mil millones de años, aproximadamente la edad actual
-      del universo. Nadie va a adivinar tu frase.
+      Una frase generada como toca es una de <code>2^128</code> posibilidades
+      igual de probables, unas <code>3.4 × 10^38</code>. Aquí tienes una manera de
+      agarrar un número así. La red de minería de Bitcoin es el mayor esfuerzo de
+      computación con un propósito único que ha existido, y funciona en el orden
+      de <code>10^21</code> hashes por segundo. A ese ritmo, solo
+      <em>contar</em> hasta <code>2^128</code> llevaría unos 11.000 millones de
+      años, más o menos la edad actual del universo. Nadie está adivinando tu
+      frase.
     </p>
 
     <p>
-      Pero esa cifra describe una frase extraída de manera uniforme de las
-      <code>2^128</code>. No dice nada de una frase extraída de un conjunto más
-      pequeño. Un atacante no tiene que romper ninguna matemática para ganar
-      dinero. Tiene que buscar en un conjunto más pequeño de lo que tú creías
-      estar usando.
-    </p>
-
-    <p>
-      Esto no es hipotético. Es el único fallo que ha costado dinero a la gente a
-      gran escala. Y vuelve siempre en dos versiones.
+      Esa cifra describe una frase sacada de forma uniforme de las
+      <code>2^128</code>, y no dice nada de una sacada de un conjunto más pequeño.
+      Un atacante no necesita romper ninguna matemática para ganar dinero, solo
+      buscar en un conjunto más pequeño del que creías estar usando. Eso ya ha
+      pasado a gran escala, en dos formas que vuelven una y otra vez.
     </p>
 
     <ul class="learn-mag">
       <li>
         <b>Secretos que eligió una persona.</b> Antes de que las frases semilla
-        fueran el estándar, la gente derivaba una clave de una frase de
-        contraseña que se inventaba. La práctica se llamaba brainwallet. Los
-        atacantes generaron claves a partir de letras de canciones, textos
-        religiosos, títulos de libros, citas y volcados de contraseñas, y se
-        llevaron los fondos. Algunos saldos se vaciaron segundos después de
-        llegar, porque las direcciones ya estaban precalculadas y vigiladas. La
-        elección humana es un espacio pequeño, por muy original que parezca el
-        resultado desde dentro.
+        fueran el estándar, la gente derivaba claves de contraseñas que se
+        inventaba, una práctica conocida como brainwallet. Los atacantes
+        generaron claves a partir de letras de canciones, versículos, citas y
+        volcados de contraseñas, y barrieron los fondos, a veces en los segundos
+        siguientes a la llegada del dinero. La elección humana es un espacio
+        pequeño, por original que parezca el resultado desde dentro.
       </li>
       <li>
         <b>Generadores que estaban rotos.</b> Hay software que siembra su
-        aleatoriedad con algo predecible, como el reloj o un valor fijo. Las
-        frases que produce parecen perfectamente normales y viven en un conjunto
-        lo bastante pequeño como para enumerarlo. Ha pasado una y otra vez, en
-        programas de monedero y en las bibliotecas de la plataforma que hay
-        debajo. Nada en el resultado parece mal. <b>No puedes mirar doce palabras
-        y saberlo.</b>
+        aleatoriedad con algo predecible, como el reloj, así que las frases que
+        produce parecen normales mientras viven en un conjunto lo bastante
+        pequeño para enumerarlo. Ha pasado una y otra vez, en programas de
+        monedero y en las bibliotecas de la plataforma que hay debajo.
+        <b>No puedes mirar doce palabras y saberlo.</b>
       </li>
     </ul>
 
     <p class="learn-note">
-      Ese último punto merece su propio párrafo. Ninguna prueba sobre una frase
-      terminada te dice si se generó bien. Que un monedero la acepte demuestra
-      que la suma de verificación cuadra, y una frase elegida a mano cuadra
-      igual. La única evidencia que vas a tener sobre la fuerza de una frase es
-      lo que sepas del proceso que la produjo. Así que el resto de esta página va
-      del proceso.
+      Ninguna prueba sobre una frase terminada te dice si se generó bien. Que un
+      monedero la acepte demuestra que el checksum cuadra, y una frase elegida a
+      mano también cuadra. La única evidencia que vas a tener sobre la fuerza de
+      una frase es lo que sepas del proceso que hay detrás, así que el resto de
+      esta página va de proceso.
     </p>
 
     <div data-widget="scale"></div>
@@ -179,20 +168,19 @@
     <h2><span class="learn-num" aria-hidden="true">03</span> De dónde puede venir la aleatoriedad</h2>
 
     <p>
-      Todas las opciones te piden confiar en algo. La pregunta no es cuál es
-      perfecta. Es en qué estás confiando y si puedes comprobarlo. La tabla es el
-      resumen, una palabra por celda. La versión honesta de cada fila viene
-      después.
+      Cada opción te pide confiar en algo, así que la pregunta útil es en qué
+      confías y si puedes comprobarlo. La tabla es el resumen, una palabra por
+      celda, y la versión honesta de cada fila viene después.
     </p>
 
-    <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Comparación de fuentes de aleatoriedad, tabla desplazable">
+    <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Fuentes de aleatoriedad comparadas, tabla desplazable">
       <table class="learn-tbl">
         <caption>Fuentes de aleatoriedad</caption>
         <thead>
           <tr>
             <th scope="col">Fuente</th>
             <th scope="col">Cómo funciona</th>
-            <th scope="col">¿Puedes comprobarlo?</th>
+            <th scope="col">Puedes comprobarlo</th>
             <th scope="col">Qué sale mal</th>
             <th scope="col">Veredicto</th>
           </tr>
@@ -202,21 +190,21 @@
             <th scope="row">Monedero hardware</th>
             <td>Chip sellado</td>
             <td>No</td>
-            <td>Firmware</td>
+            <td>El firmware</td>
             <td>Por defecto</td>
           </tr>
           <tr>
             <th scope="row">Dados</th>
             <td>Tus tiradas</td>
             <td>Cada bit</td>
-            <td>Torpezas</td>
+            <td>Meter la pata</td>
             <td>Auditable</td>
           </tr>
           <tr>
             <th scope="row">Monedas</th>
             <td>Tus lanzamientos</td>
             <td>Cada bit</td>
-            <td>Mal recuento</td>
+            <td>Contar mal</td>
             <td>Auditable</td>
           </tr>
           <tr>
@@ -228,14 +216,14 @@
           </tr>
           <tr>
             <th scope="row">Pestaña del navegador</th>
-            <td>Pide al SO</td>
+            <td>Pregunta al SO</td>
             <td>La página</td>
             <td>El navegador</td>
             <td>Aprender</td>
           </tr>
           <tr>
             <th scope="row">Eliges tú</th>
-            <td>Las eliges</td>
+            <td>Eliges tú</td>
             <td>Nada</td>
             <td>Pocos bits</td>
             <td>Nunca</td>
@@ -245,60 +233,51 @@
     </div>
 
     <p>
-      Cada veredicto de esa tabla tiene una salvedad. Las salvedades son donde la
-      gente se equivoca.
+      Cada veredicto de ahí tiene su trampa, y las trampas son donde la gente se
+      equivoca.
     </p>
 
     <ul class="learn-mag">
       <li>
-        <b>El generador propio de un monedero hardware</b> es la respuesta
-        correcta para casi todo el mundo. Tampoco puedes auditarlo. Las dos
-        mitades son ciertas. Estás confiando en un chip, en una compilación de
-        firmware y en la ruta que recorrió la caja hasta llegar a ti. A cambio,
-        la frase se produce dentro de un dispositivo diseñado para guardarla.
-        Nunca aparece en un ordenador de uso general. Nunca pasa por una
-        pantalla que algo más pueda estar leyendo. <b>Ese intercambio es
-        bueno.</b> Las amenazas realistas para quien empieza son el malware
-        corriente y los errores corrientes, no un chip comprometido.
+        <b>El generador de un monedero hardware</b> es la respuesta correcta para
+        casi todo el mundo, y además no puedes auditarlo. Estás confiando en un
+        chip, en una versión de firmware y en el camino que hizo la caja hasta
+        llegarte. A cambio, la frase se crea dentro de un dispositivo hecho para
+        guardarla, así que nunca cruza una pantalla que otra cosa pueda estar
+        leyendo. <b>Ese intercambio es bueno</b>, porque las amenazas realistas
+        para quien empieza son el malware corriente y los errores corrientes.
       </li>
       <li>
-        <b>Los dados y las monedas</b> se pueden auditar, cosa rara, y esa es la
-        única razón para preferirlos. Ves llegar cada bit. También son lentos y
-        fáciles de estropear: un dado con los cantos redondeados, una tirada
-        anotada en la casilla equivocada, una hoja de trabajo olvidada en el
-        escritorio, un teléfono en la habitación. La entropía generada a mano no
-        es <em>más</em> aleatoria que una fuente de hardware sólida. Es
-        comprobable. Y solo si vas a mantener el cuidado durante la hora entera
-        que lleva.
+        <b>Los dados y las monedas</b> se pueden auditar, que es la única razón
+        para preferirlos, porque ves llegar cada bit. También son lentos y fáciles
+        de estropear (un dado con las esquinas redondeadas, una tirada escrita en
+        la casilla equivocada, un teléfono en la habitación). La entropía hecha a
+        mano es comprobable en lugar de <em>más</em> aleatoria, y solo mientras
+        aguantes con cuidado la hora entera que lleva.
       </li>
       <li>
-        <b>El generador de un sistema operativo</b> es criptografía buena:
-        <code>/dev/urandom</code> en los sistemas tipo Unix, la llamada
-        equivalente en los demás. Se resiembra de forma constante y se revisa a
-        fondo. La debilidad no es el algoritmo. Es que estás confiando en la
-        máquina entera sobre la que corre: el kernel, los controladores, todo lo
-        demás que haya instalado, todo aquello a lo que la máquina haya estado
-        expuesta. En un sistema limpio y sin conexión es una opción fuerte. En tu
-        portátil de diario es una apuesta sobre tu portátil de diario.
+        <b>El generador de un sistema operativo</b> es buena criptografía, se
+        resiembra constantemente y está revisado a fondo. En lo que confías es en
+        la máquina entera donde corre: el kernel, los drivers, todo lo demás que
+        haya instalado. En un sistema limpio y sin conexión es una opción fuerte.
+        En tu portátil de cada día es una apuesta sobre tu portátil de cada día.
       </li>
       <li>
-        <b>Un sitio web o una pestaña del navegador</b> acaba llamando a ese
-        mismo generador del sistema operativo, así que la aleatoriedad suele
-        estar bien. El problema es todo lo que hay alrededor: extensiones que
-        pueden leer la página, la caché de páginas, memoria escrita en el disco,
-        capturas de pantalla y la restauración de sesión. Y una duda más: si la
-        copia que cargaste es la copia que escribió su autor. Bueno para aprender
-        cómo funciona esto. No para crear una frase que va a guardar unos ahorros.
+        <b>Una web o una pestaña del navegador</b> acaba llamando a ese mismo
+        generador, así que la aleatoriedad suele estar bien. El problema es todo
+        lo que la rodea: extensiones que leen la página, la caché, memoria escrita
+        a disco, la restauración de sesión. Y si la copia que cargaste es la que
+        escribió el autor. Buena para aprender cómo funciona esto, y no para
+        guardar ahorros.
       </li>
       <li>
-        <b>Elegir las palabras tú</b> es la única opción sin defensa. Pídele
-        cosas al azar a una persona y obtienes patrones: sustantivos concretos,
-        cosas que hay en la habitación, nombres, fechas, nada de repeticiones.
-        Supón que te disciplinas para elegir doce palabras de manera uniforme
-        dentro de una lista corta de treinta y dos que te resulten memorables.
-        Eso son sesenta bits, y un presupuesto serio de hardware recorre sesenta
-        bits enteros. <b>No es una seguridad más débil. Es la ausencia de
-        seguridad.</b>
+        <b>Elegir las palabras tú</b> es la única opción sin ninguna defensa.
+        Pídele a una persona cosas al azar y salen patrones: nombres concretos,
+        objetos de la habitación, nombres propios, fechas, sin repetir. Imagina
+        que eliges doce palabras de forma uniforme de una lista de treinta y dos
+        que te resulten memorables, lo que da sesenta bits, y un presupuesto de
+        hardware serio atraviesa sesenta bits.
+        <b>Eso es la ausencia de seguridad, no una versión más débil.</b>
       </li>
     </ul>
   </section>
@@ -307,10 +286,10 @@
     <h2><span class="learn-num" aria-hidden="true">04</span> Una receta que puedes seguir</h2>
 
     <p>
-      Dos procedimientos. El primero es lo que debería hacer la mayoría. El
-      segundo es para quien quiere ver llegar cada bit de su propia entropía y va
-      a dedicarle una tarde. El orden de los pasos importa en los dos. Sobre todo
-      la prueba de restauración, que va antes del dinero, no después.
+      Vienen dos procedimientos. El primero es lo que debería hacer casi todo el
+      mundo, y el segundo es para quien quiera ver llegar cada bit de su propia
+      entropía. El orden importa en los dos, sobre todo la prueba de restauración,
+      que va antes del dinero y no después.
     </p>
 
     <p>
@@ -319,109 +298,102 @@
 
     <ol class="learn-mag">
       <li>
-        <b>1 · Cómpralo al fabricante.</b> Pídelo al fabricante, o a un
-        distribuidor que él mismo liste. No en un anuncio de un marketplace, no
-        en una subasta, no de segunda mano, no como regalo de alguien de un chat.
-        Si la caja llega con una frase de recuperación ya escrita en una tarjeta
-        dentro, el dispositivo es una trampa. Para y devuélvelo.
+        <b>1 · Cómpralo al fabricante.</b> Pídelo al fabricante o a un distribuidor
+        que él mismo liste, en lugar de un anuncio de un marketplace, una subasta
+        o un regalo de alguien de un chat. Si la caja llega con una frase de
+        recuperación ya escrita dentro, el dispositivo es una trampa.
       </li>
       <li>
         <b>2 · Comprueba el dispositivo antes de que guarde nada.</b> Pasa la
-        comprobación de autenticidad del propio fabricante. Instala o confirma el
-        firmware desde su canal oficial. Lee la versión del firmware en la
-        pantalla del propio dispositivo, no en la del ordenador. Un
-        dispositivo que te pide instalar software desde un enlace que te enviaron
-        no es el dispositivo que pediste.
+        comprobación de autenticidad del propio fabricante y confirma la versión
+        del firmware leyéndola en la pantalla del dispositivo, no en la del
+        ordenador. Un dispositivo que te pide instalar software desde un enlace
+        que te han enviado no es el que pediste.
       </li>
       <li>
         <b>3 · Deja que el dispositivo genere la frase.</b> Elige la opción que
-        crea un monedero nuevo. Las palabras aparecen en la pantalla del
-        dispositivo. No deberían aparecer en la pantalla de tu ordenador en
-        ningún momento. Pon un PIN cuando te lo pida.
+        crea un monedero nuevo y las palabras aparecerán en la pantalla del
+        dispositivo, que es donde deben quedarse. No deberían aparecer nunca en tu
+        ordenador.
       </li>
       <li>
-        <b>4 · Anota las palabras a mano.</b> Papel, bolígrafo, numeradas del uno
-        al doce, en orden, escritas exactamente como se muestran. Escribe con
-        letra lo bastante clara como para que la lea un desconocido, porque en el
-        peor caso de eso se trata. No fotografíes la pantalla. No teclees las
-        palabras en ningún sitio.
+        <b>4 · Anota las palabras a mano.</b> Papel, boli, numeradas del uno al
+        doce, escritas exactamente como se muestran y con letra clara, porque en
+        el peor de los casos de eso se trata. No fotografíes la pantalla y no
+        teclees las palabras en ningún sitio.
       </li>
       <li>
         <b>5 · Confirma desde tu copia, no de memoria.</b> El dispositivo te
-        pedirá que vuelvas a introducir algunas palabras o todas. Léelas del
-        papel que tienes delante. Este es el único momento en que un error de
-        copia sale barato de encontrar. Leer de memoria mata la comprobación.
+        pedirá volver a introducir algunas palabras, y deberías leerlas del papel
+        que tienes delante. Es el único momento en que un error de copia sale
+        barato.
       </li>
       <li>
-        <b>6 · Restaura antes de meter dinero.</b> Borra el dispositivo.
-        Restáuralo solo con tu copia escrita. Si vuelve el mismo monedero, tu
-        copia de seguridad funciona. Si no vuelve, lo has descubierto gratis.
-        <b>Este es el paso que la gente se salta, y es el que importa.</b>
+        <b>6 · Restaura antes de meter dinero.</b> Borra el dispositivo y
+        restáuralo solo con tu copia escrita. Si vuelve el mismo monedero, tu
+        copia funciona, y si no, lo has descubierto gratis. <b>Este es el paso que
+        la gente se salta, y es el que importa.</b>
       </li>
       <li>
-        <b>7 · Envía primero una cantidad pequeña.</b> Recibe un poco. Confirma
-        que llega. Manda algo de vuelta, para saber que puedes gastar desde este
+        <b>7 · Envía primero una cantidad pequeña.</b> Recibe un poco, confirma
+        que llega y devuelve algo para saber que puedes gastar desde este
         monedero. Solo entonces mueve el resto.
       </li>
     </ol>
 
     <p>
-      <b>Receta B · Los dados y este póster.</b> Más lenta. Auditable de
-      principio a fin. <a href="#roll">Genera la tuya</a> recoge las tiradas una
-      a una, e imprime una hoja de trabajo para que puedas hacerlo en una mesa
-      sin ningún ordenador.
+      <b>Receta B · Los dados y este póster.</b> Más lenta, y auditable de
+      principio a fin. El <a href="#roll">tirador</a> acepta las tiradas una a una
+      e imprime una hoja de trabajo, así que puedes hacerlo en una mesa sin
+      ningún ordenador.
     </p>
 
     <ol class="learn-mag">
       <li>
-        <b>1 · Decide la longitud y la cuenta.</b> Doce palabras son 128 bits.
-        Eso son 64 tiradas aceptadas de un dado de seis caras. Los cincos y los
-        seises se descartan, así que cuenta con unas 96 tiradas en total.
+        <b>1 · Decide la longitud y la cuenta.</b> Doce palabras son 128 bits, que
+        son 64 tiradas aceptadas de un dado de seis caras. Los cincos y los seises
+        se descartan, así que cuenta con unas 96 tiradas en total.
       </li>
       <li>
         <b>2 · Prepara la habitación.</b> Papel nuevo, un dado que hayas mirado,
-        ningún teléfono en la mesa, ninguna cámara en la habitación, nadie
-        leyendo por encima de tu hombro. Imprime primero la hoja de trabajo si
-        vas a trabajar lejos de la pantalla. Imprime también el póster, o tenlo
-        en la pared.
+        ningún teléfono en la mesa, nadie leyendo por encima de tu hombro. Imprime
+        antes la hoja de trabajo y el póster si vas a trabajar lejos de la
+        pantalla.
       </li>
       <li>
         <b>3 · Tira y anota, en orden.</b> Lee <code>1 2 3 4</code> como
         <code>00 01 10 11</code>. Un <code>5</code> o un <code>6</code> no anota
-        nada y se vuelve a tirar. Descartarlos es lo que mantiene los cuatro
-        resultados igual de probables. Nunca “arregles” una tirada que no te
-        guste. Nunca reutilices un conjunto de tiradas para un segundo monedero.
+        nada y se vuelve a tirar, que es lo que mantiene los cuatro resultados
+        igual de probables. Nunca “arregles” una tirada que no te guste y nunca
+        reutilices un conjunto de tiradas.
       </li>
       <li>
-        <b>4 · Corta los bits en palabras.</b> Escribe los bits en grupos de
-        once. Cada grupo es un índice de <code>0</code> a <code>2047</code>. En
-        el póster lo lees directamente: los bits altos eligen la columna, los
-        bajos eligen la fila. En una frase de doce palabras, las once primeras
-        salen enteras de tus propios bits.
+        <b>4 · Corta los bits en palabras.</b> Escribe los bits en grupos de once,
+        donde cada grupo es un índice de <code>0</code> a <code>2047</code>. En el
+        póster lo lees directamente, porque los bits altos eligen la columna y los
+        bajos eligen la fila.
       </li>
       <li>
-        <b>5 · Deja que una máquina termine la última palabra.</b> La duodécima
-        palabra mezcla los bits de entropía que te quedan con cuatro bits de suma
-        de verificación tomados de SHA-256, y eso no lo puedes calcular a mano.
-        Introduce tus bits en una máquina sin conexión, o en un monedero hardware
-        que acepte entrada de dados o entropía en bruto. La máquina se entera de
-        tu entropía en cualquier caso. La gracia es que no la <em>eligió</em>.
+        <b>5 · Deja que una máquina remate la última palabra.</b> La duodécima
+        palabra mezcla tus bits restantes con cuatro bits de checksum de SHA-256,
+        que no puedes calcular a mano. Introduce tus bits en una máquina sin
+        conexión, o en un monedero que acepte entropía cruda. Aprende tu entropía
+        de todos modos, y el punto es que no la <em>eligió</em>.
       </li>
       <li>
-        <b>6 · Anota la frase terminada.</b> Numerada, en orden, a mano, igual
-        que en el paso 4 de la receta A.
+        <b>6 · Anota la frase terminada.</b> Numerada, en orden, a mano, igual que
+        en el paso 4 de la Receta A.
       </li>
       <li>
-        <b>7 · Restaura y después destruye la hoja de trabajo.</b> Carga la frase
-        en el monedero que pienses usar, sin conexión, y confirma las
-        direcciones. Después quema o destruye todas las hojas de bits. Hasta que
-        lo hagas, esa hoja de trabajo es una segunda copia de tu semilla escrita
-        a mano.
+        <b>7 · Restaura y luego destruye la hoja.</b> Carga la frase en el
+        monedero que vayas a usar, sin conexión, y confirma las direcciones. Luego
+        quema o destruye cada hoja de bits, porque hasta que lo hagas esa hoja es
+        una segunda copia de tu semilla escrita a mano.
       </li>
       <li>
-        <b>8 · Primero una cantidad pequeña, luego mete el resto.</b> Como
-        arriba. Recibe, gasta, confirma. Solo entonces mueve algo que echarías de
-        menos.
+        <b>8 · Cantidad pequeña primero, luego mete el dinero.</b> Recibe, gasta y
+        confirma igual que en la Receta A, y solo entonces mueve algo que echarías
+        de menos.
       </li>
     </ol>
 
@@ -429,412 +401,263 @@
   </section>
 
   <section class="learn-sec" id="start-offline">
-    <h2><span class="learn-num" aria-hidden="true">05</span> Desconectarse</h2>
+    <h2><span class="learn-num" aria-hidden="true">05</span> Sin conexión, y seguir así</h2>
 
     <p>
-      La mayoría de quienes lean esto debería quedarse en la receta A y dejar que
-      lo haga un monedero hardware. Eso no es una salida diplomática. Es la
-      recomendación. Lo que sigue es para dos casos más estrechos. Has decidido
-      generar tú la entropía, y quieres que la máquina implicada haga lo menos
-      posible. O estás a punto de imprimir algo, y prefieres que el paso de
-      imprimir no eche a perder el cuidado que pusiste en todo lo demás.
+      Casi todo el que lea esto debería pararse en la Receta A y dejar que un
+      monedero hardware haga el trabajo. Esa es la recomendación, no una manera de
+      escurrir el bulto. El resto de esta sección es para quien genere la entropía
+      a mano, y para cualquiera que esté a punto de imprimir algo.
     </p>
 
     <p>
-      <b>Un air gap es un hecho sobre el hardware, no un ajuste.</b> Significa
-      una máquina sin ningún camino hacia una red. No una máquina cuya red está
-      apagada ahora mismo. Los ajustes los cambian el software, las
-      actualizaciones, los ciclos de suspensión, las bases de conexión y las
-      personas. Quita la tarjeta inalámbrica, o usa una máquina que nunca la
-      tuvo. Eso es otra clase de afirmación.
+      <b>Un air gap es un hecho sobre el hardware, no un ajuste.</b> Significa una
+      máquina sin ningún camino a una red, no una máquina cuya red está apagada
+      ahora mismo, porque los ajustes los cambian el software, las
+      actualizaciones, los ciclos de suspensión y las personas. Quita la tarjeta
+      inalámbrica, o usa una máquina que nunca haya tenido una. Desenchufa el
+      cable de ethernet y luego desactiva el wifi <em>y</em> el bluetooth por
+      separado, porque el bluetooth es una red y un teléfono emparejado es un
+      camino a internet. El modo avión es una pausa, no una propiedad.
     </p>
 
     <p>
-      <b>Apagar la red, de verdad.</b> Desenchufa el cable de ethernet. Después
-      desactiva el wifi <em>y</em> el bluetooth, por separado. El bluetooth es
-      una red, y un teléfono emparejado es una ruta hacia internet. El modo avión
-      es una pausa, no una propiedad. Muchos dispositivos vuelven a encender las
-      radios al despertar, al reiniciarse o cuando una actualización decide que
-      necesita la conexión. Si la máquina no se queda apagada, usa otra máquina.
+      <b>Tu teléfono nunca está sin conexión en el sentido que importa.</b>
+      Sincroniza, se hace copias de seguridad, se restaura en dispositivos nuevos,
+      indexa su propio contenido y ejecuta software que no elegiste. Una foto hecha
+      en modo avión se sube en el momento en que vuelve la conexión, que es como
+      salen del edificio la mayoría de las frases guardadas en teléfonos. Tu
+      portátil de cada día es la misma máquina con una pantalla más grande.
     </p>
 
     <p>
-      <b>Tu teléfono nunca está sin conexión en el sentido que importa.</b> Está
-      construido para sincronizar. Se hace copias de seguridad solo. Se restaura
-      solo en dispositivos nuevos. Indexa su propio contenido para que puedas
-      buscarlo. Guarda copias de lo que hay en pantalla. Ejecuta software que no
-      elegiste y no puedes inventariar. Una fotografía tomada en modo avión se
-      sube sola en cuanto vuelve la conexión. Así es como salen del edificio la
-      mayoría de las frases guardadas en teléfonos. Tu portátil de diario es la
-      misma máquina con una pantalla más grande.
-    </p>
-
-    <p>
-      <b>Sacar esta página de la red</b>, en este orden. Cada paso existe para
-      que el siguiente pueda ocurrir sin que nada escuche.
+      <b>Sacar esta página de la red</b>, en este orden, porque cada paso existe
+      para que el siguiente pueda ocurrir sin nada escuchando.
     </p>
 
     <ol class="learn-mag">
       <li>
-        <b>1 · Guárdala en el disco.</b> La cabecera tiene un control de
-        “Descargar” que escribe esta página como un solo archivo. Funciona porque
-        la página es autónoma. No carga tipografías, imágenes, scripts ni estilos
-        de ningún otro sitio. La copia guardada es la cosa entera, no una cáscara
-        que se rompe en cuanto no alcanza un servidor.
+        <b>1 · Guárdala y compruébala.</b> El control “Guardar sin conexión”
+        escribe esta página como un solo archivo, y funciona porque aquí nada viene
+        de ningún otro sitio. Cada despliegue publica el SHA-256 del archivo al
+        lado, como <code>index.html.sha256</code>, y compararlos detecta una
+        descarga truncada o cambiada en tránsito. El mismo servidor sirvió las dos
+        cosas, así que no dice nada sobre si ese servidor fue honesto. La versión
+        fuerte es clonar el repositorio y pasar su script de verificación.
       </li>
       <li>
-        <b>2 · Comprueba lo que descargaste.</b> Cada despliegue publica el
-        SHA-256 del archivo junto a él, como <code>index.html.sha256</code>.
-        Compáralo con el archivo que guardaste antes de fiarte de la copia. Ten
-        claro qué demuestra eso. El mismo servidor sirvió los dos, así que
-        detecta una descarga truncada, servida desde caché o sustituida en
-        tránsito. No demuestra que el servidor en sí fuera honesto. La versión
-        fuerte es clonar el repositorio y ejecutar su script de verificación, que
-        reconstruye la página desde el código fuente y compara el resultado.
+        <b>2 · Muévela en un medio extraíble</b> hasta la máquina que va a hacer
+        el trabajo, en lugar de descargarla allí, porque una máquina que nunca
+        pidió nada tiene menos que explicar.
       </li>
       <li>
-        <b>3 · Llévala en un medio extraíble</b> hasta la máquina que va a hacer
-        el trabajo, en lugar de descargarla allí. Una máquina que nunca ha ido a
-        buscar nada tiene menos que explicar.
+        <b>3 · Desconecta y luego ábrela</b>, en ese orden. En ningún momento
+        debería una pestaña con tu entropía estar en una máquina con salida al
+        mundo exterior.
       </li>
       <li>
-        <b>4 · Desconecta y después ábrela.</b> No al revés. Abre el archivo
-        local con la red ya caída. En ningún momento debería haber una pestaña
-        con tu entropía dentro en una máquina con una ruta hacia el mundo
-        exterior.
-      </li>
-      <li>
-        <b>5 · Haz el trabajo y anota las palabras a mano</b>, y deja la máquina
-        así hasta que hayas terminado de copiar y de comprobar. Volver a
-        conectarse “solo para mirar una cosa” a mitad de camino echa a perder los
-        otros cuatro.
+        <b>4 · Haz el trabajo y anota las palabras a mano.</b> Reconectarte “para
+        mirar una cosa” a mitad deshace los otros tres pasos.
       </li>
     </ol>
 
     <p>
-      <b>Un entorno limpio.</b> En un ordenador de uso general, la opción
-      realista más fuerte es una sesión live arrancada desde una memoria USB con
-      la persistencia desactivada. Obtienes un sistema operativo que no se ha
-      usado nunca, así que no está corriendo nada de lo que ya había instalado en
-      la máquina. Obtienes una sesión que solo existe en memoria, así que nada de
-      lo que hagas sobrevive al reinicio. En eso consiste todo su atractivo. La
-      limpieza es apagar y encender, no una lista de cosas que hay que acordarse
-      de borrar.
+      <b>Un entorno limpio.</b> En un ordenador de uso general, la opción realista
+      más fuerte es una sesión en vivo arrancada desde un USB con la persistencia
+      desactivada. Consigues un sistema operativo que no se ha usado nunca, y una
+      sesión que solo existe en memoria. La limpieza es un apagón, no una lista de
+      cosas que recordar borrar. Te cuesta un segundo ordenador para preparar el
+      USB y una firma que comprobar mientras aún tienes conexión, y no hace nada
+      por un hardware que ya esté comprometido. Lo que hace es reducir el problema
+      al hardware y a la imagen.
     </p>
 
     <p>
-      Merece la pena decir los trade-offs en voz alta, sobre todo si nunca lo has
-      hecho. Necesitas un segundo ordenador que funcione para preparar la
-      memoria. Comprueba la firma o el hash de la imagen mientras todavía estás
-      en línea, porque una sesión live construida a partir de una imagen
-      manipulada es peor que no molestarse. Puede que haya que cambiar el orden
-      de arranque o los ajustes de arranque seguro de la máquina. Puede que las
-      impresoras y el wifi no funcionen sin controladores que tendrías que ir a
-      buscar, cosa incómoda por diseño. No arregla un hardware que ya esté
-      comprometido. No ayuda si vuelves a conectarte a mitad de camino. Lo que
-      hace es reducir el problema al hardware y a la imagen. Ese problema es
-      mucho más pequeño que aquel con el que empezaste.
+      <b>Seguir sin conexión es la mitad más difícil.</b> Un ordenador moderno está
+      lleno de funciones cuyo trabajo es recordar cosas por ti y entregarlas a otra
+      máquina más tarde, y ninguna necesita una red en ese momento. Esperan. Las
+      capturas de pantalla caen en carpetas que a menudo son álbumes
+      sincronizados. Los gestores de portapapeles guardan un histórico de todo lo
+      copiado, a veces entre tus propios dispositivos. El historial de la shell
+      registra los argumentos y los editores guardan autoguardados y archivos de
+      recuperación. Los micrófonos hacen transcripciones, y el escritorio, los
+      documentos y las descargas se suben en cuanto la máquina vuelve.
+    </p>
+
+    <p class="learn-note">
+      Cada cosa de esa lista es una razón para preferir la sesión en vivo o el
+      monedero hardware. En una máquina sin disco persistente y sin cuentas
+      iniciadas, casi ninguna de estas trampas existe, porque no hay dónde viva la
+      copia recordada.
     </p>
 
     <p>
-      <b>El navegador sigue siendo el eslabón más débil.</b> No porque la
-      aleatoriedad sea mala, ya que eso se lo pide al sistema operativo. Es todo
-      lo que hay alrededor. Las extensiones pueden leer lo que hay en la página.
-      Las páginas se guardan en caché. La memoria acaba escrita en el swap. Las
-      sesiones se restauran tras un cierre inesperado, a veces con el contenido
-      intacto. Los portapapeles se comparten y se leen. Una sesión live elimina
-      casi todo eso de un golpe. Por eso merece la molestia si al final vas a
-      usar un navegador.
+      <b>Imprimir, que es el sentido de este proyecto.</b> Una impresora es un
+      ordenador en el que nunca has pensado como tal. Muchas guardan una cola de
+      trabajos recientes, los modelos de oficina los retienen en un disco interno
+      y las impresoras compartidas guardan registros con el nombre del documento y
+      quien lo envió. La buena noticia es que lo que imprime este proyecto no es
+      secreto. <b>El póster es la lista pública de palabras de BIP-39</b>, la que
+      va en todos los monederos, así que imprímelo en el trabajo o en una
+      copistería por la red que quieras. La hoja de trabajo en blanco es igual de
+      segura, porque no contiene ningún resultado. <b>La hoja peligrosa es la que
+      has rellenado</b>, que es tu semilla escrita a mano. Esa escríbela a mano.
     </p>
 
     <p>
-      Así que, claramente: <b>generar una frase para dinero real en una pestaña
-      del navegador es la peor de las opciones aceptables</b>. Para casi todo el
-      mundo, un monedero hardware es la mejor. Esta página existe para enseñar el
-      mecanismo y para que puedas comprobarlo. Ese es un trabajo distinto de
-      guardar unos ahorros.
+      <b>Volver a conectarse.</b> La gente se salta este paso, porque a esas
+      alturas lo interesante ya ha pasado. Termina primero el papel, comprobando la
+      ortografía y el orden y completando cualquier prueba de restauración antes de
+      que nada se reconecte. Luego quema o destruye las hojas de bits, ya que una
+      hoja rellenada es un duplicado del secreto y no un borrador. Apaga la sesión
+      en vivo para que el entorno entero se vaya de golpe.
+    </p>
+
+    <p>
+      Si en cambio usaste una máquina normal, da por hecho que guardó algo. Repasa
+      la lista a propósito: portapapeles, historial de la shell, archivos de
+      recuperación del editor, descargas, papelera, capturas. Si eso te parece
+      demasiado como para estar seguro, pilla la pista y genera la frase otra vez
+      en un sitio más limpio, mientras todavía no guarda nada.
     </p>
 
     <p class="learn-note">
       Esta página es un solo archivo sin código de red para que el procedimiento
       de arriba se pueda llevar a cabo y se pueda comprobar. No carga nada, no
-      envía nada, no guarda nada. Eso lo impone la compilación, en lugar de
-      prometerlo la prosa. Lee el código fuente, o trabaja con el cable
+      envía nada y no guarda nada, y eso lo garantiza el build en lugar de
+      prometerlo el texto. Lee el código fuente, o trabaja con el cable
       desenchufado.
     </p>
   </section>
 
-  <section class="learn-sec" id="start-staying">
-    <h2><span class="learn-num" aria-hidden="true">06</span> Seguir sin conexión</h2>
-
-    <p>
-      Desconectarse es un momento. Seguir sin conexión es la mitad difícil. Un
-      ordenador moderno está lleno de funciones cuyo único trabajo es recordar
-      cosas por ti y entregárselas a otra máquina más tarde. Ninguna necesita una
-      red en ese momento. Esperan.
-    </p>
-
-    <ul class="learn-mag">
-      <li>
-        <b>Capturas y grabación de pantalla.</b> Una captura es un archivo en una
-        carpeta, y esa carpeta es muy a menudo un álbum sincronizado. Se sube en
-        cuanto la máquina se reconecta. El software de grabación de pantalla y de
-        reuniones puede correr sin ventana visible. Si no fotografiarías las
-        palabras, no las pongas en una pantalla que no tengas controlada.
-      </li>
-      <li>
-        <b>Historial del portapapeles.</b> Copiar ya no es algo pasajero. Los
-        sistemas operativos y los gestores de portapapeles guardan un historial
-        de todo lo copiado, a veces en el disco, a veces sincronizado entre tus
-        propios dispositivos. Un solo copiar y pegar se convierte en un registro
-        permanente en un hardware en el que no estabas pensando.
-      </li>
-      <li>
-        <b>Historial de la shell.</b> Todo lo que se teclea en una línea de
-        comandos va a un archivo de historial, argumentos incluidos. Pásale a una
-        herramienta una frase o un conjunto de bits de entropía en bruto por ahí
-        y queda escrito en texto plano en tu carpeta personal. Respaldado junto
-        con todo lo demás.
-      </li>
-      <li>
-        <b>Los editores y sus redes de seguridad.</b> El autoguardado, los
-        archivos de intercambio y de recuperación, el historial de deshacer, la
-        lista de documentos recientes. Todos existen para sobrevivir a un cierre
-        inesperado, lo que significa que sobreviven a que cierres el archivo sin
-        guardarlo. No uses un editor de texto como papel de borrador para esto.
-        Usa papel de verdad.
-      </li>
-      <li>
-        <b>Asistentes de voz y entrada siempre activa.</b> Lee las palabras en
-        voz alta cerca de un micrófono que escucha y ya has creado una
-        transcripción esperando a subirse. Eso incluye los teléfonos y los
-        altavoces de la habitación, no solo la máquina que tienes delante.
-      </li>
-      <li>
-        <b>Carpetas sincronizadas.</b> El escritorio, la carpeta de documentos y
-        la carpeta de descargas suelen estar sincronizadas. Un archivo escrito
-        ahí mientras estás sin conexión no es privado. Está en cola. Se sube en
-        cuanto la máquina vuelve, y no te va a volver a preguntar.
-      </li>
-    </ul>
-
-    <p class="learn-note">
-      Cada punto de esa lista es una razón para preferir la sesión live o el
-      monedero hardware. En una máquina sin disco persistente y sin cuentas
-      iniciadas, la mayoría de estas trampas no existen. No hay ningún sitio
-      donde pueda vivir la copia recordada, ni nada con lo que sincronizarla
-      después.
-    </p>
-
-    <p>
-      <b>Imprimir, que es de lo que va este proyecto.</b> Una impresora es un
-      ordenador en el que nunca has pensado como tal. Muchas guardan una cola
-      de trabajos recientes, y los modelos de oficina suelen retenerlos en un
-      disco interno durante mucho tiempo. Las impresoras compartidas y en red
-      guardan registros de trabajos con el nombre del documento y de quien lo
-      envió. Una impresora compartida por wifi es un dispositivo de red por
-      definición. El trabajo cruza una red para llegar a ella, y cualquier otra
-      cosa de esa red puede alcanzarla también.
-    </p>
-
-    <p>
-      La buena noticia: lo que imprime este proyecto no es secreto. <b>El póster
-      es la lista pública de palabras de BIP-39</b>, incluida en todos los
-      monederos y descargable por cualquiera. Imprímelo en el trabajo, en una
-      copistería, por la red que quieras. No revela nada. <b>La hoja de trabajo
-      en blanco es igual de segura</b>, porque tiene casillas e instrucciones y
-      ningún resultado. Imprime las dos donde te resulte cómodo, e imprímelas con
-      antelación.
-    </p>
-
-    <p>
-      <b>La hoja peligrosa es la que has rellenado</b>, o cualquier otra cosa que
-      lleve tus palabras o tus bits. Eso es tu semilla escrita a mano. No debería
-      llegar nunca a una impresora. Escríbela a mano en su lugar. Si tienes que
-      imprimir algo derivado de una frase real, usa una impresora conectada por
-      cable directamente a la máquina que hace el trabajo. Nunca una compartida
-      ni en red. Y da por hecho que la impresora se quedó una copia.
-    </p>
-
-    <p>
-      <b>Volver a conectarse.</b> La gente olvida este paso, porque para entonces
-      la parte interesante ya ha pasado.
-    </p>
-
-    <ol class="learn-mag">
-      <li>
-        <b>1 · Termina primero el papel.</b> Transcribe las palabras, comprueba
-        la ortografía, confirma el orden y termina cualquier prueba de
-        restauración antes de que nada se reconecte. Una vez que la máquina esté
-        otra vez en línea, no deberías querer tocar la frase en ella.
-      </li>
-      <li>
-        <b>2 · Destruye las copias de trabajo.</b> Quema o destruye las hojas de
-        bits. Una hoja de trabajo rellenada no es un borrador. Es un duplicado
-        del secreto, y merece el mismo final que cualquier otra copia que no
-        pensabas conservar.
-      </li>
-      <li>
-        <b>3 · Apaga la sesión live.</b> Este es el final limpio, y la razón de
-        haber usado una. Córtale la corriente a una sesión sin persistencia y el
-        entorno entero se va de golpe. Nada que encontrar, nada que acordarse de
-        borrar. Después borra o destruye el medio en el que llevaste el archivo,
-        y no guardes ese archivo de vuelta en ningún disco que persista.
-      </li>
-      <li>
-        <b>4 · Si usaste una máquina corriente, da por hecho que guardó algo.</b>
-        Recorre la lista de arriba a propósito. El historial del portapapeles, el
-        historial de la shell, los archivos de recuperación del editor. Las
-        carpetas de descargas y del escritorio, la papelera, el álbum de
-        capturas. Después reconéctate. Si esa lista te parece demasiado como para
-        tener certeza, coge la indirecta. El secreto no debería haber estado en
-        esa máquina. Genera la frase otra vez en un sitio más limpio, mientras
-        todavía no guarda nada.
-      </li>
-    </ol>
-  </section>
-
   <section class="learn-sec" id="start-after">
-    <h2><span class="learn-num" aria-hidden="true">07</span> Cuando ya tienes las palabras</h2>
+    <h2><span class="learn-num" aria-hidden="true">06</span> Cuando ya tienes las palabras</h2>
 
     <p>
-      <b>Restaura antes de meter dinero.</b> Las dos recetas ya lo han dicho.
-      Aquí va una tercera vez, porque este es el paso que se salta. Una copia de
-      seguridad que nunca has restaurado es una suposición sobre el futuro. El
-      momento de descubrir que una palabra es ilegible o está en la posición
-      equivocada es mientras el monedero está vacío.
+      <b>Restaura antes de meter dinero.</b> Lo dicen las dos recetas, y aquí va
+      una tercera vez, porque este es el paso que se salta la gente. Una copia que
+      nunca has restaurado es una apuesta sobre el futuro, y el momento de
+      descubrir que una palabra es ilegible es cuando el monedero está vacío.
     </p>
 
     <p>
-      <b>Papel o metal.</b> El papel escrito a mano es una buena copia de
-      seguridad y no cuesta nada. Lo destruye el fuego y lo arruina el agua, y
-      esas son las dos cosas con más probabilidad de pasarle a una casa. El metal
-      grabado o punzonado sobrevive a las dos, por una hora de trabajo y un
-      equipo modesto. Una regla justa: la copia de seguridad debería merecer
-      aproximadamente tanto esfuerzo como la cantidad que protege. Papel mientras
-      estás aprendiendo. Metal cuando perderla ya doliera. En cualquier caso,
-      guárdala en un sitio seco, privado y que no sea el mismo que el
-      dispositivo.
+      <b>Papel o acero.</b> El papel escrito a mano es una buena copia y no cuesta
+      nada. El fuego lo destruye y el agua lo arruina, y esas son las dos cosas
+      que es más probable que le pasen a una casa. El metal grabado o
+      punzonado sobrevive a las dos por una hora de trabajo. Una regla justa es
+      que la copia debería valer más o menos tanto esfuerzo como la cantidad que
+      protege: papel mientras aprendes, metal cuando perderlo dolería. Guárdala en
+      un sitio seco y privado, y no junto al dispositivo.
     </p>
 
     <p>
-      <b>Cuatro cosas que no debes hacer nunca</b>, todas el mismo error con
-      distinta ropa.
+      <b>Cuatro cosas que no hacer nunca</b>, todas el mismo error con otra ropa.
     </p>
 
     <ul class="learn-mag">
       <li>
-        <b>Nunca la fotografíes.</b> Una fotografía es un archivo. Los archivos
-        en los dispositivos modernos se copian solos a un servicio por defecto,
-        se indexan, los lee cualquier software con permiso para leer fotografías
-        y sobreviven al momento en que los tomaste.
+        <b>Nunca la fotografíes.</b> Una foto es un archivo, y los archivos en los
+        dispositivos modernos se copian solos a un servicio por defecto, se
+        indexan y sobreviven al momento en que los hiciste.
       </li>
       <li>
         <b>Nunca la teclees en un teléfono ni en un ordenador</b>, salvo en el
-        monedero que estés restaurando a propósito, en un dispositivo que
-        controles. Los teclados recuerdan. Las aplicaciones de notas sincronizan.
-        El autocorrector aprende. Todo lo que tecleas ha pasado por software que
-        no auditaste nunca.
+        monedero que estés restaurando a propósito. Los teclados recuerdan, las
+        aplicaciones de notas sincronizan, el autocorrector aprende y todo lo que
+        teclees ha pasado por software que nunca auditaste.
       </li>
       <li>
         <b>Nunca la guardes en un gestor de contraseñas ni en una nota en la
-        nube.</b> Los dos son servidores que guardan tus datos, detrás de una
-        sola contraseña que ahora custodia todo lo que posees. Los dos están
-        construidos para ser accesibles desde cualquier parte. Esa es justo la
-        propiedad que intentabas evitar.
+        nube.</b> Los dos son servidores con tus datos detrás de una contraseña
+        que ahora protege todo lo que tienes, y los dos están hechos para ser
+        accesibles desde cualquier parte.
       </li>
       <li>
-        <b>Nunca la repartas con un esquema ingenioso que hayas inventado.</b> La
-        mitad aquí y la mitad allá. Seis palabras en casa de un familiar. Un
+        <b>Nunca la partas con un esquema ingenioso que te has inventado.</b> La
+        mitad aquí y la mitad allá, seis palabras en casa de un familiar, un
         desplazamiento que vas a recordar. Estos esquemas son peores en las dos
         direcciones a la vez.
       </li>
     </ul>
 
     <p>
-      Ese último necesita su razón, porque siempre suena prudente. Partir una
+      Lo último necesita su razón, porque siempre suena cuidadoso. Partir una
       frase por la mitad debilita cada mitad mucho más de lo que la gente espera.
-      Seis palabras conocidas de una frase de doce dejan unos sesenta y dos bits.
-      Eso no queda cómodamente fuera del alcance de un presupuesto grande de
-      hardware. Quien encuentre una mitad tiene una posibilidad real, no ninguna.
+      Seis palabras conocidas de una frase de doce dejan unos sesenta y dos bits,
+      que un presupuesto de hardware grande alcanza. Quien encuentre una mitad
+      tiene una posibilidad real.
     </p>
 
     <p>
-      Peor aún, los repartos caseros pierden monedas mucho más a menudo de lo que
-      evitan robos. El esquema vive en una sola cabeza. La memoria se desdibuja.
-      La gente se muda. Los familiares mueren. El sobre acaba en la basura
-      durante una limpieza. Las instrucciones resultan ser confusas para todo el
-      mundo salvo para quien las escribió, y esa persona para entonces no está
-      disponible. La mayoría de las monedas que se pierden se pierden porque
-      nadie pudo alcanzarlas, no porque alguien las robara. Si de verdad
-      necesitas repartir la custodia, las respuestas asentadas son los monederos
-      multifirma y los esquemas estandarizados de reparto. Los dos son fáciles de
-      hacer mal, y sobre los dos merece la pena leer antes. <b>Una sola copia de
-      seguridad bien escondida que seguro que puedes encontrar es mejor que un
+      Los esquemas caseros además pierden monedas mucho más a menudo de lo que
+      evitan robos. El esquema vive en una sola cabeza, la memoria se desdibuja,
+      la gente se muda y el sobre se va en una limpieza. Las instrucciones acaban
+      siendo poco claras para todos menos para quien las escribió, y esa persona a
+      esas alturas no está disponible. La mayoría de las monedas que se pierden se
+      pierden porque nadie pudo llegar a ellas. Si de verdad necesitas repartir la
+      custodia, las respuestas establecidas son los monederos multifirma y los
+      esquemas de reparto estandarizados, y los dos son fáciles de hacer mal.
+      <b>Una sola copia bien escondida que puedas encontrar seguro es mejor que un
       sistema ingenioso que solo puedes reconstruir casi del todo.</b>
     </p>
 
     <p class="learn-note">
-      Esas capas, la frase de contraseña y la multifirma, se desarrollan en
-      <a href="#protect">Protégete</a>: qué te da cada una, qué cuesta y cómo
-      falla cada una. Léelo antes de añadir ninguna. Una capa que no has ensayado
-      es una forma de perder monedas, no de conservarlas.
+      Esas capas, la passphrase y la multifirma, se trabajan en
+      <a href="#protect">Protección</a>: qué compra cada una, qué cuesta y cómo
+      falla cada una. Léelo antes de añadir cualquiera de las dos, porque una capa
+      que no has ensayado es una forma de perder monedas y no de guardarlas.
     </p>
   </section>
 
   <section class="learn-sec" id="start-mistakes">
-    <h2><span class="learn-num" aria-hidden="true">08</span> Errores comunes</h2>
+    <h2><span class="learn-num" aria-hidden="true">07</span> Errores comunes</h2>
 
     <p>
-      Casi todas las pérdidas que no fueron pérdidas de mercado están en esta
-      lista.
+      Casi toda pérdida que no fue una pérdida de mercado está en esta lista.
     </p>
 
     <ul class="learn-mag">
       <li>
         <b>Comprar un dispositivo que llega precargado.</b> Un monedero con su
-        frase de recuperación ya impresa en una tarjeta dentro de la caja no es
-        una comodidad. Quien la puso ahí conoce la frase, y está esperando a que
-        la dirección reciba fondos. Un dispositivo auténtico genera su frase
-        delante de ti, una sola vez, en su propia pantalla.
+        frase de recuperación ya impresa en una tarjeta no es una comodidad,
+        porque quien la puso ahí está esperando a que se financie la dirección. Un
+        dispositivo genuino genera su frase delante de ti, una vez, en su propia
+        pantalla.
       </li>
       <li>
-        <b>Elegir las palabras a mano.</b> Doce palabras que signifiquen algo. O
-        que parezcan arbitrarias. O que salieron de abrir un libro al azar. El
-        resultado se ve exactamente igual que una buena frase y es
+        <b>Elegir las palabras a mano.</b> Doce palabras que signifiquen algo, o
+        que parezcan arbitrarias, o que salieron de abrir un libro al azar. El
+        resultado se parece exactamente a una frase buena mientras es
         catastróficamente más pequeño como espacio de búsqueda.
       </li>
       <li>
-        <b>Aceptar una frase que produjo otra persona.</b> De un amigo servicial,
-        de un servicio de setup, de un tutorial, de un vídeo, de un
-        agente de soporte, de una captura de pantalla. No tienes forma de saber
-        cuántas copias existen. Trata cualquier frase que no hayas visto crearse
-        como ya comprometida.
+        <b>Aceptar una frase que produjo otro.</b> De un amigo servicial, de un
+        servicio de configuración, de un tutorial, de un vídeo, de un agente de
+        soporte. No tienes forma de saber cuántas copias existen, así que trata
+        cualquier frase que no viste crear como ya comprometida.
       </li>
       <li>
-        <b>Probar la restauración solo después de meter dinero.</b> Para entonces
-        la prueba tiene algo en juego, así que no se hace. El primer intento real
-        de restauración ocurre el día en que ya ha salido algo mal. Restaura
-        mientras el monedero está vacío y el ejercicio no cuesta nada.
+        <b>Probar la restauración solo después de meter dinero.</b> A esas alturas
+        la prueba tiene consecuencias, así que no se hace, y el primer intento real
+        llega el día en que algo ya ha salido mal. Restaura con el monedero vacío y
+        el ejercicio no cuesta nada.
       </li>
       <li>
-        <b>Marcar las palabras en una lista de palabras impresa.</b> Doce marcas
-        en una cuadrícula de 2048 son una copia en texto plano de tu frase de
-        recuperación, y más fácil de leer que tu propia letra.
-        <a href="#poster">El póster</a> es la lista pública del estándar, y
-        colgarlo no revela nada. Marcarlo es lo que lo convierte en un secreto, y
-        además mal protegido.
+        <b>Marcar las palabras en una lista impresa.</b> Doce marcas en una
+        cuadrícula de 2048 son una copia en claro de tu frase de recuperación, más
+        fácil de leer que tu propia letra. <a href="#poster">El póster</a> no
+        revela nada hasta que lo marcas, que es lo que lo convierte en un secreto
+        mal protegido.
       </li>
     </ul>
 
     <p class="learn-note">
-      Si prefieres saber por qué esto es cierto en lugar de creerlo por
-      confianza, la <a href="#learn">guía de campo</a> recorre la aritmética. Qué
-      mide la entropía. Por qué la lista tiene exactamente 2048 palabras. Qué
-      detecta y qué no detecta la suma de verificación. Y cuánto vale una frase
-      elegida. Nada de eso cambia el procedimiento de arriba. Significa que no
-      estás dando por bueno lo que diga nadie. Esa es la costumbre que merece la
-      pena tener aquí.
+      Si prefieres saber por qué esto es cierto en lugar de creerlo, la
+      <a href="#learn">guía de campo</a> repasa la aritmética. Qué mide la
+      entropía, por qué la lista tiene exactamente 2048 palabras y cuánto vale una
+      frase elegida. Nada de eso cambia el procedimiento de arriba. Significa que
+      no le estás tomando la palabra a nadie, que es la costumbre que merece la
+      pena aquí.
     </p>
   </section>
 

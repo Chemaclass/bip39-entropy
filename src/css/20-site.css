@@ -12,8 +12,13 @@ main:focus{outline:none}
   backdrop-filter:blur(8px);border-bottom:1px solid var(--chrome-3)}
 /* A hairline reads as part of the page until something scrolls under it. */
 .chrome.lift{box-shadow:var(--lift)}
-.top{padding:8px 18px}
-.top-in{max-width:1500px;margin:0 auto;display:flex;align-items:center;gap:8px 18px;flex-wrap:wrap}
+.top{padding:14px 18px}
+/* The bar lines up with what is under it: the brand sits on the section rail's
+   edge, not out at the window's. The poster is the exception, because its stage
+   is as wide as the paper, so the chrome widens for that view alone.
+   1246 = 210 rail + 36 gap + 1000 column, the reading grid in 50-reading.css. */
+.top-in{max-width:1246px;margin:0 auto;display:flex;align-items:center;gap:8px 18px;flex-wrap:wrap}
+.chrome.wide .top-in{max-width:1500px}
 .brand{text-decoration:none;color:inherit;flex:0 0 auto}
 .brand:hover span{color:var(--chrome-ink)}
 

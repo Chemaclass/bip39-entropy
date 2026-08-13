@@ -32,6 +32,22 @@ HYPE = ["revolutionary", "game-changing", "cutting-edge", "seamless",
 LONG_SENTENCE = 34          # words; the guide asks for one idea per sentence
 SPANISH_ONLY = {"usted", "computadora", "celular", "ordenadores portátiles"}
 
+# Rhythm, per the guide's "never more than 2-3 in a row before a longer sentence
+# resets" and "expand, then contract". Uniform short sentences are what readers
+# name as machine-written, and the page cannot afford that impression.
+SHORT_SENTENCE = 8          # words or fewer counts as short
+MAX_RUN = 2                 # short sentences in a row before a longer one resets
+MAX_SHORT_SHARE = 0.34      # of all sentences in a file
+MAX_ANTITHESIS = 4          # "it isn't X, it's Y" reversals per file
+
+# The reversal, in the two shapes the site actually used: negated copula then a
+# positive restatement, either across a full stop or after a comma.
+ANTITHESIS = re.compile(
+    r"\b(?:is|are|was|were|isn't|aren't|wasn't|weren't)\s+not\b[^.;:]{0,70},\s*(?:it|that|they|this)?\s*\b(?:is|are|was|were)\b"
+    r"|\b(?:isn't|aren't|wasn't|weren't|doesn't|don't|didn't)\b[^.]{0,90}[.]\s+(?:It|That|They|This)\s+(?:is|are|was|were)\b"
+    r"|\bno\s+es\b[^.;:]{0,70}[.,]\s*(?:Es|es)\b",
+    re.I)
+
 
 def sentences(text: str) -> list[str]:
     return [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
@@ -41,20 +57,24 @@ BLOCK = re.compile(r"<(p|li|td|th|h1|h2|h3|caption|figcaption)\b[^>]*>(.*?)</\1>
                    re.S | re.I)
 
 
-def blocks(html: str) -> list[str]:
-    """Text per block element.
+PROSE = {"p", "li"}          # rhythm lives here; a table cell is a label
+
+
+def blocks(html: str) -> list[tuple[str, str]]:
+    """Tagged text per block element.
 
     Reading the whole file as one string turns a table into a 60-word
     "sentence" and a contents list into another. Sentence length only means
-    something inside the block that holds it.
+    something inside the block that holds it, and it means nothing at all
+    inside a one-word table cell.
     """
     html = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", html, flags=re.S)
     html = re.sub(r"<!--.*?-->", " ", html, flags=re.S)
     out = []
-    for _, inner in BLOCK.findall(html):
+    for tag, inner in BLOCK.findall(html):
         text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", inner)).strip()
         if text:
-            out.append(text)
+            out.append((tag.lower(), text))
     return out
 
 
@@ -90,14 +110,51 @@ def scan(label: str, text: str, lang: str) -> list[str]:
     return hits
 
 
+def rhythm(chunks: list[str]) -> list[str]:
+    """Rhythm reads across a whole page, not inside one sentence.
+
+    A run is counted inside its own paragraph, because that is where a reader
+    hears it. The share is counted over the file, because that is what makes a
+    page sound the same all the way down.
+    """
+    hits = []
+    lengths = []
+    for chunk in chunks:
+        run = []
+        for s in sentences(chunk):
+            n = len(s.split())
+            lengths.append(n)
+            if n <= SHORT_SENTENCE:
+                run.append(s)
+                continue
+            if len(run) > MAX_RUN:
+                hits.append(f"{len(run)} short sentences in a row: {' '.join(run)[:110]}…")
+            run = []
+        if len(run) > MAX_RUN:
+            hits.append(f"{len(run)} short sentences in a row: {' '.join(run)[:110]}…")
+
+    if lengths:
+        share = sum(n <= SHORT_SENTENCE for n in lengths) / len(lengths)
+        if share > MAX_SHORT_SHARE:
+            hits.append(f"{share:.0%} of {len(lengths)} sentences are {SHORT_SENTENCE} "
+                        f"words or fewer (max {MAX_SHORT_SHARE:.0%})")
+
+    found = ANTITHESIS.findall(" ".join(chunks))
+    if len(found) > MAX_ANTITHESIS:
+        hits.append(f"{len(found)} 'it isn't X, it's Y' reversals (max {MAX_ANTITHESIS})")
+    return hits
+
+
 def main() -> None:
     findings: dict[str, list[str]] = {}
 
     for path in sorted((ROOT / "src" / "content").glob("*.html")):
         lang = path.stem.rsplit(".", 1)[1]
         hits = []
-        for block in blocks(path.read_text()):
+        chunks = blocks(path.read_text())
+        for _, block in chunks:
             hits += scan(path.name, block, lang)
+        hits += rhythm([text for tag, text in chunks if tag in PROSE])
         if hits:
             findings[str(path.relative_to(ROOT))] = hits
 

@@ -24,7 +24,23 @@ They should never have to reread a sentence.
 - No metaphor-jargon a B2 English speaker would miss: no "moat", "table stakes",
   "north star", "load-bearing", "compound" as a verb.
 - Concrete over abstract. A real example beats a definition.
-- No long multi-clause subordinate sentences.
+- One idea per sentence is not one clause per sentence. A comma, a colon or a
+  pair of parentheses can carry the second half of a thought.
+
+## Rhythm
+
+The half of the guide this site kept forgetting, and the half readers notice
+first. Uniform short sentences read as machine-made, which is the one impression
+a page about trusting your own hands cannot afford.
+
+- Baseline is 6 to 15 words. Almost never over 35.
+- **Never more than two short sentences in a row.** A longer one has to reset the
+  rhythm before you go short again.
+- Expand, then contract. The paragraph explains at length, then a fragment
+  carries the point.
+- Two-way contrast is the engine, so keep it for the moments that deserve it.
+  Four "it isn't X, it's Y" reversals on one page is a tic, not a voice.
+- `python3 scripts/style.py` measures all of this. Run it before you commit prose.
 
 ## Diction
 
@@ -35,8 +51,6 @@ They should never have to reread a sentence.
 - Name technical terms precisely and gloss them in the same breath.
 - Backticks for every file, command and flag.
 - **Bold** for the punchline of an argument and for inline list labels.
-- Two-way contrast is the core engine: "A passphrase adds a second thing you
-  must not lose. Multisig adds a spare."
 
 ## Openings and closings
 
