@@ -30,6 +30,98 @@
 
 <!-- A grid of the word list, drawn rather than fetched, so the tab icon costs no request. -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23191d1f'/%3E%3Cg fill='%236fbfa8'%3E%3Crect x='6' y='7' width='5' height='3'/%3E%3Crect x='13' y='7' width='9' height='3'/%3E%3Crect x='6' y='12' width='9' height='3'/%3E%3Crect x='17' y='12' width='5' height='3'/%3E%3Crect x='6' y='17' width='5' height='3'/%3E%3Crect x='13' y='17' width='13' height='3'/%3E%3Crect x='6' y='22' width='13' height='3'/%3E%3C/g%3E%3C/svg%3E">
+<script type="application/ld+json">
+[
+ {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://chemaclass.github.io/bip39-entropy/#website",
+  "url": "https://chemaclass.github.io/bip39-entropy/",
+  "name": "BIP-39 entropy",
+  "description": "Why a BIP-39 seed phrase is only as strong as the number behind it, what happened when that number was small, and how to generate one yourself with dice or a coin.",
+  "inLanguage": [
+   "en",
+   "es"
+  ],
+  "author": {
+   "@type": "Person",
+   "name": "Chemaclass",
+   "url": "https://chemaclass.com"
+  },
+  "license": "https://opensource.org/licenses/MIT",
+  "isAccessibleForFree": true
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "@id": "https://chemaclass.github.io/bip39-entropy/#tools",
+  "name": "BIP-39 dice and coin generator, and printable word list",
+  "url": "https://chemaclass.github.io/bip39-entropy/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any browser, including with no network",
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "USD"
+  },
+  "description": "Build 128 or 256 bits of entropy from dice or coin throws and watch it become a BIP-39 phrase, print the full 2048-word list as an eleven-bit grid, or print a blank worksheet to do it away from a computer.",
+  "featureList": [
+   "Dice and coin entropy with rejection sampling",
+   "BIP-39 checksum and word derivation",
+   "Printable 2048-word poster as PDF",
+   "Blank dice and coin worksheet",
+   "Offline, no network requests"
+  ]
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://chemaclass.github.io/bip39-entropy/#faq",
+  "mainEntity": [
+   {
+    "@type": "Question",
+    "name": "Should I use 12 or 24 words?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Twelve words carry 128 bits of entropy and twenty-four carry 256. 128 bits is already past what brute force can reach, so 24 is not stronger against any attack that exists today. It is a hedge against future cryptanalysis and against Grover-style quantum search. Both lengths work in every conforming wallet."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Can I choose the words of my seed phrase myself?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "No. Entropy is measured against what an attacker knows about how you chose, not against how arbitrary the result feels. Picking twelve words from a shortlist of thirty-two memorable ones is sixty bits, which a serious hardware budget works through. The checksum will not save you, because it checks transcription and nothing else."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Is it safe to print the whole BIP-39 word list?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. The list is public and identical in every wallet, so a printed copy reveals nothing. What is dangerous is marking your own words on it. Twelve ticks on a grid of 2048 is a plaintext copy of your recovery phrase."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "What is a BIP-39 passphrase, the 25th word?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "An extra secret mixed into the derivation, so the same twelve words with a different passphrase produce a completely different wallet. It means the paper backup alone cannot spend. It has no checksum, a typo opens a valid empty wallet instead of failing, and forgetting it loses the coins as completely as losing the phrase."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Does the order of the seed phrase words matter?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Completely. The phrase is one number cut into eleven-bit groups, and each word is the group at a fixed position. Moving two words changes the number. A swap usually fails the checksum, but about one such mistake in sixteen passes it on a twelve-word phrase."
+    }
+   }
+  ]
+ }
+]
+</script>
 <style id="pagestyle">@page { size: 210mm 297mm; margin: 0; }</style>
 <style>
 __CSS__
