@@ -168,6 +168,38 @@ function rollRender(){
   });
   out.appendChild(grid);
 
+  // How far from even the throws landed. Any single result is as likely as any
+  // other, so this says nothing about the phrase. It says something about the
+  // coin, and about whether the hand got bored.
+  const ones = [...entBits].filter(c => c === "1").length;
+  const zeros = entBits.length - ones;
+  const sd = Math.sqrt(entBits.length) / 2;
+  add("roll-sec", t("roll.balance", { ones, zeros }));
+  if (Math.abs(ones - entBits.length / 2) > 2.5 * sd)
+    add("roll-fact scale-warn", t("roll.balanceOdd"));
+
+  // The last word of a twelve-word phrase carries seven entropy bits and four
+  // checksum bits, so it is always inside a block of sixteen consecutive
+  // indices. On the poster that is sixteen rows of one column, which is what
+  // makes finishing by hand possible.
+  if (spec.words === 12){
+    const lo = parseInt(entBits.slice(121, 128), 2) * 16;
+    add("roll-sec", t("roll.lastTitle"));
+    add("roll-fact", t("roll.lastNote", { lo, hi: lo + 15 }));
+    const strip = document.createElement("div");
+    strip.className = "seed lastblock";
+    for (let i = lo; i <= lo + 15; i++){
+      const cell = document.createElement("div");
+      cell.className = "seed-w" + (i === lo + parseInt(cs, 2) ? " is-yours" : "");
+      cell.innerHTML = '<span class="seed-n">' + i + '</span>' +
+        '<span class="seed-t">' + WORDS[i] + '</span>' +
+        (i === lo + parseInt(cs, 2)
+          ? '<span class="seed-b">' + t("roll.lastYours") + '</span>' : '');
+      strip.appendChild(cell);
+    }
+    out.appendChild(strip);
+  }
+
   add("roll-fact", t("roll.footnote"));
 }
 

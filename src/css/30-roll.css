@@ -52,3 +52,9 @@
   .roll{padding:22px 14px 70px}
   .roll-key{width:54px;height:54px;font-size:18px}
 }
+
+/* The sixteen candidates for the final word, with the one the checksum picks. */
+.lastblock{grid-template-columns:repeat(auto-fill,minmax(168px,1fr))}
+.lastblock .seed-w{opacity:.62}
+.lastblock .seed-w.is-yours{opacity:1;box-shadow:inset 0 0 0 1px var(--patina)}
+.lastblock .is-yours .seed-b{color:var(--patina)}
