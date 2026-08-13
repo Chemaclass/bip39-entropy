@@ -5,9 +5,8 @@
     <h1 class="learn-title">Twelve words are<br>a number</h1>
     <p class="learn-lead">
       Everything that keeps that number yours is decided in the instant it is
-      generated, before you write anything down and before you pick a wallet. This
-      page shows the arithmetic rather than asserting it, for someone who has heard
-      the word <em>entropy</em> without being told what it measures.
+      generated. This page shows the arithmetic rather than asserting it, for someone
+      who has heard the word <em>entropy</em> without being told what it measures.
     </p>
   </header>
 
@@ -38,9 +37,9 @@
     </p>
     <p>
       Never type a real recovery phrase into any website, including this one. This
-      page has no field that accepts a phrase, makes no network requests and stores
-      nothing, and you can check that by reading the source. Anything offering to
-      “validate” or “recover” your phrase online is a theft pattern.
+      page has no field that accepts one, makes no network requests and stores
+      nothing. Anything offering to “validate” or “recover” a phrase online is a theft
+      pattern.
     </p>
   </aside>
 
@@ -62,24 +61,18 @@
 
     <p>
       A BIP-39 phrase is a number written in words. Each word is an index into a
-      fixed, public, ordered list of 2048 entries, so <code>abandon</code> is
-      <code>0</code> and <code>zoo</code> is <code>2047</code>. Nothing else about a
-      word matters: not its meaning, not its length, not whether it sounds like a
-      strong password.
-    </p>
-
-    <p>
-      Your wallet does not store the words. It joins them, runs
-      <code>PBKDF2-HMAC-SHA-512</code> over the string for 2048 iterations, and gets
-      a 512-bit seed from which every key is derived deterministically. The same
-      words produce the same keys on any conforming wallet, forever, and that
-      portability is why the standard exists.
+      fixed, public list of 2048 entries, so <code>abandon</code> is <code>0</code>
+      and <code>zoo</code> is <code>2047</code>, and nothing else about a word
+      matters. Your wallet doesn't store the words: it joins them, runs
+      <code>PBKDF2-HMAC-SHA-512</code> over the string for 2048 iterations, and
+      derives every key from the 512-bit seed that comes out. That is why the same
+      words rebuild the same wallet anywhere, forever.
     </p>
 
     <p>
       So a phrase is worth exactly as much as its number is unpredictable. The word
-      list, the derivation, the arithmetic and this poster are all public. Only the
-      number was ever secret.
+      list, the derivation, the arithmetic and this poster are all public.
+      <b>Only the number was ever secret.</b>
     </p>
 
   </section>
@@ -88,51 +81,28 @@
     <h2><span class="learn-num" aria-hidden="true">02</span> Entropy, defined properly</h2>
 
     <p>
-      Entropy is not a measure of how random something looks. It measures how many
-      equally likely possibilities a secret was drawn from, expressed as a base-2
-      logarithm so it can be counted in bits. <code>n</code> bits means
-      <code>2^n</code> equally likely candidates, and each extra bit doubles the
-      work an attacker must do.
+      Entropy is not a measure of how random something looks. It counts how many
+      equally likely possibilities a secret was drawn from, in bits, so
+      <code>n</code> bits means <code>2^n</code> candidates and each extra bit
+      doubles an attacker's work. A 12-word phrase carries 128 bits, which is about
+      <code>3.4 × 10^38</code> candidates.
     </p>
 
     <p>
-      A 12-word phrase generated correctly carries 128 bits, so it was drawn from
-      <code>2^128</code> candidates, about <code>3.4 × 10^38</code>. Two handles on
-      a number that size, each with its working shown.
-    </p>
-
-    <ul class="learn-mag">
-      <li>
-        <b>Bitcoin's entire mining network.</b> The largest purpose-built computing
-        effort that has ever existed runs on the order of <code>10^21</code> hashes
-        per second. At that rate, merely counting to <code>2^128</code> takes about
-        <b>11 billion years</b>, roughly the present age of the universe. A
-        bare hash is far cheaper than one full trial of a phrase, so this
-        underestimates the real cost.
-      </li>
-      <li>
-        <b>Every computer on Earth.</b> Suppose ten billion devices each test a
-        billion candidates per second. That is <code>10^19</code> per second, and
-        <code>2^128</code> still takes <b>about 1.1 trillion years</b>, some 78
-        times the age of the universe.
-      </li>
-    </ul>
-
-    <p class="learn-note">
-      For honesty's sake, <code>2^128</code> is not enormous by every measure. That
-      many water molecules is about ten cubic kilometres of water. What makes 128
-      bits enough is that no physical process can <em>visit</em> that many states
-      one at a time.
+      One handle on a number that size. Bitcoin's mining network is the largest
+      purpose-built computing effort that has ever existed, running on the order of
+      <code>10^21</code> hashes per second. At that rate, merely counting to
+      <code>2^128</code> takes about <b>11 billion years</b>, roughly the present age
+      of the universe. A bare hash is far cheaper than one full trial of a phrase, so
+      that underestimates the real cost.
     </p>
 
     <p>
       <b>Randomness is a property of the process, not of the output.</b> From a fair
-      source the bit string <code>0000…0000</code> is exactly as likely as any
-      other, so a phrase that “looks random” tells you nothing, and one that looks
-      meaningful is not thereby weak. Entropy is measured against what an attacker
-      knows about your process. Dice give you 128 bits, and words that mean
-      something to you are worth however many bits it takes to describe your habit
-      of choosing.
+      source, <code>0000…0000</code> is exactly as likely as any other string, so a
+      phrase that “looks random” tells you nothing. Entropy is measured against what
+      an attacker knows about your process, and that is why the next section is about
+      people rather than mathematics.
     </p>
 
     <div data-widget="scale"></div>
@@ -145,9 +115,9 @@
     <p>
       2048 is <code>2^11</code>, and that is the whole reason for the number. Eleven
       bits address exactly 2048 entries with nothing left over, so converting bits to
-      words is a straight slice of the bit string: take eleven bits, read a word,
-      repeat. A list of 2000 words would not divide the space evenly, and selecting
-      from it without bias would need rejection sampling.
+      words is a straight slice of the bit string. A list of 2000 words wouldn't
+      divide the space evenly, and selecting from it without bias would need
+      rejection sampling.
     </p>
 
     <p>
@@ -155,6 +125,7 @@
       index. <code>hamster</code> is <code>837</code>, which is
       <code>01101000101</code> in eleven bits.
     </p>
+
     <figure class="bitfig">
       <svg viewBox="0 0 560 196" role="img"
            aria-label="The eleven bits of index 837 split into a high group of four, which is binary 0110 and picks column 768, and a low group of seven, which is binary 1000101 and picks row 69. Together they address the word hamster.">
@@ -263,26 +234,23 @@
 
     <p>
       The checksum bits are the first <code>ENT ÷ 32</code> bits of SHA-256 of the
-      raw entropy, appended before the phrase is cut into words. That is why the
-      last word carries a mixture of entropy and checksum rather than sitting apart.
+      raw entropy, appended before the phrase is cut into words. That is why the last
+      word mixes entropy and checksum rather than sitting apart.
     </p>
 
     <p>
-      <b>What it catches:</b> a word mistyped into some other real word, two words
-      in the wrong order, a word read off the wrong row. Any single such mistake
-      survives only if it happens to produce the right four bits, about one time in
-      sixteen, so roughly fifteen errors in sixteen are caught. For 24 words the
-      figure is 255 in 256.
+      <b>What it catches:</b> a word mistyped into another real word, two words in
+      the wrong order, a word read off the wrong row. Any single such mistake survives
+      only if it happens to produce the right four bits, about one time in sixteen, so
+      roughly fifteen errors in sixteen are caught.
     </p>
 
     <p>
-      <b>What it does not catch matters more.</b> It is not a security check, since
-      a phrase assembled from twelve words you chose yourself passes exactly as
-      readily as one from dice. It does not slow an attacker down, because they
-      enumerate entropy values and compute the checksum exactly as the standard
-      prescribes. And it does not tell you the phrase is yours, because a valid
-      phrase that is not yours restores a real, empty wallet.
-      <b>“My wallet accepted it” says nothing about how guessable it is.</b>
+      <b>What it does not catch matters more.</b> A phrase you assembled from twelve
+      chosen words passes exactly as readily as one from dice. An attacker enumerates
+      entropy values and computes the checksum as the standard prescribes, so those
+      four bits cost them nothing. <b>“My wallet accepted it”
+      says nothing about how guessable it is.</b>
     </p>
 
   </section>
@@ -292,28 +260,20 @@
 
     <p>
       A person is not a random number generator, and this is not a matter of trying
-      harder. Asked for a random digit, people over-choose 7 and shy away from 0
-      and 5. Asked for a sequence they avoid repeats and long runs, because
-      repetition feels non-random, and asked for words they reach for concrete
-      nouns, things in the room, names and dates. Every one of those tendencies is
-      a pattern an attacker can rank candidates by, and an attacker who ranks does
+      harder. Asked for a random digit, people over-choose 7 and shy away from 0 and
+      5. Asked for a sequence they avoid repeats and long runs, and asked for words
+      they reach for concrete nouns, names and dates. Every one of those tendencies
+      is a pattern an attacker can rank candidates by, and an attacker who ranks does
       not have to enumerate.
     </p>
 
     <p>
-      The arithmetic is stark. Suppose you were unusually disciplined and chose
-      each of your twelve words uniformly at random from a shortlist of the 16 you
-      find most memorable. That is 4 bits per word and <b>48 bits for the
-      phrase</b>, against the 128 the format implies. Widen the shortlist to 32
-      words and you reach 60 bits, which a serious hardware budget still works
-      through. <b>The words look identical either way.</b>
-    </p>
-
-    <p class="learn-note">
-      Which source to use is a practical question, and
-      <a href="#start">Start here</a> answers it with a table and a procedure. The
-      short version: a hardware wallet by default, dice if you want to audit every
-      bit, and never your own head.
+      The arithmetic is stark. Choose each of your twelve words uniformly from a
+      shortlist of the 16 you find most memorable, which is unusual discipline. That
+      is 4 bits per word and <b>48 bits for the phrase</b>, against the 128 the format
+      implies. Widen the shortlist to 32 words and you reach 60 bits, which a
+      serious hardware budget still works through. <b>The words look identical either
+      way.</b>
     </p>
 
   </section>
@@ -325,54 +285,35 @@
       Everything above this point is arithmetic. What follows is the record. In
       every case the software worked: keys were valid, transactions confirmed, and
       where there was a phrase <a href="#learn-checksum">the checksum</a> passed.
-      Nobody could have caught any of it by studying their own words. Five
-      mechanisms are worth walking through, and the table below carries the full
-      list with the numbers.
+      Nobody could have caught any of it by studying their own words. Three
+      mechanisms are worth walking through, and the table carries the full record.
     </p>
 
     <ul class="learn-mag">
       <li>
-        <b>Debian's OpenSSL, 2006 to 2008.</b> A maintainer removed two lines that
-        fed uninitialised memory into the random pool, which Valgrind had correctly
-        flagged. The only varying input left was the process id, and Linux hands out
-        at most 32,768, so every key came from fifteen bits
-        (<code>CVE-2008-0166</code>). The keys already existed and had been copied
-        elsewhere, so patching fixed nothing and Debian shipped blacklists. A careful
-        change, made for a good reason, that took the randomness out and left
-        everything working.
+        <b>A careful change that removed the randomness.</b> Debian's OpenSSL, 2006
+        to 2008. A maintainer removed two lines that fed uninitialised memory into the
+        random pool, which Valgrind had correctly flagged. The only varying input left
+        was the process id, and Linux hands out at most 32,768 of those, so every key
+        came from fifteen bits (<code>CVE-2008-0166</code>). The keys already existed
+        and had been copied elsewhere, so patching fixed nothing and Debian shipped
+        blacklists instead.
       </li>
       <li>
-        <b>Brainwallets, from around 2011.</b> A passphrase you invented went
-        through a single unsalted <code>SHA-256</code> and became the private key,
-        so the whole mapping could be precomputed. The 2016 Financial Cryptography
-        study found 884 funded brainwallets and all but 21 had been drained, half
-        within 21 minutes of funding. A human-chosen passphrase is worth about 20
-        bits.
+        <b>A secret a person chose.</b> Brainwallets, from around 2011. A passphrase
+        you invented went through a single unsalted <code>SHA-256</code> and became the
+        private key, so the whole mapping could be precomputed. The 2016 Financial
+        Cryptography study found 884 funded brainwallets and all but 21 had been
+        drained, half within 21 minutes of funding. A human-chosen passphrase is worth
+        about 20 bits.
       </li>
       <li>
-        <b>Repeated signing nonces, a pattern rather than an incident.</b> Two
-        signatures, one nonce, and the key falls out. This one leaves its evidence in
-        the open, because a signature sits in a block forever. Brengel and Rossow
-        found 1,068 nonces reused across 4,433 keys, enough to have taken 412.80 BTC,
-        and Breitner and Heninger computed 1,296 keys the same way. Every one of
-        those addresses was already empty.
-      </li>
-      <li>
-        <b>Milk Sad, 2023.</b> Libbitcoin Explorer's <code>bx seed</code> used that
-        same twister seeded with 32 bits of system clock. Ask it for 256 bits and it
-        returned 256, all of it one clock reading stretched to fill the space. The
-        output passed every test a user could apply, because the shortfall was in the
-        input. The name is what it emits when the clock reads zero
-        (<code>CVE-2023-39910</code>).
-      </li>
-      <li>
-        <b>Preloaded and tampered devices.</b> The crude version puts the phrase in
-        the box. The thorough version is inside the device. A counterfeit taken
-        apart in 2023 had its readout protection disabled and its bootloader checks
-        stripped, and its firmware substituted one of 20 stored phrases for the one
-        it appeared to generate. Every part of the ceremony was intact. The owner
-        watched a device generate a phrase, wrote it down, and it was valid, and the
-        checksum passed, and it was never theirs.
+        <b>A generator seeded with 32 bits.</b> Milk Sad, 2023. Libbitcoin Explorer's
+        <code>bx seed</code> used a Mersenne Twister seeded with 32 bits of system
+        clock, so asking for 256 bits returned one clock reading stretched to fill the
+        space. The output passed every test a user could apply, because the shortfall
+        was in the input. The same 32-bit mistake produced Profanity and the Trust
+        Wallet extension in 2022, both in the table below.
       </li>
     </ul>
 
@@ -462,20 +403,15 @@
     <h2><span class="learn-num" aria-hidden="true">07</span> Doing it by hand</h2>
 
     <p>
-      <b>Dice.</b> A six-sided die does not produce whole bits, so use rejection
-      sampling: read <code>1 2 3 4</code> as <code>00 01 10 11</code> and reroll
-      <code>5</code> and <code>6</code>. Each accepted roll is exactly two bits with
-      no bias from the mapping, so 128 bits needs 64 accepted rolls and about 96
-      throws.
+      A six-sided die doesn't produce whole bits, so use rejection sampling: read
+      <code>1 2 3 4</code> as <code>00 01 10 11</code> and reroll <code>5</code> and
+      <code>6</code>. Each accepted roll is exactly two bits with no bias from the
+      mapping. Coins are simpler at one flip per bit. If you doubt the coin is fair,
+      flip in pairs and use von Neumann's trick: <code>HT</code> is <code>1</code>,
+      <code>TH</code> is <code>0</code>, and matching pairs are discarded.
+      <a href="#start">Recipe B</a> walks the procedure.
     </p>
 
-    <p>
-      <b>Coins.</b> One flip, one bit, so 128 flips for a 12-word phrase. If you
-      doubt the coin is fair, use von Neumann's trick: flip in pairs, read
-      <code>HT</code> as <code>1</code> and <code>TH</code> as <code>0</code>, and
-      discard <code>HH</code> and <code>TT</code>. That removes any fixed bias for
-      about four flips per bit.
-    </p>
     <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Dice and coin counts by phrase length, scrollable table">
       <table class="learn-tbl">
         <caption>Physical work per phrase</caption>
@@ -529,19 +465,18 @@
 
     <p>
       <b>What a printed word list is.</b> The public BIP-39 English list, identical
-      in every wallet that implements the standard. There is nothing sensitive about
-      it, and hanging it on a wall reveals no more than hanging up a dictionary. It
-      turns bits into words, it gives you the four-letter prefixes hardware wallets
-      ask for, and it lets you confirm a word exists before you trust it to a metal
-      plate.
+      in every wallet that implements the standard. Hanging it on a wall reveals no
+      more than hanging up a dictionary. It earns its place, because it turns bits
+      into words, gives you the four-letter prefixes hardware wallets ask for, and
+      lets you confirm a word exists before you trust it to metal.
     </p>
 
     <p>
-      <b>What it is not.</b> Not a backup, not a secret, and not a verification
-      tool, since checking a phrase needs a hash. <b>Marking it changes all of that
-      at once.</b> A poster with twelve pencil ticks is your recovery phrase in
-      plaintext, legible from across a room. If you need to trace words while
-      transcribing, use a separate sheet and destroy it afterwards.
+      <b>What it is not.</b> Not a backup, not a secret, and not a verification tool,
+      because checking a phrase needs a hash. <b>Marking it changes all of that at
+      once.</b> A poster with twelve pencil ticks is your recovery phrase in
+      plaintext, legible from across a room. Trace words on a separate sheet and
+      destroy it afterwards.
     </p>
 
   </section>

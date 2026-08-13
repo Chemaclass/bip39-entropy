@@ -88,40 +88,36 @@
     <p>
       “Mantenerlo a salvo” no es un solo problema. Cinco cosas distintas pueden
       separarte de tus monedas, apenas se solapan, y una medida que responde a una a
-      menudo no hace nada por el resto. Decidir a cuál te refieres es casi todo el
-      trabajo, y es el paso que se salta la gente para comprar algo.
+      menudo no hace nada por el resto. Nombrar a cuál te refieres es casi todo el
+      trabajo.
     </p>
 
     <ul class="learn-mag">
       <li>
         <b>Robo por alguien que encuentra la copia.</b> No un criptógrafo: un ladrón
-        mirando los cajones obvios, un obrero, un inquilino, un familiar, un casero
-        con llave. Tu papel es el secreto entero, escrito en lenguaje claro, y quien
-        lo lea puede gastar desde cualquier parte del mundo a la vez.
-        <b>Esta es la amenaza para la que están hechas la passphrase y la
+        en los cajones obvios, un obrero, un inquilino, un familiar. Tu papel es el
+        secreto entero en lenguaje claro, y quien lo lea puede gastar desde cualquier
+        parte. <b>Esta es la amenaza para la que están hechas la passphrase y la
         multifirma</b>, y la única en la que las dos son buenas.
       </li>
       <li>
-        <b>Pérdida, sin ningún atacante.</b> Fuego, inundación, una mudanza, una
-        limpieza, una palabra escrita tan mal que seis años después no distingues una
-        <code>l</code> de un <code>1</code>, un escondite demasiado ingenioso para
-        reconstruirlo. Cada capa que añades empeora esta amenaza en lugar de
-        mejorarla.
+        <b>Pérdida, sin atacante.</b> Fuego, inundación, una limpieza, una palabra
+        escrita tan mal que no distingues una <code>l</code> de un <code>1</code>.
+        Cada capa que añades empeora esta.
       </li>
       <li>
-        <b>Coerción.</b> Alguien que sabe que tienes monedas y está dispuesto a
-        ponerse delante de ti. Ninguna disposición de claves te hace incapaz de
-        obedecer, y el objetivo honesto es ser incapaz de obedecer
-        <em>rápido</em>.
+        <b>Coerción.</b> Ninguna disposición de claves te hace incapaz de obedecer.
+        El objetivo honesto es ser incapaz de obedecer <em>rápido</em>, que es lo que
+        te compra un retardo o una clave lejana.
       </li>
       <li>
-        <b>Un dispositivo comprometido al firmar.</b> La máquina te muestra una
-        dirección y firma otra. Ni una passphrase ni una copia mejor tocan esto,
-        porque el secreto nunca fue el punto débil.
+        <b>Un dispositivo comprometido al firmar.</b> La máquina muestra una
+        dirección y firma otra, y ningún esquema de copias toca eso, porque el
+        secreto nunca fue el punto débil.
       </li>
       <li>
-        <b>Tu propia muerte o incapacidad.</b> Las monedas se pierden igual, y las
-        personas afectadas no sabrán ni qué están buscando.
+        <b>Tu propia muerte o incapacidad.</b> Las monedas se pierden igual, y quien
+        queda no sabe ni qué está buscando.
       </li>
     </ul>
 
@@ -131,62 +127,36 @@
     <h2><span class="learn-num" aria-hidden="true">02</span> La frase de contraseña</h2>
 
     <p>
-      Los monederos la llaman a veces la “palabra 25”, un nombre amable para algo
-      que no es una palabra ni forma parte de la frase. Es un secreto extra que
-      aportas junto a las doce palabras, mezclado en la misma derivación: las
-      palabras se estiran con <code>PBKDF2-HMAC-SHA-512</code> y la passphrase entra
-      en la sal. Las mismas doce palabras con otra passphrase producen un monedero
-      completamente distinto, con otras direcciones y ninguna relación con el
-      primero.
-    </p>
-
-    <p>
-      Se toma literalmente, así que mayúsculas, espacios, puntuación y acentos
-      cuentan, y un espacio al final es parte del secreto. No hay lista de
-      passphrases válidas, porque cualquier cadena posible lo es.
+      Los monederos la llaman la “palabra 25”, un nombre amable para algo que no es
+      una palabra ni forma parte de la frase. Es un secreto extra mezclado en la
+      misma derivación, en la sal, así que las mismas doce palabras con otra
+      passphrase producen un monedero completamente distinto. Se toma literalmente,
+      así que mayúsculas, espacios y acentos cuentan, y no hay lista de passphrases
+      válidas porque cualquier cadena posible lo es.
     </p>
 
     <p>
       <b>Qué compra.</b> Una cosa real: tu copia en papel por sí sola ya no basta
-      para gastar. Quien la encuentre y la pruebe obtiene un monedero válido y
-      vacío. Eso responde bien a la primera amenaza, y a ninguna otra.
+      para gastar, así que quien la encuentre y la pruebe obtiene un monedero válido
+      y vacío. Eso responde bien a la primera amenaza, y a ninguna otra.
     </p>
 
     <p>
-      <b>Qué cuesta.</b> La ausencia de cualquier vía de recuperación, así que lee
-      esta parte dos veces.
+      <b>Qué cuesta.</b> La ausencia de cualquier vía de recuperación. Ningún
+      monedero, dispositivo ni servicio registra lo que elegiste, porque nada llega a
+      verla en una forma que pudiera guardar, así que no hay restablecimiento, ni
+      soporte, ni ningún camino forense ingenioso. <b>Olvídala y las monedas se han
+      ido, tan por completo como si hubieras quemado la frase</b>, no en parte y no
+      con el experto adecuado. Puedes tener en la mano una copia perfecta, legible e
+      ignífuga de tu semilla, estar leyéndola, y estar fuera para siempre.
     </p>
 
-    <ul class="learn-mag">
-      <li>
-        <b>No es recuperable, por nadie.</b> Ningún monedero, dispositivo, fabricante
-        ni servicio registra lo que elegiste, porque nada llega a verla en una forma
-        que pudiera guardar. Sin restablecimiento, sin servicio de soporte, sin
-        depósito en garantía, sin ningún camino forense ingenioso. Si solo existe en
-        tu memoria, es un secreto sin copia, y la memoria se degrada más rápido con
-        lo que usas poco.
-      </li>
-      <li>
-        <b>Olvídala y las monedas se han ido, tan por completo como si hubieras
-        quemado la frase.</b> No en parte, no con más esfuerzo, no con el experto
-        adecuado. Las doce palabras y la passphrase son dos mitades de un solo
-        secreto. Puedes tener en la mano una copia perfecta, legible e ignífuga de tu
-        frase semilla, estar leyéndola, y estar fuera para siempre.
-      </li>
-      <li>
-        <b>Duplica el problema de la copia.</b> Dos secretos que deben sobrevivir
-        los dos, y guardarlos juntos deshace el sentido de tener dos.
-      </li>
-      <li>
-        <b>Una errata es silenciosa.</b> Cualquier cadena es válida, así que una
-        passphrase equivocada abre otro monedero vacío en lugar de dar un error.
-      </li>
-    </ul>
-
     <p class="learn-note">
-      Si usas una, anótala, guárdala en un segundo sitio lejos de las palabras, y
-      restaura desde las dos antes de meter dinero. Una passphrase que no has
-      ensayado no es una capa. Es una segunda forma de perderlo todo.
+      También duplica el problema de la copia, porque dos secretos deben sobrevivir
+      los dos y guardarlos juntos deshace el sentido, y una errata es silenciosa
+      porque cualquier cadena abre algún monedero vacío. Si usas una, anótala, déjala
+      lejos de las palabras y restaura desde las dos antes de meter dinero.
+      <b>Una passphrase que no has ensayado es una segunda forma de perderlo todo.</b>
     </p>
 
   </section>
@@ -195,52 +165,34 @@
     <h2><span class="learn-num" aria-hidden="true">03</span> Multifirma, 2 de 3</h2>
 
     <p>
-      Un monedero multifirma necesita más de una clave para gastar. La disposición
-      que hay que entender primero es 2 de 3: existen tres claves, cada una con su
-      propia frase semilla, y dos cualesquiera juntas pueden firmar mientras una sola
-      no puede hacer nada. Suelen vivir en tres dispositivos separados, idealmente no
-      todos de la misma marca, en tres sitios separados.
+      Un monedero multifirma necesita más de una clave para gastar. En 2 de 3 existen
+      tres claves con sus propias frases semilla, dos cualesquiera juntas pueden
+      firmar, y una sola no puede nada. Viven en tres dispositivos, idealmente no
+      todos de la misma marca, en tres sitios.
     </p>
 
     <p>
-      <b>Qué compra.</b> Ya no hay un solo objeto cuya pérdida o robo lo decida todo.
-      Una copia encontrada en un cajón no basta para gastar, y un dispositivo robado,
-      incautado, inutilizado o comprometido en silencio no basta para gastar ni para
-      perder. Firmas con las otras dos, mueves todo a un juego de claves nuevo, y la
-      comprometida deja de importar. <b>Una passphrase añade una segunda cosa que no
-      puedes perder. La multifirma añade un repuesto.</b>
+      <b>Qué compra.</b> Ya no hay un solo objeto que lo decida todo. Una copia
+      encontrada en un cajón no basta para gastar. Un dispositivo robado, incautado,
+      inutilizado o comprometido en silencio tampoco basta para gastar ni para
+      perder, porque firmas con las otras dos y mueves todo a claves nuevas.
+      <b>Una passphrase añade una segunda cosa que no puedes perder. La multifirma
+      añade un repuesto.</b>
     </p>
 
     <p>
-      <b>Qué cuesta.</b> La configuración y los registros, y las dos cosas son
-      trabajo real.
+      <b>Qué cuesta.</b> Configuración y registros. <b>El descriptor es parte de la
+      copia</b>, porque tres frases semilla solas no reconstruyen el monedero.
+      También necesitas qué claves, qué tipo de script y qué rutas de derivación, así
+      que guarda una copia con cada semilla. Tres copias son tres restauraciones
+      probadas en lugar de un tercio del trabajo, y coordinar una firma entre
+      dispositivos es donde viven los fallos pejigueros.
     </p>
-
-    <ul class="learn-mag">
-      <li>
-        <b>El descriptor es parte de la copia de seguridad.</b> Tres frases semilla
-        no bastan para reconstruir el monedero. También necesitas el descriptor, que
-        dice qué claves, qué tipo de script y qué rutas de derivación. Piérdelo y la
-        recuperación se vuelve un proyecto de arqueología, así que guarda una copia
-        con cada semilla.
-      </li>
-      <li>
-        <b>Tres copias, tres sitios, un procedimiento.</b> El trabajo no se divide
-        entre tres, se multiplica, y cada clave necesita su propia restauración
-        probada.
-      </li>
-      <li>
-        <b>El software del monedero importa más.</b> Coordinar una firma entre
-        dispositivos es donde viven los fallos pejigueros, y las herramientas
-        perdonan menos que en un monedero de una sola clave.
-      </li>
-    </ul>
 
     <p class="learn-note">
       Ensaya la recuperación desde el descriptor y dos semillas en una máquina que
-      nunca haya visto el monedero, antes de que guarde nada. Ese ensayo es lo único
-      que convierte tres claves en una disposición más segura en lugar de en tres
-      veces el papeleo.
+      nunca haya visto el monedero, antes de que guarde nada. Ese ensayo es lo que
+      convierte tres claves en algo más seguro y no en tres veces el papeleo.
     </p>
 
   </section>
@@ -330,36 +282,28 @@
     <h2><span class="learn-num" aria-hidden="true">05</span> La copia de seguridad en sí</h2>
 
     <p>
-      Antes de cualquiera de las capas de arriba, el objeto. Los dos fallos que le
-      pasan a un hogar normal son el calor y el agua, y esa es la razón de que el
-      metal exista como opción.
+      Antes de cualquier capa, el objeto. Los dos fallos que le pasan a un hogar
+      normal son el calor y el agua, y esa es la razón de que el metal exista como
+      opción. El papel escrito a mano es una copia perfectamente buena y no cuesta
+      nada, y el metal grabado sobrevive a los dos por una hora de trabajo. La regla
+      es la proporción: papel mientras aprendes, metal cuando perderlo dolería. Usa
+      boli y papel normales, nunca el papel térmico de una impresora de recibos, que
+      se borra solo.
     </p>
 
     <p>
-      <b>Papel o acero.</b> El papel escrito a mano es una copia perfectamente buena
-      y no cuesta nada, aunque el fuego lo destruye y el agua lo arruina. El metal
-      grabado o punzonado sobrevive a los dos por una hora de trabajo y un equipo
-      modesto. La regla es la proporción: papel mientras aprendes, metal cuando
-      perderlo dolería. Usa boli y papel normales, no el papel térmico de una
-      impresora de recibos, que se borra solo.
+      <b>Escríbela para un desconocido.</b> Numera las palabras del 1 al 12 en orden,
+      escritas exactamente como te las mostró el monedero. Con letra legible para quien
+      nunca las ha visto, porque en el peor de los casos esa es quien las leerá.
+      Comprueba
+      cada palabra en <a href="#poster">el póster</a> antes de confiarla al metal,
+      porque solo existen 2048 grafías.
     </p>
 
     <p>
-      <b>Escríbela para un desconocido.</b> Numera las palabras del 1 al 12 en
-      orden, escritas exactamente como te las mostró el monedero. Con letra bastante
-      clara para quien nunca las ha visto, porque en el peor de los casos esa es
-      justo la persona que las leerá. Comprueba cada palabra en
-      <a href="#poster">el póster</a> antes de confiarla al metal, porque solo
-      existen 2048 grafías y una palabra que no esté en la lista nunca restaurará.
-    </p>
-
-    <p>
-      <b>Dónde vive.</b> En un sitio seco y privado que no sea el cajón de al lado
-      del ordenador, y una segunda copia en otro edificio si la cantidad lo
-      justifica. Dos copias en una casa son un solo incendio. <b>Nunca la
-      fotografíes, nunca la teclees y nunca la guardes en un gestor de contraseñas
-      ni en una nota en la nube</b>, porque las tres cosas convierten un secreto
-      local en uno remoto.
+      <b>Dónde vive.</b> En un sitio seco y privado que no sea el cajón de al lado del
+      ordenador. Y una segunda copia en otro edificio si la cantidad lo justifica,
+      porque dos copias en una casa son un solo incendio.
     </p>
 
   </section>
@@ -376,26 +320,18 @@
     <p>
       <b>Restaura antes de meter dinero.</b> Con el monedero vacío la prueba no
       cuesta nada y un fallo es un descubrimiento afortunado. Cuando ya tiene fondos
-      la prueba tiene consecuencias, así que en silencio no se hace nunca, y el
-      primer intento real ocurre el día en que algo ya ha salido mal.
+      la prueba tiene consecuencias, así que en silencio no se hace nunca, y el primer
+      intento real ocurre el día en que algo ya ha salido mal.
     </p>
 
     <p>
       <b>Restaura desde la copia que escribiste</b>, no desde la pantalla, no de
-      memoria y no desde la copia que hay en el dispositivo que todavía funciona. Lo
-      que se prueba es el objeto que algún día tendrás en la mano. Tu letra, tus
-      abreviaturas, si anotaste la ruta de derivación y si la passphrase que
-      escribiste es la que tecleaste. Una restauración que lee de algo que no vas a
-      tener después no ha probado nada.
-    </p>
-
-    <p>
-      <b>Qué aspecto tiene el éxito.</b> Vuelve el mismo monedero, con las mismas
-      direcciones en el mismo orden y el mismo historial. Si puedes, envía después
-      una cantidad pequeña, porque recibir solo demuestra que copiaste bien una
-      dirección mientras gastar demuestra que tienes la clave. En multifirma la
-      prueba es la reconstrucción entera, desde el descriptor y dos semillas, en una
-      máquina que nunca ha visto este monedero.
+      memoria y no desde la copia del dispositivo que todavía funciona. Lo que se
+      prueba es el objeto que algún día tendrás en la mano: tu letra, tus abreviaturas
+      y si anotaste la ruta de derivación. El éxito es que vuelva el mismo monedero,
+      con las mismas direcciones en el mismo orden. Un gasto pequeño después demuestra
+      que tienes la clave, donde recibir solo demuestra que copiaste bien una
+      dirección.
     </p>
 
   </section>
@@ -405,24 +341,24 @@
 
     <p>
       Una copia que nadie más puede encontrar, o que puede encontrar pero no usar, es
-      una copia perdida. Lo que dejes tiene que estar escrito para alguien que no
-      sabe qué es nada de esto, empezando por el principio. Qué son las palabras y
-      qué controlan. Que no deben teclearse nunca en una web ni enviarse a nadie que
-      ofrezca ayuda. Qué software y qué ruta de derivación usar, si existe una
-      passphrase y dónde, y en multifirma dónde vive cada clave y el descriptor.
+      una copia perdida. Lo que dejes tiene que estar escrito para alguien que no sabe
+      qué es nada de esto. Qué son las palabras y qué controlan. Que no deben
+      teclearse nunca en una web ni enviarse a nadie que ofrezca ayuda. Qué software y
+      qué ruta de derivación, si existe una passphrase y dónde, y en multifirma dónde
+      vive cada clave y el descriptor.
     </p>
 
     <p>
       Luego haz que esa persona ensaye con un monedero vacío mientras tú estás
-      delante para verlo. Las instrucciones siguen la misma regla que todo lo demás
-      aquí: sin probar significa desconocido.
+      delante, porque las instrucciones siguen la misma regla que todo lo demás aquí:
+      sin probar significa desconocido.
     </p>
 
     <p class="learn-note">
-      La tensión es inevitable y vale la pena decirla claramente. Cada instrucción
-      que hace posible la recuperación para tu familia hace posible el robo para
-      quien más las lea, así que las instrucciones y el secreto van en sitios
-      distintos. La capa que no puedes explicar es la capa que no van a recuperar.
+      La tensión vale la pena decirla claramente. Cada instrucción que hace posible la
+      recuperación para tu familia hace posible el robo para quien más la lea, así que
+      las instrucciones y el secreto van en sitios distintos.
+      <b>La capa que no puedes explicar es la capa que no van a recuperar.</b>
     </p>
 
   </section>

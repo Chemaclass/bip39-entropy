@@ -67,114 +67,97 @@
         <b>Twelve words or twenty-four?</b> Twelve is fine, and twenty-four is not
         paranoid. Twelve carry 128 bits and twenty-four carry 256, and
         <a href="#learn">the field guide</a> shows why 128 is already past brute
-        force, so twenty-four is not stronger against any attack that exists. It
-        hedges against future cryptanalysis and Grover-style quantum search, which
-        in theory halves a symmetric secret. Both lengths work everywhere, and the
-        longer one costs more to record and keep legible. Without a reason to prefer
-        one, write twelve.
+        force. Twenty-four hedges against future cryptanalysis and Grover-style
+        quantum search, at the cost of more to record and keep legible. Without a
+        reason to prefer one, write twelve.
       </li>
 
       <li id="faq-order">
-        <b>Does the order of the words matter?</b> Completely. The phrase is one
-        number cut into eleven-bit groups, and each word is the group at a fixed
-        position, so moving two words changes the number as surely as changing one.
-        A swap will usually fail the checksum, which is a mercy rather than a
-        safeguard, because about one such mistake in sixteen passes on a twelve-word
-        phrase. Number your backup one to twelve as you write it, and never sort
-        it.
+        <b>Does the order of the words matter?</b> Completely, because the phrase is
+        one number cut into eleven-bit groups and each word is the group at a fixed
+        position, so moving two words changes the number as surely as changing one. A
+        swap usually fails the checksum, which is a mercy rather than a safeguard.
+        Number your backup as you write it, and never sort it.
       </li>
 
       <li id="faq-choose">
         <b>Can I choose the words myself?</b> No, and it is the most expensive
-        mistake on this page. Entropy is measured against what an attacker knows
-        about how you chose, not against how arbitrary the result feels from the
-        inside. Twelve words picked uniformly from the thirty-two you find most
-        memorable is sixty bits, which a serious hardware budget works through, and
-        the result looks exactly like a good phrase.
+        mistake on this page. Entropy is measured against what an attacker knows about
+        how you chose, not against how arbitrary the result feels from the inside.
+        Twelve words picked from the thirty-two you find most memorable is sixty bits,
+        which a serious hardware budget works through, and the result looks exactly
+        like a good phrase.
       </li>
 
       <li id="faq-passphrase">
-        <b>What is a passphrase, the “twenty-fifth word”?</b> An extra secret you
-        supply alongside the words, mixed into the same derivation, so the same
-        twelve words with a different passphrase produce a completely different
-        wallet. It is taken literally, including case and spacing. What it buys is
-        that the paper alone is no longer enough to spend. What it costs is that
-        nobody can recover it: forget it and the coins are gone as completely as if
-        you had burnt the phrase. <a href="#protect">Protect</a> works through both
+        <b>What is a passphrase, the “twenty-fifth word”?</b> An extra secret mixed
+        into the same derivation, so the same twelve words with a different passphrase
+        produce a completely different wallet. What it buys is that the paper alone is
+        no longer enough to spend. What it costs is that nobody can recover it: forget
+        it and the coins are gone. <a href="#protect">Protect</a> works through both
         halves.
       </li>
 
       <li id="faq-lostword">
-        <b>I have lost one word. Am I finished?</b> Probably not, provided you know
-        which position is missing and the other eleven are right. There are only
-        2048 candidates, and the checksum leaves roughly 128 of them for a
-        twelve-word phrase, so derive each and see which brings back addresses you
-        recognise. For twenty-four words only about eight survive. Be clear about
-        what this is: it works only because you already supply almost the whole
-        secret, and somebody starting from nothing still faces all
-        <code>2^128</code>.
+        <b>I have lost one word. Am I finished?</b> Probably not, if you know which
+        position is missing and the other eleven are right. There are only 2048
+        candidates, and the checksum leaves roughly 128 for a twelve-word phrase, so
+        derive each and see which returns addresses you recognise. It works only
+        because you already supply almost the whole secret, and somebody starting from
+        nothing still faces all <code>2^128</code>.
       </li>
 
       <li id="faq-print">
         <b>Is it safe to print or hang the whole word list?</b> Yes.
-        <a href="#poster">The poster</a> is the public BIP-39 English list,
-        identical in every wallet and downloadable by anyone, so hanging it reveals
-        no more than hanging up a dictionary. Print it at work or at a copy shop
-        over any network you like, and the blank worksheet is equally safe because
-        it holds no results. What is dangerous is a marked list, because twelve
-        ticks on a grid of 2048 is your phrase in plaintext.
+        <a href="#poster">The poster</a> is the public BIP-39 list, downloadable by
+        anyone, so hanging it reveals no more than hanging up a dictionary. Print it
+        at a copy shop over any network you like, and the blank worksheet is equally
+        safe. What is dangerous is a marked list, because twelve ticks on a grid of
+        2048 is your phrase in plaintext.
       </li>
 
       <li id="faq-storage">
         <b>Can I keep the phrase in a password manager, a photo, or a cloud
         note?</b> No, and all three are the same mistake wearing different clothes.
         Each turns a secret that lived in one physical place into a file on a server
-        built to be reachable from anywhere. A password manager puts everything you
-        own behind one password and somebody else's breach, and a photograph copies
-        itself to a service by default. Write it by hand and keep it offline.
+        built to be reachable from anywhere. Write it by hand and keep it offline.
       </li>
 
       <li id="faq-otherwallet">
         <b>Will the same words work in a different wallet?</b> Yes, and that
         portability is why the standard exists. What people hit instead is a restore
-        that comes back empty, and the usual cause is the derivation path: one seed
-        contains an unlimited tree of keys, and wallets read different branches by
-        default. Find the address type and path the old wallet used rather than
-        concluding the phrase is bad. A valid phrase that isn't yours also restores a
-        real, empty wallet, so <b>an empty wallet is a question, not an answer</b>.
+        that comes back empty, and the usual cause is the derivation path. One seed
+        holds an unlimited tree of keys, and wallets read different branches by
+        default. A valid phrase that isn't yours also restores a real, empty wallet, so
+        <b>an empty wallet is a question, not an answer</b>.
       </li>
 
       <li id="faq-split">
-        <b>Should I split the phrase into halves and store them separately?</b> Not
-        in a scheme you invented. Six known words of a twelve-word phrase leave about
-        sixty-two bits, which a large hardware budget can reach, so whoever finds one
-        half has a real chance. Home-made splits also lose coins far more often than
-        they prevent theft. If you need to split custody, the established answers are
-        multisignature wallets and standardised share schemes, both covered in
-        <a href="#protect">Protect</a>.
+        <b>Should I split the phrase into halves?</b> Not in a scheme you invented.
+        Six known words of a twelve-word phrase leave about sixty-two bits, which a
+        large hardware budget can reach, and home-made splits lose coins far more often
+        than they prevent theft. The established answers are multisignature and
+        standardised share schemes, both in <a href="#protect">Protect</a>.
       </li>
 
       <li id="faq-verify">
         <b>How do I know this page is what it claims?</b> Two checks, proving
-        different amounts. The weaker one is the hash: every deploy publishes the
-        file's SHA-256 as <code>index.html.sha256</code>, which catches a truncated
-        or substituted download but says nothing about whether the server was
-        honest. The stronger one is cloning the repository and running
-        <code>scripts/verify.sh</code>. That rebuilds the page from source and diffs
-        it against the committed file, checks the word list against the canonical
-        BIP-39 hash, and fails if the page has gained any network-capable code.
-        <b>A published hash is a claim. A reproducible build is a check.</b>
+        different amounts. The hash is the weaker one: every deploy publishes the
+        file's SHA-256 as <code>index.html.sha256</code>, which catches a truncated or
+        substituted download but says nothing about the server's honesty. The stronger
+        one is cloning the repository and running <code>scripts/verify.sh</code>, which
+        rebuilds the page from source and diffs it, and fails if the page has gained
+        any network-capable code. <b>A published hash is a claim. A reproducible build
+        is a check.</b>
       </li>
 
       <li id="faq-quantum">
         <b>Does quantum computing change any of this?</b> Not today. For the phrase
-        itself the relevant result is Grover-style search, which in theory halves the
-        effective strength of a symmetric secret and is the one real argument for
-        twenty-four words. Whether that speedup is ever practical is disputed. The
-        larger question isn't about your phrase at all: public-key signatures are the
-        part a large quantum computer would threaten, and that is a protocol-level
-        problem the whole network would meet together. You don't solve it by writing
-        more words on paper.
+        the relevant result is Grover-style search, which in theory halves a symmetric
+        secret's effective strength and is the one real argument for twenty-four words.
+        The larger question isn't about your phrase: public-key signatures are the part
+        a large quantum computer would threaten, and that is a protocol problem the
+        whole network would meet together.
       </li>
     </ul>
 
@@ -193,11 +176,9 @@
     <h2><span class="learn-num" aria-hidden="true">02</span> Words you will meet</h2>
 
     <p>
-      Most of the confusion around seed phrases is vocabulary, not mathematics.
-      These are the terms used on this site and in wallet software. The table
-      gives a line per term. The five that don't fit in a line follow it.
-      Entropy, bits and the checksum are worked through properly in the
-      <a href="#learn">field guide</a>. Air gaps and live sessions in
+      Most of the confusion around seed phrases is vocabulary rather than
+      mathematics. Entropy, bits and the checksum are worked through properly in
+      <a href="#learn">the field guide</a>, and air gaps in
       <a href="#start">start here</a>.
     </p>
 
@@ -229,29 +210,6 @@
       </table>
     </div>
 
-    <p>
-      Five of those need a sentence rather than a line. <b>Entropy</b> counts how
-      many equally likely secrets yours was drawn from. That's why it's measured
-      in bits, and why it tells you nothing about how the result looks. A
-      <b>checksum</b> catches a slip in copying and nothing else, so a wallet
-      accepting a phrase is never evidence that the phrase is hard to guess. A
-      <b>derivation path</b> picks one branch of the unlimited tree of keys that a
-      single seed contains, which is why the same words can restore into two
-      wallets that show you different addresses. A <b>passphrase</b> is an extra
-      secret mixed into that derivation, and it's unrecoverable once forgotten.
-      <b>Rejection sampling</b> is the habit of throwing out results that don't
-      divide evenly, such as a 5 or a 6 on a six-sided die. It's what keeps the
-      results you do keep equally likely.
-    </p>
-
-    <p class="learn-note">
-      Two of those carry more weight than the rest. Entropy is what everything
-      else rests on, and the <a href="#learn">field guide</a> spends a section on
-      what it measures, because “looks random” is not it. A
-      <a href="#faq-passphrase">passphrase</a> is powerful and unforgiving in
-      equal measure. <b>Read that answer in full before you decide to use
-      one.</b>
-    </p>
   </section>
 
 </section>

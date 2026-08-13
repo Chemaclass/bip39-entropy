@@ -5,12 +5,9 @@
     <h1 class="learn-title">Doce palabras son<br>un número</h1>
     <p class="learn-lead">
       Todo lo que hace que ese número siga siendo tuyo se decide en el instante en
-      que se genera. Antes de que escribas nada, antes de que elijas un monedero,
-      antes de que pienses en acero ignífugo. Esta página explica qué tiene que
-      lograr ese instante, con la aritmética mostrada en lugar de afirmada. Está
-      escrita para alguien que tiene bitcoin, está a punto de anotar una frase de
-      recuperación y ha oído la palabra <em>entropía</em> sin que nadie le haya
-      dicho qué mide.
+      que se genera. Esta página muestra la aritmética en lugar de afirmarla, para
+      alguien que ha oído la palabra <em>entropía</em> sin que nadie le haya dicho
+      qué mide.
     </p>
   </header>
 
@@ -45,10 +42,9 @@
     </p>
     <p>
       Nunca escribas una frase de recuperación real en ningún sitio web, incluido
-      este. Esta página no tiene ningún campo que acepte una frase, no hace
-      peticiones de red y no guarda nada. Puedes comprobarlo leyendo el código
-      fuente y tirando del cable. Cualquier cosa que se ofrezca a “validar” o
-      “recuperar” tu frase en línea es un patrón de robo, no un servicio.
+      este. Esta página no tiene ningún campo que acepte una, no hace peticiones de
+      red y no guarda nada. Cualquier cosa que se ofrezca a “validar” o “recuperar”
+      una frase en línea es un patrón de robo.
     </p>
   </aside>
 
@@ -70,25 +66,19 @@
 
     <p>
       Una frase BIP-39 es un número escrito en palabras. Cada palabra es un índice
-      dentro de una lista fija, pública y ordenada de 2048 entradas, así que
+      dentro de una lista fija y pública de 2048 entradas, así que
       <code>abandon</code> es <code>0</code> y <code>zoo</code> es
-      <code>2047</code>. Nada más de una palabra importa: ni su significado, ni su
-      longitud, ni si suena como una contraseña fuerte.
-    </p>
-
-    <p>
-      Tu monedero no guarda las palabras. Las une, ejecuta
-      <code>PBKDF2-HMAC-SHA-512</code> sobre la cadena durante 2048 iteraciones y
-      obtiene una semilla de 512 bits de la que se deriva cada clave de forma
-      determinista. Las mismas palabras producen las mismas claves en cualquier
-      monedero que cumpla el estándar, y esa portabilidad es la razón de que el
-      estándar exista.
+      <code>2047</code>, y nada más de una palabra importa. Tu monedero no guarda las
+      palabras: las une, ejecuta <code>PBKDF2-HMAC-SHA-512</code> sobre la cadena
+      durante 2048 iteraciones y deriva cada clave de la semilla de 512 bits que
+      sale. Por eso las mismas palabras reconstruyen el mismo monedero en cualquier
+      parte, para siempre.
     </p>
 
     <p>
       Así que una frase vale exactamente lo que de impredecible tenga su número. La
       lista de palabras, la derivación, la aritmética y este póster son todos
-      públicos. Solo el número fue alguna vez secreto.
+      públicos. <b>Solo el número fue alguna vez secreto.</b>
     </p>
 
   </section>
@@ -97,52 +87,28 @@
     <h2><span class="learn-num" aria-hidden="true">02</span> La entropía, bien definida</h2>
 
     <p>
-      La entropía no mide lo aleatorio que parece algo. Mide de cuántas
-      posibilidades igual de probables se extrajo un secreto, expresado como
-      logaritmo en base 2 para poder contarlo en bits. <code>n</code> bits
-      significan <code>2^n</code> candidatos igual de probables, y cada bit
-      adicional duplica el trabajo del atacante.
+      La entropía no mide lo aleatorio que parece algo. Cuenta de cuántas
+      posibilidades igual de probables se extrajo un secreto, en bits, así que
+      <code>n</code> bits significan <code>2^n</code> candidatos y cada bit adicional
+      duplica el trabajo del atacante. Una frase de 12 palabras lleva 128 bits, unos
+      <code>3.4 × 10^38</code> candidatos.
     </p>
 
     <p>
-      Una frase de 12 palabras generada correctamente lleva 128 bits, así que se
-      extrajo de <code>2^128</code> candidatos, unos <code>3.4 × 10^38</code>. Dos
-      asideros para un número así, cada uno con su cálculo a la vista.
-    </p>
-
-    <ul class="learn-mag">
-      <li>
-        <b>Toda la red de minería de Bitcoin.</b> El mayor esfuerzo de computación
-        construido para un solo fin que ha existido funciona al orden de
-        <code>10^21</code> hashes por segundo. A ese ritmo, solo contar hasta
-        <code>2^128</code> lleva unos <b>11 mil millones de años</b>,
-        aproximadamente la edad actual del universo. Un hash pelado es mucho más
-        barato que una prueba completa de una frase, así que esto subestima el coste
-        real.
-      </li>
-      <li>
-        <b>Todos los ordenadores de la Tierra.</b> Supón diez mil millones de
-        dispositivos, cada uno probando mil millones de candidatos por segundo. Eso
-        son <code>10^19</code> por segundo, y <code>2^128</code> sigue llevando
-        <b>unos 1.1 billones de años</b>, unas 78 veces la edad del universo.
-      </li>
-    </ul>
-
-    <p class="learn-note">
-      Por honestidad, <code>2^128</code> no es enorme según cualquier medida. Esa
-      cantidad de moléculas de agua son unos diez kilómetros cúbicos. Lo que hace
-      que 128 bits basten es que ningún proceso físico puede <em>visitar</em> esa
-      cantidad de estados de uno en uno.
+      Un asidero para un número así. La red de minería de Bitcoin es el mayor
+      esfuerzo de computación construido para un solo fin que ha existido, al orden
+      de <code>10^21</code> hashes por segundo. A ese ritmo, solo contar hasta
+      <code>2^128</code> lleva unos <b>11 mil millones de años</b>, aproximadamente
+      la edad actual del universo. Un hash pelado es mucho más barato que una prueba
+      completa, así que eso subestima el coste real.
     </p>
 
     <p>
       <b>La aleatoriedad es una propiedad del proceso, no de la salida.</b> De una
-      fuente justa, la cadena <code>0000…0000</code> es exactamente igual de probable
-      que cualquier otra. Una frase que “parece aleatoria” no te dice nada, y una que
-      parece significativa no es por eso débil. La entropía se
-      mide contra lo que un atacante sabe de tu proceso. Los dados te dan 128 bits,
-      y las palabras que significan algo para ti valen los bits que hagan falta para
-      describir tu costumbre de elegir.
+      fuente justa, <code>0000…0000</code> es exactamente igual de probable que
+      cualquier otra cadena, así que una frase que “parece aleatoria” no te dice
+      nada. La entropía se mide contra lo que un atacante sabe de tu proceso, y por
+      eso la siguiente sección va de personas y no de matemáticas.
     </p>
 
     <div data-widget="scale"></div>
@@ -270,28 +236,25 @@
     <h2><span class="learn-num" aria-hidden="true">04</span> La suma de verificación</h2>
 
     <p>
-      Los bits de la suma de verificación son los primeros <code>ENT ÷ 32</code>
-      bits del SHA-256 de la entropía cruda, añadidos antes de cortar la frase en
-      palabras. Por eso la última palabra lleva una mezcla de entropía y suma en
-      lugar de ir aparte.
+      Los bits de la suma de verificación son los primeros <code>ENT ÷ 32</code> bits
+      del SHA-256 de la entropía cruda, añadidos antes de cortar la frase en
+      palabras. Por eso la última palabra mezcla entropía y suma en lugar de ir
+      aparte.
     </p>
 
     <p>
-      <b>Qué detecta:</b> una palabra que teclaste como otra palabra real, dos
-      palabras en el orden equivocado, una palabra leída de la fila equivocada.
-      Cualquier error de esos sobrevive solo si da los cuatro bits correctos, más o
-      menos una vez de cada dieciséis, así que se detectan unos quince de cada
-      dieciséis. Con 24 palabras la cifra es 255 de 256.
+      <b>Qué detecta:</b> una palabra teclada como otra palabra real, dos palabras en
+      el orden equivocado, una palabra leída de la fila equivocada. Cualquier error de
+      esos sobrevive solo si da los cuatro bits correctos, una vez de cada dieciséis,
+      así que se detectan unos quince de cada dieciséis.
     </p>
 
     <p>
-      <b>Lo que no detecta importa más.</b> No es una comprobación de seguridad,
-      porque una frase montada con doce palabras que elegiste tú pasa igual de bien
-      que una salida de dados. No frena a un atacante, porque enumera valores de
-      entropía y calcula la suma tal como manda el estándar. Y no te dice que la
-      frase sea tuya, porque una frase válida que no es tuya restaura un monedero
-      real y vacío. <b>“Mi monedero la aceptó” no dice nada sobre lo adivinable que
-      es.</b>
+      <b>Lo que no detecta importa más.</b> Una frase que montaste con doce palabras
+      elegidas pasa igual de bien que una salida de dados. Un atacante enumera valores
+      de entropía y calcula la suma tal como manda el estándar, así que esos cuatro
+      bits no le cuestan nada. <b>“Mi monedero la aceptó” no dice nada sobre lo
+      adivinable que es.</b>
     </p>
 
   </section>
@@ -302,27 +265,19 @@
     <p>
       Una persona no es un generador de números aleatorios, y esto no va de
       esforzarse más. Si les pides un dígito al azar, la gente elige el 7 de más y
-      esquiva el 0 y el 5. Si les pides una secuencia evitan las repeticiones y las
-      series largas, porque repetir parece poco aleatorio. Si les pides palabras
-      tiran de nombres concretos, cosas de la habitación, nombres propios y fechas.
-      Cada una de esas tendencias es un patrón por el que un atacante puede ordenar
-      candidatos, y quien ordena no tiene que enumerar.
+      esquiva el 0 y el 5. Si les pides una secuencia evitan repeticiones y series
+      largas, y si les pides palabras tiran de nombres concretos, nombres propios y
+      fechas. Cada una de esas tendencias es un patrón por el que un atacante puede
+      ordenar candidatos, y quien ordena no tiene que enumerar.
     </p>
 
     <p>
-      La aritmética es cruda. Supón que fueras inusualmente disciplinado y eligieras
-      cada una de tus doce palabras de forma uniforme entre las 16 que te resultan
-      más memorables. Eso son 4 bits por palabra y <b>48 bits para la frase</b>,
-      frente a los 128 que el formato implica. Amplía la lista a 32 palabras y
-      llegas a 60 bits, que un presupuesto de hardware serio sigue atravesando.
-      <b>Las palabras se ven igual en los dos casos.</b>
-    </p>
-
-    <p class="learn-note">
-      Qué fuente usar es una pregunta práctica, y
-      <a href="#start">Empieza aquí</a> la responde con una tabla y un
-      procedimiento. La versión corta: un monedero hardware por defecto, dados si
-      quieres auditar cada bit, y nunca tu propia cabeza.
+      La aritmética es cruda. Elige cada una de tus doce palabras de forma uniforme
+      entre las 16 que te resulten más memorables, que ya es disciplina inusual. Eso
+      son 4 bits por palabra y <b>48 bits para la frase</b>, frente a los 128 que el
+      formato implica. Amplía la lista a 32 y llegas a 60 bits, que un presupuesto de
+      hardware serio sigue atravesando. <b>Las palabras se ven igual en los dos
+      casos.</b>
     </p>
 
   </section>
@@ -336,53 +291,37 @@
       las transacciones se confirmaban y, donde había una frase,
       <a href="#learn-checksum">la suma de verificación</a> pasaba. Nadie podría
       haber detectado nada de esto estudiando sus propias palabras. Vale la pena
-      recorrer cinco mecanismos, y la tabla de abajo lleva la lista completa con los
-      números.
+      recorrer tres mecanismos, y la tabla lleva el historial completo.
     </p>
 
     <ul class="learn-mag">
       <li>
-        <b>El OpenSSL de Debian, 2006 a 2008.</b> Un maintainer quitó dos líneas que
-        metían memoria sin inicializar en el pool de aleatoriedad, algo que Valgrind
-        había señalado con razón. La única entrada que variaba era el id del proceso,
-        y Linux reparte como mucho 32.768, así que cada clave venía de quince bits
+        <b>Un cambio cuidadoso que quitó la aleatoriedad.</b> El OpenSSL de Debian,
+        2006 a 2008. Un maintainer quitó dos líneas que metían memoria sin
+        inicializar en el pool de aleatoriedad, algo que Valgrind había señalado con
+        razón. La única entrada que variaba era el id del proceso, y Linux reparte
+        como mucho 32.768, así que cada clave venía de quince bits
         (<code>CVE-2008-0166</code>). Las claves ya existían y ya se habían copiado a
         otras máquinas, así que parchear no arreglaba nada y Debian publicó listas
-        negras. Un cambio cuidadoso, hecho por una buena razón, que quitó la
-        aleatoriedad y dejó todo funcionando.
+        negras.
       </li>
       <li>
-        <b>Los brainwallets, desde alrededor de 2011.</b> Una contraseña que te
-        inventabas pasaba por un solo <code>SHA-256</code> sin sal y se convertía en
-        la clave privada, así que el mapa completo se podía calcular por adelantado.
-        El estudio de Financial Cryptography de 2016 encontró 884 brainwallets con
-        fondos y todos menos 21 habían sido vaciados, la mitad en los 21 minutos
-        siguientes. Una contraseña elegida por una persona vale unos 20 bits.
+        <b>Un secreto que eligió una persona.</b> Los brainwallets, desde alrededor
+        de 2011. Una contraseña que te inventabas pasaba por un solo
+        <code>SHA-256</code> sin sal y se convertía en la clave privada, así que el
+        mapa completo se podía calcular por adelantado. El estudio de Financial
+        Cryptography de 2016 encontró 884 brainwallets con fondos y todos menos 21
+        habían sido vaciados, la mitad en los 21 minutos siguientes. Una contraseña
+        elegida por una persona vale unos 20 bits.
       </li>
       <li>
-        <b>Nonces de firma repetidos, un patrón más que un incidente.</b> Dos firmas,
-        un nonce, y la clave se cae. Este deja su evidencia a la vista, porque una
-        firma se queda en un bloque para siempre. Brengel y Rossow encontraron 1.068
-        nonces reutilizados en 4.433 claves, suficiente para haber cogido 412,80 BTC,
-        y Breitner y Heninger calcularon 1.296 claves igual. Todas esas direcciones
-        estaban ya vacías.
-      </li>
-      <li>
-        <b>Milk Sad, 2023.</b> El comando <code>bx seed</code> de Libbitcoin Explorer
-        usaba un Mersenne Twister <code>mt19937</code> sembrado con 32 bits del reloj
-        del sistema. Pídele 256 bits y devolvía 256, todos ellos una lectura de reloj
-        estirada para llenar el espacio. La salida pasaba cualquier prueba que un
-        usuario pudiera aplicar, porque la carencia estaba en la entrada. El nombre
-        es lo que emite cuando el reloj marca cero (<code>CVE-2023-39910</code>).
-      </li>
-      <li>
-        <b>Dispositivos precargados y manipulados.</b> La versión burda pone la frase
-        en la caja. La versión concienzuda está dentro del dispositivo. A una
-        falsificación desmontada en 2023 le habían desactivado la protección de
-        lectura y quitado las comprobaciones del bootloader, y su firmware sustituía
-        una de 20 frases guardadas por la que parecía generar. Cada parte de la
-        ceremonia estaba intacta. El dueño vio un dispositivo generar una frase, la
-        anotó, y era válida, y la suma de verificación pasaba, y nunca fue suya.
+        <b>Un generador sembrado con 32 bits.</b> Milk Sad, 2023. El comando
+        <code>bx seed</code> de Libbitcoin Explorer usaba un Mersenne Twister
+        sembrado con 32 bits del reloj del sistema, así que pedirle 256 bits devolvía
+        una lectura de reloj estirada para llenar el espacio. La salida pasaba
+        cualquier prueba que un usuario pudiera aplicar, porque la carencia estaba en
+        la entrada. El mismo error de 32 bits produjo Profanity y la extensión de
+        Trust Wallet en 2022, las dos en la tabla de abajo.
       </li>
     </ul>
 
@@ -475,20 +414,16 @@
     <h2><span class="learn-num" aria-hidden="true">07</span> Hacerlo a mano</h2>
 
     <p>
-      <b>Dados.</b> Un dado de seis caras no produce bits enteros, así que usa
-      muestreo por rechazo: lee <code>1 2 3 4</code> como <code>00 01 10 11</code> y
-      vuelve a tirar con <code>5</code> y <code>6</code>. Cada tirada aceptada son
-      exactamente dos bits sin sesgo del mapeo, así que 128 bits necesitan 64
-      tiradas aceptadas y unas 96 tiradas en total.
+      Un dado de seis caras no produce bits enteros, así que usa muestreo por
+      rechazo: lee <code>1 2 3 4</code> como <code>00 01 10 11</code> y vuelve a
+      tirar con <code>5</code> y <code>6</code>. Cada tirada aceptada son exactamente
+      dos bits, sin sesgo del mapeo. Las monedas son más simples, a un lanzamiento
+      por bit. Si dudas de que la moneda sea justa, lanza por parejas con el truco de
+      von Neumann. Cara y cruz es <code>1</code>, cruz y cara es <code>0</code>, y las
+      parejas iguales se descartan. La <a href="#start">Receta B</a> recorre el
+      procedimiento.
     </p>
 
-    <p>
-      <b>Monedas.</b> Un lanzamiento, un bit, así que 128 lanzamientos para una
-      frase de 12 palabras. Si dudas de que la moneda sea justa, usa el truco de von
-      Neumann. Lanza por parejas, lee cara y cruz como <code>1</code> y cruz y cara
-      como <code>0</code>, y descarta las parejas iguales. Eso elimina cualquier
-      sesgo fijo por unos cuatro lanzamientos por bit.
-    </p>
     <div class="learn-tblwrap" tabindex="0" role="region" aria-label="Tiradas de dado y lanzamientos de moneda por longitud de frase, tabla desplazable">
       <table class="learn-tbl">
         <caption>Trabajo físico por frase</caption>
@@ -544,20 +479,19 @@
 
     <p>
       <b>Qué es una lista de palabras impresa.</b> La lista pública de BIP-39 en
-      inglés, idéntica en todos los monederos que implementan el estándar. No tiene
-      nada sensible, y colgarla en una pared revela lo mismo que colgar un
-      diccionario. Convierte bits en palabras, te da los prefijos de cuatro letras
-      que piden los monederos hardware, y te deja confirmar que una palabra existe
-      antes de confiarla a una placa de metal.
+      inglés, idéntica en todos los monederos que implementan el estándar. Colgarla
+      en una pared revela lo mismo que colgar un diccionario. Se gana su sitio,
+      porque convierte bits en palabras, te da los prefijos de cuatro letras que
+      piden los monederos hardware y te deja confirmar que una palabra existe antes de
+      confiarla al metal.
     </p>
 
     <p>
       <b>Qué no es.</b> No es una copia de seguridad, no es un secreto y no es una
       herramienta de verificación, porque comprobar una frase necesita un hash.
-      <b>Marcarla cambia todo eso de golpe.</b> Un póster con doce marcas de lápiz
-      es tu frase de recuperación en texto plano, legible desde el otro lado de la
-      habitación. Si necesitas seguir palabras mientras transcribes, usa una hoja
-      aparte y destrúyela después.
+      <b>Marcarla cambia todo eso de golpe.</b> Un póster con doce marcas de lápiz es
+      tu frase de recuperación en texto plano, legible desde el otro lado de la
+      habitación. Sigue las palabras en una hoja aparte y destrúyela después.
     </p>
 
   </section>
