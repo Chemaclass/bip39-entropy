@@ -65,6 +65,19 @@ function route(){
 
 function setLang(code){
   const { view } = parseHash();
+
+  // Keep the reader's place. Section ids carry their language as a prefix, so
+  // the same section in another language is one substitution away. Losing your
+  // position halfway down a long page is a reason not to switch at all.
+  if (railCurrent){
+    const twin = code + railCurrent.slice(railCurrent.indexOf("-"));
+    if (document.getElementById(twin)){
+      location.hash = "#" + twin;
+      if (LANG === code) route();
+      return;
+    }
+  }
+
   location.hash = "#" + code + "/" + (VIEWS.includes(view) ? view : HOME);
   if (LANG === code) route();     // hash unchanged, so no hashchange to wait for
 }

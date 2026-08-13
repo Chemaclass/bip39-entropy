@@ -44,6 +44,7 @@ function railFor(view){
 }
 
 let railSecs = null;
+let railCurrent = null;      // the section the reader is looking at
 
 function railSpy(){
   if (!railSecs || !railSecs.length) return;
@@ -51,6 +52,7 @@ function railSpy(){
   for (const s of railSecs){
     if (s.el.getBoundingClientRect().top <= RAIL_OFFSET) current = s.id;
   }
+  railCurrent = current;
   document.querySelectorAll(".rail a").forEach(a =>
     a.classList.toggle("on", a.dataset.for === current));
 }
@@ -80,6 +82,7 @@ function pagerFor(view){
 
 // Called by the router once the view and language are settled.
 function readingInit(view){
+  railCurrent = null;
   railSecs = railFor(view);
   if (!railSecs) $("view-" + view).classList.remove("has-rail");
   pagerFor(view);
@@ -93,3 +96,29 @@ addEventListener("scroll", () => {
   railSpy.pending = true;
   requestAnimationFrame(() => { railSpy.pending = false; railSpy(); });
 }, { passive: true });
+
+
+/* ── back to the top ────────────────────────────────────────────── */
+// The rail only exists where there is room beside the column. On a phone a
+// section can run several screens, and the tabs are at the top of the document.
+function topInit(){
+  const b = document.createElement("button");
+  b.type = "button";
+  b.id = "totop";
+  b.className = "totop";
+  b.hidden = true;
+  b.addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }));
+  document.body.appendChild(b);
+
+  const sync = () => {
+    b.textContent = t("nav.top");
+    b.setAttribute("aria-label", t("nav.top"));
+    b.hidden = scrollY < 900;
+  };
+  addEventListener("scroll", () => {
+    if (sync.pending) return;
+    sync.pending = true;
+    requestAnimationFrame(() => { sync.pending = false; sync(); });
+  }, { passive: true });
+  sync();
+}

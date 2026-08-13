@@ -27,4 +27,5 @@ if (location.protocol === "file:") $("save").hidden = true;
 
 langInit();
 rollInit();
+topInit();
 navInit();

@@ -84,3 +84,12 @@
   align-items:center;justify-content:space-between}
 .cl-note{margin:0;flex:1 1 320px;font:400 13px/1.6 var(--grot);color:#aab3af}
 .cl-widget button{font:700 11px/1 var(--mono);letter-spacing:.1em;padding:10px 14px}
+
+/* ─────────── back to the top ─────────── */
+.totop{position:fixed;right:18px;bottom:18px;z-index:30;
+  font:600 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--chrome-dim);background:rgba(25,29,31,.94);
+  border:1px solid var(--chrome-3);border-radius:3px;padding:11px 13px;cursor:pointer}
+.totop:hover{color:var(--patina);border-color:var(--patina)}
+.totop[hidden]{display:none}
+@media (max-width:560px){ .totop{right:12px;bottom:12px} }
