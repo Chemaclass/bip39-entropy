@@ -67,11 +67,15 @@ git config core.hooksPath .githooks   # once per clone: rebuilds index.html on c
 python3 scripts/build.py              # regenerate index.html
 python3 scripts/build.py -o /tmp/x.html
 ./scripts/verify.sh                   # full audit (~4s): hash, reproducibility, 2048 words
+python3 scripts/selfcheck.py          # prove the audit still catches things (~2s)
 open index.html                       # preview
 ```
 
 Run `./scripts/verify.sh` before committing anything that touches `src/`, `data/`
-or `scripts/`.
+or `scripts/`. If you touch a guard in `scripts/`, run `selfcheck.py` too: it
+plants a defect for each check and fails if the check sleeps through it. That
+exists because a NUL byte in the prose once turned the offline check into a grep
+over a file grep thought was binary, and it reported ok while checking nothing.
 
 ## Files
 
@@ -87,6 +91,9 @@ src/content/*.<lang>.html  long-form prose (__WORDS__ / __SHA__ live in the JS)
 data/english.txt      canonical BIP-39 English word list
 scripts/build.py      render index.html
 scripts/verify.sh     audit the word list and the build
+scripts/selfcheck.py  break each invariant on purpose, prove the guard notices
+scripts/assets.py     no remote assets, no bytes that hide the page from a grep
+scripts/style.py      the machine-readable half of the voice guide
 ```
 
 ## Writing style

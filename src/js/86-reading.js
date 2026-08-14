@@ -138,39 +138,6 @@ function railSpy(){
   });
 }
 
-/* ── the next door ──────────────────────────────────────────────── */
-// A guide page used to end at its last section, and the tab bar was the only
-// hint that another one follows. This states it: one card, the next page in
-// the reading order, built from the same labels and blurbs as the tabs and the
-// doors, so it cannot drift. The order ends at the roller, because after the
-// questions the next step is to make a phrase rather than read more.
-const NEXT = { start: "learn", learn: "protect", protect: "faq", faq: "roll" };
-
-function nextFor(view){
-  const host = $("view-" + view);
-  const pane = [...host.querySelectorAll(".pane")].find(p => !p.hidden);
-  if (!pane) return;
-  const root = pane.querySelector(".learn") || pane;
-  root.querySelectorAll(".nextcard").forEach(n => n.remove());
-
-  const to = NEXT[view];
-  if (!to || !VIEWS.includes(to)) return;
-
-  const a = document.createElement("a");
-  a.className = "nextcard";
-  a.href = "#" + LANG + "/" + to;
-  const e = document.createElement("span");
-  e.className = "nextcard-eyebrow";
-  e.textContent = t("nav.next");
-  const h = document.createElement("b");
-  h.textContent = t("nav." + to);
-  const d = document.createElement("span");
-  d.className = "nextcard-desc";
-  d.textContent = t("paths." + to);
-  a.append(e, h, d);
-  root.appendChild(a);
-}
-
 // Called by the router once the view and language are settled.
 function readingInit(view){
   railCurrent = null;
@@ -181,7 +148,6 @@ function readingInit(view){
   if (typeof scaleInit === "function") scaleInit();
   if (typeof checklistInit === "function") checklistInit();
   if (typeof pathsInit === "function") pathsInit();
-  nextFor(view);
   railSpy();
 }
 

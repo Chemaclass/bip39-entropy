@@ -85,18 +85,10 @@
 /* ─────────── the next door ─────────── */
 /* One card at the foot of each guide page: the next page in the reading order.
    The tab bar states the order; this hands it to the reader who got to the
-   bottom and would otherwise meet a footer. */
-.nextcard{display:flex;flex-direction:column;gap:7px;margin-top:56px;
   padding:18px 20px;background:var(--chrome-2);
   border:1px solid var(--chrome-3);border-left:3px solid var(--patina);
   text-decoration:none}
-.nextcard:hover{border-color:var(--patina);background:var(--accent-wash)}
-.nextcard-eyebrow{font:600 9.5px/1 var(--mono);letter-spacing:.2em;
   text-transform:uppercase;color:var(--patina)}
-.nextcard b{font:700 16px/1.2 var(--grot);color:var(--chrome-ink)}
-.nextcard:hover b{color:var(--patina)}
-.nextcard-desc{font:400 13px/1.6 var(--grot);color:var(--text-2)}
-
 /* ─────────── the doors ─────────── */
 /* The landing page says what is here and which door is yours, before the essay
    starts. Four links, one line each, and the claim the site is built on. */

@@ -4,6 +4,11 @@
 #   1. the word list matches the canonical BIP-39 file, byte for byte
 #   2. the committed index.html is exactly what scripts/build.py produces
 #   3. all 2048 words are present in the built page
+#   4. nothing in the page reaches the network, and no byte hides it from a grep
+#   5. the prose follows the machine-readable half of the voice guide
+#
+# scripts/selfcheck.py breaks each of those on purpose and proves the check
+# notices, because a guard that has quit still prints a tick.
 #
 # Run this before trusting a copy you did not build yourself.
 
@@ -56,6 +61,16 @@ if python3 "$ROOT/scripts/assets.py" "$ROOT"; then
   pass "no remote assets and no control bytes"
 else
   fail "index.html fails the offline guarantee"
+fi
+
+# 5. the half of the voice guide a machine can read
+# Readers told us the prose sounded machine-written and named the tell, so the
+# tell fails the build rather than waiting for taste to catch it.
+if out="$(python3 "$ROOT/scripts/style.py" --strict 2>&1)"; then
+  pass "prose follows the voice guide"
+else
+  printf '%s\n' "$out"
+  fail "prose breaks the voice guide"
 fi
 
 echo "verified."

@@ -24,3 +24,9 @@ jobs:
       # The remote-asset check lives in verify.sh now. It was a grep here, and a
       # grep stops checking anything the moment the file looks binary to it,
       # which is what a stray NUL byte in the prose did. It reads bytes now.
+
+      # And this proves the checks above still work, by breaking each invariant
+      # on purpose in a throwaway copy. A guard that has quit still prints a tick,
+      # so the ticks are not evidence on their own.
+      - name: Prove the guards still catch what they claim
+        run: python3 scripts/selfcheck.py
