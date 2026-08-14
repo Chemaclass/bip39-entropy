@@ -1,4 +1,7 @@
 :root{
+  /* Native widgets: select panels, scrollbars. They follow the page's theme,
+     not the system's, so a forced theme carries all the way down. */
+  color-scheme:dark;
   --paper:#ffffff;
   --ink:#14161c;
   --ghost:#a4aab3;
@@ -39,6 +42,7 @@
    The sheet is always a sheet: --paper, --ink and the rules below belong to the
    printed artifact and never change. Only the chrome around it does. */
 :root[data-theme="light"]{
+  color-scheme:light;
   --chrome:#f6f7f6;
   --chrome-2:#eceeec;
   --chrome-3:#d5dad7;
@@ -61,6 +65,7 @@
 
 @media (prefers-color-scheme:light){
   :root:not([data-theme="dark"]){
+    color-scheme:light;
     --chrome:#f6f7f6;
     --chrome-2:#eceeec;
     --chrome-3:#d5dad7;

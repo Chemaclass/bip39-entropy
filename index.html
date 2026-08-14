@@ -126,6 +126,9 @@
 <style>
 /* src/css/10-poster.css */
 :root{
+  /* Native widgets: select panels, scrollbars. They follow the page's theme,
+     not the system's, so a forced theme carries all the way down. */
+  color-scheme:dark;
   --paper:#ffffff;
   --ink:#14161c;
   --ghost:#a4aab3;
@@ -166,6 +169,7 @@
    The sheet is always a sheet: --paper, --ink and the rules below belong to the
    printed artifact and never change. Only the chrome around it does. */
 :root[data-theme="light"]{
+  color-scheme:light;
   --chrome:#f6f7f6;
   --chrome-2:#eceeec;
   --chrome-3:#d5dad7;
@@ -188,6 +192,7 @@
 
 @media (prefers-color-scheme:light){
   :root:not([data-theme="dark"]){
+    color-scheme:light;
     --chrome:#f6f7f6;
     --chrome-2:#eceeec;
     --chrome-3:#d5dad7;
@@ -420,6 +425,45 @@ main:focus{outline:none}
   select,input[type=search],input[type=text],button{font-size:16px}
   .langsel select{min-height:36px;padding:6px 26px 6px 9px;letter-spacing:0}
 }
+
+/* ─────────── the enhancement layer ─────────── */
+/* Each rule here degrades to nothing: a browser without the feature shows the
+   site exactly as before, never a broken one. */
+
+/* Selected text answers in the site's own colour. */
+::selection{background:var(--patina);color:var(--chrome)}
+
+/* Scrollbars follow the theme instead of glaring in the dark one. */
+html{scrollbar-color:var(--chrome-3) transparent}
+.learn-tblwrap{scrollbar-width:thin}
+
+/* The mobile tap flash says nothing the :active states don't already. */
+html{-webkit-tap-highlight-color:transparent}
+
+/* Headings balance their lines; prose avoids a one-word last line. */
+.learn h1,.learn h2,.roll-h{text-wrap:balance}
+.learn p,.learn li,.roll p{text-wrap:pretty}
+
+@media (prefers-reduced-motion:no-preference){
+  /* Anchors travel instead of teleporting. Tab switches stay instant, because
+     the router scrolls those with behavior "instant". */
+  html{scroll-behavior:smooth}
+  /* A view fades in rather than banging on. Opacity only: a transform here
+     would hand the rail's fixed position a containing block. */
+  .view:not([hidden]){animation:viewin .16s ease both}
+}
+@keyframes viewin{from{opacity:0}to{opacity:1}}
+
+/* How far into the page you are, drawn on the chrome's bottom edge, scroll
+   driven in CSS alone. The poster is an artefact rather than a read, so it
+   carries no bar. */
+@supports (animation-timeline:scroll()){
+  body:not([data-view="poster"]) .chrome::after{
+    content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
+    background:var(--patina);transform-origin:0 50%;pointer-events:none;
+    animation:readprog linear both;animation-timeline:scroll(root)}
+}
+@keyframes readprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
 /* ─────────── footer ─────────── */
 .foot{border-top:1px solid var(--chrome-3);margin-top:40px;padding:26px 18px 40px}
@@ -3986,6 +4030,19 @@ let THEME = "system";
 function applyTheme(){
   if (THEME === "system") document.documentElement.removeAttribute("data-theme");
   else document.documentElement.setAttribute("data-theme", THEME);
+
+  // The browser colours its own bar from these metas by system scheme. Once a
+  // theme is forced, both metas carry that theme's colour, read from whichever
+  // meta declared it, so the page and the bar around it agree.
+  const metas = [...document.querySelectorAll('meta[name="theme-color"]')];
+  const declared = {};
+  for (const m of metas){
+    if (!m.dataset.sys) m.dataset.sys = m.content;
+    declared[m.media.includes("dark") ? "dark" : "light"] = m.dataset.sys;
+  }
+  for (const m of metas){
+    m.content = THEME === "system" ? m.dataset.sys : declared[THEME];
+  }
 }
 
 function themeInit(){
@@ -5501,11 +5558,16 @@ function showView(name, keepScroll){
     else a.removeAttribute("aria-current");
   });
   centreTab();
+  // The stylesheet reads the current view off the body: the reading-progress
+  // bar hides on the poster, which is an artefact rather than a read.
+  document.body.dataset.view = name;
   $("bar").hidden = name !== "poster";
   // The stage measures itself, so it can only be laid out while it is visible.
   if (name === "poster") render();
-  // Arriving halfway down a section you have never seen reads as a broken page.
-  if (!keepScroll) scrollTo(0, 0);
+  // Arriving halfway down a section you have never seen reads as a broken
+  // page. "instant" holds while html{scroll-behavior:smooth} animates anchors:
+  // a tab switch is a place change, not a journey.
+  if (!keepScroll) scrollTo({ top: 0, behavior: "instant" });
   readingInit(name);
 }
 

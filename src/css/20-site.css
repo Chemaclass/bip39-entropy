@@ -105,6 +105,45 @@ main:focus{outline:none}
   .langsel select{min-height:36px;padding:6px 26px 6px 9px;letter-spacing:0}
 }
 
+/* ─────────── the enhancement layer ─────────── */
+/* Each rule here degrades to nothing: a browser without the feature shows the
+   site exactly as before, never a broken one. */
+
+/* Selected text answers in the site's own colour. */
+::selection{background:var(--patina);color:var(--chrome)}
+
+/* Scrollbars follow the theme instead of glaring in the dark one. */
+html{scrollbar-color:var(--chrome-3) transparent}
+.learn-tblwrap{scrollbar-width:thin}
+
+/* The mobile tap flash says nothing the :active states don't already. */
+html{-webkit-tap-highlight-color:transparent}
+
+/* Headings balance their lines; prose avoids a one-word last line. */
+.learn h1,.learn h2,.roll-h{text-wrap:balance}
+.learn p,.learn li,.roll p{text-wrap:pretty}
+
+@media (prefers-reduced-motion:no-preference){
+  /* Anchors travel instead of teleporting. Tab switches stay instant, because
+     the router scrolls those with behavior "instant". */
+  html{scroll-behavior:smooth}
+  /* A view fades in rather than banging on. Opacity only: a transform here
+     would hand the rail's fixed position a containing block. */
+  .view:not([hidden]){animation:viewin .16s ease both}
+}
+@keyframes viewin{from{opacity:0}to{opacity:1}}
+
+/* How far into the page you are, drawn on the chrome's bottom edge, scroll
+   driven in CSS alone. The poster is an artefact rather than a read, so it
+   carries no bar. */
+@supports (animation-timeline:scroll()){
+  body:not([data-view="poster"]) .chrome::after{
+    content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
+    background:var(--patina);transform-origin:0 50%;pointer-events:none;
+    animation:readprog linear both;animation-timeline:scroll(root)}
+}
+@keyframes readprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
 /* ─────────── footer ─────────── */
 .foot{border-top:1px solid var(--chrome-3);margin-top:40px;padding:26px 18px 40px}
 .foot-in{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 26px;

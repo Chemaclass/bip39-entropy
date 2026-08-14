@@ -41,11 +41,16 @@ function showView(name, keepScroll){
     else a.removeAttribute("aria-current");
   });
   centreTab();
+  // The stylesheet reads the current view off the body: the reading-progress
+  // bar hides on the poster, which is an artefact rather than a read.
+  document.body.dataset.view = name;
   $("bar").hidden = name !== "poster";
   // The stage measures itself, so it can only be laid out while it is visible.
   if (name === "poster") render();
-  // Arriving halfway down a section you have never seen reads as a broken page.
-  if (!keepScroll) scrollTo(0, 0);
+  // Arriving halfway down a section you have never seen reads as a broken
+  // page. "instant" holds while html{scroll-behavior:smooth} animates anchors:
+  // a tab switch is a place change, not a journey.
+  if (!keepScroll) scrollTo({ top: 0, behavior: "instant" });
   readingInit(name);
 }
 
