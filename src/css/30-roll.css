@@ -20,6 +20,10 @@
   cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
 .roll-key:hover{border-color:var(--patina);color:var(--patina)}
 .roll-key:active{background:var(--chrome-3)}
+.roll-face{width:30px;height:30px;display:block}
+.roll-die,.roll-coin{fill:none;stroke:currentColor;stroke-width:1.5;opacity:.55}
+.roll-pip{fill:currentColor}
+.roll-key:hover .roll-die,.roll-key:hover .roll-coin{opacity:1}
 .roll-key span{font:500 9px/1 var(--mono);letter-spacing:.12em;color:var(--text-3)}
 .roll-key.rej span{color:var(--amber)}
 .roll-key[disabled]{opacity:.4;cursor:not-allowed}

@@ -31,6 +31,12 @@
   --warn-wash:#2a2519;
   --patina-lift:#8ad3bd;
   --lift:0 6px 20px rgba(0,0,0,.34);
+  --bit-0:#2f3639;
+  --bit-1:#4a7d6f;
+
+  /* Eleven cells, the eleven bits of 837, the index of the word on the poster's
+     own legend. Every rule on the site is that number, set on an 88px repeat. */
+  --bit-rule:linear-gradient(90deg,var(--bit-0) 0px 6px,transparent 6px 8px,var(--bit-1) 8px 14px,transparent 14px 16px,var(--bit-1) 16px 22px,transparent 22px 24px,var(--bit-0) 24px 30px,transparent 30px 32px,var(--bit-1) 32px 38px,transparent 38px 40px,var(--bit-0) 40px 46px,transparent 46px 48px,var(--bit-0) 48px 54px,transparent 54px 56px,var(--bit-0) 56px 62px,transparent 62px 64px,var(--bit-1) 64px 70px,transparent 70px 72px,var(--bit-0) 72px 78px,transparent 78px 80px,var(--bit-1) 80px 86px,transparent 86px 88px);
 
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --grot:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",system-ui,sans-serif;
@@ -61,6 +67,8 @@
   --warn-wash:#f6efdd;
   --patina-lift:#12523f;
   --lift:0 6px 18px rgba(20,22,28,.12);
+  --bit-0:#d5dad7;
+  --bit-1:#9dc4b6;
 }
 
 @media (prefers-color-scheme:light){
@@ -84,6 +92,8 @@
     --warn-wash:#f6efdd;
     --patina-lift:#12523f;
     --lift:0 6px 18px rgba(20,22,28,.12);
+    --bit-0:#d5dad7;
+    --bit-1:#9dc4b6;
   }
 }
 

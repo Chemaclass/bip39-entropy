@@ -14,6 +14,39 @@ function rollBits(){
   return { bits: d.bits, rejected: d.rejected };
 }
 
+// Pip layouts on a three-by-three grid, and a disc for a coin. A die you can
+// see beats a digit that names one, and the face is the thing on the table.
+const PIPS = {
+  "1": [[15, 15]],
+  "2": [[9, 9], [21, 21]],
+  "3": [[9, 9], [15, 15], [21, 21]],
+  "4": [[9, 9], [21, 9], [9, 21], [21, 21]],
+  "5": [[9, 9], [21, 9], [15, 15], [9, 21], [21, 21]],
+  "6": [[9, 9], [21, 9], [9, 15], [21, 15], [9, 21], [21, 21]],
+};
+
+function faceSvg(face){
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", "0 0 30 30");
+  svg.setAttribute("class", "roll-face");
+  svg.setAttribute("aria-hidden", "true");
+  const add = (tag, attrs) => {
+    const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+    svg.appendChild(el);
+  };
+  if (face === "H" || face === "T"){
+    add("circle", { cx: 15, cy: 15, r: 10, class: "roll-coin" });
+    // Heads takes the filled disc, tails the ring. One is the other's absence,
+    // which is what one bit is.
+    if (face === "H") add("circle", { cx: 15, cy: 15, r: 4.5, class: "roll-pip" });
+    return svg;
+  }
+  add("rect", { x: 2, y: 2, width: 26, height: 26, rx: 5, class: "roll-die" });
+  for (const [cx, cy] of PIPS[face]) add("circle", { cx, cy, r: 2.4, class: "roll-pip" });
+  return svg;
+}
+
 function rollPad(){
   const pad = $("rollpad");
   pad.replaceChildren();
@@ -27,7 +60,11 @@ function rollPad(){
     const b = document.createElement("button");
     b.className = "roll-key" + (rej ? " rej" : "");
     b.type = "button";
-    b.innerHTML = face + "<span>" + sub + "</span>";
+    // The face is a drawing now, so the name has to be said out loud somewhere.
+    b.setAttribute("aria-label", t("roll.face." + face) + ", " + sub);
+    const s = document.createElement("span");
+    s.textContent = sub;
+    b.append(faceSvg(face), s);
     b.addEventListener("click", () => rollPush(face));
     pad.appendChild(b);
   }

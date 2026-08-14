@@ -74,7 +74,8 @@ p.learn-lead em{color:var(--patina)}
 /* ─────────── sections ─────────── */
 .learn-sec{margin-top:64px;scroll-margin-top:132px}
 .learn-sec h2{
-  padding-top:18px;border-top:1px solid var(--chrome-3);
+  padding-top:20px;
+  background:var(--bit-rule) top left/88px 2px repeat-x;
   font:600 clamp(13px,1.5vw,15px)/1.35 var(--mono);
   letter-spacing:.16em;text-transform:uppercase;
 }
@@ -177,9 +178,11 @@ p.learn-lead em{color:var(--patina)}
   font:400 14px/1.6 var(--grot);color:var(--text-1);
 }
 .learn-tldr li:first-child{margin-top:0}
+/* The same cell the eleven-bit figure draws, one per line. */
 .learn-tldr li::before{
-  content:"";position:absolute;left:2px;top:.62em;
-  width:6px;height:1px;background:var(--patina);
+  content:"";position:absolute;left:1px;top:.42em;
+  width:7px;height:7px;border-radius:1px;
+  background:var(--accent-wash);border:1px solid var(--patina);
 }
 .learn-tldr b{color:var(--chrome-ink);font-weight:600}
 .learn-tldr a{color:var(--patina);text-decoration:none;
