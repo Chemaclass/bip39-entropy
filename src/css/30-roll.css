@@ -1,64 +1,111 @@
 /* ─────────── roll your own ─────────── */
-.roll{max-width:1000px;margin:0 auto;padding:30px 18px 70px}
-.roll-h{font:700 21px/1.2 var(--mono);letter-spacing:-.01em;margin:0 0 12px}
-.roll-lead{font:400 14px/1.7 var(--grot);color:var(--text-2);margin:0 0 22px}
+.roll{max-width:1000px;margin:0 auto;padding:var(--sp-6) var(--sp-4) var(--sp-8)}
+.roll-h{font:700 var(--fs-h1)/1.02 var(--mono);letter-spacing:-.02em;margin:0 0 var(--sp-4)}
+.roll-lead{font:400 var(--fs-lead)/1.7 var(--grot);color:var(--text-2);margin:0 0 var(--sp-5)}
 
-.roll-warn{border-left:2px solid var(--amber);background:var(--chrome-2);
-  padding:13px 17px;font:400 13px/1.65 var(--grot);color:var(--text-1);margin:0 0 26px}
+.roll-warn{border:1px solid var(--chrome-3);border-left:3px solid var(--amber);
+  border-radius:var(--r-2);background:var(--chrome-2);
+  padding:var(--sp-3) var(--sp-4);font:400 var(--fs-sm)/1.65 var(--grot);
+  color:var(--text-1);margin:0 0 var(--sp-5)}
 .roll-warn b{color:var(--amber);font-weight:700}
 .roll-warn em{font-style:normal;color:var(--chrome-ink)}
 
-.roll-ctl{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end;margin-bottom:22px}
+/* Setup above the rule, throwing below it. */
+.roll-ctl{display:flex;flex-wrap:wrap;gap:var(--sp-4) var(--sp-5);align-items:flex-end;
+  padding-bottom:var(--sp-5);border-bottom:1px solid var(--chrome-3);margin-bottom:var(--sp-5)}
 
-#rollload{width:230px;font:400 12px/1 var(--mono);letter-spacing:.04em}
-.roll-err{font:400 11.5px/1.6 var(--mono);color:var(--patina);margin:0 0 16px}
-.roll-err.bad{color:var(--amber)}
+#rollload{width:230px;font:400 var(--fs-sm)/1 var(--mono);letter-spacing:.04em}
 
-.roll-pad{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:9px}
+/* Answers a keypress, so it sits on a wash rather than floating as loose text. */
+.roll-err{font:400 var(--fs-sm)/1.6 var(--mono);color:var(--patina);
+  background:var(--accent-wash);border-radius:var(--r-1);
+  padding:var(--sp-2) var(--sp-3);margin:0 0 var(--sp-4)}
+.roll-err.bad{color:var(--amber);background:var(--warn-wash)}
+
+/* The pad is where the hand works. Resting shadow, lit border on hover, a real
+   dip when pressed: the key has to answer before the bits do. */
+.roll-pad{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-bottom:var(--sp-2)}
 .roll-key{width:64px;height:64px;font:700 21px/1 var(--mono);color:var(--chrome-ink);
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;
-  cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
-.roll-key:hover{border-color:var(--patina);color:var(--patina)}
-.roll-key:active{background:var(--chrome-3)}
+  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:var(--r-2);
+  box-shadow:var(--e-1);cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--sp-1);
+  /* a pad is tapped fast: no double-tap zoom delay, no text selection under the thumb */
+  touch-action:manipulation;user-select:none;-webkit-user-select:none}
+/* The face is the thing on the table: a die with pips, a coin filled or hollow.
+   Drawn in currentColor, so the key's own state carries it. */
 .roll-face{width:30px;height:30px;display:block}
 .roll-die,.roll-coin{fill:none;stroke:currentColor;stroke-width:1.5;opacity:.55}
 .roll-pip{fill:currentColor}
-.roll-key:hover .roll-die,.roll-key:hover .roll-coin{opacity:1}
-.roll-key span{font:500 9px/1 var(--mono);letter-spacing:.12em;color:var(--text-3)}
+.roll-key:not([disabled]):hover .roll-die,
+.roll-key:not([disabled]):hover .roll-coin{opacity:1}
+/* The bits the face carries stay a footnote. */
+.roll-key span{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);color:var(--text-3)}
+.roll-key:not([disabled]):hover{border-color:var(--patina);color:var(--patina);box-shadow:var(--e-2)}
+.roll-key:not([disabled]):active{background:var(--accent-wash);border-color:var(--patina);
+  box-shadow:inset 0 0 0 1px var(--accent-line);transform:translateY(1px)}
+/* Five and six buy no entropy, and the warm face says so before the label does. */
+.roll-key.rej{background:var(--warn-wash)}
 .roll-key.rej span{color:var(--amber)}
-.roll-key[disabled]{opacity:.4;cursor:not-allowed}
+/* A full phrase takes no more throws, so the keys go flat and hand the eye on. */
+.roll-key[disabled]{background:var(--tint);border-color:var(--chrome-3);color:var(--text-4);
+  box-shadow:none;cursor:not-allowed}
+.roll-key[disabled] span{color:var(--text-4)}
 
-.roll-hint{font:400 11px/1.6 var(--mono);color:var(--text-3);margin:0 0 18px}
+.roll-hint{font:400 var(--fs-sm)/1.65 var(--mono);color:var(--text-3);margin:0 0 var(--sp-4)}
 
-.roll-meter{height:5px;background:var(--chrome-3);overflow:hidden}
-.roll-meter-fill{height:100%;width:0;background:var(--patina);transition:width .15s linear}
-.roll-count{font:500 10.5px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;
-  color:var(--chrome-dim);margin:9px 0 22px}
+.roll-meter{height:var(--sp-2);background:var(--chrome-2);border-radius:var(--r-1);
+  box-shadow:inset 0 0 0 1px var(--chrome-3);overflow:hidden}
+.roll-meter-fill{height:100%;width:0;border-radius:inherit;
+  background:linear-gradient(90deg,var(--patina),var(--patina-lift))}
+.roll-count{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
+  color:var(--chrome-dim);margin:var(--sp-2) 0 var(--sp-5)}
 .roll-count b{color:var(--chrome-ink);font-weight:700}
 
-.roll-bits{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:26px}
-.roll-bits .byte{font:400 12px/1.5 var(--mono);letter-spacing:.06em;color:var(--chrome-dim);
-  background:var(--chrome-2);padding:3px 6px;border-radius:2px}
+.roll-bits{display:flex;flex-wrap:wrap;gap:var(--sp-1);margin-bottom:var(--sp-5)}
+.roll-bits .byte{font:400 var(--fs-sm)/1.4 var(--mono);letter-spacing:.06em;color:var(--text-2);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);
+  padding:var(--sp-1) var(--sp-2);border-radius:var(--r-1)}
 .roll-bits .byte.cs{color:var(--amber);background:var(--warn-wash)}
 
-.roll-sec{font:500 9.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
-  color:var(--patina);margin:0 0 10px}
-.roll-fact{font:400 12.5px/1.8 var(--mono);color:var(--chrome-dim);margin:0 0 22px;word-break:break-all}
+.roll-sec{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
+  color:var(--patina);margin:0 0 var(--sp-2)}
+.roll-fact{font:400 var(--fs-sm)/1.8 var(--mono);color:var(--chrome-dim);
+  margin:0 0 var(--sp-5);word-break:break-all}
 .roll-fact b{color:var(--chrome-ink);font-weight:600}
 
-.seed{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:2px;margin-bottom:26px}
-.seed-w{background:var(--chrome-2);padding:10px 12px;display:flex;align-items:baseline;gap:10px}
-.seed-n{font:500 11px/1 var(--mono);color:var(--text-3);min-width:2.2ch;text-align:right}
-.seed-t{font:700 15px/1 var(--grot);color:var(--patina)}
-.seed-b{margin-left:auto;font:400 10px/1 var(--mono);color:var(--text-3);letter-spacing:.04em;white-space:nowrap}
+/* The words are the payoff, so each one is a card and the word is the loudest
+   thing on it. Index and eleven bits sit under it, in that order of interest. */
+.seed{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));
+  gap:var(--sp-2);margin-bottom:var(--sp-5)}
+.seed-w{background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:var(--r-2);
+  box-shadow:var(--e-1);padding:var(--sp-3) var(--sp-4);
+  display:grid;grid-template-columns:auto 1fr;gap:var(--sp-1) var(--sp-3);align-items:baseline}
+.seed-n{font:500 var(--fs-label)/1 var(--mono);color:var(--text-3);
+  min-width:2.2ch;text-align:right;font-variant-numeric:tabular-nums}
+.seed-t{font:700 var(--fs-lead)/1.15 var(--grot);color:var(--patina);letter-spacing:-.01em}
+.seed-b{grid-column:2;font:400 var(--fs-label)/1.3 var(--mono);color:var(--text-3);
+  letter-spacing:var(--track);white-space:nowrap}
 
 @media (max-width:560px){
-  .roll{padding:22px 14px 70px}
-  .roll-key{width:54px;height:54px;font-size:18px}
+  .roll{padding-top:var(--sp-5)}
+  /* A thumb, not a mouse: nothing here drops under the tap target minimum. */
+  .roll-key{width:56px;height:56px;font-size:18px}
+  .roll-ctl button,.roll-ctl select,#rollload{min-height:44px}
 }
 
-/* The sixteen candidates for the final word, with the one the checksum picks. */
+/* The sixteen candidates for the final word, with the one the checksum picks.
+   Fifteen are context. One is the answer, and it should never take a second look. */
 .lastblock{grid-template-columns:repeat(auto-fill,minmax(168px,1fr))}
-.lastblock .seed-w{opacity:.62}
-.lastblock .seed-w.is-yours{opacity:1;box-shadow:inset 0 0 0 1px var(--patina)}
-.lastblock .is-yours .seed-b{color:var(--patina)}
+.lastblock .seed-w{background:var(--tint);box-shadow:none;opacity:.6}
+.lastblock .seed-w.is-yours{opacity:1;background:var(--accent-wash);
+  border-color:var(--patina);box-shadow:var(--e-1)}
+.lastblock .is-yours .seed-t{color:var(--patina-lift)}
+.lastblock .is-yours .seed-b{justify-self:start;color:var(--chrome);background:var(--patina);
+  border-radius:var(--r-1);padding:var(--sp-1) var(--sp-2);text-transform:uppercase;font-weight:700}
+
+/* Every state above is readable without the fade, so motion stays an extra. */
+@media (prefers-reduced-motion:no-preference){
+  .roll-key{transition:background-color .12s ease,border-color .12s ease,
+    color .12s ease,box-shadow .12s ease,transform .08s ease}
+  .roll-meter-fill{transition:width .18s ease-out}
+}

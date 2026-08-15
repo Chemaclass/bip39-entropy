@@ -3,7 +3,7 @@
    tools, which are used. The separator carries the word so the grouping is
    stated rather than implied by spacing alone. */
 .tabs-g{display:flex;align-items:center;gap:2px}
-.tabs-sep{font:600 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+.tabs-sep{font:600 9px/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
   white-space:nowrap;color:var(--text-4);margin:0 5px;padding-left:11px;
   border-left:1px solid var(--chrome-3)}
 .tabs-tools a{color:var(--text-2)}
@@ -19,25 +19,25 @@
 @media (min-width:1100px){
   .rail{display:block;position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:15}
   .rail-btn{display:flex;align-items:center;justify-content:center;
-    width:34px;height:54px;padding:0;cursor:pointer;
+    width:36px;height:56px;padding:0;cursor:pointer;
     color:var(--chrome-dim);background:var(--chrome-2);
-    border:1px solid var(--chrome-3);border-radius:9px}
+    border:1px solid var(--chrome-3);border-radius:var(--r-2);box-shadow:var(--e-1)}
   .rail-btn::before{content:"";display:block;width:15px;height:17px;
     background:repeating-linear-gradient(to bottom,currentColor 0 1.5px,transparent 1.5px 5.5px)}
   .rail-btn:hover{color:var(--chrome-ink);border-color:var(--chrome-dim)}
 
   .rail-panel{position:absolute;left:calc(100% + 10px);top:50%;
-    transform:translateY(-50%);width:262px;padding:15px 8px 8px;
+    transform:translateY(-50%);width:262px;padding:var(--sp-4) var(--sp-2) var(--sp-2);
     background:var(--chrome-2);border:1px solid var(--chrome-3);
-    border-radius:12px;box-shadow:var(--lift)}
+    border-radius:var(--r-3);box-shadow:var(--e-2)}
   /* The attribute keeps the links out of the tab order until the list is open.
      Hover has no attribute to set, so it overrides the attribute in CSS alone. */
   .rail-panel[hidden]{display:none}
   .rail:hover .rail-panel[hidden]{display:block}
-  .rail-head{font:700 9.5px/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;
-    color:var(--text-3);margin:0 0 10px;padding:0 10px}
-  .rail a{display:block;padding:7px 10px;border-radius:6px;
-    font:400 12.5px/1.4 var(--grot);color:var(--text-2);text-decoration:none;
+  .rail-head{font:700 var(--fs-label)/1.2 var(--mono);letter-spacing:var(--track);
+    text-transform:uppercase;color:var(--text-3);margin:0 0 var(--sp-3);padding:0 10px}
+  .rail a{display:block;padding:8px 10px;border-radius:var(--r-1);
+    font:400 var(--fs-sm)/1.4 var(--grot);color:var(--text-2);text-decoration:none;
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .rail a:hover{color:var(--chrome-ink);background:var(--chrome-3)}
   .rail a.on{color:var(--patina);font-weight:600}
@@ -48,18 +48,18 @@
 /* ─────────── the scale widget ─────────── */
 /* Sits inside the prose. Same chrome as the roller's controls, so it reads as
    a thing you operate rather than a thing you read. */
-.scale{border:1px solid var(--chrome-3);background:var(--chrome-2);
-  border-radius:3px;padding:16px 18px;margin:26px 0}
-.scale-head{font:500 9.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
-  color:var(--patina);margin:0 0 14px}
-.scale-ctl{display:flex;flex-wrap:wrap;gap:12px 18px;margin-bottom:14px}
+.scale{border:1px solid var(--chrome-3);background:var(--chrome-2);box-shadow:var(--e-1);
+  border-radius:var(--r-2);padding:var(--sp-5);margin:var(--sp-5) 0}
+.scale-head{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;color:var(--patina);margin:0 0 var(--sp-4)}
+.scale-ctl{display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-4)}
 /* A flex item will not shrink below its content unless told to, and a select
    whose longest option is a sentence is wider than a phone. */
 .scale-field{display:flex;flex-direction:column;gap:5px;flex:1 1 240px;min-width:0}
 .scale-field select{width:100%;min-width:0}
-.scale-field span{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
-  color:var(--chrome-dim)}
-.scale-out{display:flex;flex-direction:column;gap:7px}
+.scale-field span{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;color:var(--chrome-dim)}
+.scale-out{display:flex;flex-direction:column;gap:var(--sp-2)}
 .scale-line{margin:0;font:400 13px/1.6 var(--mono);color:var(--text-2)}
 .scale-line b{color:var(--chrome-ink);font-weight:600}
 .scale-dim{color:var(--text-3)}
@@ -67,40 +67,45 @@
 .scale-warn b{color:var(--amber)}
 
 /* ─────────── the checklist offer ─────────── */
-.cl-widget{border:1px solid var(--chrome-3);background:var(--chrome-2);border-radius:3px;
-  padding:16px 18px;margin:26px 0;display:flex;flex-wrap:wrap;gap:12px 18px;
+.cl-widget{border:1px solid var(--chrome-3);background:var(--chrome-2);box-shadow:var(--e-1);
+  border-radius:var(--r-2);padding:var(--sp-5);margin:var(--sp-5) 0;
+  display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-4);
   align-items:center;justify-content:space-between}
 .cl-note{margin:0;flex:1 1 320px;font:400 13px/1.6 var(--grot);color:var(--text-2)}
-.cl-widget button{font:700 11px/1 var(--mono);letter-spacing:.1em;padding:10px 14px}
+.cl-widget button{font:700 11px/1 var(--mono);letter-spacing:.1em;padding:12px 16px}
 
 /* ─────────── back to the top ─────────── */
-.totop{position:fixed;right:18px;bottom:18px;z-index:30;
-  font:600 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
-  color:var(--chrome-dim);background:var(--veil);
-  border:1px solid var(--chrome-3);border-radius:3px;padding:11px 13px;cursor:pointer}
+.totop{position:fixed;right:18px;bottom:18px;z-index:30;min-height:44px;
+  font:600 10px/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
+  color:var(--chrome-dim);background:var(--veil);box-shadow:var(--e-2);
+  border:1px solid var(--chrome-3);border-radius:var(--r-2);padding:var(--sp-3) var(--sp-4);
+  cursor:pointer}
 .totop:hover{color:var(--patina);border-color:var(--patina)}
 .totop[hidden]{display:none}
 @media (max-width:560px){ .totop{right:12px;bottom:12px} }
 
-/* ─────────── the next door ─────────── */
-/* One card at the foot of each guide page: the next page in the reading order.
-   The tab bar states the order; this hands it to the reader who got to the
-  padding:18px 20px;background:var(--chrome-2);
-  border:1px solid var(--chrome-3);border-left:3px solid var(--patina);
-  text-decoration:none}
-  text-transform:uppercase;color:var(--patina)}
+/* The doors answer a pointer, for anyone who has not asked for stillness. */
+@media (prefers-reduced-motion:no-preference){
+  .path{transition:background-color .14s ease,border-color .14s ease,
+    box-shadow .14s ease}
+}
+
 /* ─────────── the doors ─────────── */
 /* The landing page says what is here and which door is yours, before the essay
    starts. Four links, one line each, and the claim the site is built on. */
-.paths{margin:30px 0 6px}
-/* Five doors now. 190px lets them sit as one row on a desktop instead of four
-   plus a stretched orphan; below that they wrap like any grid. */
-.paths-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:2px}
-.path{display:flex;flex-direction:column;gap:6px;padding:16px 18px;
-  background:var(--chrome-2);border:1px solid transparent;text-decoration:none}
-.path:hover{border-color:var(--patina);background:var(--accent-wash)}
-.path b{font:700 14px/1.2 var(--grot);color:var(--chrome-ink);letter-spacing:.01em}
+.paths{margin:var(--sp-6) 0 var(--sp-2)}
+/* Five doors, and the column holds 964px. Five tracks plus four gaps leaves
+   186px each, so the minimum has to sit under that or the fifth door drops to a
+   row of its own. Below the breakpoint they wrap like any grid. Real gaps
+   rather than hairlines, so each door reads as its own card. */
+.paths-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(174px,1fr));
+  gap:var(--sp-2)}
+.path{display:flex;flex-direction:column;gap:var(--sp-2);padding:var(--sp-4);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:var(--r-2);
+  text-decoration:none}
+.path:hover{border-color:var(--patina);background:var(--accent-wash);box-shadow:var(--e-1)}
+.path b{font:700 14px/1.25 var(--grot);color:var(--chrome-ink);letter-spacing:.01em}
 .path:hover b{color:var(--patina)}
-.path span{font:400 12.5px/1.55 var(--grot);color:var(--text-2)}
-.paths-trust{margin:14px 0 0;font:400 11px/1.6 var(--mono);color:var(--text-3);
+.path span{font:400 var(--fs-sm)/1.55 var(--grot);color:var(--text-2)}
+.paths-trust{margin:var(--sp-4) 0 0;font:400 11px/1.6 var(--mono);color:var(--text-3);
   letter-spacing:.02em}

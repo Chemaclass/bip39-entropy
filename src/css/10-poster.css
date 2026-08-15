@@ -30,7 +30,6 @@
   --accent-line:rgba(111,191,168,.35);
   --warn-wash:#2a2519;
   --patina-lift:#8ad3bd;
-  --lift:0 6px 20px rgba(0,0,0,.34);
   --bit-0:#2f3639;
   --bit-1:#4a7d6f;
 
@@ -39,9 +38,49 @@
   --bit-rule:linear-gradient(90deg,var(--bit-0) 0px 6px,transparent 6px 8px,var(--bit-1) 8px 14px,transparent 14px 16px,var(--bit-1) 16px 22px,transparent 22px 24px,var(--bit-0) 24px 30px,transparent 30px 32px,var(--bit-1) 32px 38px,transparent 38px 40px,var(--bit-0) 40px 46px,transparent 46px 48px,var(--bit-0) 48px 54px,transparent 54px 56px,var(--bit-0) 56px 62px,transparent 62px 64px,var(--bit-1) 64px 70px,transparent 70px 72px,var(--bit-0) 72px 78px,transparent 78px 80px,var(--bit-1) 80px 86px,transparent 86px 88px);
 
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
-  --grot:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",system-ui,sans-serif;
+  --grot:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Helvetica,Arial,"Liberation Sans",sans-serif;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Liberation Serif",serif;
   --face:var(--grot);
+
+  /* ── the scales ──────────────────────────────────────────────────
+     Three ramps the chrome measures itself against, so a new component
+     inherits the page's rhythm instead of inventing a fourth set of
+     numbers. The sheet below is drawn in mm and shares none of this. */
+
+  /* Corners. One step per role: controls, panels, cards. */
+  --r-1:7px;
+  --r-2:11px;
+  --r-3:16px;
+
+  /* Space, in a 4px rhythm. Anything between two steps is a mistake. */
+  --sp-1:4px;
+  --sp-2:8px;
+  --sp-3:12px;
+  --sp-4:16px;
+  --sp-5:24px;
+  --sp-6:32px;
+  --sp-7:48px;
+  --sp-8:72px;
+
+  /* Depth. Two steps: a thing that sits on the page, a thing that floats
+     over it. --lift is the second, kept under its old name. */
+  --e-1:0 1px 2px rgba(0,0,0,.30);
+  --e-2:0 6px 20px rgba(0,0,0,.34);
+  --lift:var(--e-2);
+  /* Paper on a desk, which is deeper than anything else the page stacks. */
+  --sheet-lift:0 12px 40px rgba(0,0,0,.5);
+
+  /* Reading sizes, fluid between a phone and a desktop. */
+  --fs-label:9.5px;
+  --fs-sm:12.5px;
+  --fs-body:clamp(15px,1.05vw,16px);
+  --fs-lead:clamp(16px,1.6vw,18px);
+  --fs-h2:clamp(13.5px,1.5vw,15px);
+  --fs-h1:clamp(30px,5.4vw,46px);
+
+  /* Uppercase mono labels. Wide tracking dates a page fast, so one value
+     carries every label and it is narrower than it was. */
+  --track:.14em;
 }
 
 /* ─────────── light ───────────
@@ -66,9 +105,11 @@
   --accent-line:rgba(29,110,89,.40);
   --warn-wash:#f6efdd;
   --patina-lift:#12523f;
-  --lift:0 6px 18px rgba(20,22,28,.12);
   --bit-0:#d5dad7;
   --bit-1:#9dc4b6;
+  --e-1:0 1px 2px rgba(20,22,28,.07);
+  --e-2:0 6px 18px rgba(20,22,28,.12);
+  --sheet-lift:0 10px 34px rgba(20,22,28,.16);
 }
 
 @media (prefers-color-scheme:light){
@@ -91,9 +132,11 @@
     --accent-line:rgba(29,110,89,.40);
     --warn-wash:#f6efdd;
     --patina-lift:#12523f;
-    --lift:0 6px 18px rgba(20,22,28,.12);
     --bit-0:#d5dad7;
     --bit-1:#9dc4b6;
+    --e-1:0 1px 2px rgba(20,22,28,.07);
+    --e-2:0 6px 18px rgba(20,22,28,.12);
+    --sheet-lift:0 10px 34px rgba(20,22,28,.16);
   }
 }
 
@@ -106,36 +149,60 @@ body{
 }
 
 /* ─────────── control bar ─────────── */
-.bar{padding:10px 0 12px}
+.bar{padding:var(--sp-3) 0}
 .bar-in{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;flex-wrap:wrap;
-  gap:12px 18px;align-items:flex-end}
-.brand{display:flex;flex-direction:column;gap:2px;margin-right:6px}
-.brand b{font:600 13px/1 var(--mono);letter-spacing:.16em}
-.brand span{font:400 10px/1 var(--mono);letter-spacing:.14em;color:var(--patina);text-transform:uppercase}
-.ctl{display:flex;flex-direction:column;gap:5px;min-width:0}
-.ctl>label{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--chrome-dim)}
-select,input[type=search],button{font:500 12px/1 var(--mono);color:var(--chrome-ink);
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;padding:7px 9px;min-height:32px}
+  gap:var(--sp-3) var(--sp-4);align-items:flex-end}
+.brand{display:flex;flex-direction:column;gap:var(--sp-1);margin-right:var(--sp-2)}
+.brand b{font:600 13px/1 var(--mono);letter-spacing:var(--track)}
+.brand span{font:400 10px/1 var(--mono);letter-spacing:var(--track);color:var(--patina);text-transform:uppercase}
+.ctl{display:flex;flex-direction:column;gap:var(--sp-2);min-width:0}
+.ctl>label{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;color:var(--chrome-dim)}
+
+/* One control surface for every job: a menu, a field and a button are the same
+   object with different work to do. 36px is the shortest a pointer target can
+   be before it starts costing accuracy; the phone breakpoint raises it again. */
+select,input[type=search],input[type=text],button{
+  font:500 var(--fs-sm)/1 var(--mono);color:var(--chrome-ink);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);
+  border-radius:var(--r-1);padding:9px 11px;min-height:36px}
+@media (prefers-reduced-motion:no-preference){
+  select,input[type=search],input[type=text],button{
+    transition:background-color .14s ease,border-color .14s ease,
+      color .14s ease,box-shadow .14s ease}
+}
 /* The chevron is two gradients on the element itself, so every select on the
    page carries the same one without a wrapper element around it. */
 /* A select is as wide as its longest option, and one option here is a sentence.
    Without the clamp that sets the width of a 320px phone. */
-select{max-width:100%;appearance:none;-webkit-appearance:none;padding-right:26px;cursor:pointer;
+select{max-width:100%;appearance:none;-webkit-appearance:none;padding-right:28px;cursor:pointer;
   background-image:linear-gradient(45deg,transparent 50%,var(--chrome-dim) 50%),
     linear-gradient(135deg,var(--chrome-dim) 50%,transparent 50%);
-  background-position:calc(100% - 15px) center,calc(100% - 10px) center;
+  background-position:calc(100% - 16px) center,calc(100% - 11px) center;
   background-size:5px 5px;background-repeat:no-repeat}
 select:hover{border-color:var(--chrome-dim)}
-input[type=search]{width:180px;max-width:100%}
-input[type=search]::placeholder{color:var(--text-3)}
-button{cursor:pointer}
+input[type=search],input[type=text]{width:180px;max-width:100%}
+input[type=search]::placeholder,input[type=text]::placeholder{color:var(--text-3)}
+input[type=search]:hover,input[type=text]:hover{border-color:var(--chrome-dim)}
+
+/* A button sits on the page rather than in it, and goes down when pressed.
+   That is the whole difference between a control and a label. */
+button{cursor:pointer;box-shadow:var(--e-1)}
 button:hover{border-color:var(--patina);color:var(--patina)}
-.btn-print{background:var(--patina);border-color:var(--patina);color:var(--chrome);font-weight:700;letter-spacing:.08em}
+button:active{transform:translateY(1px);box-shadow:none}
+button[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none;transform:none}
+.btn-print{background:var(--patina);border-color:var(--patina);color:var(--chrome);
+  font-weight:700;letter-spacing:.08em}
 .btn-print:hover{background:var(--patina-lift);border-color:var(--patina-lift);color:var(--chrome)}
-.toggles{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-.tg{display:flex;align-items:center;gap:6px;font:400 11px/1 var(--mono);color:var(--chrome-dim);cursor:pointer}
-.tg input{accent-color:var(--patina);width:14px;height:14px;margin:0}
+
+.toggles{display:flex;gap:var(--sp-3);flex-wrap:wrap;align-items:center}
+/* The whole row is the target, not the 16px box inside it. */
+.tg{display:flex;align-items:center;gap:var(--sp-2);min-height:36px;
+  font:400 11px/1 var(--mono);color:var(--chrome-dim);cursor:pointer}
+.tg input{accent-color:var(--patina);width:16px;height:16px;margin:0;cursor:pointer}
 .tg:hover{color:var(--chrome-ink)}
+
+/* One ring, everywhere, and it never sits under the thing it is marking. */
 :focus-visible{outline:2px solid var(--patina);outline-offset:2px}
 
 .readout{max-width:1000px;margin:9px auto 0;padding:0 18px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
@@ -152,7 +219,7 @@ button:hover{border-color:var(--patina);color:var(--patina)}
    large paper scrolls sideways. */
 .sheetwrap{flex:0 0 auto}
 .sheet{background:var(--paper);color:var(--ink);transform-origin:top left;
-  box-shadow:0 12px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;
+  box-shadow:var(--sheet-lift);display:flex;flex-direction:column;
   font-family:var(--face);overflow:hidden}
 
 .masthead{overflow:hidden;display:flex;justify-content:space-between;align-items:flex-end;gap:5mm;flex:0 0 auto}

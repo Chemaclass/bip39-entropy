@@ -2,9 +2,9 @@
 /* Visible only when tabbed to. Nine controls sit between the top of the
    document and the first sentence, which is nine too many on a keyboard. */
 .skip{position:absolute;left:-9999px;top:0;z-index:40;
-  font:600 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
-  color:var(--chrome-ink);background:var(--chrome-2);
-  border:1px solid var(--patina);border-radius:3px;padding:12px 16px;text-decoration:none}
+  font:600 11px/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
+  color:var(--chrome-ink);background:var(--chrome-2);box-shadow:var(--e-2);
+  border:1px solid var(--patina);border-radius:var(--r-1);padding:12px 16px;text-decoration:none}
 .skip:focus{left:12px;top:12px}
 main:focus{outline:none}
 
@@ -14,12 +14,12 @@ main:focus{outline:none}
   border-bottom:1px solid var(--chrome-3)}
 /* A hairline reads as part of the page until something scrolls under it. */
 .chrome.lift{box-shadow:var(--lift)}
-.top{padding:14px 0}
+.top{padding:var(--sp-3) 0}
 /* The bar shares its edges with everything under it, on every view, so the brand
    and the prose start at the same x and switching tabs moves nothing. The poster's
    own control bar takes the same box, in 10-poster.css. */
 .top-in{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;align-items:center;
-  gap:8px 12px;flex-wrap:wrap}
+  gap:var(--sp-2) var(--sp-3);flex-wrap:wrap}
 .brand{text-decoration:none;color:inherit;flex:0 0 auto}
 .brand:hover span{color:var(--chrome-ink)}
 
@@ -29,26 +29,31 @@ main:focus{outline:none}
    a phone runs out of room before the design does. The row around it is what
    claims the full width below the breakpoint, so the track itself can stay as
    wide as its tabs instead of stretching. */
-.tabs-row{display:flex;min-width:0}
+/* A flex line wraps on an item's content width, before shrinking is considered,
+   so a track holding six tabs used to push the language and theme menus onto a
+   second row and leave half the first one empty. A zero basis takes the track
+   out of that decision: it claims what is left of the row and scrolls its own
+   tabs if even that runs out. */
+.tabs-row{display:flex;min-width:0;flex:1 1 0}
 .tabs{display:flex;align-items:center;gap:2px;padding:3px;
   min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:none;
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:9px}
+  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:var(--r-2)}
 .tabs::-webkit-scrollbar{display:none}
 .tabs a{font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
   color:var(--chrome-dim);text-decoration:none;white-space:nowrap;
-  padding:9px 10px;border-radius:6px}
+  padding:9px 10px;border-radius:var(--r-1)}
 .tabs a:hover{color:var(--chrome-ink);background:var(--chrome-3)}
 /* Scrolling makes the track clip on both axes, and an offset ring is what gets
    clipped. Inset it. */
 .tabs a:focus-visible{outline-offset:-2px}
 /* The selected tab is the only reliable "where am I": four long reading pages
    share a layout, so a wash and a hairline are not enough to tell them apart. */
-.tabs a.on,.tabs a.on:hover{color:var(--chrome);background:var(--patina)}
+.tabs a.on,.tabs a.on:hover{color:var(--chrome);background:var(--patina);box-shadow:var(--e-1)}
 
-.top-act{display:flex;align-items:center;gap:8px;margin-left:auto;flex:0 0 auto}
+.top-act{display:flex;align-items:center;gap:var(--sp-2);margin-left:auto;flex:0 0 auto}
 .langsel{display:flex;align-items:center}
-.langsel select{min-height:32px;padding:6px 22px 6px 8px;font-size:11px;letter-spacing:.04em;
-  border-radius:6px}
+.langsel select{min-height:36px;padding:6px 24px 6px 9px;font-size:11px;letter-spacing:.04em;
+  border-radius:var(--r-1)}
 @media (prefers-reduced-motion:no-preference){
   .tabs a,.foot-links a,.langsel select{transition:background-color .12s ease,
     color .12s ease,border-color .12s ease}
@@ -100,9 +105,10 @@ main:focus{outline:none}
   .tabs a{padding:9px 10px;letter-spacing:.06em;font-size:10.5px}
   /* iOS Safari zooms the page when a focused control's text is under 16px, and
      it does not zoom back out. Every control on the page pays for that, so on a
-     phone they all get 16px whatever it costs in width. */
-  select,input[type=search],input[type=text],button{font-size:16px}
-  .langsel select{min-height:36px;padding:6px 26px 6px 9px;letter-spacing:0}
+     phone they all get 16px whatever it costs in width. A thumb is wider than a
+     pointer, so the same controls get the 44px a thumb needs. */
+  select,input[type=search],input[type=text],button{font-size:16px;min-height:44px}
+  .langsel select{min-height:44px;padding:6px 26px 6px 9px;letter-spacing:0}
 }
 
 /* ─────────── the enhancement layer ─────────── */
@@ -145,11 +151,11 @@ html{-webkit-tap-highlight-color:transparent}
 @keyframes readprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
 /* ─────────── footer ─────────── */
-.foot{border-top:1px solid var(--chrome-3);margin-top:40px;padding:26px 18px 40px}
-.foot-in{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 26px;
+.foot{border-top:1px solid var(--chrome-3);margin-top:var(--sp-7);padding:var(--sp-5) 18px var(--sp-7)}
+.foot-in{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-5);
   align-items:baseline;justify-content:space-between}
 .foot-lic{font:400 11px/1.5 var(--mono);letter-spacing:.06em;color:var(--text-3)}
-.foot-links{display:flex;flex-wrap:wrap;gap:8px 20px}
+.foot-links{display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-5)}
 .foot-links a{font:500 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;
   color:var(--chrome-dim);text-decoration:none;border-bottom:1px solid transparent}
 .foot-links a:hover{color:var(--patina);border-bottom-color:var(--patina)}

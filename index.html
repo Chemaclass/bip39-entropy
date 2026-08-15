@@ -157,7 +157,6 @@
   --accent-line:rgba(111,191,168,.35);
   --warn-wash:#2a2519;
   --patina-lift:#8ad3bd;
-  --lift:0 6px 20px rgba(0,0,0,.34);
   --bit-0:#2f3639;
   --bit-1:#4a7d6f;
 
@@ -166,9 +165,49 @@
   --bit-rule:linear-gradient(90deg,var(--bit-0) 0px 6px,transparent 6px 8px,var(--bit-1) 8px 14px,transparent 14px 16px,var(--bit-1) 16px 22px,transparent 22px 24px,var(--bit-0) 24px 30px,transparent 30px 32px,var(--bit-1) 32px 38px,transparent 38px 40px,var(--bit-0) 40px 46px,transparent 46px 48px,var(--bit-0) 48px 54px,transparent 54px 56px,var(--bit-0) 56px 62px,transparent 62px 64px,var(--bit-1) 64px 70px,transparent 70px 72px,var(--bit-0) 72px 78px,transparent 78px 80px,var(--bit-1) 80px 86px,transparent 86px 88px);
 
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
-  --grot:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",system-ui,sans-serif;
+  --grot:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Helvetica,Arial,"Liberation Sans",sans-serif;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Liberation Serif",serif;
   --face:var(--grot);
+
+  /* ── the scales ──────────────────────────────────────────────────
+     Three ramps the chrome measures itself against, so a new component
+     inherits the page's rhythm instead of inventing a fourth set of
+     numbers. The sheet below is drawn in mm and shares none of this. */
+
+  /* Corners. One step per role: controls, panels, cards. */
+  --r-1:7px;
+  --r-2:11px;
+  --r-3:16px;
+
+  /* Space, in a 4px rhythm. Anything between two steps is a mistake. */
+  --sp-1:4px;
+  --sp-2:8px;
+  --sp-3:12px;
+  --sp-4:16px;
+  --sp-5:24px;
+  --sp-6:32px;
+  --sp-7:48px;
+  --sp-8:72px;
+
+  /* Depth. Two steps: a thing that sits on the page, a thing that floats
+     over it. --lift is the second, kept under its old name. */
+  --e-1:0 1px 2px rgba(0,0,0,.30);
+  --e-2:0 6px 20px rgba(0,0,0,.34);
+  --lift:var(--e-2);
+  /* Paper on a desk, which is deeper than anything else the page stacks. */
+  --sheet-lift:0 12px 40px rgba(0,0,0,.5);
+
+  /* Reading sizes, fluid between a phone and a desktop. */
+  --fs-label:9.5px;
+  --fs-sm:12.5px;
+  --fs-body:clamp(15px,1.05vw,16px);
+  --fs-lead:clamp(16px,1.6vw,18px);
+  --fs-h2:clamp(13.5px,1.5vw,15px);
+  --fs-h1:clamp(30px,5.4vw,46px);
+
+  /* Uppercase mono labels. Wide tracking dates a page fast, so one value
+     carries every label and it is narrower than it was. */
+  --track:.14em;
 }
 
 /* ─────────── light ───────────
@@ -193,9 +232,11 @@
   --accent-line:rgba(29,110,89,.40);
   --warn-wash:#f6efdd;
   --patina-lift:#12523f;
-  --lift:0 6px 18px rgba(20,22,28,.12);
   --bit-0:#d5dad7;
   --bit-1:#9dc4b6;
+  --e-1:0 1px 2px rgba(20,22,28,.07);
+  --e-2:0 6px 18px rgba(20,22,28,.12);
+  --sheet-lift:0 10px 34px rgba(20,22,28,.16);
 }
 
 @media (prefers-color-scheme:light){
@@ -218,9 +259,11 @@
     --accent-line:rgba(29,110,89,.40);
     --warn-wash:#f6efdd;
     --patina-lift:#12523f;
-    --lift:0 6px 18px rgba(20,22,28,.12);
     --bit-0:#d5dad7;
     --bit-1:#9dc4b6;
+    --e-1:0 1px 2px rgba(20,22,28,.07);
+    --e-2:0 6px 18px rgba(20,22,28,.12);
+    --sheet-lift:0 10px 34px rgba(20,22,28,.16);
   }
 }
 
@@ -233,36 +276,60 @@ body{
 }
 
 /* ─────────── control bar ─────────── */
-.bar{padding:10px 0 12px}
+.bar{padding:var(--sp-3) 0}
 .bar-in{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;flex-wrap:wrap;
-  gap:12px 18px;align-items:flex-end}
-.brand{display:flex;flex-direction:column;gap:2px;margin-right:6px}
-.brand b{font:600 13px/1 var(--mono);letter-spacing:.16em}
-.brand span{font:400 10px/1 var(--mono);letter-spacing:.14em;color:var(--patina);text-transform:uppercase}
-.ctl{display:flex;flex-direction:column;gap:5px;min-width:0}
-.ctl>label{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--chrome-dim)}
-select,input[type=search],button{font:500 12px/1 var(--mono);color:var(--chrome-ink);
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;padding:7px 9px;min-height:32px}
+  gap:var(--sp-3) var(--sp-4);align-items:flex-end}
+.brand{display:flex;flex-direction:column;gap:var(--sp-1);margin-right:var(--sp-2)}
+.brand b{font:600 13px/1 var(--mono);letter-spacing:var(--track)}
+.brand span{font:400 10px/1 var(--mono);letter-spacing:var(--track);color:var(--patina);text-transform:uppercase}
+.ctl{display:flex;flex-direction:column;gap:var(--sp-2);min-width:0}
+.ctl>label{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;color:var(--chrome-dim)}
+
+/* One control surface for every job: a menu, a field and a button are the same
+   object with different work to do. 36px is the shortest a pointer target can
+   be before it starts costing accuracy; the phone breakpoint raises it again. */
+select,input[type=search],input[type=text],button{
+  font:500 var(--fs-sm)/1 var(--mono);color:var(--chrome-ink);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);
+  border-radius:var(--r-1);padding:9px 11px;min-height:36px}
+@media (prefers-reduced-motion:no-preference){
+  select,input[type=search],input[type=text],button{
+    transition:background-color .14s ease,border-color .14s ease,
+      color .14s ease,box-shadow .14s ease}
+}
 /* The chevron is two gradients on the element itself, so every select on the
    page carries the same one without a wrapper element around it. */
 /* A select is as wide as its longest option, and one option here is a sentence.
    Without the clamp that sets the width of a 320px phone. */
-select{max-width:100%;appearance:none;-webkit-appearance:none;padding-right:26px;cursor:pointer;
+select{max-width:100%;appearance:none;-webkit-appearance:none;padding-right:28px;cursor:pointer;
   background-image:linear-gradient(45deg,transparent 50%,var(--chrome-dim) 50%),
     linear-gradient(135deg,var(--chrome-dim) 50%,transparent 50%);
-  background-position:calc(100% - 15px) center,calc(100% - 10px) center;
+  background-position:calc(100% - 16px) center,calc(100% - 11px) center;
   background-size:5px 5px;background-repeat:no-repeat}
 select:hover{border-color:var(--chrome-dim)}
-input[type=search]{width:180px;max-width:100%}
-input[type=search]::placeholder{color:var(--text-3)}
-button{cursor:pointer}
+input[type=search],input[type=text]{width:180px;max-width:100%}
+input[type=search]::placeholder,input[type=text]::placeholder{color:var(--text-3)}
+input[type=search]:hover,input[type=text]:hover{border-color:var(--chrome-dim)}
+
+/* A button sits on the page rather than in it, and goes down when pressed.
+   That is the whole difference between a control and a label. */
+button{cursor:pointer;box-shadow:var(--e-1)}
 button:hover{border-color:var(--patina);color:var(--patina)}
-.btn-print{background:var(--patina);border-color:var(--patina);color:var(--chrome);font-weight:700;letter-spacing:.08em}
+button:active{transform:translateY(1px);box-shadow:none}
+button[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none;transform:none}
+.btn-print{background:var(--patina);border-color:var(--patina);color:var(--chrome);
+  font-weight:700;letter-spacing:.08em}
 .btn-print:hover{background:var(--patina-lift);border-color:var(--patina-lift);color:var(--chrome)}
-.toggles{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-.tg{display:flex;align-items:center;gap:6px;font:400 11px/1 var(--mono);color:var(--chrome-dim);cursor:pointer}
-.tg input{accent-color:var(--patina);width:14px;height:14px;margin:0}
+
+.toggles{display:flex;gap:var(--sp-3);flex-wrap:wrap;align-items:center}
+/* The whole row is the target, not the 16px box inside it. */
+.tg{display:flex;align-items:center;gap:var(--sp-2);min-height:36px;
+  font:400 11px/1 var(--mono);color:var(--chrome-dim);cursor:pointer}
+.tg input{accent-color:var(--patina);width:16px;height:16px;margin:0;cursor:pointer}
 .tg:hover{color:var(--chrome-ink)}
+
+/* One ring, everywhere, and it never sits under the thing it is marking. */
 :focus-visible{outline:2px solid var(--patina);outline-offset:2px}
 
 .readout{max-width:1000px;margin:9px auto 0;padding:0 18px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
@@ -279,7 +346,7 @@ button:hover{border-color:var(--patina);color:var(--patina)}
    large paper scrolls sideways. */
 .sheetwrap{flex:0 0 auto}
 .sheet{background:var(--paper);color:var(--ink);transform-origin:top left;
-  box-shadow:0 12px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;
+  box-shadow:var(--sheet-lift);display:flex;flex-direction:column;
   font-family:var(--face);overflow:hidden}
 
 .masthead{overflow:hidden;display:flex;justify-content:space-between;align-items:flex-end;gap:5mm;flex:0 0 auto}
@@ -333,9 +400,9 @@ body.plain .w{color:var(--ink)}
 /* Visible only when tabbed to. Nine controls sit between the top of the
    document and the first sentence, which is nine too many on a keyboard. */
 .skip{position:absolute;left:-9999px;top:0;z-index:40;
-  font:600 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
-  color:var(--chrome-ink);background:var(--chrome-2);
-  border:1px solid var(--patina);border-radius:3px;padding:12px 16px;text-decoration:none}
+  font:600 11px/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
+  color:var(--chrome-ink);background:var(--chrome-2);box-shadow:var(--e-2);
+  border:1px solid var(--patina);border-radius:var(--r-1);padding:12px 16px;text-decoration:none}
 .skip:focus{left:12px;top:12px}
 main:focus{outline:none}
 
@@ -345,12 +412,12 @@ main:focus{outline:none}
   border-bottom:1px solid var(--chrome-3)}
 /* A hairline reads as part of the page until something scrolls under it. */
 .chrome.lift{box-shadow:var(--lift)}
-.top{padding:14px 0}
+.top{padding:var(--sp-3) 0}
 /* The bar shares its edges with everything under it, on every view, so the brand
    and the prose start at the same x and switching tabs moves nothing. The poster's
    own control bar takes the same box, in 10-poster.css. */
 .top-in{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;align-items:center;
-  gap:8px 12px;flex-wrap:wrap}
+  gap:var(--sp-2) var(--sp-3);flex-wrap:wrap}
 .brand{text-decoration:none;color:inherit;flex:0 0 auto}
 .brand:hover span{color:var(--chrome-ink)}
 
@@ -360,26 +427,31 @@ main:focus{outline:none}
    a phone runs out of room before the design does. The row around it is what
    claims the full width below the breakpoint, so the track itself can stay as
    wide as its tabs instead of stretching. */
-.tabs-row{display:flex;min-width:0}
+/* A flex line wraps on an item's content width, before shrinking is considered,
+   so a track holding six tabs used to push the language and theme menus onto a
+   second row and leave half the first one empty. A zero basis takes the track
+   out of that decision: it claims what is left of the row and scrolls its own
+   tabs if even that runs out. */
+.tabs-row{display:flex;min-width:0;flex:1 1 0}
 .tabs{display:flex;align-items:center;gap:2px;padding:3px;
   min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:none;
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:9px}
+  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:var(--r-2)}
 .tabs::-webkit-scrollbar{display:none}
 .tabs a{font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
   color:var(--chrome-dim);text-decoration:none;white-space:nowrap;
-  padding:9px 10px;border-radius:6px}
+  padding:9px 10px;border-radius:var(--r-1)}
 .tabs a:hover{color:var(--chrome-ink);background:var(--chrome-3)}
 /* Scrolling makes the track clip on both axes, and an offset ring is what gets
    clipped. Inset it. */
 .tabs a:focus-visible{outline-offset:-2px}
 /* The selected tab is the only reliable "where am I": four long reading pages
    share a layout, so a wash and a hairline are not enough to tell them apart. */
-.tabs a.on,.tabs a.on:hover{color:var(--chrome);background:var(--patina)}
+.tabs a.on,.tabs a.on:hover{color:var(--chrome);background:var(--patina);box-shadow:var(--e-1)}
 
-.top-act{display:flex;align-items:center;gap:8px;margin-left:auto;flex:0 0 auto}
+.top-act{display:flex;align-items:center;gap:var(--sp-2);margin-left:auto;flex:0 0 auto}
 .langsel{display:flex;align-items:center}
-.langsel select{min-height:32px;padding:6px 22px 6px 8px;font-size:11px;letter-spacing:.04em;
-  border-radius:6px}
+.langsel select{min-height:36px;padding:6px 24px 6px 9px;font-size:11px;letter-spacing:.04em;
+  border-radius:var(--r-1)}
 @media (prefers-reduced-motion:no-preference){
   .tabs a,.foot-links a,.langsel select{transition:background-color .12s ease,
     color .12s ease,border-color .12s ease}
@@ -431,9 +503,10 @@ main:focus{outline:none}
   .tabs a{padding:9px 10px;letter-spacing:.06em;font-size:10.5px}
   /* iOS Safari zooms the page when a focused control's text is under 16px, and
      it does not zoom back out. Every control on the page pays for that, so on a
-     phone they all get 16px whatever it costs in width. */
-  select,input[type=search],input[type=text],button{font-size:16px}
-  .langsel select{min-height:36px;padding:6px 26px 6px 9px;letter-spacing:0}
+     phone they all get 16px whatever it costs in width. A thumb is wider than a
+     pointer, so the same controls get the 44px a thumb needs. */
+  select,input[type=search],input[type=text],button{font-size:16px;min-height:44px}
+  .langsel select{min-height:44px;padding:6px 26px 6px 9px;letter-spacing:0}
 }
 
 /* ─────────── the enhancement layer ─────────── */
@@ -476,11 +549,11 @@ html{-webkit-tap-highlight-color:transparent}
 @keyframes readprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
 /* ─────────── footer ─────────── */
-.foot{border-top:1px solid var(--chrome-3);margin-top:40px;padding:26px 18px 40px}
-.foot-in{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 26px;
+.foot{border-top:1px solid var(--chrome-3);margin-top:var(--sp-7);padding:var(--sp-5) 18px var(--sp-7)}
+.foot-in{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-5);
   align-items:baseline;justify-content:space-between}
 .foot-lic{font:400 11px/1.5 var(--mono);letter-spacing:.06em;color:var(--text-3)}
-.foot-links{display:flex;flex-wrap:wrap;gap:8px 20px}
+.foot-links{display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-5)}
 .foot-links a{font:500 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;
   color:var(--chrome-dim);text-decoration:none;border-bottom:1px solid transparent}
 .foot-links a:hover{color:var(--patina);border-bottom-color:var(--patina)}
@@ -495,82 +568,130 @@ html{-webkit-tap-highlight-color:transparent}
 
 /* src/css/30-roll.css */
 /* ─────────── roll your own ─────────── */
-.roll{max-width:1000px;margin:0 auto;padding:30px 18px 70px}
-.roll-h{font:700 21px/1.2 var(--mono);letter-spacing:-.01em;margin:0 0 12px}
-.roll-lead{font:400 14px/1.7 var(--grot);color:var(--text-2);margin:0 0 22px}
+.roll{max-width:1000px;margin:0 auto;padding:var(--sp-6) var(--sp-4) var(--sp-8)}
+.roll-h{font:700 var(--fs-h1)/1.02 var(--mono);letter-spacing:-.02em;margin:0 0 var(--sp-4)}
+.roll-lead{font:400 var(--fs-lead)/1.7 var(--grot);color:var(--text-2);margin:0 0 var(--sp-5)}
 
-.roll-warn{border-left:2px solid var(--amber);background:var(--chrome-2);
-  padding:13px 17px;font:400 13px/1.65 var(--grot);color:var(--text-1);margin:0 0 26px}
+.roll-warn{border:1px solid var(--chrome-3);border-left:3px solid var(--amber);
+  border-radius:var(--r-2);background:var(--chrome-2);
+  padding:var(--sp-3) var(--sp-4);font:400 var(--fs-sm)/1.65 var(--grot);
+  color:var(--text-1);margin:0 0 var(--sp-5)}
 .roll-warn b{color:var(--amber);font-weight:700}
 .roll-warn em{font-style:normal;color:var(--chrome-ink)}
 
-.roll-ctl{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end;margin-bottom:22px}
+/* Setup above the rule, throwing below it. */
+.roll-ctl{display:flex;flex-wrap:wrap;gap:var(--sp-4) var(--sp-5);align-items:flex-end;
+  padding-bottom:var(--sp-5);border-bottom:1px solid var(--chrome-3);margin-bottom:var(--sp-5)}
 
-#rollload{width:230px;font:400 12px/1 var(--mono);letter-spacing:.04em}
-.roll-err{font:400 11.5px/1.6 var(--mono);color:var(--patina);margin:0 0 16px}
-.roll-err.bad{color:var(--amber)}
+#rollload{width:230px;font:400 var(--fs-sm)/1 var(--mono);letter-spacing:.04em}
 
-.roll-pad{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:9px}
+/* Answers a keypress, so it sits on a wash rather than floating as loose text. */
+.roll-err{font:400 var(--fs-sm)/1.6 var(--mono);color:var(--patina);
+  background:var(--accent-wash);border-radius:var(--r-1);
+  padding:var(--sp-2) var(--sp-3);margin:0 0 var(--sp-4)}
+.roll-err.bad{color:var(--amber);background:var(--warn-wash)}
+
+/* The pad is where the hand works. Resting shadow, lit border on hover, a real
+   dip when pressed: the key has to answer before the bits do. */
+.roll-pad{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-bottom:var(--sp-2)}
 .roll-key{width:64px;height:64px;font:700 21px/1 var(--mono);color:var(--chrome-ink);
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;
-  cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
-.roll-key:hover{border-color:var(--patina);color:var(--patina)}
-.roll-key:active{background:var(--chrome-3)}
+  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:var(--r-2);
+  box-shadow:var(--e-1);cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--sp-1);
+  /* a pad is tapped fast: no double-tap zoom delay, no text selection under the thumb */
+  touch-action:manipulation;user-select:none;-webkit-user-select:none}
+/* The face is the thing on the table: a die with pips, a coin filled or hollow.
+   Drawn in currentColor, so the key's own state carries it. */
 .roll-face{width:30px;height:30px;display:block}
 .roll-die,.roll-coin{fill:none;stroke:currentColor;stroke-width:1.5;opacity:.55}
 .roll-pip{fill:currentColor}
-.roll-key:hover .roll-die,.roll-key:hover .roll-coin{opacity:1}
-.roll-key span{font:500 9px/1 var(--mono);letter-spacing:.12em;color:var(--text-3)}
+.roll-key:not([disabled]):hover .roll-die,
+.roll-key:not([disabled]):hover .roll-coin{opacity:1}
+/* The bits the face carries stay a footnote. */
+.roll-key span{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);color:var(--text-3)}
+.roll-key:not([disabled]):hover{border-color:var(--patina);color:var(--patina);box-shadow:var(--e-2)}
+.roll-key:not([disabled]):active{background:var(--accent-wash);border-color:var(--patina);
+  box-shadow:inset 0 0 0 1px var(--accent-line);transform:translateY(1px)}
+/* Five and six buy no entropy, and the warm face says so before the label does. */
+.roll-key.rej{background:var(--warn-wash)}
 .roll-key.rej span{color:var(--amber)}
-.roll-key[disabled]{opacity:.4;cursor:not-allowed}
+/* A full phrase takes no more throws, so the keys go flat and hand the eye on. */
+.roll-key[disabled]{background:var(--tint);border-color:var(--chrome-3);color:var(--text-4);
+  box-shadow:none;cursor:not-allowed}
+.roll-key[disabled] span{color:var(--text-4)}
 
-.roll-hint{font:400 11px/1.6 var(--mono);color:var(--text-3);margin:0 0 18px}
+.roll-hint{font:400 var(--fs-sm)/1.65 var(--mono);color:var(--text-3);margin:0 0 var(--sp-4)}
 
-.roll-meter{height:5px;background:var(--chrome-3);overflow:hidden}
-.roll-meter-fill{height:100%;width:0;background:var(--patina);transition:width .15s linear}
-.roll-count{font:500 10.5px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;
-  color:var(--chrome-dim);margin:9px 0 22px}
+.roll-meter{height:var(--sp-2);background:var(--chrome-2);border-radius:var(--r-1);
+  box-shadow:inset 0 0 0 1px var(--chrome-3);overflow:hidden}
+.roll-meter-fill{height:100%;width:0;border-radius:inherit;
+  background:linear-gradient(90deg,var(--patina),var(--patina-lift))}
+.roll-count{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
+  color:var(--chrome-dim);margin:var(--sp-2) 0 var(--sp-5)}
 .roll-count b{color:var(--chrome-ink);font-weight:700}
 
-.roll-bits{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:26px}
-.roll-bits .byte{font:400 12px/1.5 var(--mono);letter-spacing:.06em;color:var(--chrome-dim);
-  background:var(--chrome-2);padding:3px 6px;border-radius:2px}
+.roll-bits{display:flex;flex-wrap:wrap;gap:var(--sp-1);margin-bottom:var(--sp-5)}
+.roll-bits .byte{font:400 var(--fs-sm)/1.4 var(--mono);letter-spacing:.06em;color:var(--text-2);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);
+  padding:var(--sp-1) var(--sp-2);border-radius:var(--r-1)}
 .roll-bits .byte.cs{color:var(--amber);background:var(--warn-wash)}
 
-.roll-sec{font:500 9.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
-  color:var(--patina);margin:0 0 10px}
-.roll-fact{font:400 12.5px/1.8 var(--mono);color:var(--chrome-dim);margin:0 0 22px;word-break:break-all}
+.roll-sec{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
+  color:var(--patina);margin:0 0 var(--sp-2)}
+.roll-fact{font:400 var(--fs-sm)/1.8 var(--mono);color:var(--chrome-dim);
+  margin:0 0 var(--sp-5);word-break:break-all}
 .roll-fact b{color:var(--chrome-ink);font-weight:600}
 
-.seed{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:2px;margin-bottom:26px}
-.seed-w{background:var(--chrome-2);padding:10px 12px;display:flex;align-items:baseline;gap:10px}
-.seed-n{font:500 11px/1 var(--mono);color:var(--text-3);min-width:2.2ch;text-align:right}
-.seed-t{font:700 15px/1 var(--grot);color:var(--patina)}
-.seed-b{margin-left:auto;font:400 10px/1 var(--mono);color:var(--text-3);letter-spacing:.04em;white-space:nowrap}
+/* The words are the payoff, so each one is a card and the word is the loudest
+   thing on it. Index and eleven bits sit under it, in that order of interest. */
+.seed{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));
+  gap:var(--sp-2);margin-bottom:var(--sp-5)}
+.seed-w{background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:var(--r-2);
+  box-shadow:var(--e-1);padding:var(--sp-3) var(--sp-4);
+  display:grid;grid-template-columns:auto 1fr;gap:var(--sp-1) var(--sp-3);align-items:baseline}
+.seed-n{font:500 var(--fs-label)/1 var(--mono);color:var(--text-3);
+  min-width:2.2ch;text-align:right;font-variant-numeric:tabular-nums}
+.seed-t{font:700 var(--fs-lead)/1.15 var(--grot);color:var(--patina);letter-spacing:-.01em}
+.seed-b{grid-column:2;font:400 var(--fs-label)/1.3 var(--mono);color:var(--text-3);
+  letter-spacing:var(--track);white-space:nowrap}
 
 @media (max-width:560px){
-  .roll{padding:22px 14px 70px}
-  .roll-key{width:54px;height:54px;font-size:18px}
+  .roll{padding-top:var(--sp-5)}
+  /* A thumb, not a mouse: nothing here drops under the tap target minimum. */
+  .roll-key{width:56px;height:56px;font-size:18px}
+  .roll-ctl button,.roll-ctl select,#rollload{min-height:44px}
 }
 
-/* The sixteen candidates for the final word, with the one the checksum picks. */
+/* The sixteen candidates for the final word, with the one the checksum picks.
+   Fifteen are context. One is the answer, and it should never take a second look. */
 .lastblock{grid-template-columns:repeat(auto-fill,minmax(168px,1fr))}
-.lastblock .seed-w{opacity:.62}
-.lastblock .seed-w.is-yours{opacity:1;box-shadow:inset 0 0 0 1px var(--patina)}
-.lastblock .is-yours .seed-b{color:var(--patina)}
+.lastblock .seed-w{background:var(--tint);box-shadow:none;opacity:.6}
+.lastblock .seed-w.is-yours{opacity:1;background:var(--accent-wash);
+  border-color:var(--patina);box-shadow:var(--e-1)}
+.lastblock .is-yours .seed-t{color:var(--patina-lift)}
+.lastblock .is-yours .seed-b{justify-self:start;color:var(--chrome);background:var(--patina);
+  border-radius:var(--r-1);padding:var(--sp-1) var(--sp-2);text-transform:uppercase;font-weight:700}
+
+/* Every state above is readable without the fade, so motion stays an extra. */
+@media (prefers-reduced-motion:no-preference){
+  .roll-key{transition:background-color .12s ease,border-color .12s ease,
+    color .12s ease,box-shadow .12s ease,transform .08s ease}
+  .roll-meter-fill{transition:width .18s ease-out}
+}
 
 /* src/css/40-learn.css */
 /* ─────────── learn: entropy explainer ───────────
    Screen-only long-form section that sits below the sheets. Every selector is
-   scoped under .learn so nothing here can reach the poster, and every colour
-   comes from the tokens in 10-poster.css — none are redefined.
+   scoped under .learn so nothing here can reach the poster, and every colour,
+   size, space and radius comes off the tokens in 10-poster.css. Nothing here
+   invents a number the rest of the chrome does not already use.
    Margins are reset once at element level; the rules that follow match that
    specificity, so source order alone decides. */
 
 .learn{
   max-width:1000px;
   margin:0 auto;
-  padding:56px 18px 90px;
+  padding:var(--sp-7) var(--sp-4) var(--sp-8);
   border-top:1px solid var(--chrome-3);
   font-family:var(--grot);
   color:var(--chrome-ink);
@@ -583,161 +704,41 @@ html{-webkit-tap-highlight-color:transparent}
 .learn-head,.learn-warn,.learn-toc,.learn-sec{
   max-width:100%;margin-left:auto;margin-right:auto;
 }
-/* Prose fills the column. The container is the only measure on the page, so
-   paragraphs end on the same edge as the headings and the rules above them. */
 
 /* ─────────── masthead ─────────── */
 .learn-eyebrow{
-  font:500 10px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;
+  font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;
   color:var(--patina);
 }
 h1.learn-title{
-  margin-top:16px;
-  font:700 clamp(28px,5.4vw,46px)/.98 var(--mono);
+  margin-top:var(--sp-4);
+  font:700 var(--fs-h1)/.98 var(--mono);
   letter-spacing:-.02em;text-transform:uppercase;
 }
 p.learn-lead{
-  margin-top:22px;
-  font-size:clamp(15px,1.5vw,17.5px);line-height:1.68;
+  margin-top:var(--sp-5);
+  font-size:var(--fs-lead);line-height:1.6;
 }
 p.learn-lead em{color:var(--patina)}
-
-/* ─────────── warning ─────────── */
-.learn-warn{
-  margin-top:34px;padding:18px 20px;
-  background:var(--chrome-2);
-  border:1px solid var(--chrome-3);border-left:3px solid var(--amber);
-}
-.learn-warn p{font-size:14.5px;line-height:1.62}
-.learn-warn p+p{margin-top:13px}
-.learn-warn .learn-warn-label{
-  font:600 10px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;
-  color:var(--amber);
-}
-
-/* ─────────── contents ─────────── */
-.learn-toc{
-  margin-top:44px;padding:16px 0;
-  border-top:1px solid var(--chrome-3);border-bottom:1px solid var(--chrome-3);
-}
-.learn-toc ol{
-  list-style:none;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:9px 26px;
-  counter-reset:learn-toc;
-}
-.learn-toc li{counter-increment:learn-toc;font:400 12px/1.5 var(--mono)}
-.learn-toc li::before{
-  content:counter(learn-toc,decimal-leading-zero) "  ";
-  color:var(--chrome-dim);font-variant-numeric:tabular-nums;
-}
-.learn-toc a{color:var(--chrome-dim);text-decoration:none}
-.learn-toc a:hover,.learn-toc a:focus-visible{color:var(--patina)}
-
-/* ─────────── sections ─────────── */
-.learn-sec{margin-top:64px;scroll-margin-top:132px}
-.learn-sec h2{
-  padding-top:20px;
-  background:var(--bit-rule) top left/88px 2px repeat-x;
-  font:600 clamp(13px,1.5vw,15px)/1.35 var(--mono);
-  letter-spacing:.16em;text-transform:uppercase;
-}
-.learn-num{
-  color:var(--patina);font-weight:700;letter-spacing:.1em;margin-right:.7em;
-  font-variant-numeric:tabular-nums;
-}
-.learn-sec p{margin-top:18px;font-size:15px;line-height:1.75}
-
-/* Secondary asides: caveats, honest counterweights, footnotes. */
-.learn-sec .learn-note{
-  margin-top:26px;padding-left:16px;
-  border-left:1px solid var(--chrome-3);
-  font-size:13.5px;line-height:1.7;color:var(--chrome-dim);
-}
-
-/* ─────────── magnitude / consequence lists ─────────── */
-.learn .learn-mag{
-  list-style:none;margin-top:22px;
-  border-top:1px solid var(--chrome-3);
-}
-.learn-mag li{
-  padding:15px 0;border-bottom:1px solid var(--chrome-3);
-  font-size:14.5px;line-height:1.7;
-}
-/* the section's own rule closes the list; two hairlines in a row read as a mistake */
-.learn-mag li:last-child{border-bottom:0}
-
-/* ─────────── code ─────────── */
-.learn code{
-  font:500 .9em/1.4 var(--mono);
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:2px;
-  padding:.08em .34em;
-  font-variant-numeric:tabular-nums;
-  /* the 39-digit value of 2^128 has to break, not widen the page */
-  overflow-wrap:anywhere;
-}
-
-/* ─────────── tables ─────────── */
-.learn-tblwrap{
-  margin-top:28px;max-width:100%;overflow-x:auto;
-  border:1px solid var(--chrome-3);background:var(--chrome-2);
-  -webkit-overflow-scrolling:touch;
-}
-.learn-tblwrap:focus-visible{outline:2px solid var(--patina);outline-offset:2px}
-.learn-tbl{
-  width:100%;border-collapse:collapse;
-  font:400 12.5px/1.4 var(--mono);font-variant-numeric:tabular-nums;
-  white-space:nowrap;
-}
-.learn-tbl caption{
-  text-align:left;padding:12px 14px;border-bottom:1px solid var(--chrome-3);
-  font:500 10px/1.3 var(--mono);letter-spacing:.2em;text-transform:uppercase;
-  color:var(--patina);
-}
-.learn-tbl th,.learn-tbl td{padding:9px 13px;text-align:right}
-.learn-tbl thead th{
-  font:500 9.5px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;
-  color:var(--chrome-dim);border-bottom:1px solid var(--chrome-3);
-  vertical-align:bottom;
-  /* headings wrap so the table fits the measure; the figures never do */
-  white-space:normal;max-width:11ch;
-}
-.learn-tbl tbody th[scope=row]{text-align:left;font-weight:700;color:var(--patina)}
-.learn-tbl tbody tr+tr th,.learn-tbl tbody tr+tr td{border-top:1px solid var(--chrome-3)}
-
-/* ─────────── narrow viewports ─────────── */
-@media (max-width:560px){
-  .learn{padding:44px 14px 72px}
-  .learn-toc ol{grid-template-columns:1fr}
-  .learn-sec{margin-top:46px}
-  .learn-sec p{font-size:14.5px;line-height:1.72}
-  .learn-warn{padding:16px}
-  /* the six-column table only just fits 375px; the wrapper still scrolls if a
-     different monospace stack pushes it wider */
-  .learn-tbl{font-size:12px}
-  .learn-tbl th,.learn-tbl td{padding:8px 8px}
-  .learn-tbl caption{padding:11px 8px}
-}
-
-/* The explainer is screen furniture; the sheets are the printed artefact. */
-@media print{
-  .learn{display:none}
-}
 
 /* ─────────── the short version ───────────
    A page opens with its own summary, for the reader who has two minutes rather
    than twenty. Set apart from the prose but not louder than the heading. */
 .learn-tldr{
-  margin-top:28px;padding:16px 20px 18px;
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;
+  margin-top:var(--sp-5);padding:var(--sp-4) var(--sp-5);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);
+  border-radius:var(--r-2);box-shadow:var(--e-1);
 }
 .learn-tldr-label{
-  font:500 9.5px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;
-  color:var(--patina);margin:0 0 12px;
+  font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;
+  color:var(--patina);margin:0 0 var(--sp-3);
 }
 .learn-tldr ul{margin:0;padding:0;list-style:none}
 .learn-tldr li{
-  position:relative;padding-left:18px;margin-top:9px;
-  font:400 14px/1.6 var(--grot);color:var(--text-1);
+  position:relative;padding-left:var(--sp-4);margin-top:var(--sp-2);
+  font:400 var(--fs-body)/1.6 var(--grot);color:var(--text-1);
 }
 .learn-tldr li:first-child{margin-top:0}
 /* The same cell the eleven-bit figure draws, one per line. */
@@ -751,22 +752,173 @@ p.learn-lead em{color:var(--patina)}
   border-bottom:1px solid var(--accent-line)}
 .learn-tldr a:hover{border-bottom-color:var(--patina)}
 
+/* ─────────── warning ───────────
+   The one panel that has to interrupt. It gets the amber wash as well as the
+   amber edge, so it reads as a warning before a word of it is read. */
+.learn-warn{
+  margin-top:var(--sp-6);padding:var(--sp-4) var(--sp-5);
+  background:var(--warn-wash);
+  border:1px solid var(--chrome-3);border-left:3px solid var(--amber);
+  border-radius:var(--r-2);box-shadow:var(--e-1);
+}
+.learn-warn p{font-size:var(--fs-body);line-height:1.65}
+.learn-warn p+p{margin-top:var(--sp-3)}
+.learn-warn .learn-warn-label{
+  font:600 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;
+  color:var(--amber);
+}
+
+/* ─────────── contents ─────────── */
+.learn-toc{
+  margin-top:var(--sp-7);padding:var(--sp-4) 0;
+  border-top:1px solid var(--chrome-3);border-bottom:1px solid var(--chrome-3);
+}
+.learn-toc ol{
+  list-style:none;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:var(--sp-2) var(--sp-5);
+  counter-reset:learn-toc;
+}
+.learn-toc li{counter-increment:learn-toc;font:400 var(--fs-sm)/1.5 var(--mono)}
+.learn-toc li::before{
+  content:counter(learn-toc,decimal-leading-zero) "  ";
+  color:var(--chrome-dim);font-variant-numeric:tabular-nums;
+}
+.learn-toc a{color:var(--chrome-dim);text-decoration:none}
+.learn-toc a:hover,.learn-toc a:focus-visible{color:var(--patina)}
+
+/* ─────────── sections ───────────
+   One cadence for the whole page: --sp-8 between sections, --sp-5 between
+   everything inside one. The heading hangs below its rule at --sp-5 too, so
+   the rule belongs to the heading rather than floating between two blocks. */
+.learn-sec{margin-top:var(--sp-8);scroll-margin-top:132px} /* clears the sticky navbar */
+.learn-sec h2{
+  padding-top:var(--sp-5);
+  background:var(--bit-rule) top left/88px 2px repeat-x;
+  font:600 var(--fs-h2)/1.35 var(--mono);
+  letter-spacing:var(--track);text-transform:uppercase;
+}
+/* the number inherits the heading's tracking; a second value here fought it */
+.learn-num{
+  color:var(--patina);font-weight:700;margin-right:.7em;
+  font-variant-numeric:tabular-nums;
+}
+.learn-sec p{margin-top:var(--sp-5);font-size:var(--fs-body);line-height:1.75}
+
+/* Secondary asides: caveats, honest counterweights, footnotes. The quietest
+   panel on the page, so it carries no fill and no shadow. The smaller type
+   takes contrast away, and --text-2 gives it back. */
+.learn-sec .learn-note{
+  margin-top:var(--sp-5);padding-left:var(--sp-4);
+  border-left:1px solid var(--chrome-3);
+  font-size:var(--fs-sm);line-height:1.7;color:var(--text-2);
+}
+
+/* ─────────── magnitude / consequence lists ───────────
+   Rule-divided rows rather than a filled card. Three filled panels in a row
+   would flatten the hierarchy the tldr and the warning depend on. */
+.learn .learn-mag{
+  list-style:none;margin-top:var(--sp-5);
+  border-top:1px solid var(--chrome-3);
+}
+.learn-mag li{
+  padding:var(--sp-4) 0;border-bottom:1px solid var(--chrome-3);
+  font-size:var(--fs-body);line-height:1.7;
+}
+/* the section's own rule closes the list; two hairlines in a row read as a mistake */
+.learn-mag li:last-child{border-bottom:0}
+
+/* ─────────── code ─────────── */
+.learn code{
+  font:500 .9em/1.4 var(--mono);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);
+  border-radius:var(--r-1);
+  padding:.08em .34em;
+  font-variant-numeric:tabular-nums;
+  /* the 39-digit value of 2^128 has to break, not widen the page */
+  overflow-wrap:anywhere;
+}
+
+/* ─────────── tables ─────────── */
+/* The radius clips the corners of the table itself, which is why it lives on
+   the scrolling wrapper and not on the table. */
+.learn-tblwrap{
+  margin-top:var(--sp-5);max-width:100%;overflow-x:auto;
+  border:1px solid var(--chrome-3);background:var(--chrome-2);
+  border-radius:var(--r-2);box-shadow:var(--e-1);
+  -webkit-overflow-scrolling:touch;
+}
+.learn-tblwrap:focus-visible{outline:2px solid var(--patina);outline-offset:2px}
+.learn-tbl{
+  width:100%;border-collapse:collapse;
+  font:400 var(--fs-sm)/1.4 var(--mono);font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.learn-tbl caption{
+  text-align:left;padding:var(--sp-3) var(--sp-4);
+  border-bottom:1px solid var(--chrome-3);
+  font:500 var(--fs-label)/1.3 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;
+  color:var(--patina);
+}
+.learn-tbl th,.learn-tbl td{padding:var(--sp-3) var(--sp-4);text-align:right}
+/* the wash is what makes the head read as a head once the figures start */
+.learn-tbl thead th{
+  font:500 var(--fs-label)/1.4 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;
+  color:var(--chrome-dim);background:var(--tint);
+  border-bottom:1px solid var(--chrome-3);
+  vertical-align:bottom;
+  /* headings wrap so the table fits the measure; the figures never do */
+  white-space:normal;max-width:11ch;
+}
+.learn-tbl tbody th[scope=row]{text-align:left;font-weight:700;color:var(--patina)}
+.learn-tbl tbody tr+tr th,.learn-tbl tbody tr+tr td{border-top:1px solid var(--chrome-3)}
+
 /* ─────────── the eleven-bit figure ─────────── */
 /* Inline SVG, because the page carries no remote assets and this is the one
    idea readers said they wanted to see rather than read. */
-.bitfig{margin:30px 0;padding:0}
+.bitfig{margin:var(--sp-6) 0;padding:0}
 .bitfig svg{display:block;width:100%;max-width:560px;height:auto}
 .bitfig-hi{fill:var(--accent-wash);stroke:var(--patina);stroke-width:1}
 .bitfig-lo{fill:var(--tint);stroke:var(--chrome-3);stroke-width:1}
 .bitfig-bit text{fill:var(--chrome-ink);font:600 15px var(--mono);text-anchor:middle}
-.bitfig-cap text{fill:var(--text-3);font:500 10px var(--mono);letter-spacing:.14em;
-  text-transform:uppercase;text-anchor:middle}
+.bitfig-cap text{fill:var(--text-3);font:500 10px var(--mono);
+  letter-spacing:var(--track);text-transform:uppercase;text-anchor:middle}
 .bitfig-rule path{stroke:var(--chrome-3);fill:none;stroke-width:1}
 .bitfig-lead text{fill:var(--patina);font:600 12px var(--mono);text-anchor:middle}
 .bitfig-sum text{fill:var(--text-2);font:400 12.5px var(--mono);text-anchor:middle}
 .bitfig-word text{fill:var(--chrome-ink);font:700 17px var(--mono);text-anchor:middle;
   letter-spacing:.04em}
-.bitfig figcaption{margin-top:12px;font:400 12.5px/1.6 var(--grot);color:var(--text-3)}
+.bitfig figcaption{margin-top:var(--sp-3);font:400 var(--fs-sm)/1.6 var(--grot);
+  color:var(--text-3)}
+
+/* ─────────── motion ───────────
+   Colour fades only, and only for readers who have not asked for stillness. */
+@media (prefers-reduced-motion:no-preference){
+  .learn-toc a{transition:color .15s ease}
+  .learn-tldr a{transition:color .15s ease,border-color .15s ease}
+}
+
+/* ─────────── narrow viewports ─────────── */
+@media (max-width:560px){
+  .learn{padding:var(--sp-6) var(--sp-3) var(--sp-8)}
+  .learn-toc ol{grid-template-columns:1fr}
+  .learn-sec{margin-top:var(--sp-7)}
+  /* prose needs no override: --fs-body already bottoms out at 15px here */
+  .learn-warn{padding:var(--sp-4)}
+  /* the six-column table only just fits 375px; the wrapper still scrolls if a
+     different monospace stack pushes it wider */
+  .learn-tbl{font-size:12px}
+  .learn-tbl th,.learn-tbl td{padding:var(--sp-2)}
+  .learn-tbl caption{padding:var(--sp-3) var(--sp-2)}
+}
+
+/* The explainer is screen furniture; the sheets are the printed artefact. */
+@media print{
+  .learn{display:none}
+}
 
 /* src/css/50-reading.css */
 /* ─────────── navbar groups ─────────── */
@@ -774,7 +926,7 @@ p.learn-lead em{color:var(--patina)}
    tools, which are used. The separator carries the word so the grouping is
    stated rather than implied by spacing alone. */
 .tabs-g{display:flex;align-items:center;gap:2px}
-.tabs-sep{font:600 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+.tabs-sep{font:600 9px/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
   white-space:nowrap;color:var(--text-4);margin:0 5px;padding-left:11px;
   border-left:1px solid var(--chrome-3)}
 .tabs-tools a{color:var(--text-2)}
@@ -790,25 +942,25 @@ p.learn-lead em{color:var(--patina)}
 @media (min-width:1100px){
   .rail{display:block;position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:15}
   .rail-btn{display:flex;align-items:center;justify-content:center;
-    width:34px;height:54px;padding:0;cursor:pointer;
+    width:36px;height:56px;padding:0;cursor:pointer;
     color:var(--chrome-dim);background:var(--chrome-2);
-    border:1px solid var(--chrome-3);border-radius:9px}
+    border:1px solid var(--chrome-3);border-radius:var(--r-2);box-shadow:var(--e-1)}
   .rail-btn::before{content:"";display:block;width:15px;height:17px;
     background:repeating-linear-gradient(to bottom,currentColor 0 1.5px,transparent 1.5px 5.5px)}
   .rail-btn:hover{color:var(--chrome-ink);border-color:var(--chrome-dim)}
 
   .rail-panel{position:absolute;left:calc(100% + 10px);top:50%;
-    transform:translateY(-50%);width:262px;padding:15px 8px 8px;
+    transform:translateY(-50%);width:262px;padding:var(--sp-4) var(--sp-2) var(--sp-2);
     background:var(--chrome-2);border:1px solid var(--chrome-3);
-    border-radius:12px;box-shadow:var(--lift)}
+    border-radius:var(--r-3);box-shadow:var(--e-2)}
   /* The attribute keeps the links out of the tab order until the list is open.
      Hover has no attribute to set, so it overrides the attribute in CSS alone. */
   .rail-panel[hidden]{display:none}
   .rail:hover .rail-panel[hidden]{display:block}
-  .rail-head{font:700 9.5px/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;
-    color:var(--text-3);margin:0 0 10px;padding:0 10px}
-  .rail a{display:block;padding:7px 10px;border-radius:6px;
-    font:400 12.5px/1.4 var(--grot);color:var(--text-2);text-decoration:none;
+  .rail-head{font:700 var(--fs-label)/1.2 var(--mono);letter-spacing:var(--track);
+    text-transform:uppercase;color:var(--text-3);margin:0 0 var(--sp-3);padding:0 10px}
+  .rail a{display:block;padding:8px 10px;border-radius:var(--r-1);
+    font:400 var(--fs-sm)/1.4 var(--grot);color:var(--text-2);text-decoration:none;
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .rail a:hover{color:var(--chrome-ink);background:var(--chrome-3)}
   .rail a.on{color:var(--patina);font-weight:600}
@@ -819,18 +971,18 @@ p.learn-lead em{color:var(--patina)}
 /* ─────────── the scale widget ─────────── */
 /* Sits inside the prose. Same chrome as the roller's controls, so it reads as
    a thing you operate rather than a thing you read. */
-.scale{border:1px solid var(--chrome-3);background:var(--chrome-2);
-  border-radius:3px;padding:16px 18px;margin:26px 0}
-.scale-head{font:500 9.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
-  color:var(--patina);margin:0 0 14px}
-.scale-ctl{display:flex;flex-wrap:wrap;gap:12px 18px;margin-bottom:14px}
+.scale{border:1px solid var(--chrome-3);background:var(--chrome-2);box-shadow:var(--e-1);
+  border-radius:var(--r-2);padding:var(--sp-5);margin:var(--sp-5) 0}
+.scale-head{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;color:var(--patina);margin:0 0 var(--sp-4)}
+.scale-ctl{display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-4)}
 /* A flex item will not shrink below its content unless told to, and a select
    whose longest option is a sentence is wider than a phone. */
 .scale-field{display:flex;flex-direction:column;gap:5px;flex:1 1 240px;min-width:0}
 .scale-field select{width:100%;min-width:0}
-.scale-field span{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
-  color:var(--chrome-dim)}
-.scale-out{display:flex;flex-direction:column;gap:7px}
+.scale-field span{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;color:var(--chrome-dim)}
+.scale-out{display:flex;flex-direction:column;gap:var(--sp-2)}
 .scale-line{margin:0;font:400 13px/1.6 var(--mono);color:var(--text-2)}
 .scale-line b{color:var(--chrome-ink);font-weight:600}
 .scale-dim{color:var(--text-3)}
@@ -838,42 +990,47 @@ p.learn-lead em{color:var(--patina)}
 .scale-warn b{color:var(--amber)}
 
 /* ─────────── the checklist offer ─────────── */
-.cl-widget{border:1px solid var(--chrome-3);background:var(--chrome-2);border-radius:3px;
-  padding:16px 18px;margin:26px 0;display:flex;flex-wrap:wrap;gap:12px 18px;
+.cl-widget{border:1px solid var(--chrome-3);background:var(--chrome-2);box-shadow:var(--e-1);
+  border-radius:var(--r-2);padding:var(--sp-5);margin:var(--sp-5) 0;
+  display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-4);
   align-items:center;justify-content:space-between}
 .cl-note{margin:0;flex:1 1 320px;font:400 13px/1.6 var(--grot);color:var(--text-2)}
-.cl-widget button{font:700 11px/1 var(--mono);letter-spacing:.1em;padding:10px 14px}
+.cl-widget button{font:700 11px/1 var(--mono);letter-spacing:.1em;padding:12px 16px}
 
 /* ─────────── back to the top ─────────── */
-.totop{position:fixed;right:18px;bottom:18px;z-index:30;
-  font:600 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
-  color:var(--chrome-dim);background:var(--veil);
-  border:1px solid var(--chrome-3);border-radius:3px;padding:11px 13px;cursor:pointer}
+.totop{position:fixed;right:18px;bottom:18px;z-index:30;min-height:44px;
+  font:600 10px/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
+  color:var(--chrome-dim);background:var(--veil);box-shadow:var(--e-2);
+  border:1px solid var(--chrome-3);border-radius:var(--r-2);padding:var(--sp-3) var(--sp-4);
+  cursor:pointer}
 .totop:hover{color:var(--patina);border-color:var(--patina)}
 .totop[hidden]{display:none}
 @media (max-width:560px){ .totop{right:12px;bottom:12px} }
 
-/* ─────────── the next door ─────────── */
-/* One card at the foot of each guide page: the next page in the reading order.
-   The tab bar states the order; this hands it to the reader who got to the
-  padding:18px 20px;background:var(--chrome-2);
-  border:1px solid var(--chrome-3);border-left:3px solid var(--patina);
-  text-decoration:none}
-  text-transform:uppercase;color:var(--patina)}
+/* The doors answer a pointer, for anyone who has not asked for stillness. */
+@media (prefers-reduced-motion:no-preference){
+  .path{transition:background-color .14s ease,border-color .14s ease,
+    box-shadow .14s ease}
+}
+
 /* ─────────── the doors ─────────── */
 /* The landing page says what is here and which door is yours, before the essay
    starts. Four links, one line each, and the claim the site is built on. */
-.paths{margin:30px 0 6px}
-/* Five doors now. 190px lets them sit as one row on a desktop instead of four
-   plus a stretched orphan; below that they wrap like any grid. */
-.paths-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:2px}
-.path{display:flex;flex-direction:column;gap:6px;padding:16px 18px;
-  background:var(--chrome-2);border:1px solid transparent;text-decoration:none}
-.path:hover{border-color:var(--patina);background:var(--accent-wash)}
-.path b{font:700 14px/1.2 var(--grot);color:var(--chrome-ink);letter-spacing:.01em}
+.paths{margin:var(--sp-6) 0 var(--sp-2)}
+/* Five doors, and the column holds 964px. Five tracks plus four gaps leaves
+   186px each, so the minimum has to sit under that or the fifth door drops to a
+   row of its own. Below the breakpoint they wrap like any grid. Real gaps
+   rather than hairlines, so each door reads as its own card. */
+.paths-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(174px,1fr));
+  gap:var(--sp-2)}
+.path{display:flex;flex-direction:column;gap:var(--sp-2);padding:var(--sp-4);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:var(--r-2);
+  text-decoration:none}
+.path:hover{border-color:var(--patina);background:var(--accent-wash);box-shadow:var(--e-1)}
+.path b{font:700 14px/1.25 var(--grot);color:var(--chrome-ink);letter-spacing:.01em}
 .path:hover b{color:var(--patina)}
-.path span{font:400 12.5px/1.55 var(--grot);color:var(--text-2)}
-.paths-trust{margin:14px 0 0;font:400 11px/1.6 var(--mono);color:var(--text-3);
+.path span{font:400 var(--fs-sm)/1.55 var(--grot);color:var(--text-2)}
+.paths-trust{margin:var(--sp-4) 0 0;font:400 11px/1.6 var(--mono);color:var(--text-3);
   letter-spacing:.02em}
 
 /* src/css/90-print.css */

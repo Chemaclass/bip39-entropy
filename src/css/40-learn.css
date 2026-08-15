@@ -1,14 +1,15 @@
 /* ─────────── learn: entropy explainer ───────────
    Screen-only long-form section that sits below the sheets. Every selector is
-   scoped under .learn so nothing here can reach the poster, and every colour
-   comes from the tokens in 10-poster.css — none are redefined.
+   scoped under .learn so nothing here can reach the poster, and every colour,
+   size, space and radius comes off the tokens in 10-poster.css. Nothing here
+   invents a number the rest of the chrome does not already use.
    Margins are reset once at element level; the rules that follow match that
    specificity, so source order alone decides. */
 
 .learn{
   max-width:1000px;
   margin:0 auto;
-  padding:56px 18px 90px;
+  padding:var(--sp-7) var(--sp-4) var(--sp-8);
   border-top:1px solid var(--chrome-3);
   font-family:var(--grot);
   color:var(--chrome-ink);
@@ -21,161 +22,41 @@
 .learn-head,.learn-warn,.learn-toc,.learn-sec{
   max-width:100%;margin-left:auto;margin-right:auto;
 }
-/* Prose fills the column. The container is the only measure on the page, so
-   paragraphs end on the same edge as the headings and the rules above them. */
 
 /* ─────────── masthead ─────────── */
 .learn-eyebrow{
-  font:500 10px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;
+  font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;
   color:var(--patina);
 }
 h1.learn-title{
-  margin-top:16px;
-  font:700 clamp(28px,5.4vw,46px)/.98 var(--mono);
+  margin-top:var(--sp-4);
+  font:700 var(--fs-h1)/.98 var(--mono);
   letter-spacing:-.02em;text-transform:uppercase;
 }
 p.learn-lead{
-  margin-top:22px;
-  font-size:clamp(15px,1.5vw,17.5px);line-height:1.68;
+  margin-top:var(--sp-5);
+  font-size:var(--fs-lead);line-height:1.6;
 }
 p.learn-lead em{color:var(--patina)}
-
-/* ─────────── warning ─────────── */
-.learn-warn{
-  margin-top:34px;padding:18px 20px;
-  background:var(--chrome-2);
-  border:1px solid var(--chrome-3);border-left:3px solid var(--amber);
-}
-.learn-warn p{font-size:14.5px;line-height:1.62}
-.learn-warn p+p{margin-top:13px}
-.learn-warn .learn-warn-label{
-  font:600 10px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;
-  color:var(--amber);
-}
-
-/* ─────────── contents ─────────── */
-.learn-toc{
-  margin-top:44px;padding:16px 0;
-  border-top:1px solid var(--chrome-3);border-bottom:1px solid var(--chrome-3);
-}
-.learn-toc ol{
-  list-style:none;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:9px 26px;
-  counter-reset:learn-toc;
-}
-.learn-toc li{counter-increment:learn-toc;font:400 12px/1.5 var(--mono)}
-.learn-toc li::before{
-  content:counter(learn-toc,decimal-leading-zero) "  ";
-  color:var(--chrome-dim);font-variant-numeric:tabular-nums;
-}
-.learn-toc a{color:var(--chrome-dim);text-decoration:none}
-.learn-toc a:hover,.learn-toc a:focus-visible{color:var(--patina)}
-
-/* ─────────── sections ─────────── */
-.learn-sec{margin-top:64px;scroll-margin-top:132px}
-.learn-sec h2{
-  padding-top:20px;
-  background:var(--bit-rule) top left/88px 2px repeat-x;
-  font:600 clamp(13px,1.5vw,15px)/1.35 var(--mono);
-  letter-spacing:.16em;text-transform:uppercase;
-}
-.learn-num{
-  color:var(--patina);font-weight:700;letter-spacing:.1em;margin-right:.7em;
-  font-variant-numeric:tabular-nums;
-}
-.learn-sec p{margin-top:18px;font-size:15px;line-height:1.75}
-
-/* Secondary asides: caveats, honest counterweights, footnotes. */
-.learn-sec .learn-note{
-  margin-top:26px;padding-left:16px;
-  border-left:1px solid var(--chrome-3);
-  font-size:13.5px;line-height:1.7;color:var(--chrome-dim);
-}
-
-/* ─────────── magnitude / consequence lists ─────────── */
-.learn .learn-mag{
-  list-style:none;margin-top:22px;
-  border-top:1px solid var(--chrome-3);
-}
-.learn-mag li{
-  padding:15px 0;border-bottom:1px solid var(--chrome-3);
-  font-size:14.5px;line-height:1.7;
-}
-/* the section's own rule closes the list; two hairlines in a row read as a mistake */
-.learn-mag li:last-child{border-bottom:0}
-
-/* ─────────── code ─────────── */
-.learn code{
-  font:500 .9em/1.4 var(--mono);
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:2px;
-  padding:.08em .34em;
-  font-variant-numeric:tabular-nums;
-  /* the 39-digit value of 2^128 has to break, not widen the page */
-  overflow-wrap:anywhere;
-}
-
-/* ─────────── tables ─────────── */
-.learn-tblwrap{
-  margin-top:28px;max-width:100%;overflow-x:auto;
-  border:1px solid var(--chrome-3);background:var(--chrome-2);
-  -webkit-overflow-scrolling:touch;
-}
-.learn-tblwrap:focus-visible{outline:2px solid var(--patina);outline-offset:2px}
-.learn-tbl{
-  width:100%;border-collapse:collapse;
-  font:400 12.5px/1.4 var(--mono);font-variant-numeric:tabular-nums;
-  white-space:nowrap;
-}
-.learn-tbl caption{
-  text-align:left;padding:12px 14px;border-bottom:1px solid var(--chrome-3);
-  font:500 10px/1.3 var(--mono);letter-spacing:.2em;text-transform:uppercase;
-  color:var(--patina);
-}
-.learn-tbl th,.learn-tbl td{padding:9px 13px;text-align:right}
-.learn-tbl thead th{
-  font:500 9.5px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;
-  color:var(--chrome-dim);border-bottom:1px solid var(--chrome-3);
-  vertical-align:bottom;
-  /* headings wrap so the table fits the measure; the figures never do */
-  white-space:normal;max-width:11ch;
-}
-.learn-tbl tbody th[scope=row]{text-align:left;font-weight:700;color:var(--patina)}
-.learn-tbl tbody tr+tr th,.learn-tbl tbody tr+tr td{border-top:1px solid var(--chrome-3)}
-
-/* ─────────── narrow viewports ─────────── */
-@media (max-width:560px){
-  .learn{padding:44px 14px 72px}
-  .learn-toc ol{grid-template-columns:1fr}
-  .learn-sec{margin-top:46px}
-  .learn-sec p{font-size:14.5px;line-height:1.72}
-  .learn-warn{padding:16px}
-  /* the six-column table only just fits 375px; the wrapper still scrolls if a
-     different monospace stack pushes it wider */
-  .learn-tbl{font-size:12px}
-  .learn-tbl th,.learn-tbl td{padding:8px 8px}
-  .learn-tbl caption{padding:11px 8px}
-}
-
-/* The explainer is screen furniture; the sheets are the printed artefact. */
-@media print{
-  .learn{display:none}
-}
 
 /* ─────────── the short version ───────────
    A page opens with its own summary, for the reader who has two minutes rather
    than twenty. Set apart from the prose but not louder than the heading. */
 .learn-tldr{
-  margin-top:28px;padding:16px 20px 18px;
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:3px;
+  margin-top:var(--sp-5);padding:var(--sp-4) var(--sp-5);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);
+  border-radius:var(--r-2);box-shadow:var(--e-1);
 }
 .learn-tldr-label{
-  font:500 9.5px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;
-  color:var(--patina);margin:0 0 12px;
+  font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;
+  color:var(--patina);margin:0 0 var(--sp-3);
 }
 .learn-tldr ul{margin:0;padding:0;list-style:none}
 .learn-tldr li{
-  position:relative;padding-left:18px;margin-top:9px;
-  font:400 14px/1.6 var(--grot);color:var(--text-1);
+  position:relative;padding-left:var(--sp-4);margin-top:var(--sp-2);
+  font:400 var(--fs-body)/1.6 var(--grot);color:var(--text-1);
 }
 .learn-tldr li:first-child{margin-top:0}
 /* The same cell the eleven-bit figure draws, one per line. */
@@ -189,19 +70,170 @@ p.learn-lead em{color:var(--patina)}
   border-bottom:1px solid var(--accent-line)}
 .learn-tldr a:hover{border-bottom-color:var(--patina)}
 
+/* ─────────── warning ───────────
+   The one panel that has to interrupt. It gets the amber wash as well as the
+   amber edge, so it reads as a warning before a word of it is read. */
+.learn-warn{
+  margin-top:var(--sp-6);padding:var(--sp-4) var(--sp-5);
+  background:var(--warn-wash);
+  border:1px solid var(--chrome-3);border-left:3px solid var(--amber);
+  border-radius:var(--r-2);box-shadow:var(--e-1);
+}
+.learn-warn p{font-size:var(--fs-body);line-height:1.65}
+.learn-warn p+p{margin-top:var(--sp-3)}
+.learn-warn .learn-warn-label{
+  font:600 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;
+  color:var(--amber);
+}
+
+/* ─────────── contents ─────────── */
+.learn-toc{
+  margin-top:var(--sp-7);padding:var(--sp-4) 0;
+  border-top:1px solid var(--chrome-3);border-bottom:1px solid var(--chrome-3);
+}
+.learn-toc ol{
+  list-style:none;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:var(--sp-2) var(--sp-5);
+  counter-reset:learn-toc;
+}
+.learn-toc li{counter-increment:learn-toc;font:400 var(--fs-sm)/1.5 var(--mono)}
+.learn-toc li::before{
+  content:counter(learn-toc,decimal-leading-zero) "  ";
+  color:var(--chrome-dim);font-variant-numeric:tabular-nums;
+}
+.learn-toc a{color:var(--chrome-dim);text-decoration:none}
+.learn-toc a:hover,.learn-toc a:focus-visible{color:var(--patina)}
+
+/* ─────────── sections ───────────
+   One cadence for the whole page: --sp-8 between sections, --sp-5 between
+   everything inside one. The heading hangs below its rule at --sp-5 too, so
+   the rule belongs to the heading rather than floating between two blocks. */
+.learn-sec{margin-top:var(--sp-8);scroll-margin-top:132px} /* clears the sticky navbar */
+.learn-sec h2{
+  padding-top:var(--sp-5);
+  background:var(--bit-rule) top left/88px 2px repeat-x;
+  font:600 var(--fs-h2)/1.35 var(--mono);
+  letter-spacing:var(--track);text-transform:uppercase;
+}
+/* the number inherits the heading's tracking; a second value here fought it */
+.learn-num{
+  color:var(--patina);font-weight:700;margin-right:.7em;
+  font-variant-numeric:tabular-nums;
+}
+.learn-sec p{margin-top:var(--sp-5);font-size:var(--fs-body);line-height:1.75}
+
+/* Secondary asides: caveats, honest counterweights, footnotes. The quietest
+   panel on the page, so it carries no fill and no shadow. The smaller type
+   takes contrast away, and --text-2 gives it back. */
+.learn-sec .learn-note{
+  margin-top:var(--sp-5);padding-left:var(--sp-4);
+  border-left:1px solid var(--chrome-3);
+  font-size:var(--fs-sm);line-height:1.7;color:var(--text-2);
+}
+
+/* ─────────── magnitude / consequence lists ───────────
+   Rule-divided rows rather than a filled card. Three filled panels in a row
+   would flatten the hierarchy the tldr and the warning depend on. */
+.learn .learn-mag{
+  list-style:none;margin-top:var(--sp-5);
+  border-top:1px solid var(--chrome-3);
+}
+.learn-mag li{
+  padding:var(--sp-4) 0;border-bottom:1px solid var(--chrome-3);
+  font-size:var(--fs-body);line-height:1.7;
+}
+/* the section's own rule closes the list; two hairlines in a row read as a mistake */
+.learn-mag li:last-child{border-bottom:0}
+
+/* ─────────── code ─────────── */
+.learn code{
+  font:500 .9em/1.4 var(--mono);
+  background:var(--chrome-2);border:1px solid var(--chrome-3);
+  border-radius:var(--r-1);
+  padding:.08em .34em;
+  font-variant-numeric:tabular-nums;
+  /* the 39-digit value of 2^128 has to break, not widen the page */
+  overflow-wrap:anywhere;
+}
+
+/* ─────────── tables ─────────── */
+/* The radius clips the corners of the table itself, which is why it lives on
+   the scrolling wrapper and not on the table. */
+.learn-tblwrap{
+  margin-top:var(--sp-5);max-width:100%;overflow-x:auto;
+  border:1px solid var(--chrome-3);background:var(--chrome-2);
+  border-radius:var(--r-2);box-shadow:var(--e-1);
+  -webkit-overflow-scrolling:touch;
+}
+.learn-tblwrap:focus-visible{outline:2px solid var(--patina);outline-offset:2px}
+.learn-tbl{
+  width:100%;border-collapse:collapse;
+  font:400 var(--fs-sm)/1.4 var(--mono);font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.learn-tbl caption{
+  text-align:left;padding:var(--sp-3) var(--sp-4);
+  border-bottom:1px solid var(--chrome-3);
+  font:500 var(--fs-label)/1.3 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;
+  color:var(--patina);
+}
+.learn-tbl th,.learn-tbl td{padding:var(--sp-3) var(--sp-4);text-align:right}
+/* the wash is what makes the head read as a head once the figures start */
+.learn-tbl thead th{
+  font:500 var(--fs-label)/1.4 var(--mono);letter-spacing:var(--track);
+  text-transform:uppercase;
+  color:var(--chrome-dim);background:var(--tint);
+  border-bottom:1px solid var(--chrome-3);
+  vertical-align:bottom;
+  /* headings wrap so the table fits the measure; the figures never do */
+  white-space:normal;max-width:11ch;
+}
+.learn-tbl tbody th[scope=row]{text-align:left;font-weight:700;color:var(--patina)}
+.learn-tbl tbody tr+tr th,.learn-tbl tbody tr+tr td{border-top:1px solid var(--chrome-3)}
+
 /* ─────────── the eleven-bit figure ─────────── */
 /* Inline SVG, because the page carries no remote assets and this is the one
    idea readers said they wanted to see rather than read. */
-.bitfig{margin:30px 0;padding:0}
+.bitfig{margin:var(--sp-6) 0;padding:0}
 .bitfig svg{display:block;width:100%;max-width:560px;height:auto}
 .bitfig-hi{fill:var(--accent-wash);stroke:var(--patina);stroke-width:1}
 .bitfig-lo{fill:var(--tint);stroke:var(--chrome-3);stroke-width:1}
 .bitfig-bit text{fill:var(--chrome-ink);font:600 15px var(--mono);text-anchor:middle}
-.bitfig-cap text{fill:var(--text-3);font:500 10px var(--mono);letter-spacing:.14em;
-  text-transform:uppercase;text-anchor:middle}
+.bitfig-cap text{fill:var(--text-3);font:500 10px var(--mono);
+  letter-spacing:var(--track);text-transform:uppercase;text-anchor:middle}
 .bitfig-rule path{stroke:var(--chrome-3);fill:none;stroke-width:1}
 .bitfig-lead text{fill:var(--patina);font:600 12px var(--mono);text-anchor:middle}
 .bitfig-sum text{fill:var(--text-2);font:400 12.5px var(--mono);text-anchor:middle}
 .bitfig-word text{fill:var(--chrome-ink);font:700 17px var(--mono);text-anchor:middle;
   letter-spacing:.04em}
-.bitfig figcaption{margin-top:12px;font:400 12.5px/1.6 var(--grot);color:var(--text-3)}
+.bitfig figcaption{margin-top:var(--sp-3);font:400 var(--fs-sm)/1.6 var(--grot);
+  color:var(--text-3)}
+
+/* ─────────── motion ───────────
+   Colour fades only, and only for readers who have not asked for stillness. */
+@media (prefers-reduced-motion:no-preference){
+  .learn-toc a{transition:color .15s ease}
+  .learn-tldr a{transition:color .15s ease,border-color .15s ease}
+}
+
+/* ─────────── narrow viewports ─────────── */
+@media (max-width:560px){
+  .learn{padding:var(--sp-6) var(--sp-3) var(--sp-8)}
+  .learn-toc ol{grid-template-columns:1fr}
+  .learn-sec{margin-top:var(--sp-7)}
+  /* prose needs no override: --fs-body already bottoms out at 15px here */
+  .learn-warn{padding:var(--sp-4)}
+  /* the six-column table only just fits 375px; the wrapper still scrolls if a
+     different monospace stack pushes it wider */
+  .learn-tbl{font-size:12px}
+  .learn-tbl th,.learn-tbl td{padding:var(--sp-2)}
+  .learn-tbl caption{padding:var(--sp-3) var(--sp-2)}
+}
+
+/* The explainer is screen furniture; the sheets are the printed artefact. */
+@media print{
+  .learn{display:none}
+}
