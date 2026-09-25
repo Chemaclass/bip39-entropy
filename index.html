@@ -8,8 +8,8 @@
 <meta name="author" content="Chemaclass">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#191d1f" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#f6f7f6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <link rel="canonical" href="https://chemaclass.github.io/bip39-entropy/">
 
 <meta property="og:type" content="website">
@@ -29,7 +29,7 @@
 <meta name="twitter:image" content="https://chemaclass.github.io/bip39-entropy/og.png">
 
 <!-- A grid of the word list, drawn rather than fetched, so the tab icon costs no request. -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23191d1f'/%3E%3Cg fill='%236fbfa8'%3E%3Crect x='6' y='7' width='5' height='3'/%3E%3Crect x='13' y='7' width='9' height='3'/%3E%3Crect x='6' y='12' width='9' height='3'/%3E%3Crect x='17' y='12' width='5' height='3'/%3E%3Crect x='6' y='17' width='5' height='3'/%3E%3Crect x='13' y='17' width='13' height='3'/%3E%3Crect x='6' y='22' width='13' height='3'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111111'/%3E%3Cg fill='%23ffffff'%3E%3Crect x='6' y='7' width='5' height='3'/%3E%3Crect x='13' y='7' width='9' height='3'/%3E%3Crect x='6' y='12' width='9' height='3'/%3E%3Crect x='17' y='12' width='5' height='3'/%3E%3Crect x='6' y='17' width='5' height='3'/%3E%3Crect x='13' y='17' width='13' height='3'/%3E%3C/g%3E%3Crect x='6' y='22' width='13' height='3' fill='%23d4211b'/%3E%3C/svg%3E">
 <script type="application/ld+json">
 [
  {
@@ -128,7 +128,7 @@
 :root{
   /* Native widgets: select panels, scrollbars. They follow the page's theme,
      not the system's, so a forced theme carries all the way down. */
-  color-scheme:dark;
+  color-scheme:light;
   --paper:#ffffff;
   --ink:#14161c;
   --ghost:#a4aab3;
@@ -137,47 +137,53 @@
   --rule-strong:#a7b0b4;
   --hair:0.2mm;
 
-  --chrome:#191d1f;
-  --chrome-2:#23292b;
-  --chrome-3:#2f3639;
-  --chrome-ink:#e8edea;
-  --chrome-dim:#8d9793;
-  --patina:#6fbfa8;
-  --amber:#d8a657;
+  /* The chrome is a white field, black ink and one red. The red marks three
+     things only: the checksum, where you are, and what to do next. */
+  --chrome:#ffffff;
+  --chrome-2:#f0f0ec;
+  --chrome-3:#d6d6d0;
+  --chrome-ink:#111111;
+  --chrome-dim:#5c5c58;
+  --patina:#d4211b;
+  --amber:#111111;
 
   /* Text steps and washes, named so a second theme is a palette swap rather
      than a hunt through five files for hex codes. */
-  --text-1:#c7cfcb;
-  --text-2:#aab3af;
-  --text-3:#69736f;
-  --text-4:#565f5c;
-  --veil:rgba(25,29,31,.94);
-  --tint:rgba(255,255,255,.03);
-  --accent-wash:rgba(111,191,168,.10);
-  --accent-line:rgba(111,191,168,.35);
-  --warn-wash:#2a2519;
-  --patina-lift:#8ad3bd;
-  --bit-0:#2f3639;
-  --bit-1:#4a7d6f;
+  --text-1:#1c1c1a;
+  --text-2:#3a3a37;
+  --text-3:#5c5c58;
+  --text-4:#66665f;
+  --veil:rgba(255,255,255,.96);
+  --tint:rgba(0,0,0,.035);
+  --accent-wash:rgba(212,33,27,.07);
+  --accent-line:rgba(212,33,27,.5);
+  --warn-wash:#f0f0ec;
+  --patina-lift:#a8150f;
+  --bit-0:#d6d6d0;
+  --bit-1:#111111;
 
   /* Eleven cells, the eleven bits of 837, the index of the word on the poster's
-     own legend. Every rule on the site is that number, set on an 88px repeat. */
+     own legend, set on an 88px repeat. */
   --bit-rule:linear-gradient(90deg,var(--bit-0) 0px 6px,transparent 6px 8px,var(--bit-1) 8px 14px,transparent 14px 16px,var(--bit-1) 16px 22px,transparent 22px 24px,var(--bit-0) 24px 30px,transparent 30px 32px,var(--bit-1) 32px 38px,transparent 38px 40px,var(--bit-0) 40px 46px,transparent 46px 48px,var(--bit-0) 48px 54px,transparent 54px 56px,var(--bit-0) 56px 62px,transparent 62px 64px,var(--bit-1) 64px 70px,transparent 70px 72px,var(--bit-0) 72px 78px,transparent 78px 80px,var(--bit-1) 80px 86px,transparent 86px 88px);
 
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  /* The poster's word faces. The type solver measures the sheet against these,
+     so the chrome's own face lives in --sans and never touches the print. */
   --grot:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Helvetica,Arial,"Liberation Sans",sans-serif;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Liberation Serif",serif;
   --face:var(--grot);
+  --sans:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",system-ui,sans-serif;
 
   /* ── the scales ──────────────────────────────────────────────────
      Three ramps the chrome measures itself against, so a new component
      inherits the page's rhythm instead of inventing a fourth set of
      numbers. The sheet below is drawn in mm and shares none of this. */
 
-  /* Corners. One step per role: controls, panels, cards. */
-  --r-1:7px;
-  --r-2:11px;
-  --r-3:16px;
+  /* Square corners. The grid is the structure, and a radius softens the one
+     thing it has to say. */
+  --r-1:0;
+  --r-2:0;
+  --r-3:0;
 
   /* Space, in a 4px rhythm. Anything between two steps is a mistake. */
   --sp-1:4px;
@@ -188,82 +194,83 @@
   --sp-6:32px;
   --sp-7:48px;
   --sp-8:72px;
+  --sp-9:112px;
 
-  /* Depth. Two steps: a thing that sits on the page, a thing that floats
-     over it. --lift is the second, kept under its old name. */
-  --e-1:0 1px 2px rgba(0,0,0,.30);
-  --e-2:0 6px 20px rgba(0,0,0,.34);
-  --lift:var(--e-2);
+  /* The column every view shares, and its gutter. */
+  --measure:1200px;
+  --gutter:32px;
+
+  /* Depth. Rules and fields carry the structure, so a thing on the page has
+     none. Only what floats over it, a menu or the back-to-top button, lifts. */
+  --e-1:none;
+  --e-2:0 8px 28px rgba(0,0,0,.14);
+  --lift:0 1px 0 var(--chrome-3);
   /* Paper on a desk, which is deeper than anything else the page stacks. */
-  --sheet-lift:0 12px 40px rgba(0,0,0,.5);
+  --sheet-lift:0 10px 34px rgba(20,22,28,.16);
 
   /* Reading sizes, fluid between a phone and a desktop. */
-  --fs-label:9.5px;
-  --fs-sm:12.5px;
-  --fs-body:clamp(15px,1.05vw,16px);
-  --fs-lead:clamp(16px,1.6vw,18px);
-  --fs-h2:clamp(13.5px,1.5vw,15px);
-  --fs-h1:clamp(30px,5.4vw,46px);
+  --fs-label:12px;
+  --fs-sm:14px;
+  --fs-body:clamp(16px,1.15vw,17.5px);
+  --fs-lead:clamp(18px,1.7vw,22px);
+  --fs-h2:clamp(22px,2.3vw,30px);
+  --fs-h1:clamp(38px,6vw,80px);
 
-  /* Uppercase mono labels. Wide tracking dates a page fast, so one value
-     carries every label and it is narrower than it was. */
-  --track:.14em;
+  --track:.01em;
 }
 
-/* ─────────── light ───────────
-   The sheet is always a sheet: --paper, --ink and the rules below belong to the
-   printed artifact and never change. Only the chrome around it does. */
-:root[data-theme="light"]{
-  color-scheme:light;
-  --chrome:#f6f7f6;
-  --chrome-2:#eceeec;
-  --chrome-3:#d5dad7;
-  --chrome-ink:#171b19;
-  --chrome-dim:#5a6360;
-  --patina:#1d6e59;
-  --amber:#8a5a12;
-  --text-1:#2c3431;
-  --text-2:#3d4643;
-  --text-3:#5f6a66;
-  --text-4:#6d7773;
-  --veil:rgba(246,247,246,.94);
-  --tint:rgba(0,0,0,.04);
-  --accent-wash:rgba(29,110,89,.10);
-  --accent-line:rgba(29,110,89,.40);
-  --warn-wash:#f6efdd;
-  --patina-lift:#12523f;
-  --bit-0:#d5dad7;
-  --bit-1:#9dc4b6;
-  --e-1:0 1px 2px rgba(20,22,28,.07);
-  --e-2:0 6px 18px rgba(20,22,28,.12);
-  --sheet-lift:0 10px 34px rgba(20,22,28,.16);
+/* ─────────── dark ───────────
+   The sheet is always a sheet: --paper, --ink and the rules above belong to the
+   printed artifact and never change. Only the chrome around it inverts. */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --chrome:#121212;
+  --chrome-2:#1e1e1c;
+  --chrome-3:#34342f;
+  --chrome-ink:#f2f2ee;
+  --chrome-dim:#a3a39c;
+  --patina:#ff5a4a;
+  --amber:#f2f2ee;
+  --text-1:#dcdcd6;
+  --text-2:#c4c4bd;
+  --text-3:#a3a39c;
+  --text-4:#8e8e87;
+  --veil:rgba(18,18,18,.96);
+  --tint:rgba(255,255,255,.045);
+  --accent-wash:rgba(255,90,74,.1);
+  --accent-line:rgba(255,90,74,.55);
+  --warn-wash:#1e1e1c;
+  --patina-lift:#ff8174;
+  --bit-0:#34342f;
+  --bit-1:#f2f2ee;
+  --e-2:0 8px 28px rgba(0,0,0,.5);
+  --sheet-lift:0 12px 40px rgba(0,0,0,.5);
 }
 
-@media (prefers-color-scheme:light){
-  :root:not([data-theme="dark"]){
-    color-scheme:light;
-    --chrome:#f6f7f6;
-    --chrome-2:#eceeec;
-    --chrome-3:#d5dad7;
-    --chrome-ink:#171b19;
-    --chrome-dim:#5a6360;
-    --patina:#1d6e59;
-    --amber:#8a5a12;
-    --text-1:#2c3431;
-    --text-2:#3d4643;
-    --text-3:#5f6a66;
-    --text-4:#6d7773;
-    --veil:rgba(246,247,246,.94);
-    --tint:rgba(0,0,0,.04);
-    --accent-wash:rgba(29,110,89,.10);
-    --accent-line:rgba(29,110,89,.40);
-    --warn-wash:#f6efdd;
-    --patina-lift:#12523f;
-    --bit-0:#d5dad7;
-    --bit-1:#9dc4b6;
-    --e-1:0 1px 2px rgba(20,22,28,.07);
-    --e-2:0 6px 18px rgba(20,22,28,.12);
-    --sheet-lift:0 10px 34px rgba(20,22,28,.16);
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --chrome:#121212;
+    --chrome-2:#1e1e1c;
+    --chrome-3:#34342f;
+    --chrome-ink:#f2f2ee;
+    --chrome-dim:#a3a39c;
+    --patina:#ff5a4a;
+    --amber:#f2f2ee;
+    --text-1:#dcdcd6;
+    --text-2:#c4c4bd;
+    --text-3:#a3a39c;
+    --text-4:#8e8e87;
+    --veil:rgba(18,18,18,.96);
+    --tint:rgba(255,255,255,.045);
+    --accent-wash:rgba(255,90,74,.1);
+    --accent-line:rgba(255,90,74,.55);
+    --warn-wash:#1e1e1c;
+    --patina-lift:#ff8174;
+    --bit-0:#34342f;
+    --bit-1:#f2f2ee;
+    --e-2:0 8px 28px rgba(0,0,0,.5);
+    --sheet-lift:0 12px 40px rgba(0,0,0,.5);
   }
 }
 
@@ -271,76 +278,80 @@
 html,body{margin:0;padding:0}
 body{
   background:var(--chrome);color:var(--chrome-ink);
-  font-family:var(--mono);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
   -webkit-print-color-adjust:exact;print-color-adjust:exact;
 }
 
 /* ─────────── control bar ─────────── */
-.bar{padding:var(--sp-3) 0}
-.bar-in{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;flex-wrap:wrap;
+.bar{padding:var(--sp-3) 0 var(--sp-4);border-top:1px solid var(--chrome-3)}
+.bar-in{max-width:var(--measure);margin:0 auto;padding:0 var(--gutter);display:flex;flex-wrap:wrap;
   gap:var(--sp-3) var(--sp-4);align-items:flex-end}
-.brand{display:flex;flex-direction:column;gap:var(--sp-1);margin-right:var(--sp-2)}
-.brand b{font:600 13px/1 var(--mono);letter-spacing:var(--track)}
-.brand span{font:400 10px/1 var(--mono);letter-spacing:var(--track);color:var(--patina);text-transform:uppercase}
-.ctl{display:flex;flex-direction:column;gap:var(--sp-2);min-width:0}
-.ctl>label{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
-  text-transform:uppercase;color:var(--chrome-dim)}
+.brand{display:flex;flex-direction:column;gap:3px;margin-right:var(--sp-2)}
+.brand b{font:800 18px/1 var(--sans);letter-spacing:-.02em}
+.brand span{font:500 11px/1 var(--sans);color:var(--text-3)}
+.ctl{display:flex;flex-direction:column;gap:6px;min-width:0}
+.ctl>label{font:700 var(--fs-label)/1 var(--sans);color:var(--chrome-ink)}
 
 /* One control surface for every job: a menu, a field and a button are the same
    object with different work to do. 36px is the shortest a pointer target can
    be before it starts costing accuracy; the phone breakpoint raises it again. */
 select,input[type=search],input[type=text],button{
-  font:500 var(--fs-sm)/1 var(--mono);color:var(--chrome-ink);
-  background:var(--chrome-2);border:1px solid var(--chrome-3);
-  border-radius:var(--r-1);padding:9px 11px;min-height:36px}
+  font:500 var(--fs-sm)/1 var(--sans);color:var(--chrome-ink);
+  background:var(--chrome);border:1px solid var(--chrome-3);
+  border-radius:var(--r-1);padding:9px 11px;min-height:38px}
 @media (prefers-reduced-motion:no-preference){
   select,input[type=search],input[type=text],button{
-    transition:background-color .14s ease,border-color .14s ease,
-      color .14s ease,box-shadow .14s ease}
+    transition:background-color .14s ease,border-color .14s ease,color .14s ease}
 }
 /* The chevron is two gradients on the element itself, so every select on the
    page carries the same one without a wrapper element around it. */
 /* A select is as wide as its longest option, and one option here is a sentence.
    Without the clamp that sets the width of a 320px phone. */
-select{max-width:100%;appearance:none;-webkit-appearance:none;padding-right:28px;cursor:pointer;
-  background-image:linear-gradient(45deg,transparent 50%,var(--chrome-dim) 50%),
-    linear-gradient(135deg,var(--chrome-dim) 50%,transparent 50%);
-  background-position:calc(100% - 16px) center,calc(100% - 11px) center;
+select{max-width:100%;appearance:none;-webkit-appearance:none;padding-right:30px;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--chrome-ink) 50%),
+    linear-gradient(135deg,var(--chrome-ink) 50%,transparent 50%);
+  background-position:calc(100% - 17px) center,calc(100% - 12px) center;
   background-size:5px 5px;background-repeat:no-repeat}
-select:hover{border-color:var(--chrome-dim)}
+select:hover{border-color:var(--chrome-ink)}
 input[type=search],input[type=text]{width:180px;max-width:100%}
-input[type=search]::placeholder,input[type=text]::placeholder{color:var(--text-3)}
-input[type=search]:hover,input[type=text]:hover{border-color:var(--chrome-dim)}
+input[type=search]::placeholder,input[type=text]::placeholder{color:var(--text-4)}
+input[type=search]:hover,input[type=text]:hover{border-color:var(--chrome-ink)}
+input{caret-color:var(--patina)}
 
-/* A button sits on the page rather than in it, and goes down when pressed.
-   That is the whole difference between a control and a label. */
-button{cursor:pointer;box-shadow:var(--e-1)}
-button:hover{border-color:var(--patina);color:var(--patina)}
-button:active{transform:translateY(1px);box-shadow:none}
-button[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none;transform:none}
-.btn-print{background:var(--patina);border-color:var(--patina);color:var(--chrome);
-  font-weight:700;letter-spacing:.08em}
-.btn-print:hover{background:var(--patina-lift);border-color:var(--patina-lift);color:var(--chrome)}
+/* A button is an outlined block that fills with ink under the pointer and
+   goes down when pressed. That is the whole difference between a control and
+   a label. */
+button{cursor:pointer;font-weight:700;border-color:var(--chrome-ink)}
+button:hover{background:var(--chrome-ink);color:var(--chrome)}
+button:active{transform:translateY(1px)}
+button[disabled]{opacity:.4;cursor:not-allowed;transform:none;
+  background:var(--chrome);color:var(--chrome-ink)}
+/* The one action a panel exists for is solid ink, and red once you reach it. */
+.btn-print{background:var(--chrome-ink);border-color:var(--chrome-ink);color:var(--chrome)}
+.btn-print:hover{background:var(--patina);border-color:var(--patina);color:var(--chrome)}
 
 .toggles{display:flex;gap:var(--sp-3);flex-wrap:wrap;align-items:center}
 /* The whole row is the target, not the 16px box inside it. */
-.tg{display:flex;align-items:center;gap:var(--sp-2);min-height:36px;
-  font:400 11px/1 var(--mono);color:var(--chrome-dim);cursor:pointer}
-.tg input{accent-color:var(--patina);width:16px;height:16px;margin:0;cursor:pointer}
+.tg{display:flex;align-items:center;gap:var(--sp-2);min-height:38px;
+  font:500 var(--fs-sm)/1 var(--sans);color:var(--text-2);cursor:pointer}
+.tg input{accent-color:var(--chrome-ink);width:16px;height:16px;margin:0;cursor:pointer}
 .tg:hover{color:var(--chrome-ink)}
 
 /* One ring, everywhere, and it never sits under the thing it is marking. */
 :focus-visible{outline:2px solid var(--patina);outline-offset:2px}
 
-.readout{max-width:1000px;margin:9px auto 0;padding:0 18px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
-  font:400 10.5px/1.5 var(--mono);color:var(--text-3);letter-spacing:.02em}
-.readout .spec{color:var(--chrome-ink);font-weight:600;letter-spacing:.06em}
-.readout .pt{color:var(--patina);font-weight:700}
-.readout .pt.small{color:var(--amber)}
+.readout{max-width:var(--measure);margin:10px auto 0;padding:0 var(--gutter);display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
+  font:400 12px/1.5 var(--mono);color:var(--text-3);font-variant-numeric:tabular-nums}
+.readout .spec{color:var(--chrome-ink);font-weight:600}
+.readout .pt{color:var(--chrome-ink);font-weight:700}
+.readout .pt.small{color:var(--patina)}
 .readout .hit{color:var(--patina)}
 
 /* ─────────── sheets ─────────── */
-.stage{padding:26px 16px 60px;display:flex;flex-direction:column;align-items:center;gap:26px}
+/* A white sheet on a white field has no edge, so the poster sits on the grey. */
+#view-poster{background:var(--chrome-2)}
+.stage{padding:32px 16px 72px;display:flex;flex-direction:column;align-items:center;gap:32px}
 /* Sized in px to the sheet's *scaled* footprint: a transform does not shrink the
    layout box, so without this the document is as wide as the unscaled sheet and
    large paper scrolls sideways. */
@@ -400,61 +411,52 @@ body.plain .w{color:var(--ink)}
 /* Visible only when tabbed to. Nine controls sit between the top of the
    document and the first sentence, which is nine too many on a keyboard. */
 .skip{position:absolute;left:-9999px;top:0;z-index:40;
-  font:600 11px/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
-  color:var(--chrome-ink);background:var(--chrome-2);box-shadow:var(--e-2);
-  border:1px solid var(--patina);border-radius:var(--r-1);padding:12px 16px;text-decoration:none}
+  font:700 var(--fs-sm)/1 var(--sans);
+  color:var(--chrome);background:var(--chrome-ink);
+  padding:14px 18px;text-decoration:none}
 .skip:focus{left:12px;top:12px}
 main:focus{outline:none}
 
-/* No backdrop-filter: --veil is 94% opaque, so the blur behind it was measured
-   at zero differing pixels while still costing a compositing pass per frame. */
+/* No backdrop-filter: --veil is 96% opaque, so a blur behind it would cost a
+   compositing pass per frame for pixels nobody can see. */
 .chrome{position:sticky;top:0;z-index:20;background:var(--veil);
-  border-bottom:1px solid var(--chrome-3)}
-/* A hairline reads as part of the page until something scrolls under it. */
+  border-bottom:2px solid var(--chrome-ink)}
 .chrome.lift{box-shadow:var(--lift)}
-.top{padding:var(--sp-3) 0}
+.top{padding:0}
 /* The bar shares its edges with everything under it, on every view, so the brand
    and the prose start at the same x and switching tabs moves nothing. The poster's
    own control bar takes the same box, in 10-poster.css. */
-.top-in{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;align-items:center;
-  gap:var(--sp-2) var(--sp-3);flex-wrap:wrap}
-.brand{text-decoration:none;color:inherit;flex:0 0 auto}
-.brand:hover span{color:var(--chrome-ink)}
+.top-in{max-width:var(--measure);margin:0 auto;padding:0 var(--gutter);display:flex;
+  align-items:stretch;gap:0 var(--sp-5);flex-wrap:wrap;min-height:60px}
+.brand{text-decoration:none;color:inherit;flex:0 0 auto;justify-content:center}
+.brand:hover b{color:var(--patina)}
 
-/* One track holds both groups, so the bar reads as a single control rather than
-   six loose links. The track shrinks to fit and scrolls its own contents rather
-   than widening the page or stacking into rows: sections keep getting added and
-   a phone runs out of room before the design does. The row around it is what
-   claims the full width below the breakpoint, so the track itself can stay as
-   wide as its tabs instead of stretching. */
 /* A flex line wraps on an item's content width, before shrinking is considered,
    so a track holding six tabs used to push the language and theme menus onto a
-   second row and leave half the first one empty. A zero basis takes the track
-   out of that decision: it claims what is left of the row and scrolls its own
-   tabs if even that runs out. */
+   second row. A zero basis takes the track out of that decision: it claims what
+   is left of the row and scrolls its own tabs if even that runs out. */
 .tabs-row{display:flex;min-width:0;flex:1 1 0}
-.tabs{display:flex;align-items:center;gap:2px;padding:3px;
-  min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:none;
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:var(--r-2)}
+.tabs{display:flex;align-items:stretch;gap:0;
+  min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tabs a{font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
-  color:var(--chrome-dim);text-decoration:none;white-space:nowrap;
-  padding:9px 10px;border-radius:var(--r-1)}
-.tabs a:hover{color:var(--chrome-ink);background:var(--chrome-3)}
+.tabs a{display:flex;align-items:center;
+  font:500 15px/1 var(--sans);letter-spacing:-.005em;
+  color:var(--text-3);text-decoration:none;white-space:nowrap;
+  padding:0 12px;box-shadow:inset 0 0 0 transparent}
+.tabs a:hover{color:var(--chrome-ink)}
 /* Scrolling makes the track clip on both axes, and an offset ring is what gets
    clipped. Inset it. */
 .tabs a:focus-visible{outline-offset:-2px}
-/* The selected tab is the only reliable "where am I": four long reading pages
-   share a layout, so a wash and a hairline are not enough to tell them apart. */
-.tabs a.on,.tabs a.on:hover{color:var(--chrome);background:var(--patina);box-shadow:var(--e-1)}
+/* Where you are is ink and a red bar standing on the header's own rule. */
+.tabs a.on,.tabs a.on:hover{color:var(--chrome-ink);font-weight:700;
+  box-shadow:inset 0 -4px 0 var(--patina)}
 
 .top-act{display:flex;align-items:center;gap:var(--sp-2);margin-left:auto;flex:0 0 auto}
 .langsel{display:flex;align-items:center}
-.langsel select{min-height:36px;padding:6px 24px 6px 9px;font-size:11px;letter-spacing:.04em;
-  border-radius:var(--r-1)}
+.langsel select{min-height:36px;padding:6px 28px 6px 10px;font-size:13px;border-color:var(--chrome-3)}
 @media (prefers-reduced-motion:no-preference){
   .tabs a,.foot-links a,.langsel select{transition:background-color .12s ease,
-    color .12s ease,border-color .12s ease}
+    color .12s ease,border-color .12s ease,box-shadow .12s ease}
 }
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -463,50 +465,49 @@ main:focus{outline:none}
    .view.has-rail{display:grid}, silently keeps a hidden view on the page. */
 .view[hidden]{display:none !important}
 
-/* Prose links: the long-form sections, the masthead lead, and the facts the
-   roller prints under a finished phrase. */
-.learn-sec a,.learn-lead a,.roll-lead a,.roll-fact a{color:var(--patina);
-  text-decoration:none;border-bottom:1px solid var(--accent-line)}
-.learn-sec a:hover,.learn-lead a:hover,.roll-lead a:hover,
-.roll-fact a:hover{border-bottom-color:var(--patina)}
-.roll-lead em{font-style:normal;color:var(--chrome-ink)}
+/* Prose links: ink, underlined in red, red under the pointer. Red is where you
+   go next. */
+.learn-sec a,.learn-lead a,.learn-tldr a,.roll-lead a,.roll-fact a{color:inherit;
+  text-decoration:underline;text-decoration-color:var(--accent-line);
+  text-decoration-thickness:2px;text-underline-offset:.2em}
+.learn-sec a:hover,.learn-lead a:hover,.learn-tldr a:hover,.roll-lead a:hover,
+.roll-fact a:hover{color:var(--patina);text-decoration-color:var(--patina)}
+.roll-lead em{font-style:normal;font-weight:700;color:var(--chrome-ink)}
 
 /* Below this the track stops fitting beside the brand and the controls. Sending
    it to a row of its own keeps the bar at two rows rather than three, and keeps
    the controls reachable. */
 @media (max-width:1000px){
-  .tabs-row{order:2;flex:1 0 100%}
+  .top-in{min-height:0}
+  .brand{padding:10px 0}
+  .tabs-row{order:2;flex:1 0 100%;margin:0 calc(-1 * var(--gutter));padding:0 calc(var(--gutter) - 12px);
+    border-top:1px solid var(--chrome-3)}
   .top-act{order:1}
-}
-
-/* Where the track has its own row, a tab is something you hit with a thumb.
-   28px was a mouse target. The word between the groups becomes the divider it
-   was drawn around, which gives the strip back 42 of the px it overflows by. */
-@media (max-width:1000px){
-  .tabs{padding:2px}
-  .tabs a{min-height:40px;display:flex;align-items:center}
+  /* A tab is something you hit with a thumb here. */
+  .tabs a{min-height:46px}
   /* A sideways scroller at its end hands the swipe to the browser, which reads
      it as a back gesture. */
   .tabs{overscroll-behavior-x:contain}
-  .tabs-sep{width:1px;padding:0;margin:0 6px;color:transparent;overflow:hidden;
-    align-self:stretch}
+  /* The word between the groups becomes the divider it was drawn around. */
+  .tabs-sep{width:1px;padding:0;margin:12px 8px;color:transparent;overflow:hidden;
+    background:var(--chrome-3);border:0}
 }
 
 @media (max-width:560px){
-  .top{padding:5px 0}
-  .top-in{gap:4px 10px;padding:0 14px}
+  :root{--gutter:16px}
+  .top-in{gap:0 10px}
   /* The tagline is decoration and the headline underneath says the same thing.
      Its width is what buys the controls a place on the brand's row. Hidden
      rather than dropped, so the brand link still reads out in full. */
   .brand span{position:absolute;width:1px;height:1px;overflow:hidden;
     clip:rect(0 0 0 0);white-space:nowrap}
-  .tabs a{padding:9px 10px;letter-spacing:.06em;font-size:10.5px}
+  .tabs a{padding:0 10px;font-size:15px}
   /* iOS Safari zooms the page when a focused control's text is under 16px, and
      it does not zoom back out. Every control on the page pays for that, so on a
      phone they all get 16px whatever it costs in width. A thumb is wider than a
      pointer, so the same controls get the 44px a thumb needs. */
   select,input[type=search],input[type=text],button{font-size:16px;min-height:44px}
-  .langsel select{min-height:44px;padding:6px 26px 6px 9px;letter-spacing:0}
+  .langsel select{min-height:44px;padding:6px 28px 6px 10px}
 }
 
 /* ─────────── the enhancement layer ─────────── */
@@ -514,7 +515,7 @@ main:focus{outline:none}
    site exactly as before, never a broken one. */
 
 /* Selected text answers in the site's own colour. */
-::selection{background:var(--patina);color:var(--chrome)}
+::selection{background:var(--chrome-ink);color:var(--chrome)}
 
 /* Scrollbars follow the theme instead of glaring in the dark one. */
 html{scrollbar-color:var(--chrome-3) transparent}
@@ -537,108 +538,110 @@ html{-webkit-tap-highlight-color:transparent}
 }
 @keyframes viewin{from{opacity:0}to{opacity:1}}
 
-/* How far into the page you are, drawn on the chrome's bottom edge, scroll
+/* How far into the page you are, drawn on the chrome's bottom rule, scroll
    driven in CSS alone. The poster is an artefact rather than a read, so it
    carries no bar. */
 @supports (animation-timeline:scroll()){
   body:not([data-view="poster"]) .chrome::after{
-    content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
+    content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;
     background:var(--patina);transform-origin:0 50%;pointer-events:none;
     animation:readprog linear both;animation-timeline:scroll(root)}
 }
 @keyframes readprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
 /* ─────────── footer ─────────── */
-.foot{border-top:1px solid var(--chrome-3);margin-top:var(--sp-7);padding:var(--sp-5) 18px var(--sp-7)}
-.foot-in{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-5);
+.foot{border-top:2px solid var(--chrome-ink);margin-top:var(--sp-8);
+  padding:var(--sp-5) var(--gutter) var(--sp-7)}
+.foot-in{max-width:var(--measure);margin:0 auto;display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-6);
   align-items:baseline;justify-content:space-between}
-.foot-lic{font:400 11px/1.5 var(--mono);letter-spacing:.06em;color:var(--text-3)}
+.foot-lic{font:700 var(--fs-sm)/1.5 var(--sans);color:var(--chrome-ink)}
 .foot-links{display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-5)}
-.foot-links a{font:500 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;
-  color:var(--chrome-dim);text-decoration:none;border-bottom:1px solid transparent}
-.foot-links a:hover{color:var(--patina);border-bottom-color:var(--patina)}
-.foot-links a.foot-sponsor{color:var(--amber)}
-.foot-links a.foot-sponsor:hover{border-bottom-color:var(--amber)}
-.foot-note{max-width:1000px;margin:16px auto 0;font:400 10.5px/1.6 var(--mono);color:var(--text-4)}
+.foot-links a{font:500 var(--fs-sm)/1.5 var(--sans);
+  color:var(--text-2);text-decoration:none;border-bottom:2px solid transparent}
+.foot-links a:hover{color:var(--chrome-ink);border-bottom-color:var(--patina)}
+.foot-links a.foot-sponsor{color:var(--chrome-ink);font-weight:700}
+.foot-note{max-width:var(--measure);margin:var(--sp-4) auto 0;font:400 13px/1.6 var(--sans);color:var(--text-3)}
+/* #view-poster sits on the grey, and the footer under it should too. */
+body[data-view="poster"] .foot{margin-top:0;background:var(--chrome-2)}
 
 @media (max-width:560px){
-  .foot{padding:20px 14px 34px}
-  .foot-in{gap:8px 14px}
+  .foot{padding:var(--sp-5) var(--gutter) var(--sp-7)}
+  .foot-in{gap:var(--sp-2) var(--sp-4)}
 }
 
 /* src/css/30-roll.css */
 /* ─────────── roll your own ─────────── */
-.roll{max-width:1000px;margin:0 auto;padding:var(--sp-6) var(--sp-4) var(--sp-8)}
-.roll-h{font:700 var(--fs-h1)/1.02 var(--mono);letter-spacing:-.02em;margin:0 0 var(--sp-4)}
-.roll-lead{font:400 var(--fs-lead)/1.7 var(--grot);color:var(--text-2);margin:0 0 var(--sp-5)}
+.roll{max-width:var(--measure);margin:0 auto;padding:var(--sp-8) var(--gutter) var(--sp-8);font-family:var(--sans)}
+.roll-h{font:800 var(--fs-h1)/.96 var(--sans);letter-spacing:-.035em;margin:0 0 var(--sp-5)}
+.roll-lead{font:400 var(--fs-lead)/1.45 var(--sans);color:var(--text-2);margin:0 0 var(--sp-6);max-width:34em}
 
-.roll-warn{border:1px solid var(--chrome-3);border-left:3px solid var(--amber);
-  border-radius:var(--r-2);background:var(--chrome-2);
-  padding:var(--sp-3) var(--sp-4);font:400 var(--fs-sm)/1.65 var(--grot);
-  color:var(--text-1);margin:0 0 var(--sp-5)}
-.roll-warn b{color:var(--amber);font-weight:700}
-.roll-warn em{font-style:normal;color:var(--chrome-ink)}
+/* The same reversed block as the guide's warning: the one thing that interrupts. */
+.roll-warn{background:var(--chrome-ink);color:var(--chrome);
+  padding:var(--sp-4) var(--sp-5);font:400 var(--fs-body)/1.55 var(--sans);
+  margin:0 0 var(--sp-6);max-width:56em}
+.roll-warn b{font-weight:800}
+.roll-warn b::before{content:"";display:inline-block;width:11px;height:11px;margin-right:var(--sp-2);
+  background:var(--patina)}
+.roll-warn em{font-style:normal;font-weight:700}
+.roll-warn a{color:inherit}
 
 /* Setup above the rule, throwing below it. */
 .roll-ctl{display:flex;flex-wrap:wrap;gap:var(--sp-4) var(--sp-5);align-items:flex-end;
-  padding-bottom:var(--sp-5);border-bottom:1px solid var(--chrome-3);margin-bottom:var(--sp-5)}
+  padding:var(--sp-4) 0 var(--sp-5);border-top:2px solid var(--chrome-ink);
+  border-bottom:1px solid var(--chrome-3);margin-bottom:var(--sp-6)}
 
 #rollload{width:230px;font:400 var(--fs-sm)/1 var(--mono);letter-spacing:.04em}
 
 /* Answers a keypress, so it sits on a wash rather than floating as loose text. */
-.roll-err{font:400 var(--fs-sm)/1.6 var(--mono);color:var(--patina);
-  background:var(--accent-wash);border-radius:var(--r-1);
+.roll-err{font:500 var(--fs-sm)/1.6 var(--sans);color:var(--chrome-ink);
+  background:var(--chrome-2);
   padding:var(--sp-2) var(--sp-3);margin:0 0 var(--sp-4)}
-.roll-err.bad{color:var(--amber);background:var(--warn-wash)}
+.roll-err.bad{color:var(--patina);background:var(--accent-wash)}
 
 /* The pad is where the hand works. Resting shadow, lit border on hover, a real
    dip when pressed: the key has to answer before the bits do. */
 .roll-pad{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-bottom:var(--sp-2)}
-.roll-key{width:64px;height:64px;font:700 21px/1 var(--mono);color:var(--chrome-ink);
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:var(--r-2);
-  box-shadow:var(--e-1);cursor:pointer;
+.roll-key{width:68px;height:68px;font:800 22px/1 var(--sans);color:var(--chrome-ink);
+  background:var(--chrome);border:1px solid var(--chrome-ink);border-radius:var(--r-2);
+  cursor:pointer;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--sp-1);
   /* a pad is tapped fast: no double-tap zoom delay, no text selection under the thumb */
   touch-action:manipulation;user-select:none;-webkit-user-select:none}
 /* The face is the thing on the table: a die with pips, a coin filled or hollow.
    Drawn in currentColor, so the key's own state carries it. */
 .roll-face{width:30px;height:30px;display:block}
-.roll-die,.roll-coin{fill:none;stroke:currentColor;stroke-width:1.5;opacity:.55}
+.roll-die,.roll-coin{fill:none;stroke:currentColor;stroke-width:1.5}
 .roll-pip{fill:currentColor}
-.roll-key:not([disabled]):hover .roll-die,
-.roll-key:not([disabled]):hover .roll-coin{opacity:1}
 /* The bits the face carries stay a footnote. */
-.roll-key span{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);color:var(--text-3)}
-.roll-key:not([disabled]):hover{border-color:var(--patina);color:var(--patina);box-shadow:var(--e-2)}
-.roll-key:not([disabled]):active{background:var(--accent-wash);border-color:var(--patina);
-  box-shadow:inset 0 0 0 1px var(--accent-line);transform:translateY(1px)}
+.roll-key span{font:500 11px/1 var(--mono);color:var(--text-3)}
+.roll-key:not([disabled]):hover{background:var(--chrome-ink);color:var(--chrome)}
+.roll-key:not([disabled]):hover span{color:var(--chrome)}
+.roll-key:not([disabled]):active{background:var(--patina);border-color:var(--patina);
+  color:var(--chrome);transform:translateY(1px)}
 /* Five and six buy no entropy, and the warm face says so before the label does. */
-.roll-key.rej{background:var(--warn-wash)}
-.roll-key.rej span{color:var(--amber)}
+.roll-key.rej{background:var(--chrome-2);border-color:var(--chrome-3)}
+.roll-key.rej span{color:var(--text-2)}
 /* A full phrase takes no more throws, so the keys go flat and hand the eye on. */
 .roll-key[disabled]{background:var(--tint);border-color:var(--chrome-3);color:var(--text-4);
   box-shadow:none;cursor:not-allowed}
 .roll-key[disabled] span{color:var(--text-4)}
 
-.roll-hint{font:400 var(--fs-sm)/1.65 var(--mono);color:var(--text-3);margin:0 0 var(--sp-4)}
+.roll-hint{font:400 var(--fs-sm)/1.6 var(--sans);color:var(--text-3);margin:0 0 var(--sp-5)}
 
-.roll-meter{height:var(--sp-2);background:var(--chrome-2);border-radius:var(--r-1);
-  box-shadow:inset 0 0 0 1px var(--chrome-3);overflow:hidden}
-.roll-meter-fill{height:100%;width:0;border-radius:inherit;
-  background:linear-gradient(90deg,var(--patina),var(--patina-lift))}
-.roll-count{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
-  color:var(--chrome-dim);margin:var(--sp-2) 0 var(--sp-5)}
-.roll-count b{color:var(--chrome-ink);font-weight:700}
+.roll-meter{height:10px;background:var(--chrome-2);overflow:hidden}
+.roll-meter-fill{height:100%;width:0;background:var(--chrome-ink)}
+.roll-count{font:500 var(--fs-sm)/1 var(--sans);font-variant-numeric:tabular-nums;
+  color:var(--text-3);margin:var(--sp-3) 0 var(--sp-6)}
+.roll-count b{color:var(--chrome-ink);font-weight:800}
 
 .roll-bits{display:flex;flex-wrap:wrap;gap:var(--sp-1);margin-bottom:var(--sp-5)}
-.roll-bits .byte{font:400 var(--fs-sm)/1.4 var(--mono);letter-spacing:.06em;color:var(--text-2);
-  background:var(--chrome-2);border:1px solid var(--chrome-3);
-  padding:var(--sp-1) var(--sp-2);border-radius:var(--r-1)}
-.roll-bits .byte.cs{color:var(--amber);background:var(--warn-wash)}
+.roll-bits .byte{font:400 var(--fs-sm)/1.4 var(--mono);letter-spacing:.04em;color:var(--text-1);
+  background:var(--chrome-2);padding:var(--sp-1) var(--sp-2)}
+.roll-bits .byte.cs{color:var(--chrome);background:var(--patina)}
 
-.roll-sec{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
-  color:var(--patina);margin:0 0 var(--sp-2)}
-.roll-fact{font:400 var(--fs-sm)/1.8 var(--mono);color:var(--chrome-dim);
+.roll-sec{font:700 var(--fs-lead)/1.2 var(--sans);letter-spacing:-.01em;
+  color:var(--chrome-ink);margin:0 0 var(--sp-3);padding-top:var(--sp-3);border-top:2px solid var(--chrome-ink)}
+.roll-fact{font:400 var(--fs-sm)/1.8 var(--mono);color:var(--text-2);
   margin:0 0 var(--sp-5);word-break:break-all}
 .roll-fact b{color:var(--chrome-ink);font-weight:600}
 
@@ -646,276 +649,287 @@ html{-webkit-tap-highlight-color:transparent}
    thing on it. Index and eleven bits sit under it, in that order of interest. */
 .seed{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));
   gap:var(--sp-2);margin-bottom:var(--sp-5)}
-.seed-w{background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:var(--r-2);
-  box-shadow:var(--e-1);padding:var(--sp-3) var(--sp-4);
+.seed-w{background:var(--chrome-2);padding:var(--sp-3) var(--sp-4);
   display:grid;grid-template-columns:auto 1fr;gap:var(--sp-1) var(--sp-3);align-items:baseline}
-.seed-n{font:500 var(--fs-label)/1 var(--mono);color:var(--text-3);
+.seed-n{font:500 var(--fs-label)/1 var(--sans);color:var(--text-3);
   min-width:2.2ch;text-align:right;font-variant-numeric:tabular-nums}
-.seed-t{font:700 var(--fs-lead)/1.15 var(--grot);color:var(--patina);letter-spacing:-.01em}
-.seed-b{grid-column:2;font:400 var(--fs-label)/1.3 var(--mono);color:var(--text-3);
-  letter-spacing:var(--track);white-space:nowrap}
+.seed-t{font:800 var(--fs-lead)/1.15 var(--sans);color:var(--chrome-ink);letter-spacing:-.015em}
+.seed-b{grid-column:2;font:400 11px/1.3 var(--mono);color:var(--text-3);
+  letter-spacing:.04em;white-space:nowrap}
 
 @media (max-width:560px){
-  .roll{padding-top:var(--sp-5)}
+  .roll{padding-top:var(--sp-6)}
+  .roll-warn{margin-left:calc(-1 * var(--gutter));margin-right:calc(-1 * var(--gutter))}
   /* A thumb, not a mouse: nothing here drops under the tap target minimum. */
-  .roll-key{width:56px;height:56px;font-size:18px}
+  .roll-key{width:58px;height:58px;font-size:19px}
   .roll-ctl button,.roll-ctl select,#rollload{min-height:44px}
 }
 
 /* The sixteen candidates for the final word, with the one the checksum picks.
    Fifteen are context. One is the answer, and it should never take a second look. */
 .lastblock{grid-template-columns:repeat(auto-fill,minmax(168px,1fr))}
-.lastblock .seed-w{background:var(--tint);box-shadow:none;opacity:.6}
-.lastblock .seed-w.is-yours{opacity:1;background:var(--accent-wash);
-  border-color:var(--patina);box-shadow:var(--e-1)}
-.lastblock .is-yours .seed-t{color:var(--patina-lift)}
+.lastblock .seed-w{background:var(--tint);opacity:.6}
+/* The checksum picks it, so it is the one red thing in the block. */
+.lastblock .seed-w.is-yours{opacity:1;background:var(--chrome);box-shadow:inset 0 0 0 2px var(--patina)}
+.lastblock .is-yours .seed-t{color:var(--patina)}
 .lastblock .is-yours .seed-b{justify-self:start;color:var(--chrome);background:var(--patina);
-  border-radius:var(--r-1);padding:var(--sp-1) var(--sp-2);text-transform:uppercase;font-weight:700}
+  padding:var(--sp-1) var(--sp-2);font-weight:700}
 
 /* Every state above is readable without the fade, so motion stays an extra. */
 @media (prefers-reduced-motion:no-preference){
   .roll-key{transition:background-color .12s ease,border-color .12s ease,
-    color .12s ease,box-shadow .12s ease,transform .08s ease}
+    color .12s ease,transform .08s ease}
   .roll-meter-fill{transition:width .18s ease-out}
 }
 
 /* src/css/40-learn.css */
-/* ─────────── learn: entropy explainer ───────────
-   Screen-only long-form section that sits below the sheets. Every selector is
-   scoped under .learn so nothing here can reach the poster, and every colour,
-   size, space and radius comes off the tokens in 10-poster.css. Nothing here
-   invents a number the rest of the chrome does not already use.
-   Margins are reset once at element level; the rules that follow match that
-   specificity, so source order alone decides. */
+/* ─────────── the guide: Start here, Entropy, Protect, Questions ───────────
+   Screen-only long-form pages. Every selector is scoped under .learn so nothing
+   here can reach the poster, and every colour, size and space comes off the
+   tokens in 10-poster.css.
+
+   One grid for every page: a narrow column that names the block, a wide one
+   that holds it. Headings, the short version, the warning, the doors and every
+   section hang off the same two edges, so the eye learns the page once. */
 
 .learn{
-  max-width:1000px;
+  --cols:minmax(0,4fr) minmax(0,8fr);
+  --col-gap:var(--sp-7);
+  max-width:var(--measure);
   margin:0 auto;
-  padding:var(--sp-7) var(--sp-4) var(--sp-8);
-  border-top:1px solid var(--chrome-3);
-  font-family:var(--grot);
+  padding:var(--sp-8) var(--gutter) var(--sp-8);
+  font-family:var(--sans);
   color:var(--chrome-ink);
 }
 .learn h1,.learn h2,.learn p,.learn ol,.learn ul,.learn li{margin:0;padding:0}
 
-/* One column for the whole page. The container is the measure now, so the
-   hairline rules, the tables and the prose all share an edge instead of the
-   text sitting in a narrower well inside a wider page. */
-.learn-head,.learn-warn,.learn-toc,.learn-sec{
-  max-width:100%;margin-left:auto;margin-right:auto;
-}
-
 /* ─────────── masthead ─────────── */
-.learn-eyebrow{
-  font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
-  text-transform:uppercase;
-  color:var(--patina);
-}
 h1.learn-title{
-  margin-top:var(--sp-4);
-  font:700 var(--fs-h1)/.98 var(--mono);
-  letter-spacing:-.02em;text-transform:uppercase;
+  font:800 var(--fs-h1)/.96 var(--sans);
+  letter-spacing:-.035em;
 }
 p.learn-lead{
-  margin-top:var(--sp-5);
-  font-size:var(--fs-lead);line-height:1.6;
+  margin-top:var(--sp-5);max-width:34em;
+  font-size:var(--fs-lead);line-height:1.45;color:var(--text-2);
 }
-p.learn-lead em{color:var(--patina)}
+p.learn-lead em{font-style:normal;font-weight:700}
+
+/* ─────────── the number figure, on the landing page ───────────
+   Twelve rows of eleven cells: the phrase as the number it is. The cells carry
+   no values, because a figure of bits on a page about secrets must never be
+   something you could copy into a wallet. */
+.numfig{margin:0}
+.numfig-grid{display:grid;gap:3px;width:100%;max-width:340px}
+.numfig-row{display:grid;grid-template-columns:22px repeat(11,minmax(0,1fr));gap:3px;align-items:center}
+.numfig-n{font:500 11px/1 var(--sans);color:var(--text-4);font-variant-numeric:tabular-nums}
+.numfig-row i{display:block;aspect-ratio:1;background:var(--chrome-ink)}
+.numfig-row i.cs{background:var(--patina)}
+.numfig-cap{margin-top:var(--sp-5)}
+.numfig-big{display:block;font:800 clamp(44px,5vw,68px)/.9 var(--sans);letter-spacing:-.04em;
+  font-variant-numeric:tabular-nums}
+.numfig-big em{font-style:normal;color:var(--patina)}
+.numfig-sum{margin-top:var(--sp-2);font:500 var(--fs-sm)/1.4 var(--sans);color:var(--text-3)}
+.numfig-key{margin-top:var(--sp-3);display:flex;flex-wrap:wrap;gap:var(--sp-1) var(--sp-4);
+  font:500 var(--fs-sm)/1.4 var(--sans);color:var(--text-2)}
+.numfig-key span{display:inline-flex;align-items:center;gap:var(--sp-2)}
+.numfig-key span::before{content:"";width:11px;height:11px;background:var(--chrome-ink)}
+.numfig-key span.cs::before{background:var(--patina)}
+
+/* The cells are always there as outlines. The fill arrives a word at a time,
+   and the checksum lands last, because it is computed from everything before
+   it. */
+@media (prefers-reduced-motion:no-preference){
+  .numfig-row i{box-shadow:inset 0 0 0 1px var(--chrome-3);
+    animation:cellfill .6s cubic-bezier(.16,1,.3,1) both;
+    animation-delay:calc(var(--r) * 90ms + var(--c) * 12ms)}
+  .numfig-row i.cs{animation-name:csfill;animation-delay:calc(12 * 90ms + 220ms + var(--c) * 40ms)}
+}
+@keyframes cellfill{from{background:transparent}to{background:var(--chrome-ink)}}
+@keyframes csfill{from{background:transparent}to{background:var(--patina)}}
+
+/* Beside the headline where there is room for both, under it where there is not. */
+@media (min-width:900px){
+  .learn-head:has(.numfig){display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);
+    column-gap:var(--col-gap);align-items:end}
+  .learn-head:has(.numfig) > :not(.numfig){grid-column:1}
+  .learn-head .numfig{grid-column:2;grid-row:1 / span 2;align-self:end}
+}
+@media (max-width:899px){
+  .learn-head .numfig{margin-top:var(--sp-6)}
+  .numfig-grid{max-width:420px}
+}
+
+/* ─────────── the two-column blocks ───────────
+   A heavy rule, a name on the left, the substance on the right. */
+.learn-tldr,.learn-warn,.learn-toc,.paths,.learn-sec{
+  display:grid;grid-template-columns:var(--cols);column-gap:var(--col-gap);
+  align-items:start;
+}
+.learn-tldr > *,.learn-warn > *,.learn-toc > *,.paths > *,.learn-sec > *{grid-column:2;min-width:0}
+
+/* A block's name. The same voice as a section heading, one step down. */
+.learn-tldr-label,.learn-warn-label,.paths-head{
+  grid-column:1;grid-row:1 / span 20;
+  font:700 var(--fs-h2)/1.15 var(--sans);letter-spacing:-.02em;
+}
 
 /* ─────────── the short version ───────────
    A page opens with its own summary, for the reader who has two minutes rather
-   than twenty. Set apart from the prose but not louder than the heading. */
-.learn-tldr{
-  margin-top:var(--sp-5);padding:var(--sp-4) var(--sp-5);
-  background:var(--chrome-2);border:1px solid var(--chrome-3);
-  border-radius:var(--r-2);box-shadow:var(--e-1);
-}
-.learn-tldr-label{
-  font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
-  text-transform:uppercase;
-  color:var(--patina);margin:0 0 var(--sp-3);
-}
-.learn-tldr ul{margin:0;padding:0;list-style:none}
+   than twenty. */
+.learn-tldr{margin-top:var(--sp-8);padding-top:var(--sp-4);border-top:2px solid var(--chrome-ink)}
+.learn-tldr ul{list-style:none}
 .learn-tldr li{
-  position:relative;padding-left:var(--sp-4);margin-top:var(--sp-2);
-  font:400 var(--fs-body)/1.6 var(--grot);color:var(--text-1);
+  position:relative;padding:var(--sp-3) 0 var(--sp-3) var(--sp-5);
+  border-top:1px solid var(--chrome-3);
+  font:400 var(--fs-body)/1.55 var(--sans);color:var(--text-1);
 }
-.learn-tldr li:first-child{margin-top:0}
-/* The same cell the eleven-bit figure draws, one per line. */
+.learn-tldr li:first-child{border-top:0;padding-top:0}
 .learn-tldr li::before{
-  content:"";position:absolute;left:1px;top:.42em;
-  width:7px;height:7px;border-radius:1px;
-  background:var(--accent-wash);border:1px solid var(--patina);
+  content:"";position:absolute;left:0;top:calc(var(--sp-3) + .5em);
+  width:9px;height:9px;background:var(--chrome-ink);
 }
-.learn-tldr b{color:var(--chrome-ink);font-weight:600}
-.learn-tldr a{color:var(--patina);text-decoration:none;
-  border-bottom:1px solid var(--accent-line)}
-.learn-tldr a:hover{border-bottom-color:var(--patina)}
+.learn-tldr li:first-child::before{top:.5em}
+.learn-tldr b{color:var(--chrome-ink);font-weight:700}
 
 /* ─────────── warning ───────────
-   The one panel that has to interrupt. It gets the amber wash as well as the
-   amber edge, so it reads as a warning before a word of it is read. */
+   The one panel that has to interrupt, so it is the one block set in reverse. */
 .learn-warn{
-  margin-top:var(--sp-6);padding:var(--sp-4) var(--sp-5);
-  background:var(--warn-wash);
-  border:1px solid var(--chrome-3);border-left:3px solid var(--amber);
-  border-radius:var(--r-2);box-shadow:var(--e-1);
+  margin-top:var(--sp-8);padding:var(--sp-6) var(--sp-6) var(--sp-6);
+  background:var(--chrome-ink);color:var(--chrome);
 }
-.learn-warn p{font-size:var(--fs-body);line-height:1.65}
+.learn-warn p{font-size:var(--fs-body);line-height:1.6}
 .learn-warn p+p{margin-top:var(--sp-3)}
-.learn-warn .learn-warn-label{
-  font:600 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
-  text-transform:uppercase;
-  color:var(--amber);
-}
+.learn-warn .learn-warn-label{display:flex;align-items:baseline;gap:var(--sp-3);
+  font:700 var(--fs-h2)/1.15 var(--sans)}
+.learn-warn .learn-warn-label::before{content:"";flex:0 0 auto;width:14px;height:14px;
+  background:var(--patina);transform:translateY(-1px)}
+.learn-warn b{font-weight:700}
+.learn-warn a{color:inherit}
 
 /* ─────────── contents ─────────── */
-.learn-toc{
-  margin-top:var(--sp-7);padding:var(--sp-4) 0;
-  border-top:1px solid var(--chrome-3);border-bottom:1px solid var(--chrome-3);
-}
-.learn-toc ol{
-  list-style:none;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:var(--sp-2) var(--sp-5);
-  counter-reset:learn-toc;
-}
-.learn-toc li{counter-increment:learn-toc;font:400 var(--fs-sm)/1.5 var(--mono)}
+.learn-toc{margin-top:var(--sp-7);padding-top:var(--sp-4);border-top:1px solid var(--chrome-3)}
+.learn-toc ol{list-style:none;counter-reset:learn-toc;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--sp-2) var(--sp-5)}
+.learn-toc li{counter-increment:learn-toc;font:500 var(--fs-sm)/1.5 var(--sans)}
 .learn-toc li::before{
-  content:counter(learn-toc,decimal-leading-zero) "  ";
-  color:var(--chrome-dim);font-variant-numeric:tabular-nums;
+  content:counter(learn-toc,decimal-leading-zero);display:inline-block;width:2.2em;
+  color:var(--text-4);font-variant-numeric:tabular-nums;
 }
-.learn-toc a{color:var(--chrome-dim);text-decoration:none}
+.learn-toc a{color:var(--text-2);text-decoration:none}
 .learn-toc a:hover,.learn-toc a:focus-visible{color:var(--patina)}
 
-/* ─────────── sections ───────────
-   One cadence for the whole page: --sp-8 between sections, --sp-5 between
-   everything inside one. The heading hangs below its rule at --sp-5 too, so
-   the rule belongs to the heading rather than floating between two blocks. */
-.learn-sec{margin-top:var(--sp-8);scroll-margin-top:132px} /* clears the sticky navbar */
-.learn-sec h2{
-  padding-top:var(--sp-5);
-  background:var(--bit-rule) top left/88px 2px repeat-x;
-  font:600 var(--fs-h2)/1.35 var(--mono);
-  letter-spacing:var(--track);text-transform:uppercase;
+/* ─────────── sections ─────────── */
+.learn-sec{margin-top:var(--sp-9);padding-top:var(--sp-4);border-top:2px solid var(--chrome-ink);
+  scroll-margin-top:84px} /* clears the sticky navbar */
+/* The heading holds its column while its section scrolls past, so you always
+   know which part you are in. It spans every row the prose makes. */
+.learn-sec > h2{
+  grid-column:1;grid-row:1 / span 99;align-self:start;
+  position:sticky;top:84px;
+  font:700 var(--fs-h2)/1.15 var(--sans);letter-spacing:-.02em;
 }
-/* the number inherits the heading's tracking; a second value here fought it */
-.learn-num{
-  color:var(--patina);font-weight:700;margin-right:.7em;
-  font-variant-numeric:tabular-nums;
-}
-.learn-sec p{margin-top:var(--sp-5);font-size:var(--fs-body);line-height:1.75}
+.learn-num{display:block;margin-bottom:var(--sp-2);
+  color:var(--text-4);font-variant-numeric:tabular-nums}
+.learn-sec > p{font-size:var(--fs-body);line-height:1.65;color:var(--text-1);max-width:40em}
+.learn .learn-sec > * + *{margin-top:var(--sp-4)}
+.learn .learn-sec > h2 + *{margin-top:0}
+.learn-sec b{color:var(--chrome-ink);font-weight:700}
 
-/* Secondary asides: caveats, honest counterweights, footnotes. The quietest
-   panel on the page, so it carries no fill and no shadow. The smaller type
-   takes contrast away, and --text-2 gives it back. */
-.learn-sec .learn-note{
-  margin-top:var(--sp-5);padding-left:var(--sp-4);
-  border-left:1px solid var(--chrome-3);
-  font-size:var(--fs-sm);line-height:1.7;color:var(--text-2);
+/* Secondary asides: caveats, honest counterweights, footnotes. */
+.learn-sec > .learn-note{
+  padding-left:var(--sp-4);border-left:1px solid var(--chrome-ink);
+  font-size:var(--fs-sm);line-height:1.6;color:var(--text-2);
 }
 
-/* ─────────── magnitude / consequence lists ───────────
-   Rule-divided rows rather than a filled card. Three filled panels in a row
-   would flatten the hierarchy the tldr and the warning depend on. */
-.learn .learn-mag{
-  list-style:none;margin-top:var(--sp-5);
-  border-top:1px solid var(--chrome-3);
-}
+/* ─────────── magnitude / consequence lists ─────────── */
+.learn .learn-mag{list-style:none;border-top:1px solid var(--chrome-ink);max-width:40em}
 .learn-mag li{
-  padding:var(--sp-4) 0;border-bottom:1px solid var(--chrome-3);
-  font-size:var(--fs-body);line-height:1.7;
+  padding:var(--sp-3) 0;border-bottom:1px solid var(--chrome-3);
+  font-size:var(--fs-body);line-height:1.6;color:var(--text-1);
 }
-/* the section's own rule closes the list; two hairlines in a row read as a mistake */
 .learn-mag li:last-child{border-bottom:0}
 
 /* ─────────── code ─────────── */
 .learn code{
-  font:500 .9em/1.4 var(--mono);
-  background:var(--chrome-2);border:1px solid var(--chrome-3);
-  border-radius:var(--r-1);
-  padding:.08em .34em;
+  font:500 .86em/1.4 var(--mono);
+  background:var(--chrome-2);padding:.1em .32em;
   font-variant-numeric:tabular-nums;
   /* the 39-digit value of 2^128 has to break, not widen the page */
   overflow-wrap:anywhere;
 }
 
 /* ─────────── tables ─────────── */
-/* The radius clips the corners of the table itself, which is why it lives on
-   the scrolling wrapper and not on the table. */
 .learn-tblwrap{
-  margin-top:var(--sp-5);max-width:100%;overflow-x:auto;
-  border:1px solid var(--chrome-3);background:var(--chrome-2);
-  border-radius:var(--r-2);box-shadow:var(--e-1);
+  max-width:100%;overflow-x:auto;border-top:2px solid var(--chrome-ink);
   -webkit-overflow-scrolling:touch;
 }
+.learn .learn-sec > .learn-tblwrap{margin-top:var(--sp-5)}
 .learn-tblwrap:focus-visible{outline:2px solid var(--patina);outline-offset:2px}
 .learn-tbl{
   width:100%;border-collapse:collapse;
-  font:400 var(--fs-sm)/1.4 var(--mono);font-variant-numeric:tabular-nums;
+  font:400 var(--fs-sm)/1.4 var(--sans);font-variant-numeric:tabular-nums;
   white-space:nowrap;
 }
 .learn-tbl caption{
-  text-align:left;padding:var(--sp-3) var(--sp-4);
-  border-bottom:1px solid var(--chrome-3);
-  font:500 var(--fs-label)/1.3 var(--mono);letter-spacing:var(--track);
-  text-transform:uppercase;
-  color:var(--patina);
+  text-align:left;padding:var(--sp-3) 0;
+  font:700 var(--fs-sm)/1.3 var(--sans);color:var(--chrome-ink);
 }
-.learn-tbl th,.learn-tbl td{padding:var(--sp-3) var(--sp-4);text-align:right}
-/* the wash is what makes the head read as a head once the figures start */
+.learn-tbl th,.learn-tbl td{padding:var(--sp-3) var(--sp-4) var(--sp-3) 0;text-align:right}
+.learn-tbl th:last-child,.learn-tbl td:last-child{padding-right:0}
+/* The first column names the row, so it reads left like the heading over it. */
+.learn-tbl th:first-child,.learn-tbl td:first-child{text-align:left}
 .learn-tbl thead th{
-  font:500 var(--fs-label)/1.4 var(--mono);letter-spacing:var(--track);
-  text-transform:uppercase;
-  color:var(--chrome-dim);background:var(--tint);
-  border-bottom:1px solid var(--chrome-3);
+  font:700 var(--fs-label)/1.3 var(--sans);color:var(--text-3);
+  border-bottom:1px solid var(--chrome-ink);
   vertical-align:bottom;
   /* headings wrap so the table fits the measure; the figures never do */
-  white-space:normal;max-width:11ch;
+  white-space:normal;max-width:12ch;
 }
-.learn-tbl tbody th[scope=row]{text-align:left;font-weight:700;color:var(--patina)}
+.learn-tbl tbody th[scope=row]{font-weight:700;color:var(--chrome-ink)}
+.learn-tbl tbody td{color:var(--text-1)}
 .learn-tbl tbody tr+tr th,.learn-tbl tbody tr+tr td{border-top:1px solid var(--chrome-3)}
 
 /* ─────────── the eleven-bit figure ─────────── */
-/* Inline SVG, because the page carries no remote assets and this is the one
-   idea readers said they wanted to see rather than read. */
-.bitfig{margin:var(--sp-6) 0;padding:0}
+.bitfig{padding:0}
+.learn .learn-sec > .bitfig{margin:var(--sp-6) 0}
 .bitfig svg{display:block;width:100%;max-width:560px;height:auto}
-.bitfig-hi{fill:var(--accent-wash);stroke:var(--patina);stroke-width:1}
-.bitfig-lo{fill:var(--tint);stroke:var(--chrome-3);stroke-width:1}
-.bitfig-bit text{fill:var(--chrome-ink);font:600 15px var(--mono);text-anchor:middle}
-.bitfig-cap text{fill:var(--text-3);font:500 10px var(--mono);
-  letter-spacing:var(--track);text-transform:uppercase;text-anchor:middle}
-.bitfig-rule path{stroke:var(--chrome-3);fill:none;stroke-width:1}
-.bitfig-lead text{fill:var(--patina);font:600 12px var(--mono);text-anchor:middle}
-.bitfig-sum text{fill:var(--text-2);font:400 12.5px var(--mono);text-anchor:middle}
-.bitfig-word text{fill:var(--chrome-ink);font:700 17px var(--mono);text-anchor:middle;
-  letter-spacing:.04em}
-.bitfig figcaption{margin-top:var(--sp-3);font:400 var(--fs-sm)/1.6 var(--grot);
-  color:var(--text-3)}
+.bitfig-hi{fill:var(--chrome-ink);stroke:var(--chrome-ink);stroke-width:1}
+.bitfig-lo{fill:var(--chrome);stroke:var(--chrome-ink);stroke-width:1}
+.bitfig-cells rect{rx:0}
+.bitfig-bit text{fill:var(--chrome-ink);font:700 15px var(--sans);text-anchor:middle}
+/* The high bits are solid ink, so their digits turn over. */
+.bitfig-bit text:nth-child(-n+4){fill:var(--chrome)}
+.bitfig-cap text{fill:var(--text-3);font:500 11px var(--sans);text-anchor:middle}
+.bitfig-rule path{stroke:var(--chrome-ink);fill:none;stroke-width:1}
+.bitfig-lead text{fill:var(--chrome-ink);font:700 13px var(--sans);text-anchor:middle}
+.bitfig-sum text{fill:var(--text-2);font:500 13px var(--sans);text-anchor:middle}
+.bitfig-word text{fill:var(--patina);font:800 19px var(--sans);text-anchor:middle;letter-spacing:-.01em}
+.bitfig figcaption{margin-top:var(--sp-3);font:400 var(--fs-sm)/1.6 var(--sans);color:var(--text-3)}
 
-/* ─────────── motion ───────────
-   Colour fades only, and only for readers who have not asked for stillness. */
 @media (prefers-reduced-motion:no-preference){
   .learn-toc a{transition:color .15s ease}
-  .learn-tldr a{transition:color .15s ease,border-color .15s ease}
 }
 
-/* ─────────── narrow viewports ─────────── */
+/* ─────────── one column ─────────── */
+@media (max-width:899px){
+  .learn{--col-gap:0px;padding:var(--sp-7) var(--gutter) var(--sp-8)}
+  .learn-tldr,.learn-warn,.learn-toc,.paths,.learn-sec{display:block}
+  .learn-sec > h2{position:static}
+  .learn .learn-sec > h2 + *{margin-top:var(--sp-4)}
+  .learn .learn-tldr-label,.learn .learn-warn-label,.learn .paths-head{margin-bottom:var(--sp-4)}
+  .learn-sec{margin-top:var(--sp-8)}
+}
 @media (max-width:560px){
-  .learn{padding:var(--sp-6) var(--sp-3) var(--sp-8)}
-  .learn-toc ol{grid-template-columns:1fr}
+  .learn{padding-top:var(--sp-6)}
+  .learn-tldr,.learn-warn{margin-top:var(--sp-7)}
+  .learn-warn{padding:var(--sp-5) var(--sp-4);margin-left:calc(-1 * var(--gutter));
+    margin-right:calc(-1 * var(--gutter))}
   .learn-sec{margin-top:var(--sp-7)}
-  /* prose needs no override: --fs-body already bottoms out at 15px here */
-  .learn-warn{padding:var(--sp-4)}
-  /* the six-column table only just fits 375px; the wrapper still scrolls if a
-     different monospace stack pushes it wider */
-  .learn-tbl{font-size:12px}
-  .learn-tbl th,.learn-tbl td{padding:var(--sp-2)}
-  .learn-tbl caption{padding:var(--sp-3) var(--sp-2)}
+  .learn-toc ol{grid-template-columns:1fr}
+  .learn-tbl th,.learn-tbl td{padding:var(--sp-2) var(--sp-3) var(--sp-2) 0}
 }
 
-/* The explainer is screen furniture; the sheets are the printed artefact. */
+/* The guide is screen furniture; the sheets are the printed artefact. */
 @media print{
   .learn{display:none}
 }
@@ -925,117 +939,111 @@ p.learn-lead em{color:var(--patina)}
 /* Two kinds of thing sit in one bar: the guide, which is read in order, and the
    tools, which are used. The separator carries the word so the grouping is
    stated rather than implied by spacing alone. */
-.tabs-g{display:flex;align-items:center;gap:2px}
-.tabs-sep{font:600 9px/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
-  white-space:nowrap;color:var(--text-4);margin:0 5px;padding-left:11px;
-  border-left:1px solid var(--chrome-3)}
-.tabs-tools a{color:var(--text-2)}
-.tabs-tools a:hover{color:var(--chrome-ink)}
+.tabs-g{display:flex;align-items:stretch}
+.tabs-sep{display:flex;align-items:center;
+  font:500 12px/1 var(--sans);white-space:nowrap;color:var(--text-4);
+  margin:0 4px 0 10px;padding-left:14px;border-left:1px solid var(--chrome-3)}
+@media (min-width:1001px){ .tabs-sep{margin-top:18px;margin-bottom:18px} }
+@media (max-width:1000px){
+  .tabs-sep{flex:0 0 1px;width:1px;padding:0;margin:12px 8px;font-size:0;border-left:0;background:var(--chrome-3)}
+}
 
 /* ─────────── section rail ─────────── */
-/* The contents list used to hold a 246px column open on every wide screen for
-   something read once. Now it is a mark in the gutter that opens the list over
-   the page, so the column keeps the middle of the window to itself.
-   Hover opens it for a mouse, the button opens it for a keyboard or a thumb. */
+/* A mark in the gutter that opens the contents list over the page, so the grid
+   keeps the middle of the window. Hover opens it for a mouse, the button opens
+   it for a keyboard or a thumb. */
 .rail{display:none}
 
 @media (min-width:1100px){
   .rail{display:block;position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:15}
   .rail-btn{display:flex;align-items:center;justify-content:center;
-    width:36px;height:56px;padding:0;cursor:pointer;
-    color:var(--chrome-dim);background:var(--chrome-2);
-    border:1px solid var(--chrome-3);border-radius:var(--r-2);box-shadow:var(--e-1)}
-  .rail-btn::before{content:"";display:block;width:15px;height:17px;
-    background:repeating-linear-gradient(to bottom,currentColor 0 1.5px,transparent 1.5px 5.5px)}
-  .rail-btn:hover{color:var(--chrome-ink);border-color:var(--chrome-dim)}
+    width:40px;height:56px;padding:0;cursor:pointer;
+    color:var(--chrome-ink);background:var(--chrome);
+    border:1px solid var(--chrome-ink)}
+  .rail-btn::before{content:"";display:block;width:16px;height:17px;
+    background:repeating-linear-gradient(to bottom,currentColor 0 2px,transparent 2px 5px)}
+  .rail-btn:hover,.rail.open .rail-btn{color:var(--chrome);background:var(--chrome-ink)}
 
-  .rail-panel{position:absolute;left:calc(100% + 10px);top:50%;
-    transform:translateY(-50%);width:262px;padding:var(--sp-4) var(--sp-2) var(--sp-2);
-    background:var(--chrome-2);border:1px solid var(--chrome-3);
-    border-radius:var(--r-3);box-shadow:var(--e-2)}
+  .rail-panel{position:absolute;left:calc(100% + 8px);top:50%;
+    transform:translateY(-50%);width:280px;padding:var(--sp-4) 0 var(--sp-2);
+    background:var(--chrome);border:1px solid var(--chrome-ink);box-shadow:var(--e-2)}
   /* The attribute keeps the links out of the tab order until the list is open.
      Hover has no attribute to set, so it overrides the attribute in CSS alone. */
   .rail-panel[hidden]{display:none}
   .rail:hover .rail-panel[hidden]{display:block}
-  .rail-head{font:700 var(--fs-label)/1.2 var(--mono);letter-spacing:var(--track);
-    text-transform:uppercase;color:var(--text-3);margin:0 0 var(--sp-3);padding:0 10px}
-  .rail a{display:block;padding:8px 10px;border-radius:var(--r-1);
-    font:400 var(--fs-sm)/1.4 var(--grot);color:var(--text-2);text-decoration:none;
+  .rail-head{font:800 var(--fs-sm)/1.2 var(--sans);color:var(--chrome-ink);
+    margin:0 0 var(--sp-2);padding:0 var(--sp-4) var(--sp-3);border-bottom:2px solid var(--chrome-ink)}
+  .rail a{display:block;padding:9px var(--sp-4);
+    font:500 var(--fs-sm)/1.4 var(--sans);color:var(--text-2);text-decoration:none;
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .rail a:hover{color:var(--chrome-ink);background:var(--chrome-3)}
-  .rail a.on{color:var(--patina);font-weight:600}
+  .rail a:hover{color:var(--chrome-ink);background:var(--chrome-2)}
+  .rail a.on{color:var(--patina);font-weight:700;background:var(--chrome-2)}
 
   .view.has-rail .learn-toc{display:none}
 }
 
 /* ─────────── the scale widget ─────────── */
-/* Sits inside the prose. Same chrome as the roller's controls, so it reads as
-   a thing you operate rather than a thing you read. */
-.scale{border:1px solid var(--chrome-3);background:var(--chrome-2);box-shadow:var(--e-1);
-  border-radius:var(--r-2);padding:var(--sp-5);margin:var(--sp-5) 0}
-.scale-head{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
-  text-transform:uppercase;color:var(--patina);margin:0 0 var(--sp-4)}
-.scale-ctl{display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-4)}
+/* Sits inside the prose. A grey field with controls on it, so it reads as a
+   thing you operate rather than a thing you read. */
+.learn .scale{background:var(--chrome-2);padding:var(--sp-5);margin:var(--sp-5) 0}
+.learn .scale p{margin:0;max-width:none}
+.learn .scale-head{font:700 var(--fs-lead)/1.2 var(--sans);letter-spacing:-.01em;
+  color:var(--chrome-ink);margin:0 0 var(--sp-4)}
+.scale-ctl{display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-5)}
 /* A flex item will not shrink below its content unless told to, and a select
    whose longest option is a sentence is wider than a phone. */
-.scale-field{display:flex;flex-direction:column;gap:5px;flex:1 1 240px;min-width:0}
+.scale-field{display:flex;flex-direction:column;gap:6px;flex:1 1 240px;min-width:0}
 .scale-field select{width:100%;min-width:0}
-.scale-field span{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
-  text-transform:uppercase;color:var(--chrome-dim)}
-.scale-out{display:flex;flex-direction:column;gap:var(--sp-2)}
-.scale-line{margin:0;font:400 13px/1.6 var(--mono);color:var(--text-2)}
-.scale-line b{color:var(--chrome-ink);font-weight:600}
-.scale-dim{color:var(--text-3)}
-.scale-warn{color:var(--amber)}
-.scale-warn b{color:var(--amber)}
+.scale-field span{font:700 var(--fs-label)/1 var(--sans);color:var(--chrome-ink)}
+.scale-out{display:flex;flex-direction:column;gap:var(--sp-2);
+  padding-top:var(--sp-4);border-top:1px solid var(--chrome-3)}
+.learn .scale-line{font:400 var(--fs-body)/1.5 var(--sans);color:var(--text-1);
+  font-variant-numeric:tabular-nums}
+.scale-line b{color:var(--chrome-ink);font-weight:800}
+.learn .scale-dim{font-size:var(--fs-sm);color:var(--text-3)}
+.learn .scale-warn,.scale-warn b{color:var(--patina)}
 
 /* ─────────── the checklist offer ─────────── */
-.cl-widget{border:1px solid var(--chrome-3);background:var(--chrome-2);box-shadow:var(--e-1);
-  border-radius:var(--r-2);padding:var(--sp-5);margin:var(--sp-5) 0;
-  display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-4);
+.learn .cl-widget{background:var(--chrome-2);padding:var(--sp-5);margin:var(--sp-5) 0;
+  display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-5);
   align-items:center;justify-content:space-between}
-.cl-note{margin:0;flex:1 1 320px;font:400 13px/1.6 var(--grot);color:var(--text-2)}
-.cl-widget button{font:700 11px/1 var(--mono);letter-spacing:.1em;padding:12px 16px}
+.learn .cl-note{margin:0;flex:1 1 300px;font:400 var(--fs-sm)/1.6 var(--sans);color:var(--text-2)}
+.cl-widget button{padding:13px 18px}
 
 /* ─────────── back to the top ─────────── */
 .totop{position:fixed;right:18px;bottom:18px;z-index:30;min-height:44px;
-  font:600 10px/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
-  color:var(--chrome-dim);background:var(--veil);box-shadow:var(--e-2);
-  border:1px solid var(--chrome-3);border-radius:var(--r-2);padding:var(--sp-3) var(--sp-4);
-  cursor:pointer}
-.totop:hover{color:var(--patina);border-color:var(--patina)}
+  font:700 var(--fs-sm)/1 var(--sans);
+  color:var(--chrome-ink);background:var(--chrome);box-shadow:var(--e-2);
+  border:1px solid var(--chrome-ink);padding:var(--sp-3) var(--sp-4);cursor:pointer}
+.totop:hover{color:var(--chrome);background:var(--chrome-ink)}
 .totop[hidden]{display:none}
 @media (max-width:560px){ .totop{right:12px;bottom:12px} }
 
-/* The doors answer a pointer, for anyone who has not asked for stillness. */
-@media (prefers-reduced-motion:no-preference){
-  .path{transition:background-color .14s ease,border-color .14s ease,
-    box-shadow .14s ease}
-}
-
 /* ─────────── the doors ─────────── */
 /* The landing page says what is here and which door is yours, before the essay
-   starts. Four links, one line each, and the claim the site is built on. */
-.paths{margin:var(--sp-6) 0 var(--sp-2)}
-/* Five doors, and the column holds 964px. Five tracks plus four gaps leaves
-   186px each, so the minimum has to sit under that or the fifth door drops to a
-   row of its own. Below the breakpoint they wrap like any grid. Real gaps
-   rather than hairlines, so each door reads as its own card. */
-.paths-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(174px,1fr));
-  gap:var(--sp-2)}
-.path{display:flex;flex-direction:column;gap:var(--sp-2);padding:var(--sp-4);
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:var(--r-2);
-  text-decoration:none}
-.path:hover{border-color:var(--patina);background:var(--accent-wash);box-shadow:var(--e-1)}
-.path b{font:700 14px/1.25 var(--grot);color:var(--chrome-ink);letter-spacing:.01em}
-.path:hover b{color:var(--patina)}
-.path span{font:400 var(--fs-sm)/1.55 var(--grot);color:var(--text-2)}
-.paths-trust{margin:var(--sp-4) 0 0;font:400 11px/1.6 var(--mono);color:var(--text-3);
-  letter-spacing:.02em}
+   starts. One row per door, the name loud and the line under it quiet. */
+.paths{margin-top:var(--sp-8);padding-top:var(--sp-4);border-top:2px solid var(--chrome-ink)}
+.paths-list{border-top:0}
+.path{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:var(--sp-5);
+  align-items:center;padding:var(--sp-4) 0;border-bottom:1px solid var(--chrome-3);
+  text-decoration:none;color:inherit}
+.path:first-child{padding-top:0}
+.path b{font:700 clamp(19px,1.8vw,23px)/1.2 var(--sans);letter-spacing:-.015em;color:var(--chrome-ink)}
+.path span{grid-column:1;margin-top:var(--sp-1);font:400 var(--fs-sm)/1.5 var(--sans);color:var(--text-2)}
+.path svg{grid-column:2;grid-row:1 / span 2;width:22px;height:22px;
+  fill:none;stroke:var(--chrome-ink);stroke-width:2}
+.path:hover b,.path:focus-visible b{color:var(--patina)}
+.path:hover svg,.path:focus-visible svg{stroke:var(--patina);transform:translateX(4px)}
+.paths-trust{margin-top:var(--sp-4);font:500 13px/1.6 var(--sans);color:var(--text-3)}
+@media (prefers-reduced-motion:no-preference){
+  .path b{transition:color .14s ease}
+  .path svg{transition:transform .2s cubic-bezier(.16,1,.3,1),stroke .14s ease}
+}
 
 /* src/css/90-print.css */
 @media print{
   body{background:#fff}
+  #view-poster{background:none}
   .chrome,.bar,.readout,.foot,.rail,.totop{display:none !important}
   /* Printing always yields the poster, whichever section is on screen. */
   .view{display:none !important}
@@ -1160,7 +1168,6 @@ p.learn-lead em{color:var(--patina)}
 <section id="en-faq" class="learn">
 
   <header class="learn-head">
-    <p class="learn-eyebrow">Questions · and a glossary</p>
     <h1 class="learn-title">The questions<br>that come up<br>every time</h1>
     <p class="learn-lead">
       Some of these get asked before a first phrase exists. Some get asked years
@@ -1367,7 +1374,6 @@ p.learn-lead em{color:var(--patina)}
 <section id="es-faq" class="learn">
 
   <header class="learn-head">
-    <p class="learn-eyebrow">Preguntas · y un glosario</p>
     <h1 class="learn-title">Las preguntas<br>que surgen<br>siempre</h1>
     <p class="learn-lead">
       Algunas de estas se preguntan antes de que exista una primera frase, y otras
@@ -1583,7 +1589,6 @@ p.learn-lead em{color:var(--patina)}
 <section id="en-learn" class="learn">
 
   <header class="learn-head">
-    <p class="learn-eyebrow">Entropy · a field guide</p>
     <h1 class="learn-title">Twelve words are<br>a number</h1>
     <p class="learn-lead">
       Everything that keeps that number yours is decided in the instant it is
@@ -2106,7 +2111,6 @@ p.learn-lead em{color:var(--patina)}
 <section id="es-learn" class="learn">
 
   <header class="learn-head">
-    <p class="learn-eyebrow">Entropía · una guía de campo</p>
     <h1 class="learn-title">Doce palabras son<br>un número</h1>
     <p class="learn-lead">
       Todo lo que hace que ese número siga siendo tuyo se decide en el instante en
@@ -2653,7 +2657,6 @@ p.learn-lead em{color:var(--patina)}
 <section id="en-protect" class="learn">
 
   <header class="learn-head">
-    <p class="learn-eyebrow">Protection · layers and their costs</p>
     <h1 class="learn-title">Every layer<br>has a price</h1>
     <p class="learn-lead">
       Suppose the hard part is done. The phrase was generated properly, it's written
@@ -3027,7 +3030,6 @@ p.learn-lead em{color:var(--patina)}
 <section id="es-protect" class="learn">
 
   <header class="learn-head">
-    <p class="learn-eyebrow">Protección · capas y sus costes</p>
     <h1 class="learn-title">Cada capa<br>tiene un precio</h1>
     <p class="learn-lead">
       Supón que la parte difícil ya está hecha. La frase se generó correctamente,
@@ -3417,7 +3419,6 @@ p.learn-lead em{color:var(--patina)}
 <section id="en-start" class="learn">
 
   <header class="learn-head">
-    <p class="learn-eyebrow">Start here · first phrase</p>
     <h1 class="learn-title">Somebody told you<br>to write down<br>twelve words</h1>
     <p class="learn-lead">
       This page is for the moment before that: what those words are, what is at
@@ -3425,6 +3426,7 @@ p.learn-lead em{color:var(--patina)}
       <a href="#learn"><em>field guide</em></a> next to it has the arithmetic,
       which you don't need to do this right.
     </p>
+    <div data-widget="number"></div>
   </header>
 
   <aside class="learn-tldr">
@@ -3727,7 +3729,6 @@ p.learn-lead em{color:var(--patina)}
 <section id="es-start" class="learn">
 
   <header class="learn-head">
-    <p class="learn-eyebrow">Empieza aquí · primera frase</p>
     <h1 class="learn-title">Alguien te dijo<br>que anotaras<br>doce palabras</h1>
     <p class="learn-lead">
       Esta página es para el momento anterior a eso: qué son esas palabras, qué está
@@ -3735,6 +3736,7 @@ p.learn-lead em{color:var(--patina)}
       <a href="#learn"><em>guía de campo</em></a> que va al lado tiene la
       aritmética, y no la necesitas para hacer esto bien.
     </p>
+    <div data-widget="number"></div>
   </header>
 
   <aside class="learn-tldr">
@@ -4124,7 +4126,7 @@ p.learn-lead em{color:var(--patina)}
 // Nothing below names a language, so adding one means adding those two files
 // and rebuilding. Keys missing from a translation fall back to the base
 // language one at a time, which lets a translation land over several commits.
-const I18N = {"en":{"_code":"en","_name":"English","bar.face":"Word face","bar.find":"Find word or index","bar.findPlaceholder":"abandon · 1024","bar.grid":"Grid","bar.orientation":"Orientation","bar.paper":"Paper","brand.tag":"entropy · words · print","btn.clear":"Clear","btn.load":"Load","btn.pdf":"PDF","btn.print":"PRINT","btn.undo":"Undo","btn.worksheet":"Worksheet PDF","cl.blurb":"One page, no secrets on it. Print it and take it with you, because the machine you do this on shouldn't be the one showing you the steps.","cl.button":"Checklist PDF","cl.eyebrow":"BIP-39 BY HAND","cl.foot1":"Adding a passphrase or a second key is a separate decision, and every layer must be rehearsed before it holds money.","cl.foot2":"Nobody legitimate ever needs your words. Not a wallet maker, not support, not a recovery service.","cl.foot3":"A FILLED WORKSHEET IS YOUR SEED IN LONGHAND. THIS SHEET IS NOT. BURN THE ONE, KEEP THE OTHER.","cl.s1":"BEFORE YOU START","cl.s1a":"Pen and paper on the table. Not a phone, not a text file.","cl.s1b":"Network off at the hardware, not in a setting. Cable out, wifi and bluetooth off.","cl.s1c":"No phone in the room with a camera or a microphone you didn't switch off.","cl.s1d":"If you're using this page, you downloaded it, checked its hash, and opened it offline.","cl.s2":"GENERATE","cl.s2a":"A hardware wallet makes the phrase, or you throw dice and never pick words yourself.","cl.s2b":"Dice: 1 to 4 are two bits each, 5 and 6 get thrown again. 64 accepted throws is 128 bits.","cl.s2c":"Never accept a phrase somebody else generated, printed, or sold you in a box.","cl.s3":"RECORD","cl.s3a":"Write the words by hand, numbered 1 to 12, in order. Order is part of the secret.","cl.s3b":"Read them back against the screen once, then read them back a second time.","cl.s3c":"No photo, no password manager, no cloud note, no email to yourself.","cl.s4":"VERIFY BEFORE YOU FUND","cl.s4a":"Wipe the device or start a fresh wallet, then restore from the paper you wrote.","cl.s4b":"Check the first receive address matches. An empty wallet usually means the derivation path or a passphrase, not the words.","cl.s4c":"Only now send money to it. Send a small amount first.","cl.s5":"STORE","cl.s5a":"Paper in a dry, private place. Steel if fire or water is the threat you mean.","cl.s5b":"A second copy in a second building. Not a second drawer.","cl.s5c":"Don't invent your own way to split the phrase. That loses coins more often than it protects them.","cl.s6":"CLEAN UP","cl.s6a":"Destroy every working copy: the filled worksheet, the scratch paper, the live session.","cl.s6b":"Power the machine off before it goes back on a network.","cl.sub":"Print it. Tick as you go. Nothing on this sheet is secret.","cl.title":"Do this, in this order","face.grot":"Grotesque","face.mono":"Monospace","face.serif":"Serif","footer.aria":"Project links","footer.licence":"MIT licence © Chemaclass","footer.licenceLink":"Licence","footer.note":"Links open a browser tab. They're the only thing here that reaches a network. Nothing loads or sends on its own.","footer.site":"chemaclass.com","footer.source":"Source","footer.sponsor":"Sponsor","grid.16x128":"16 × 128 · one sheet (4+7 bits)","grid.16x64":"16 × 64 · two sheets","grid.32x64":"32 × 64 · one sheet (5+6 bits)","grid.4x64":"4 × 64 · eight sheets","grid.8x128":"8 × 128 · two sheets","grid.8x64":"8 × 64 · four sheets","grid.auto":"Auto: largest type, one sheet","lang.label":"Language","nav.aria":"Sections","nav.faq":"Questions","nav.learn":"Entropy","nav.poster":"Poster","nav.protect":"Protect","nav.roll":"Roll your own","nav.save":"Save offline","nav.saveHint":"Save this page to disk. It's one self-contained file, so it keeps working with the network off.","nav.skip":"Skip to content","nav.start":"Start here","nav.toc":"Sections on this page","nav.tools":"Tools","nav.top":"Top","orient.landscape":"Landscape","orient.portrait":"Portrait","paths.faq":"The questions everyone asks, answered from the arithmetic, and a glossary of every term the guide uses.","paths.learn":"What entropy measures, why the list holds 2048 words, and the wallets emptied when the number was small.","paths.poster":"All 2048 words on one sheet, laid out so a word's index is its coordinate. Print it or save the PDF.","paths.protect":"A passphrase, or a second key. What each one buys, what it costs, and how each one fails.","paths.roll":"Make the number yourself with dice or a coin, and watch it turn into words.","paths.trust":"One file. No network code, no analytics, nothing stored. Works with the cable pulled. MIT licensed.","pdf.colophonLead":"FIRST FOUR LETTERS ARE UNIQUE","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"HOW TO READ A WORD","pdf.decoderMath":"column {col} + row {row} = {idx}","pdf.eyebrow":"BIP-39 · ENGLISH · 2048 WORDS","pdf.sheetTag":"SHEET {n} / {of} · {lo}-{hi}","pdf.subtitle":"The high {c} bits pick a column. The low {r} pick a row. So a word's index is its coordinate on this sheet. The first four letters, set in black, are unique across all 2048. The grey tail is redundant.","pdf.title1":"THE ELEVEN-BIT","pdf.title2":"ADDRESS ","pdf.title3":"SPACE","pdf.titleTight":"THE ELEVEN-BIT ADDRESS ","readout.landscape":"landscape","readout.match":"1 match, index {i} · {word}","readout.matches":"{n} matches","readout.oneSheet":"one sheet","readout.portrait":"portrait","readout.preview":"preview at {pct} %, prints full size","readout.printTip":"Print at 100 % scale with background graphics on.","readout.sheets":"{n} sheets","readout.small":"Small. Try landscape, or A3, or split it across sheets.","readout.split":"{a}+{b} bit split","readout.type":"word type {pt} pt","readout.warn":"Public standard list. Never mark your own recovery words on it.","roll.balance":"{ones} ones, {zeros} zeros","roll.balanceOdd":"Further from even than 99 runs in 100. Any single result is as likely as any other, so this does not make your phrase weaker. It does suggest a bent coin, a loaded die, or a hand that stopped throwing honestly.","roll.checksumLabel":"Checksum · first {n} bits of sha256(entropy)","roll.coin":"Coin: one flip","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dice: one d6","roll.disabled":"The entropy engine didn't load, so this section is off.","roll.entropyLabel":"Entropy · {n} bits","roll.face.1":"One","roll.face.2":"Two","roll.face.3":"Three","roll.face.4":"Four","roll.face.5":"Five","roll.face.6":"Six","roll.face.H":"Heads","roll.face.T":"Tails","roll.flips":"flips","roll.footnote":"These words are exactly as unpredictable as your throws were. No more. A phrase made in a browser tab is for learning. Put nothing on it you'd mind losing.","roll.hintCoin":"Flip a real coin. Heads is 1, tails is 0. Press H or T, or 1 and 0. Backspace undoes the last flip.","roll.hintDice":"Throw a real d6 and press what you see. 1 to 4 carry two bits each. 5 and 6 carry nothing, so throw again. That's what keeps the sixteen pairs equally likely. Backspace undoes the last throw.","roll.keyReroll":"reroll","roll.lastNote":"Your final seven entropy bits fix a block of sixteen consecutive words, {lo} to {hi}. The checksum picks which one of the sixteen it is. So you can do the whole thing by hand and let a wallet finish it: enter the first eleven words, try the sixteen, and only one is accepted.","roll.lastTitle":"The last word is one of sixteen","roll.lastYours":"yours","roll.lead":"Twelve words are a 128-bit number plus a 4-bit checksum. Below you make that number yourself, one throw at a time, and watch it turn into words. Nothing here leaves the page. There's no network code in this file at all.","roll.leadLink":"If the words entropy and checksum are doing no work for you yet, read {link} first.","roll.leadLinkText":"the field guide","roll.length":"Length","roll.load":"Type in throws or bits","roll.loadBad":"Only 1 to 6 for dice, or 0 and 1 for bits. Letters aren't accepted here, and a recovery phrase never should be.","roll.loadDone":"Loaded {n} {unit} from the worksheet.","roll.loadLong":"That is more than {need} bits. The extra was ignored.","roll.loadPlaceholder":"3 1 4 2 … or 0110 1001 …","roll.readOff":"Check any word against {link}: the high bits of its index pick the column, the low bits the row.","roll.readOffLinkText":"the poster","roll.rerolled":" · {n} rerolled","roll.source":"Source","roll.throws":"throws","roll.title":"Roll your own entropy","roll.togoCoin":" · {n} flips to go","roll.togoDice":" · about {n} throws to go","roll.warn":"A phrase generated in a browser is for {em}. For money you intend to keep, use a hardware wallet, or do this on a machine that's offline and stays offline. Never type an existing seed phrase into this page, or any other.","roll.warnEm":"learning and verification","roll.warnLead":"Read this first.","roll.words12":"12 words · 128 bits","roll.words24":"24 words · 256 bits","roll.wordsLabel":"{n} words · each one eleven bits of the {total}-bit total","scale.ages":"That is {n} times the age of the universe.","scale.beyondLife":"That is past any attacker's lifetime, though still inside the age of the universe.","scale.covered":"Running since the Big Bang at that rate, you would have covered {pct} of the space.","scale.instant":"less than a second","scale.rate.bitcoin":"The whole Bitcoin network · 10^21 per second","scale.rate.botnet":"A large botnet · 10^15 per second","scale.rate.earth":"Every computer on Earth · 10^19 per second","scale.rate.laptop":"One laptop · 10^9 per second","scale.rateLabel":"Guessing at","scale.reachable":"This is reachable. A search of {time} isn't a wall. It's an afternoon and a bill.","scale.secret.b128":"12 words, generated properly · 128 bits","scale.secret.b256":"24 words, generated properly · 256 bits","scale.secret.b32":"A wallet with a 32-bit seed bug · 32 bits","scale.secret.chosen":"12 words a person chose · about 60 bits","scale.secretLabel":"Secret","scale.space":"That is {n} possibilities, about {approx}.","scale.takes":"Trying all of them takes {time}.","scale.title":"How big is the number","scale.trialNote":"These rates are generous to the attacker. One real attempt isn't one hash. Turning a phrase into an address runs PBKDF2 2048 times, then derives keys. That's thousands of hashes each.","scale.unit.d":"{n} days","scale.unit.h":"{n} hours","scale.unit.min":"{n} minutes","scale.unit.s":"{n} seconds","scale.unit.y":"{n} years","theme.dark":"Dark","theme.hint":"Not saved. This page stores nothing, so it follows your system again on reload.","theme.label":"Theme","theme.light":"Light","theme.system":"System","toggle.prefix":"Prefix emphasis","toggle.rules":"Row rules","ws.colIndex":"INDEX","ws.colWord":"WORD","ws.continued":"{words} words · continued","ws.eyebrow":"BIP-39 BY HAND","ws.foot1":"The first {n} words follow from your bits alone. This sheet and the poster are enough for them.","ws.foot2":"For the last word, read its first seven boxes as a number and multiply by 16. That index and the fifteen after it are your only candidates, sixteen words in a row on the poster. Enter the first eleven words in a wallet and try them: one is accepted.","ws.foot3":"BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND.","ws.lastWord":"last word: seven bits from you, four from the checksum","ws.note2":"Each throw is two bits: 1 is 00, 2 is 01, 3 is 10, 4 is 11. Fill the cells left to right, top to bottom.","ws.note3":"Eleven bits per word. Read the first four bits as a column, the last seven as a row. On a 32 x 64 sheet it's the first five and last six. Write the index, then the word.","ws.noteCoin":"One coin, {n} times. Heads is 1, tails is 0. Write each result in a box, in order. A flip is already a bit, so there's nothing to convert.","ws.noteDice":"One die, until {n} boxes are full. Write 1, 2, 3 or 4 in the next box. A 5 or a 6 fills no box, so throw again. Rejecting them keeps the four outcomes equally likely.","ws.step1Coin":"FLIP","ws.step1Dice":"THROW","ws.step2":"TRANSCRIBE","ws.step3":"READ OFF THE POSTER","ws.sub":"{words} words · {bits} bits of entropy · {n} {unit}","ws.titleCoin":"Coin worksheet","ws.titleDice":"Dice worksheet","ws.unitFlips":"flips","ws.unitThrows":"accepted throws"},"es":{"_code":"es","_name":"Español","bar.face":"Tipografía","bar.find":"Buscar palabra o índice","bar.findPlaceholder":"abandon · 1024","bar.grid":"Cuadrícula","bar.orientation":"Orientación","bar.paper":"Papel","brand.tag":"entropía · palabras · imprimir","btn.clear":"Borrar","btn.load":"Cargar","btn.pdf":"PDF","btn.print":"IMPRIMIR","btn.undo":"Deshacer","btn.worksheet":"Hoja de trabajo PDF","cl.blurb":"Una página, sin secretos. Imprímela y llévatela, porque la máquina donde haces esto no debería ser la que te enseña los pasos.","cl.button":"PDF de la lista","cl.eyebrow":"BIP-39 A MANO","cl.foot1":"Añadir una frase de contraseña o una segunda clave es otra decisión, y toda capa hay que ensayarla antes de que guarde dinero.","cl.foot2":"Nadie legítimo necesita jamás tus palabras. Ni el fabricante del monedero, ni soporte, ni un servicio de recuperación.","cl.foot3":"UNA HOJA RELLENADA ES TU SEMILLA A MANO. ESTA NO LO ES. QUEMA LA UNA, GUARDA LA OTRA.","cl.s1":"ANTES DE EMPEZAR","cl.s1a":"Papel y boli en la mesa. Ni el móvil, ni un archivo de texto.","cl.s1b":"Red apagada en el hardware, no en un ajuste. Cable fuera, wifi y bluetooth apagados.","cl.s1c":"Ningún móvil en la habitación con una cámara o un micrófono que no hayas apagado.","cl.s1d":"Si usas esta página, la descargaste, comprobaste su hash y la abriste sin conexión.","cl.s2":"GENERA","cl.s2a":"La frase la hace un monedero hardware, o la tiras con dados y nunca eliges tú las palabras.","cl.s2b":"Dados: del 1 al 4 son dos bits cada uno, el 5 y el 6 se vuelven a tirar. 64 tiradas válidas son 128 bits.","cl.s2c":"Nunca aceptes una frase que haya generado, impreso o vendido otra persona.","cl.s3":"APÚNTALA","cl.s3a":"Escribe las palabras a mano, numeradas del 1 al 12, en orden. El orden es parte del secreto.","cl.s3b":"Léelas contra la pantalla una vez, y luego léelas una segunda vez.","cl.s3c":"Sin fotos, sin gestor de contraseñas, sin nota en la nube, sin correo a ti mismo.","cl.s4":"COMPRUEBA ANTES DE METER DINERO","cl.s4a":"Borra el dispositivo o empieza un monedero nuevo, y restaura desde el papel que escribiste.","cl.s4b":"Mira que la primera dirección de recepción coincide. Un monedero vacío suele ser la ruta de derivación o una frase de contraseña, no las palabras.","cl.s4c":"Solo ahora le mandas dinero. Manda primero una cantidad pequeña.","cl.s5":"GUÁRDALA","cl.s5a":"Papel en un sitio seco y privado. Acero si la amenaza que tienes en mente es el fuego o el agua.","cl.s5b":"Una segunda copia en un segundo edificio. No en un segundo cajón.","cl.s5c":"No te inventes tu propia forma de repartir la frase. Eso pierde monedas más veces de las que protege.","cl.s6":"RECOGE","cl.s6a":"Destruye toda copia de trabajo: la hoja rellenada, el papel de borrador, la sesión en vivo.","cl.s6b":"Apaga la máquina antes de que vuelva a una red.","cl.sub":"Imprímelo. Ve marcando. Nada de esta hoja es secreto.","cl.title":"Haz esto, en este orden","face.grot":"Grotesca","face.mono":"Monoespaciada","face.serif":"Serif","footer.aria":"Enlaces del proyecto","footer.licence":"Licencia MIT © Chemaclass","footer.licenceLink":"Licencia","footer.note":"Los enlaces abren una pestaña del navegador. Son lo único de aquí que llega a una red. Nada se carga ni se envía por su cuenta.","footer.site":"chemaclass.com","footer.source":"Código","footer.sponsor":"Patrocinar","grid.16x128":"16 × 128 · una hoja (4+7 bits)","grid.16x64":"16 × 64 · dos hojas","grid.32x64":"32 × 64 · una hoja (5+6 bits)","grid.4x64":"4 × 64 · ocho hojas","grid.8x128":"8 × 128 · dos hojas","grid.8x64":"8 × 64 · cuatro hojas","grid.auto":"Auto: cuerpo mayor, una hoja","lang.label":"Idioma","nav.aria":"Secciones","nav.faq":"Preguntas","nav.learn":"Entropía","nav.poster":"Póster","nav.protect":"Protégete","nav.roll":"Genera la tuya","nav.save":"Descargar","nav.saveHint":"Descarga esta página en tu disco. Es un único archivo autónomo y sigue funcionando con la red desconectada.","nav.skip":"Saltar al contenido","nav.start":"Empieza aquí","nav.toc":"Secciones de esta página","nav.tools":"Herramientas","nav.top":"Arriba","orient.landscape":"Horizontal","orient.portrait":"Vertical","paths.faq":"Las preguntas que todo el mundo hace, respondidas desde la aritmética, y un glosario de los términos que usa la guía.","paths.learn":"Qué mide la entropía, por qué la lista tiene 2048 palabras y los monederos vaciados cuando el número era pequeño.","paths.poster":"Las 2048 palabras en una hoja, colocadas para que el índice de cada palabra sea su coordenada. Imprímela o guarda el PDF.","paths.protect":"Una frase de contraseña, o una segunda clave. Qué te da cada una, qué te cuesta y cómo falla.","paths.roll":"Haz el número tú con dados o una moneda, y velo convertirse en palabras.","paths.trust":"Un archivo. Sin código de red, sin analíticas, sin nada almacenado. Funciona con el cable desenchufado. Licencia MIT.","pdf.colophonLead":"CUATRO PRIMERAS LETRAS ÚNICAS","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"CÓMO LEER UNA PALABRA","pdf.decoderMath":"columna {col} + fila {row} = {idx}","pdf.eyebrow":"BIP-39 · INGLÉS · 2048 PALABRAS","pdf.sheetTag":"HOJA {n} / {of} · {lo}-{hi}","pdf.subtitle":"Los {c} bits altos eligen una columna. Los {r} bajos eligen una fila. Así que el índice de una palabra es su coordenada en esta hoja. Las cuatro primeras letras, en negro, son únicas entre las 2048. La cola gris es redundante.","pdf.title1":"DIRECCIONES","pdf.title2":"DE ","pdf.title3":"ONCE BITS","pdf.titleTight":"DIRECCIONES DE ","readout.landscape":"horizontal","readout.match":"1 coincidencia, índice {i} · {word}","readout.matches":"{n} coincidencias","readout.oneSheet":"una hoja","readout.portrait":"vertical","readout.preview":"vista previa al {pct} %, se imprime a tamaño real","readout.printTip":"Imprime al 100 % de escala con los gráficos de fondo activados.","readout.sheets":"{n} hojas","readout.small":"Pequeño. Prueba horizontal, o A3, o repartirlo en varias hojas.","readout.split":"división de bits {a}+{b}","readout.type":"cuerpo de palabra {pt} pt","readout.warn":"Lista pública del estándar. Nunca marques en ella tus propias palabras de recuperación.","roll.balance":"{ones} unos, {zeros} ceros","roll.balanceOdd":"Más lejos de la mitad que 99 rondas de cada 100. Cualquier resultado concreto es tan probable como otro, así que esto no hace tu frase más débil. Sí sugiere una moneda torcida, un dado cargado o una mano que dejó de tirar honestamente.","roll.checksumLabel":"Suma de verificación · primeros {n} bits de sha256(entropía)","roll.coin":"Moneda: un lanzamiento","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dados: un d6","roll.disabled":"El motor de entropía no se cargó, así que esta sección está desactivada.","roll.entropyLabel":"Entropía · {n} bits","roll.face.1":"Uno","roll.face.2":"Dos","roll.face.3":"Tres","roll.face.4":"Cuatro","roll.face.5":"Cinco","roll.face.6":"Seis","roll.face.H":"Cara","roll.face.T":"Cruz","roll.flips":"lanzamientos","roll.footnote":"Estas palabras son exactamente tan impredecibles como lo fueron tus tiradas. Nada más. Una frase creada en una pestaña del navegador sirve para aprender. No pongas en ella nada que te importe perder.","roll.hintCoin":"Lanza una moneda real. Cara es 1, cruz es 0. Pulsa H o T, o 1 y 0. Retroceso deshace el último lanzamiento.","roll.hintDice":"Tira un d6 real y pulsa lo que veas. Del 1 al 4 llevan dos bits cada uno. El 5 y el 6 no llevan nada, así que vuelve a tirar. Eso es lo que mantiene igual de probables los dieciséis pares. Retroceso deshace la última tirada.","roll.keyReroll":"repetir","roll.lastNote":"Tus siete últimos bits de entropía fijan un bloque de dieciséis palabras seguidas, de la {lo} a la {hi}. La suma de verificación elige cuál de las dieciséis es. Así puedes hacerlo todo a mano y dejar que un monedero lo termine: metes las once primeras palabras, pruebas las dieciséis y solo una se acepta.","roll.lastTitle":"La última palabra es una de dieciséis","roll.lastYours":"la tuya","roll.lead":"Doce palabras son un número de 128 bits más una suma de verificación de 4 bits. Abajo construyes ese número tú, una tirada cada vez, y lo ves convertirse en palabras. Nada de esto sale de la página. En este archivo no hay ningún código de red.","roll.leadLink":"Si las palabras entropía y suma de verificación aún no te dicen nada, lee antes {link}.","roll.leadLinkText":"la guía de campo","roll.length":"Longitud","roll.load":"Escribe tiradas o bits","roll.loadBad":"Solo del 1 al 6 para dados, o 0 y 1 para bits. Aquí no se aceptan letras, y una frase de recuperación no debería escribirse nunca.","roll.loadDone":"Se cargaron {n} {unit} de la hoja de trabajo.","roll.loadLong":"Eso supera los {need} bits. Se ignoró lo que sobra.","roll.loadPlaceholder":"3 1 4 2 … o 0110 1001 …","roll.readOff":"Comprueba cualquier palabra contra {link}: los bits altos de su índice eligen la columna y los bajos la fila.","roll.readOffLinkText":"el póster","roll.rerolled":" · {n} repetidas","roll.source":"Fuente","roll.throws":"tiradas","roll.title":"Genera tu propia entropía","roll.togoCoin":" · quedan {n} lanzamientos","roll.togoDice":" · quedan unas {n} tiradas","roll.warn":"Una frase generada en un navegador sirve para {em}. Para dinero que pienses conservar, usa un monedero hardware, o haz esto en una máquina que esté sin conexión y siga sin conexión. Nunca escribas una frase semilla existente en esta página, ni en ninguna otra.","roll.warnEm":"aprender y verificar","roll.warnLead":"Lee esto primero.","roll.words12":"12 palabras · 128 bits","roll.words24":"24 palabras · 256 bits","roll.wordsLabel":"{n} palabras · cada una once bits del total de {total} bits","scale.ages":"Eso es {n} veces la edad del universo.","scale.beyondLife":"Eso supera la vida de cualquier atacante, aunque sigue dentro de la edad del universo.","scale.covered":"Probando desde el Big Bang a ese ritmo, habrías cubierto el {pct} del espacio.","scale.instant":"menos de un segundo","scale.rate.bitcoin":"Toda la red de Bitcoin · 10^21 por segundo","scale.rate.botnet":"Una gran botnet · 10^15 por segundo","scale.rate.earth":"Todos los ordenadores de la Tierra · 10^19 por segundo","scale.rate.laptop":"Un portátil · 10^9 por segundo","scale.rateLabel":"Probando a","scale.reachable":"Esto está al alcance. Una búsqueda de {time} no es un muro. Es una tarde y una factura.","scale.secret.b128":"12 palabras, generadas bien · 128 bits","scale.secret.b256":"24 palabras, generadas bien · 256 bits","scale.secret.b32":"Un monedero con un fallo de semilla de 32 bits · 32 bits","scale.secret.chosen":"12 palabras elegidas por una persona · unos 60 bits","scale.secretLabel":"Secreto","scale.space":"Eso son {n} posibilidades, unas {approx}.","scale.takes":"Probarlas todas lleva {time}.","scale.title":"Qué tamaño tiene el número","scale.trialNote":"Estos ritmos son generosos con el atacante. Un intento real no es un hash. Convertir una frase en una dirección ejecuta PBKDF2 2048 veces y luego deriva claves. Eso son miles de hashes por intento.","scale.unit.d":"{n} días","scale.unit.h":"{n} horas","scale.unit.min":"{n} minutos","scale.unit.s":"{n} segundos","scale.unit.y":"{n} años","theme.dark":"Oscuro","theme.hint":"No se guarda. Esta página no almacena nada, así que al recargar vuelve a seguir a tu sistema.","theme.label":"Tema","theme.light":"Claro","theme.system":"Sistema","toggle.prefix":"Énfasis de prefijo","toggle.rules":"Líneas de fila","ws.colIndex":"ÍNDICE","ws.colWord":"PALABRA","ws.continued":"{words} palabras · continuación","ws.eyebrow":"BIP-39 A MANO","ws.foot1":"Las primeras {n} palabras salen solo de tus bits. Esta hoja y el póster bastan para ellas.","ws.foot2":"Para la última palabra, lee sus siete primeras casillas como número y multiplica por 16. Ese índice y los quince siguientes son tus únicos candidatos, dieciséis palabras seguidas del póster. Mete las once primeras en un monedero y pruébalas: solo una se acepta.","ws.foot3":"QUEMA O DESTRUYE ESTA HOJA CUANDO LA FRASE ESTÉ ANOTADA. ES TU SEMILLA ESCRITA A MANO.","ws.lastWord":"última palabra: siete bits tuyos, cuatro de la suma de verificación","ws.note2":"Cada tirada son dos bits: 1 es 00, 2 es 01, 3 es 10, 4 es 11. Rellena las celdas de izquierda a derecha y de arriba abajo.","ws.note3":"Once bits por palabra. Lee los cuatro primeros bits como columna y los siete últimos como fila. En una hoja de 32 x 64, los cinco primeros y los seis últimos. Escribe el índice y luego la palabra.","ws.noteCoin":"Una moneda, {n} veces. Cara es 1, cruz es 0. Escribe cada resultado en una casilla, en orden. Un lanzamiento ya es un bit, así que no hay nada que convertir.","ws.noteDice":"Un dado, hasta llenar {n} casillas. Escribe 1, 2, 3 o 4 en la casilla siguiente. Un 5 o un 6 no llenan ninguna, así que vuelve a tirar. Rechazarlos mantiene igual de probables los cuatro resultados.","ws.step1Coin":"LANZA","ws.step1Dice":"TIRA","ws.step2":"TRANSCRIBE","ws.step3":"LEE EN EL PÓSTER","ws.sub":"{words} palabras · {bits} bits de entropía · {n} {unit}","ws.titleCoin":"Hoja de moneda","ws.titleDice":"Hoja de dados","ws.unitFlips":"lanzamientos","ws.unitThrows":"tiradas aceptadas"}};
+const I18N = {"en":{"_code":"en","_name":"English","bar.face":"Word face","bar.find":"Find word or index","bar.findPlaceholder":"abandon · 1024","bar.grid":"Grid","bar.orientation":"Orientation","bar.paper":"Paper","brand.tag":"entropy · words · print","btn.clear":"Clear","btn.load":"Load","btn.pdf":"PDF","btn.print":"PRINT","btn.undo":"Undo","btn.worksheet":"Worksheet PDF","cl.blurb":"One page, no secrets on it. Print it and take it with you, because the machine you do this on shouldn't be the one showing you the steps.","cl.button":"Checklist PDF","cl.eyebrow":"BIP-39 BY HAND","cl.foot1":"Adding a passphrase or a second key is a separate decision, and every layer must be rehearsed before it holds money.","cl.foot2":"Nobody legitimate ever needs your words. Not a wallet maker, not support, not a recovery service.","cl.foot3":"A FILLED WORKSHEET IS YOUR SEED IN LONGHAND. THIS SHEET IS NOT. BURN THE ONE, KEEP THE OTHER.","cl.s1":"BEFORE YOU START","cl.s1a":"Pen and paper on the table. Not a phone, not a text file.","cl.s1b":"Network off at the hardware, not in a setting. Cable out, wifi and bluetooth off.","cl.s1c":"No phone in the room with a camera or a microphone you didn't switch off.","cl.s1d":"If you're using this page, you downloaded it, checked its hash, and opened it offline.","cl.s2":"GENERATE","cl.s2a":"A hardware wallet makes the phrase, or you throw dice and never pick words yourself.","cl.s2b":"Dice: 1 to 4 are two bits each, 5 and 6 get thrown again. 64 accepted throws is 128 bits.","cl.s2c":"Never accept a phrase somebody else generated, printed, or sold you in a box.","cl.s3":"RECORD","cl.s3a":"Write the words by hand, numbered 1 to 12, in order. Order is part of the secret.","cl.s3b":"Read them back against the screen once, then read them back a second time.","cl.s3c":"No photo, no password manager, no cloud note, no email to yourself.","cl.s4":"VERIFY BEFORE YOU FUND","cl.s4a":"Wipe the device or start a fresh wallet, then restore from the paper you wrote.","cl.s4b":"Check the first receive address matches. An empty wallet usually means the derivation path or a passphrase, not the words.","cl.s4c":"Only now send money to it. Send a small amount first.","cl.s5":"STORE","cl.s5a":"Paper in a dry, private place. Steel if fire or water is the threat you mean.","cl.s5b":"A second copy in a second building. Not a second drawer.","cl.s5c":"Don't invent your own way to split the phrase. That loses coins more often than it protects them.","cl.s6":"CLEAN UP","cl.s6a":"Destroy every working copy: the filled worksheet, the scratch paper, the live session.","cl.s6b":"Power the machine off before it goes back on a network.","cl.sub":"Print it. Tick as you go. Nothing on this sheet is secret.","cl.title":"Do this, in this order","face.grot":"Grotesque","face.mono":"Monospace","face.serif":"Serif","fig.aria":"Twelve rows of eleven cells, one row per word: 132 bits. The first 128 come from a random source. The last 4 are the checksum.","fig.checksum":"checksum","fig.random":"random","fig.sum":"12 words × 11 bits = 132 bits","footer.aria":"Project links","footer.licence":"MIT licence © Chemaclass","footer.licenceLink":"Licence","footer.note":"Links open a browser tab. They're the only thing here that reaches a network. Nothing loads or sends on its own.","footer.site":"chemaclass.com","footer.source":"Source","footer.sponsor":"Sponsor","grid.16x128":"16 × 128 · one sheet (4+7 bits)","grid.16x64":"16 × 64 · two sheets","grid.32x64":"32 × 64 · one sheet (5+6 bits)","grid.4x64":"4 × 64 · eight sheets","grid.8x128":"8 × 128 · two sheets","grid.8x64":"8 × 64 · four sheets","grid.auto":"Auto: largest type, one sheet","lang.label":"Language","nav.aria":"Sections","nav.faq":"Questions","nav.learn":"Entropy","nav.poster":"Poster","nav.protect":"Protect","nav.roll":"Roll your own","nav.save":"Save offline","nav.saveHint":"Save this page to disk. It's one self-contained file, so it keeps working with the network off.","nav.skip":"Skip to content","nav.start":"Start here","nav.toc":"Sections on this page","nav.tools":"Tools","nav.top":"Top","orient.landscape":"Landscape","orient.portrait":"Portrait","paths.faq":"The questions everyone asks, answered from the arithmetic, and a glossary of every term the guide uses.","paths.head":"Where next","paths.learn":"What entropy measures, why the list holds 2048 words, and the wallets emptied when the number was small.","paths.poster":"All 2048 words on one sheet, laid out so a word's index is its coordinate. Print it or save the PDF.","paths.protect":"A passphrase, or a second key. What each one buys, what it costs, and how each one fails.","paths.roll":"Make the number yourself with dice or a coin, and watch it turn into words.","paths.trust":"One file. No network code, no analytics, nothing stored. Works with the cable pulled. MIT licensed.","pdf.colophonLead":"FIRST FOUR LETTERS ARE UNIQUE","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"HOW TO READ A WORD","pdf.decoderMath":"column {col} + row {row} = {idx}","pdf.eyebrow":"BIP-39 · ENGLISH · 2048 WORDS","pdf.sheetTag":"SHEET {n} / {of} · {lo}-{hi}","pdf.subtitle":"The high {c} bits pick a column. The low {r} pick a row. So a word's index is its coordinate on this sheet. The first four letters, set in black, are unique across all 2048. The grey tail is redundant.","pdf.title1":"THE ELEVEN-BIT","pdf.title2":"ADDRESS ","pdf.title3":"SPACE","pdf.titleTight":"THE ELEVEN-BIT ADDRESS ","readout.landscape":"landscape","readout.match":"1 match, index {i} · {word}","readout.matches":"{n} matches","readout.oneSheet":"one sheet","readout.portrait":"portrait","readout.preview":"preview at {pct} %, prints full size","readout.printTip":"Print at 100 % scale with background graphics on.","readout.sheets":"{n} sheets","readout.small":"Small. Try landscape, or A3, or split it across sheets.","readout.split":"{a}+{b} bit split","readout.type":"word type {pt} pt","readout.warn":"Public standard list. Never mark your own recovery words on it.","roll.balance":"{ones} ones, {zeros} zeros","roll.balanceOdd":"Further from even than 99 runs in 100. Any single result is as likely as any other, so this does not make your phrase weaker. It does suggest a bent coin, a loaded die, or a hand that stopped throwing honestly.","roll.checksumLabel":"Checksum · first {n} bits of sha256(entropy)","roll.coin":"Coin: one flip","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dice: one d6","roll.disabled":"The entropy engine didn't load, so this section is off.","roll.entropyLabel":"Entropy · {n} bits","roll.face.1":"One","roll.face.2":"Two","roll.face.3":"Three","roll.face.4":"Four","roll.face.5":"Five","roll.face.6":"Six","roll.face.H":"Heads","roll.face.T":"Tails","roll.flips":"flips","roll.footnote":"These words are exactly as unpredictable as your throws were. No more. A phrase made in a browser tab is for learning. Put nothing on it you'd mind losing.","roll.hintCoin":"Flip a real coin. Heads is 1, tails is 0. Press H or T, or 1 and 0. Backspace undoes the last flip.","roll.hintDice":"Throw a real d6 and press what you see. 1 to 4 carry two bits each. 5 and 6 carry nothing, so throw again. That's what keeps the sixteen pairs equally likely. Backspace undoes the last throw.","roll.keyReroll":"reroll","roll.lastNote":"Your final seven entropy bits fix a block of sixteen consecutive words, {lo} to {hi}. The checksum picks which one of the sixteen it is. So you can do the whole thing by hand and let a wallet finish it: enter the first eleven words, try the sixteen, and only one is accepted.","roll.lastTitle":"The last word is one of sixteen","roll.lastYours":"yours","roll.lead":"Twelve words are a 128-bit number plus a 4-bit checksum. Below you make that number yourself, one throw at a time, and watch it turn into words. Nothing here leaves the page. There's no network code in this file at all.","roll.leadLink":"If the words entropy and checksum are doing no work for you yet, read {link} first.","roll.leadLinkText":"the field guide","roll.length":"Length","roll.load":"Type in throws or bits","roll.loadBad":"Only 1 to 6 for dice, or 0 and 1 for bits. Letters aren't accepted here, and a recovery phrase never should be.","roll.loadDone":"Loaded {n} {unit} from the worksheet.","roll.loadLong":"That is more than {need} bits. The extra was ignored.","roll.loadPlaceholder":"3 1 4 2 … or 0110 1001 …","roll.readOff":"Check any word against {link}: the high bits of its index pick the column, the low bits the row.","roll.readOffLinkText":"the poster","roll.rerolled":" · {n} rerolled","roll.source":"Source","roll.throws":"throws","roll.title":"Roll your own entropy","roll.togoCoin":" · {n} flips to go","roll.togoDice":" · about {n} throws to go","roll.warn":"A phrase generated in a browser is for {em}. For money you intend to keep, use a hardware wallet, or do this on a machine that's offline and stays offline. Never type an existing seed phrase into this page, or any other.","roll.warnEm":"learning and verification","roll.warnLead":"Read this first.","roll.words12":"12 words · 128 bits","roll.words24":"24 words · 256 bits","roll.wordsLabel":"{n} words · each one eleven bits of the {total}-bit total","scale.ages":"That is {n} times the age of the universe.","scale.beyondLife":"That is past any attacker's lifetime, though still inside the age of the universe.","scale.covered":"Running since the Big Bang at that rate, you would have covered {pct} of the space.","scale.instant":"less than a second","scale.rate.bitcoin":"The whole Bitcoin network · 10^21 per second","scale.rate.botnet":"A large botnet · 10^15 per second","scale.rate.earth":"Every computer on Earth · 10^19 per second","scale.rate.laptop":"One laptop · 10^9 per second","scale.rateLabel":"Guessing at","scale.reachable":"This is reachable. A search of {time} isn't a wall. It's an afternoon and a bill.","scale.secret.b128":"12 words, generated properly · 128 bits","scale.secret.b256":"24 words, generated properly · 256 bits","scale.secret.b32":"A wallet with a 32-bit seed bug · 32 bits","scale.secret.chosen":"12 words a person chose · about 60 bits","scale.secretLabel":"Secret","scale.space":"That is {n} possibilities, about {approx}.","scale.takes":"Trying all of them takes {time}.","scale.title":"How big is the number","scale.trialNote":"These rates are generous to the attacker. One real attempt isn't one hash. Turning a phrase into an address runs PBKDF2 2048 times, then derives keys. That's thousands of hashes each.","scale.unit.d":"{n} days","scale.unit.h":"{n} hours","scale.unit.min":"{n} minutes","scale.unit.s":"{n} seconds","scale.unit.y":"{n} years","theme.dark":"Dark","theme.hint":"Not saved. This page stores nothing, so it follows your system again on reload.","theme.label":"Theme","theme.light":"Light","theme.system":"System","toggle.prefix":"Prefix emphasis","toggle.rules":"Row rules","ws.colIndex":"INDEX","ws.colWord":"WORD","ws.continued":"{words} words · continued","ws.eyebrow":"BIP-39 BY HAND","ws.foot1":"The first {n} words follow from your bits alone. This sheet and the poster are enough for them.","ws.foot2":"For the last word, read its first seven boxes as a number and multiply by 16. That index and the fifteen after it are your only candidates, sixteen words in a row on the poster. Enter the first eleven words in a wallet and try them: one is accepted.","ws.foot3":"BURN OR SHRED THIS SHEET ONCE THE PHRASE IS RECORDED. IT IS YOUR SEED IN LONGHAND.","ws.lastWord":"last word: seven bits from you, four from the checksum","ws.note2":"Each throw is two bits: 1 is 00, 2 is 01, 3 is 10, 4 is 11. Fill the cells left to right, top to bottom.","ws.note3":"Eleven bits per word. Read the first four bits as a column, the last seven as a row. On a 32 x 64 sheet it's the first five and last six. Write the index, then the word.","ws.noteCoin":"One coin, {n} times. Heads is 1, tails is 0. Write each result in a box, in order. A flip is already a bit, so there's nothing to convert.","ws.noteDice":"One die, until {n} boxes are full. Write 1, 2, 3 or 4 in the next box. A 5 or a 6 fills no box, so throw again. Rejecting them keeps the four outcomes equally likely.","ws.step1Coin":"FLIP","ws.step1Dice":"THROW","ws.step2":"TRANSCRIBE","ws.step3":"READ OFF THE POSTER","ws.sub":"{words} words · {bits} bits of entropy · {n} {unit}","ws.titleCoin":"Coin worksheet","ws.titleDice":"Dice worksheet","ws.unitFlips":"flips","ws.unitThrows":"accepted throws"},"es":{"_code":"es","_name":"Español","bar.face":"Tipografía","bar.find":"Buscar palabra o índice","bar.findPlaceholder":"abandon · 1024","bar.grid":"Cuadrícula","bar.orientation":"Orientación","bar.paper":"Papel","brand.tag":"entropía · palabras · imprimir","btn.clear":"Borrar","btn.load":"Cargar","btn.pdf":"PDF","btn.print":"IMPRIMIR","btn.undo":"Deshacer","btn.worksheet":"Hoja de trabajo PDF","cl.blurb":"Una página, sin secretos. Imprímela y llévatela, porque la máquina donde haces esto no debería ser la que te enseña los pasos.","cl.button":"PDF de la lista","cl.eyebrow":"BIP-39 A MANO","cl.foot1":"Añadir una frase de contraseña o una segunda clave es otra decisión, y toda capa hay que ensayarla antes de que guarde dinero.","cl.foot2":"Nadie legítimo necesita jamás tus palabras. Ni el fabricante del monedero, ni soporte, ni un servicio de recuperación.","cl.foot3":"UNA HOJA RELLENADA ES TU SEMILLA A MANO. ESTA NO LO ES. QUEMA LA UNA, GUARDA LA OTRA.","cl.s1":"ANTES DE EMPEZAR","cl.s1a":"Papel y boli en la mesa. Ni el móvil, ni un archivo de texto.","cl.s1b":"Red apagada en el hardware, no en un ajuste. Cable fuera, wifi y bluetooth apagados.","cl.s1c":"Ningún móvil en la habitación con una cámara o un micrófono que no hayas apagado.","cl.s1d":"Si usas esta página, la descargaste, comprobaste su hash y la abriste sin conexión.","cl.s2":"GENERA","cl.s2a":"La frase la hace un monedero hardware, o la tiras con dados y nunca eliges tú las palabras.","cl.s2b":"Dados: del 1 al 4 son dos bits cada uno, el 5 y el 6 se vuelven a tirar. 64 tiradas válidas son 128 bits.","cl.s2c":"Nunca aceptes una frase que haya generado, impreso o vendido otra persona.","cl.s3":"APÚNTALA","cl.s3a":"Escribe las palabras a mano, numeradas del 1 al 12, en orden. El orden es parte del secreto.","cl.s3b":"Léelas contra la pantalla una vez, y luego léelas una segunda vez.","cl.s3c":"Sin fotos, sin gestor de contraseñas, sin nota en la nube, sin correo a ti mismo.","cl.s4":"COMPRUEBA ANTES DE METER DINERO","cl.s4a":"Borra el dispositivo o empieza un monedero nuevo, y restaura desde el papel que escribiste.","cl.s4b":"Mira que la primera dirección de recepción coincide. Un monedero vacío suele ser la ruta de derivación o una frase de contraseña, no las palabras.","cl.s4c":"Solo ahora le mandas dinero. Manda primero una cantidad pequeña.","cl.s5":"GUÁRDALA","cl.s5a":"Papel en un sitio seco y privado. Acero si la amenaza que tienes en mente es el fuego o el agua.","cl.s5b":"Una segunda copia en un segundo edificio. No en un segundo cajón.","cl.s5c":"No te inventes tu propia forma de repartir la frase. Eso pierde monedas más veces de las que protege.","cl.s6":"RECOGE","cl.s6a":"Destruye toda copia de trabajo: la hoja rellenada, el papel de borrador, la sesión en vivo.","cl.s6b":"Apaga la máquina antes de que vuelva a una red.","cl.sub":"Imprímelo. Ve marcando. Nada de esta hoja es secreto.","cl.title":"Haz esto, en este orden","face.grot":"Grotesca","face.mono":"Monoespaciada","face.serif":"Serif","fig.aria":"Doce filas de once celdas, una fila por palabra: 132 bits. Los primeros 128 salen de una fuente aleatoria. Los últimos 4 son el checksum.","fig.checksum":"checksum","fig.random":"aleatorio","fig.sum":"12 palabras × 11 bits = 132 bits","footer.aria":"Enlaces del proyecto","footer.licence":"Licencia MIT © Chemaclass","footer.licenceLink":"Licencia","footer.note":"Los enlaces abren una pestaña del navegador. Son lo único de aquí que llega a una red. Nada se carga ni se envía por su cuenta.","footer.site":"chemaclass.com","footer.source":"Código","footer.sponsor":"Patrocinar","grid.16x128":"16 × 128 · una hoja (4+7 bits)","grid.16x64":"16 × 64 · dos hojas","grid.32x64":"32 × 64 · una hoja (5+6 bits)","grid.4x64":"4 × 64 · ocho hojas","grid.8x128":"8 × 128 · dos hojas","grid.8x64":"8 × 64 · cuatro hojas","grid.auto":"Auto: cuerpo mayor, una hoja","lang.label":"Idioma","nav.aria":"Secciones","nav.faq":"Preguntas","nav.learn":"Entropía","nav.poster":"Póster","nav.protect":"Protégete","nav.roll":"Genera la tuya","nav.save":"Descargar","nav.saveHint":"Descarga esta página en tu disco. Es un único archivo autónomo y sigue funcionando con la red desconectada.","nav.skip":"Saltar al contenido","nav.start":"Empieza aquí","nav.toc":"Secciones de esta página","nav.tools":"Herramientas","nav.top":"Arriba","orient.landscape":"Horizontal","orient.portrait":"Vertical","paths.faq":"Las preguntas que todo el mundo hace, respondidas desde la aritmética, y un glosario de los términos que usa la guía.","paths.head":"Por dónde seguir","paths.learn":"Qué mide la entropía, por qué la lista tiene 2048 palabras y los monederos vaciados cuando el número era pequeño.","paths.poster":"Las 2048 palabras en una hoja, colocadas para que el índice de cada palabra sea su coordenada. Imprímela o guarda el PDF.","paths.protect":"Una frase de contraseña, o una segunda clave. Qué te da cada una, qué te cuesta y cómo falla.","paths.roll":"Haz el número tú con dados o una moneda, y velo convertirse en palabras.","paths.trust":"Un archivo. Sin código de red, sin analíticas, sin nada almacenado. Funciona con el cable desenchufado. Licencia MIT.","pdf.colophonLead":"CUATRO PRIMERAS LETRAS ÚNICAS","pdf.colophonSource":"bitcoin/bips · bip-0039 · english.txt","pdf.decoderLabel":"CÓMO LEER UNA PALABRA","pdf.decoderMath":"columna {col} + fila {row} = {idx}","pdf.eyebrow":"BIP-39 · INGLÉS · 2048 PALABRAS","pdf.sheetTag":"HOJA {n} / {of} · {lo}-{hi}","pdf.subtitle":"Los {c} bits altos eligen una columna. Los {r} bajos eligen una fila. Así que el índice de una palabra es su coordenada en esta hoja. Las cuatro primeras letras, en negro, son únicas entre las 2048. La cola gris es redundante.","pdf.title1":"DIRECCIONES","pdf.title2":"DE ","pdf.title3":"ONCE BITS","pdf.titleTight":"DIRECCIONES DE ","readout.landscape":"horizontal","readout.match":"1 coincidencia, índice {i} · {word}","readout.matches":"{n} coincidencias","readout.oneSheet":"una hoja","readout.portrait":"vertical","readout.preview":"vista previa al {pct} %, se imprime a tamaño real","readout.printTip":"Imprime al 100 % de escala con los gráficos de fondo activados.","readout.sheets":"{n} hojas","readout.small":"Pequeño. Prueba horizontal, o A3, o repartirlo en varias hojas.","readout.split":"división de bits {a}+{b}","readout.type":"cuerpo de palabra {pt} pt","readout.warn":"Lista pública del estándar. Nunca marques en ella tus propias palabras de recuperación.","roll.balance":"{ones} unos, {zeros} ceros","roll.balanceOdd":"Más lejos de la mitad que 99 rondas de cada 100. Cualquier resultado concreto es tan probable como otro, así que esto no hace tu frase más débil. Sí sugiere una moneda torcida, un dado cargado o una mano que dejó de tirar honestamente.","roll.checksumLabel":"Suma de verificación · primeros {n} bits de sha256(entropía)","roll.coin":"Moneda: un lanzamiento","roll.count":"{have} / {need} bits · {throws} {unit}","roll.dice":"Dados: un d6","roll.disabled":"El motor de entropía no se cargó, así que esta sección está desactivada.","roll.entropyLabel":"Entropía · {n} bits","roll.face.1":"Uno","roll.face.2":"Dos","roll.face.3":"Tres","roll.face.4":"Cuatro","roll.face.5":"Cinco","roll.face.6":"Seis","roll.face.H":"Cara","roll.face.T":"Cruz","roll.flips":"lanzamientos","roll.footnote":"Estas palabras son exactamente tan impredecibles como lo fueron tus tiradas. Nada más. Una frase creada en una pestaña del navegador sirve para aprender. No pongas en ella nada que te importe perder.","roll.hintCoin":"Lanza una moneda real. Cara es 1, cruz es 0. Pulsa H o T, o 1 y 0. Retroceso deshace el último lanzamiento.","roll.hintDice":"Tira un d6 real y pulsa lo que veas. Del 1 al 4 llevan dos bits cada uno. El 5 y el 6 no llevan nada, así que vuelve a tirar. Eso es lo que mantiene igual de probables los dieciséis pares. Retroceso deshace la última tirada.","roll.keyReroll":"repetir","roll.lastNote":"Tus siete últimos bits de entropía fijan un bloque de dieciséis palabras seguidas, de la {lo} a la {hi}. La suma de verificación elige cuál de las dieciséis es. Así puedes hacerlo todo a mano y dejar que un monedero lo termine: metes las once primeras palabras, pruebas las dieciséis y solo una se acepta.","roll.lastTitle":"La última palabra es una de dieciséis","roll.lastYours":"la tuya","roll.lead":"Doce palabras son un número de 128 bits más una suma de verificación de 4 bits. Abajo construyes ese número tú, una tirada cada vez, y lo ves convertirse en palabras. Nada de esto sale de la página. En este archivo no hay ningún código de red.","roll.leadLink":"Si las palabras entropía y suma de verificación aún no te dicen nada, lee antes {link}.","roll.leadLinkText":"la guía de campo","roll.length":"Longitud","roll.load":"Escribe tiradas o bits","roll.loadBad":"Solo del 1 al 6 para dados, o 0 y 1 para bits. Aquí no se aceptan letras, y una frase de recuperación no debería escribirse nunca.","roll.loadDone":"Se cargaron {n} {unit} de la hoja de trabajo.","roll.loadLong":"Eso supera los {need} bits. Se ignoró lo que sobra.","roll.loadPlaceholder":"3 1 4 2 … o 0110 1001 …","roll.readOff":"Comprueba cualquier palabra contra {link}: los bits altos de su índice eligen la columna y los bajos la fila.","roll.readOffLinkText":"el póster","roll.rerolled":" · {n} repetidas","roll.source":"Fuente","roll.throws":"tiradas","roll.title":"Genera tu propia entropía","roll.togoCoin":" · quedan {n} lanzamientos","roll.togoDice":" · quedan unas {n} tiradas","roll.warn":"Una frase generada en un navegador sirve para {em}. Para dinero que pienses conservar, usa un monedero hardware, o haz esto en una máquina que esté sin conexión y siga sin conexión. Nunca escribas una frase semilla existente en esta página, ni en ninguna otra.","roll.warnEm":"aprender y verificar","roll.warnLead":"Lee esto primero.","roll.words12":"12 palabras · 128 bits","roll.words24":"24 palabras · 256 bits","roll.wordsLabel":"{n} palabras · cada una once bits del total de {total} bits","scale.ages":"Eso es {n} veces la edad del universo.","scale.beyondLife":"Eso supera la vida de cualquier atacante, aunque sigue dentro de la edad del universo.","scale.covered":"Probando desde el Big Bang a ese ritmo, habrías cubierto el {pct} del espacio.","scale.instant":"menos de un segundo","scale.rate.bitcoin":"Toda la red de Bitcoin · 10^21 por segundo","scale.rate.botnet":"Una gran botnet · 10^15 por segundo","scale.rate.earth":"Todos los ordenadores de la Tierra · 10^19 por segundo","scale.rate.laptop":"Un portátil · 10^9 por segundo","scale.rateLabel":"Probando a","scale.reachable":"Esto está al alcance. Una búsqueda de {time} no es un muro. Es una tarde y una factura.","scale.secret.b128":"12 palabras, generadas bien · 128 bits","scale.secret.b256":"24 palabras, generadas bien · 256 bits","scale.secret.b32":"Un monedero con un fallo de semilla de 32 bits · 32 bits","scale.secret.chosen":"12 palabras elegidas por una persona · unos 60 bits","scale.secretLabel":"Secreto","scale.space":"Eso son {n} posibilidades, unas {approx}.","scale.takes":"Probarlas todas lleva {time}.","scale.title":"Qué tamaño tiene el número","scale.trialNote":"Estos ritmos son generosos con el atacante. Un intento real no es un hash. Convertir una frase en una dirección ejecuta PBKDF2 2048 veces y luego deriva claves. Eso son miles de hashes por intento.","scale.unit.d":"{n} días","scale.unit.h":"{n} horas","scale.unit.min":"{n} minutos","scale.unit.s":"{n} segundos","scale.unit.y":"{n} años","theme.dark":"Oscuro","theme.hint":"No se guarda. Esta página no almacena nada, así que al recargar vuelve a seguir a tu sistema.","theme.label":"Tema","theme.light":"Claro","theme.system":"Sistema","toggle.prefix":"Énfasis de prefijo","toggle.rules":"Líneas de fila","ws.colIndex":"ÍNDICE","ws.colWord":"PALABRA","ws.continued":"{words} palabras · continuación","ws.eyebrow":"BIP-39 A MANO","ws.foot1":"Las primeras {n} palabras salen solo de tus bits. Esta hoja y el póster bastan para ellas.","ws.foot2":"Para la última palabra, lee sus siete primeras casillas como número y multiplica por 16. Ese índice y los quince siguientes son tus únicos candidatos, dieciséis palabras seguidas del póster. Mete las once primeras en un monedero y pruébalas: solo una se acepta.","ws.foot3":"QUEMA O DESTRUYE ESTA HOJA CUANDO LA FRASE ESTÉ ANOTADA. ES TU SEMILLA ESCRITA A MANO.","ws.lastWord":"última palabra: siete bits tuyos, cuatro de la suma de verificación","ws.note2":"Cada tirada son dos bits: 1 es 00, 2 es 01, 3 es 10, 4 es 11. Rellena las celdas de izquierda a derecha y de arriba abajo.","ws.note3":"Once bits por palabra. Lee los cuatro primeros bits como columna y los siete últimos como fila. En una hoja de 32 x 64, los cinco primeros y los seis últimos. Escribe el índice y luego la palabra.","ws.noteCoin":"Una moneda, {n} veces. Cara es 1, cruz es 0. Escribe cada resultado en una casilla, en orden. Un lanzamiento ya es un bit, así que no hay nada que convertir.","ws.noteDice":"Un dado, hasta llenar {n} casillas. Escribe 1, 2, 3 o 4 en la casilla siguiente. Un 5 o un 6 no llenan ninguna, así que vuelve a tirar. Rechazarlos mantiene igual de probables los cuatro resultados.","ws.step1Coin":"LANZA","ws.step1Dice":"TIRA","ws.step2":"TRANSCRIBE","ws.step3":"LEE EN EL PÓSTER","ws.sub":"{words} palabras · {bits} bits de entropía · {n} {unit}","ws.titleCoin":"Hoja de moneda","ws.titleDice":"Hoja de dados","ws.unitFlips":"lanzamientos","ws.unitThrows":"tiradas aceptadas"}};
 const LANGS = [{"code":"en","name":"English"},{"code":"es","name":"Español"}];
 const BASE_LANG = "en";
 let LANG = BASE_LANG;
@@ -6006,6 +6008,7 @@ function readingInit(view){
   if (typeof scaleInit === "function") scaleInit();
   if (typeof checklistInit === "function") checklistInit();
   if (typeof pathsInit === "function") pathsInit();
+  if (typeof numberInit === "function") numberInit();
   railSpy();
 }
 
@@ -6180,13 +6183,29 @@ const PATHS = [
   { view: "poster", key: "paths.poster" },
 ];
 
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+function pathArrow(){
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("viewBox", "0 0 22 22");
+  svg.setAttribute("aria-hidden", "true");
+  const p = document.createElementNS(SVG_NS, "path");
+  p.setAttribute("d", "M3 11h15M12 5l6 6-6 6");
+  svg.appendChild(p);
+  return svg;
+}
+
 function pathsInit(){
   for (const box of document.querySelectorAll('[data-widget="paths"]')){
     box.replaceChildren();
     box.className = "paths";
 
-    const grid = document.createElement("div");
-    grid.className = "paths-grid";
+    const head = document.createElement("p");
+    head.className = "paths-head";
+    head.textContent = t("paths.head");
+
+    const list = document.createElement("div");
+    list.className = "paths-list";
     for (const p of PATHS){
       if (!VIEWS.includes(p.view)) continue;
       const a = document.createElement("a");
@@ -6196,15 +6215,84 @@ function pathsInit(){
       h.textContent = t("nav." + p.view);
       const d = document.createElement("span");
       d.textContent = t(p.key);
-      a.append(h, d);
-      grid.appendChild(a);
+      a.append(h, d, pathArrow());
+      list.appendChild(a);
     }
 
     const trust = document.createElement("p");
     trust.className = "paths-trust";
     trust.textContent = t("paths.trust");
 
-    box.append(grid, trust);
+    box.append(head, list, trust);
+  }
+}
+
+/* ── the number, drawn ──────────────────────────────────────────── */
+// Twelve words, eleven bits each, the last four of them checksum. The cells
+// carry no values: bits printed on this page would be a phrase someone could
+// copy into a wallet.
+const NUM_WORDS = 12, NUM_BITS = 11, NUM_CHECKSUM = 4;
+
+function numberInit(){
+  for (const box of document.querySelectorAll('[data-widget="number"]')){
+    const fig = document.createElement("figure");
+    fig.className = "numfig";
+    fig.setAttribute("role", "img");
+    fig.setAttribute("aria-label", t("fig.aria"));
+
+    const grid = document.createElement("div");
+    grid.className = "numfig-grid";
+    grid.setAttribute("aria-hidden", "true");
+    for (let r = 0; r < NUM_WORDS; r++){
+      const row = document.createElement("div");
+      row.className = "numfig-row";
+      const n = document.createElement("span");
+      n.className = "numfig-n";
+      n.textContent = r + 1;
+      row.appendChild(n);
+      for (let c = 0; c < NUM_BITS; c++){
+        const cell = document.createElement("i");
+        const cs = r === NUM_WORDS - 1 && c >= NUM_BITS - NUM_CHECKSUM;
+        if (cs) cell.className = "cs";
+        cell.style.setProperty("--r", r);
+        cell.style.setProperty("--c", cs ? c - (NUM_BITS - NUM_CHECKSUM) : c);
+        row.appendChild(cell);
+      }
+      grid.appendChild(row);
+    }
+
+    const cap = document.createElement("figcaption");
+    cap.className = "numfig-cap";
+    cap.setAttribute("aria-hidden", "true");
+    const big = document.createElement("b");
+    big.className = "numfig-big";
+    const cs = document.createElement("em");
+    cs.textContent = String(NUM_CHECKSUM);
+    big.append((NUM_WORDS * NUM_BITS - NUM_CHECKSUM) + " + ", cs);
+    const sum = document.createElement("p");
+    sum.className = "numfig-sum";
+    sum.textContent = t("fig.sum");
+    const key = document.createElement("p");
+    key.className = "numfig-key";
+    const kr = document.createElement("span");
+    kr.textContent = t("fig.random");
+    const kc = document.createElement("span");
+    kc.className = "cs";
+    kc.textContent = t("fig.checksum");
+    key.append(kr, kc);
+    cap.append(big, sum, key);
+
+    fig.append(grid, cap);
+    box.replaceWith(fig);
+  }
+  // A language switch re-renders the strings, not the cells, so the fill does
+  // not replay under the reader.
+  for (const fig of document.querySelectorAll("figure.numfig")){
+    fig.setAttribute("aria-label", t("fig.aria"));
+    const [sum, key] = fig.querySelectorAll(".numfig-sum, .numfig-key");
+    sum.textContent = t("fig.sum");
+    key.children[0].textContent = t("fig.random");
+    key.children[1].textContent = t("fig.checksum");
   }
 }
 

@@ -2,61 +2,52 @@
 /* Visible only when tabbed to. Nine controls sit between the top of the
    document and the first sentence, which is nine too many on a keyboard. */
 .skip{position:absolute;left:-9999px;top:0;z-index:40;
-  font:600 11px/1 var(--mono);letter-spacing:var(--track);text-transform:uppercase;
-  color:var(--chrome-ink);background:var(--chrome-2);box-shadow:var(--e-2);
-  border:1px solid var(--patina);border-radius:var(--r-1);padding:12px 16px;text-decoration:none}
+  font:700 var(--fs-sm)/1 var(--sans);
+  color:var(--chrome);background:var(--chrome-ink);
+  padding:14px 18px;text-decoration:none}
 .skip:focus{left:12px;top:12px}
 main:focus{outline:none}
 
-/* No backdrop-filter: --veil is 94% opaque, so the blur behind it was measured
-   at zero differing pixels while still costing a compositing pass per frame. */
+/* No backdrop-filter: --veil is 96% opaque, so a blur behind it would cost a
+   compositing pass per frame for pixels nobody can see. */
 .chrome{position:sticky;top:0;z-index:20;background:var(--veil);
-  border-bottom:1px solid var(--chrome-3)}
-/* A hairline reads as part of the page until something scrolls under it. */
+  border-bottom:2px solid var(--chrome-ink)}
 .chrome.lift{box-shadow:var(--lift)}
-.top{padding:var(--sp-3) 0}
+.top{padding:0}
 /* The bar shares its edges with everything under it, on every view, so the brand
    and the prose start at the same x and switching tabs moves nothing. The poster's
    own control bar takes the same box, in 10-poster.css. */
-.top-in{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;align-items:center;
-  gap:var(--sp-2) var(--sp-3);flex-wrap:wrap}
-.brand{text-decoration:none;color:inherit;flex:0 0 auto}
-.brand:hover span{color:var(--chrome-ink)}
+.top-in{max-width:var(--measure);margin:0 auto;padding:0 var(--gutter);display:flex;
+  align-items:stretch;gap:0 var(--sp-5);flex-wrap:wrap;min-height:60px}
+.brand{text-decoration:none;color:inherit;flex:0 0 auto;justify-content:center}
+.brand:hover b{color:var(--patina)}
 
-/* One track holds both groups, so the bar reads as a single control rather than
-   six loose links. The track shrinks to fit and scrolls its own contents rather
-   than widening the page or stacking into rows: sections keep getting added and
-   a phone runs out of room before the design does. The row around it is what
-   claims the full width below the breakpoint, so the track itself can stay as
-   wide as its tabs instead of stretching. */
 /* A flex line wraps on an item's content width, before shrinking is considered,
    so a track holding six tabs used to push the language and theme menus onto a
-   second row and leave half the first one empty. A zero basis takes the track
-   out of that decision: it claims what is left of the row and scrolls its own
-   tabs if even that runs out. */
+   second row. A zero basis takes the track out of that decision: it claims what
+   is left of the row and scrolls its own tabs if even that runs out. */
 .tabs-row{display:flex;min-width:0;flex:1 1 0}
-.tabs{display:flex;align-items:center;gap:2px;padding:3px;
-  min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:none;
-  background:var(--chrome-2);border:1px solid var(--chrome-3);border-radius:var(--r-2)}
+.tabs{display:flex;align-items:stretch;gap:0;
+  min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tabs a{font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
-  color:var(--chrome-dim);text-decoration:none;white-space:nowrap;
-  padding:9px 10px;border-radius:var(--r-1)}
-.tabs a:hover{color:var(--chrome-ink);background:var(--chrome-3)}
+.tabs a{display:flex;align-items:center;
+  font:500 15px/1 var(--sans);letter-spacing:-.005em;
+  color:var(--text-3);text-decoration:none;white-space:nowrap;
+  padding:0 12px;box-shadow:inset 0 0 0 transparent}
+.tabs a:hover{color:var(--chrome-ink)}
 /* Scrolling makes the track clip on both axes, and an offset ring is what gets
    clipped. Inset it. */
 .tabs a:focus-visible{outline-offset:-2px}
-/* The selected tab is the only reliable "where am I": four long reading pages
-   share a layout, so a wash and a hairline are not enough to tell them apart. */
-.tabs a.on,.tabs a.on:hover{color:var(--chrome);background:var(--patina);box-shadow:var(--e-1)}
+/* Where you are is ink and a red bar standing on the header's own rule. */
+.tabs a.on,.tabs a.on:hover{color:var(--chrome-ink);font-weight:700;
+  box-shadow:inset 0 -4px 0 var(--patina)}
 
 .top-act{display:flex;align-items:center;gap:var(--sp-2);margin-left:auto;flex:0 0 auto}
 .langsel{display:flex;align-items:center}
-.langsel select{min-height:36px;padding:6px 24px 6px 9px;font-size:11px;letter-spacing:.04em;
-  border-radius:var(--r-1)}
+.langsel select{min-height:36px;padding:6px 28px 6px 10px;font-size:13px;border-color:var(--chrome-3)}
 @media (prefers-reduced-motion:no-preference){
   .tabs a,.foot-links a,.langsel select{transition:background-color .12s ease,
-    color .12s ease,border-color .12s ease}
+    color .12s ease,border-color .12s ease,box-shadow .12s ease}
 }
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -65,50 +56,49 @@ main:focus{outline:none}
    .view.has-rail{display:grid}, silently keeps a hidden view on the page. */
 .view[hidden]{display:none !important}
 
-/* Prose links: the long-form sections, the masthead lead, and the facts the
-   roller prints under a finished phrase. */
-.learn-sec a,.learn-lead a,.roll-lead a,.roll-fact a{color:var(--patina);
-  text-decoration:none;border-bottom:1px solid var(--accent-line)}
-.learn-sec a:hover,.learn-lead a:hover,.roll-lead a:hover,
-.roll-fact a:hover{border-bottom-color:var(--patina)}
-.roll-lead em{font-style:normal;color:var(--chrome-ink)}
+/* Prose links: ink, underlined in red, red under the pointer. Red is where you
+   go next. */
+.learn-sec a,.learn-lead a,.learn-tldr a,.roll-lead a,.roll-fact a{color:inherit;
+  text-decoration:underline;text-decoration-color:var(--accent-line);
+  text-decoration-thickness:2px;text-underline-offset:.2em}
+.learn-sec a:hover,.learn-lead a:hover,.learn-tldr a:hover,.roll-lead a:hover,
+.roll-fact a:hover{color:var(--patina);text-decoration-color:var(--patina)}
+.roll-lead em{font-style:normal;font-weight:700;color:var(--chrome-ink)}
 
 /* Below this the track stops fitting beside the brand and the controls. Sending
    it to a row of its own keeps the bar at two rows rather than three, and keeps
    the controls reachable. */
 @media (max-width:1000px){
-  .tabs-row{order:2;flex:1 0 100%}
+  .top-in{min-height:0}
+  .brand{padding:10px 0}
+  .tabs-row{order:2;flex:1 0 100%;margin:0 calc(-1 * var(--gutter));padding:0 calc(var(--gutter) - 12px);
+    border-top:1px solid var(--chrome-3)}
   .top-act{order:1}
-}
-
-/* Where the track has its own row, a tab is something you hit with a thumb.
-   28px was a mouse target. The word between the groups becomes the divider it
-   was drawn around, which gives the strip back 42 of the px it overflows by. */
-@media (max-width:1000px){
-  .tabs{padding:2px}
-  .tabs a{min-height:40px;display:flex;align-items:center}
+  /* A tab is something you hit with a thumb here. */
+  .tabs a{min-height:46px}
   /* A sideways scroller at its end hands the swipe to the browser, which reads
      it as a back gesture. */
   .tabs{overscroll-behavior-x:contain}
-  .tabs-sep{width:1px;padding:0;margin:0 6px;color:transparent;overflow:hidden;
-    align-self:stretch}
+  /* The word between the groups becomes the divider it was drawn around. */
+  .tabs-sep{width:1px;padding:0;margin:12px 8px;color:transparent;overflow:hidden;
+    background:var(--chrome-3);border:0}
 }
 
 @media (max-width:560px){
-  .top{padding:5px 0}
-  .top-in{gap:4px 10px;padding:0 14px}
+  :root{--gutter:16px}
+  .top-in{gap:0 10px}
   /* The tagline is decoration and the headline underneath says the same thing.
      Its width is what buys the controls a place on the brand's row. Hidden
      rather than dropped, so the brand link still reads out in full. */
   .brand span{position:absolute;width:1px;height:1px;overflow:hidden;
     clip:rect(0 0 0 0);white-space:nowrap}
-  .tabs a{padding:9px 10px;letter-spacing:.06em;font-size:10.5px}
+  .tabs a{padding:0 10px;font-size:15px}
   /* iOS Safari zooms the page when a focused control's text is under 16px, and
      it does not zoom back out. Every control on the page pays for that, so on a
      phone they all get 16px whatever it costs in width. A thumb is wider than a
      pointer, so the same controls get the 44px a thumb needs. */
   select,input[type=search],input[type=text],button{font-size:16px;min-height:44px}
-  .langsel select{min-height:44px;padding:6px 26px 6px 9px;letter-spacing:0}
+  .langsel select{min-height:44px;padding:6px 28px 6px 10px}
 }
 
 /* ─────────── the enhancement layer ─────────── */
@@ -116,7 +106,7 @@ main:focus{outline:none}
    site exactly as before, never a broken one. */
 
 /* Selected text answers in the site's own colour. */
-::selection{background:var(--patina);color:var(--chrome)}
+::selection{background:var(--chrome-ink);color:var(--chrome)}
 
 /* Scrollbars follow the theme instead of glaring in the dark one. */
 html{scrollbar-color:var(--chrome-3) transparent}
@@ -139,31 +129,33 @@ html{-webkit-tap-highlight-color:transparent}
 }
 @keyframes viewin{from{opacity:0}to{opacity:1}}
 
-/* How far into the page you are, drawn on the chrome's bottom edge, scroll
+/* How far into the page you are, drawn on the chrome's bottom rule, scroll
    driven in CSS alone. The poster is an artefact rather than a read, so it
    carries no bar. */
 @supports (animation-timeline:scroll()){
   body:not([data-view="poster"]) .chrome::after{
-    content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
+    content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;
     background:var(--patina);transform-origin:0 50%;pointer-events:none;
     animation:readprog linear both;animation-timeline:scroll(root)}
 }
 @keyframes readprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
 /* ─────────── footer ─────────── */
-.foot{border-top:1px solid var(--chrome-3);margin-top:var(--sp-7);padding:var(--sp-5) 18px var(--sp-7)}
-.foot-in{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-5);
+.foot{border-top:2px solid var(--chrome-ink);margin-top:var(--sp-8);
+  padding:var(--sp-5) var(--gutter) var(--sp-7)}
+.foot-in{max-width:var(--measure);margin:0 auto;display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-6);
   align-items:baseline;justify-content:space-between}
-.foot-lic{font:400 11px/1.5 var(--mono);letter-spacing:.06em;color:var(--text-3)}
+.foot-lic{font:700 var(--fs-sm)/1.5 var(--sans);color:var(--chrome-ink)}
 .foot-links{display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-5)}
-.foot-links a{font:500 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;
-  color:var(--chrome-dim);text-decoration:none;border-bottom:1px solid transparent}
-.foot-links a:hover{color:var(--patina);border-bottom-color:var(--patina)}
-.foot-links a.foot-sponsor{color:var(--amber)}
-.foot-links a.foot-sponsor:hover{border-bottom-color:var(--amber)}
-.foot-note{max-width:1000px;margin:16px auto 0;font:400 10.5px/1.6 var(--mono);color:var(--text-4)}
+.foot-links a{font:500 var(--fs-sm)/1.5 var(--sans);
+  color:var(--text-2);text-decoration:none;border-bottom:2px solid transparent}
+.foot-links a:hover{color:var(--chrome-ink);border-bottom-color:var(--patina)}
+.foot-links a.foot-sponsor{color:var(--chrome-ink);font-weight:700}
+.foot-note{max-width:var(--measure);margin:var(--sp-4) auto 0;font:400 13px/1.6 var(--sans);color:var(--text-3)}
+/* #view-poster sits on the grey, and the footer under it should too. */
+body[data-view="poster"] .foot{margin-top:0;background:var(--chrome-2)}
 
 @media (max-width:560px){
-  .foot{padding:20px 14px 34px}
-  .foot-in{gap:8px 14px}
+  .foot{padding:var(--sp-5) var(--gutter) var(--sp-7)}
+  .foot-in{gap:var(--sp-2) var(--sp-4)}
 }

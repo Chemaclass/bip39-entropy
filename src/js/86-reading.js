@@ -148,6 +148,7 @@ function readingInit(view){
   if (typeof scaleInit === "function") scaleInit();
   if (typeof checklistInit === "function") checklistInit();
   if (typeof pathsInit === "function") pathsInit();
+  if (typeof numberInit === "function") numberInit();
   railSpy();
 }
 

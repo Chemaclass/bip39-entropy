@@ -1,7 +1,7 @@
 :root{
   /* Native widgets: select panels, scrollbars. They follow the page's theme,
      not the system's, so a forced theme carries all the way down. */
-  color-scheme:dark;
+  color-scheme:light;
   --paper:#ffffff;
   --ink:#14161c;
   --ghost:#a4aab3;
@@ -10,47 +10,53 @@
   --rule-strong:#a7b0b4;
   --hair:0.2mm;
 
-  --chrome:#191d1f;
-  --chrome-2:#23292b;
-  --chrome-3:#2f3639;
-  --chrome-ink:#e8edea;
-  --chrome-dim:#8d9793;
-  --patina:#6fbfa8;
-  --amber:#d8a657;
+  /* The chrome is a white field, black ink and one red. The red marks three
+     things only: the checksum, where you are, and what to do next. */
+  --chrome:#ffffff;
+  --chrome-2:#f0f0ec;
+  --chrome-3:#d6d6d0;
+  --chrome-ink:#111111;
+  --chrome-dim:#5c5c58;
+  --patina:#d4211b;
+  --amber:#111111;
 
   /* Text steps and washes, named so a second theme is a palette swap rather
      than a hunt through five files for hex codes. */
-  --text-1:#c7cfcb;
-  --text-2:#aab3af;
-  --text-3:#69736f;
-  --text-4:#565f5c;
-  --veil:rgba(25,29,31,.94);
-  --tint:rgba(255,255,255,.03);
-  --accent-wash:rgba(111,191,168,.10);
-  --accent-line:rgba(111,191,168,.35);
-  --warn-wash:#2a2519;
-  --patina-lift:#8ad3bd;
-  --bit-0:#2f3639;
-  --bit-1:#4a7d6f;
+  --text-1:#1c1c1a;
+  --text-2:#3a3a37;
+  --text-3:#5c5c58;
+  --text-4:#66665f;
+  --veil:rgba(255,255,255,.96);
+  --tint:rgba(0,0,0,.035);
+  --accent-wash:rgba(212,33,27,.07);
+  --accent-line:rgba(212,33,27,.5);
+  --warn-wash:#f0f0ec;
+  --patina-lift:#a8150f;
+  --bit-0:#d6d6d0;
+  --bit-1:#111111;
 
   /* Eleven cells, the eleven bits of 837, the index of the word on the poster's
-     own legend. Every rule on the site is that number, set on an 88px repeat. */
+     own legend, set on an 88px repeat. */
   --bit-rule:linear-gradient(90deg,var(--bit-0) 0px 6px,transparent 6px 8px,var(--bit-1) 8px 14px,transparent 14px 16px,var(--bit-1) 16px 22px,transparent 22px 24px,var(--bit-0) 24px 30px,transparent 30px 32px,var(--bit-1) 32px 38px,transparent 38px 40px,var(--bit-0) 40px 46px,transparent 46px 48px,var(--bit-0) 48px 54px,transparent 54px 56px,var(--bit-0) 56px 62px,transparent 62px 64px,var(--bit-1) 64px 70px,transparent 70px 72px,var(--bit-0) 72px 78px,transparent 78px 80px,var(--bit-1) 80px 86px,transparent 86px 88px);
 
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  /* The poster's word faces. The type solver measures the sheet against these,
+     so the chrome's own face lives in --sans and never touches the print. */
   --grot:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Helvetica,Arial,"Liberation Sans",sans-serif;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Liberation Serif",serif;
   --face:var(--grot);
+  --sans:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",system-ui,sans-serif;
 
   /* ── the scales ──────────────────────────────────────────────────
      Three ramps the chrome measures itself against, so a new component
      inherits the page's rhythm instead of inventing a fourth set of
      numbers. The sheet below is drawn in mm and shares none of this. */
 
-  /* Corners. One step per role: controls, panels, cards. */
-  --r-1:7px;
-  --r-2:11px;
-  --r-3:16px;
+  /* Square corners. The grid is the structure, and a radius softens the one
+     thing it has to say. */
+  --r-1:0;
+  --r-2:0;
+  --r-3:0;
 
   /* Space, in a 4px rhythm. Anything between two steps is a mistake. */
   --sp-1:4px;
@@ -61,82 +67,83 @@
   --sp-6:32px;
   --sp-7:48px;
   --sp-8:72px;
+  --sp-9:112px;
 
-  /* Depth. Two steps: a thing that sits on the page, a thing that floats
-     over it. --lift is the second, kept under its old name. */
-  --e-1:0 1px 2px rgba(0,0,0,.30);
-  --e-2:0 6px 20px rgba(0,0,0,.34);
-  --lift:var(--e-2);
+  /* The column every view shares, and its gutter. */
+  --measure:1200px;
+  --gutter:32px;
+
+  /* Depth. Rules and fields carry the structure, so a thing on the page has
+     none. Only what floats over it, a menu or the back-to-top button, lifts. */
+  --e-1:none;
+  --e-2:0 8px 28px rgba(0,0,0,.14);
+  --lift:0 1px 0 var(--chrome-3);
   /* Paper on a desk, which is deeper than anything else the page stacks. */
-  --sheet-lift:0 12px 40px rgba(0,0,0,.5);
+  --sheet-lift:0 10px 34px rgba(20,22,28,.16);
 
   /* Reading sizes, fluid between a phone and a desktop. */
-  --fs-label:9.5px;
-  --fs-sm:12.5px;
-  --fs-body:clamp(15px,1.05vw,16px);
-  --fs-lead:clamp(16px,1.6vw,18px);
-  --fs-h2:clamp(13.5px,1.5vw,15px);
-  --fs-h1:clamp(30px,5.4vw,46px);
+  --fs-label:12px;
+  --fs-sm:14px;
+  --fs-body:clamp(16px,1.15vw,17.5px);
+  --fs-lead:clamp(18px,1.7vw,22px);
+  --fs-h2:clamp(22px,2.3vw,30px);
+  --fs-h1:clamp(38px,6vw,80px);
 
-  /* Uppercase mono labels. Wide tracking dates a page fast, so one value
-     carries every label and it is narrower than it was. */
-  --track:.14em;
+  --track:.01em;
 }
 
-/* ─────────── light ───────────
-   The sheet is always a sheet: --paper, --ink and the rules below belong to the
-   printed artifact and never change. Only the chrome around it does. */
-:root[data-theme="light"]{
-  color-scheme:light;
-  --chrome:#f6f7f6;
-  --chrome-2:#eceeec;
-  --chrome-3:#d5dad7;
-  --chrome-ink:#171b19;
-  --chrome-dim:#5a6360;
-  --patina:#1d6e59;
-  --amber:#8a5a12;
-  --text-1:#2c3431;
-  --text-2:#3d4643;
-  --text-3:#5f6a66;
-  --text-4:#6d7773;
-  --veil:rgba(246,247,246,.94);
-  --tint:rgba(0,0,0,.04);
-  --accent-wash:rgba(29,110,89,.10);
-  --accent-line:rgba(29,110,89,.40);
-  --warn-wash:#f6efdd;
-  --patina-lift:#12523f;
-  --bit-0:#d5dad7;
-  --bit-1:#9dc4b6;
-  --e-1:0 1px 2px rgba(20,22,28,.07);
-  --e-2:0 6px 18px rgba(20,22,28,.12);
-  --sheet-lift:0 10px 34px rgba(20,22,28,.16);
+/* ─────────── dark ───────────
+   The sheet is always a sheet: --paper, --ink and the rules above belong to the
+   printed artifact and never change. Only the chrome around it inverts. */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --chrome:#121212;
+  --chrome-2:#1e1e1c;
+  --chrome-3:#34342f;
+  --chrome-ink:#f2f2ee;
+  --chrome-dim:#a3a39c;
+  --patina:#ff5a4a;
+  --amber:#f2f2ee;
+  --text-1:#dcdcd6;
+  --text-2:#c4c4bd;
+  --text-3:#a3a39c;
+  --text-4:#8e8e87;
+  --veil:rgba(18,18,18,.96);
+  --tint:rgba(255,255,255,.045);
+  --accent-wash:rgba(255,90,74,.1);
+  --accent-line:rgba(255,90,74,.55);
+  --warn-wash:#1e1e1c;
+  --patina-lift:#ff8174;
+  --bit-0:#34342f;
+  --bit-1:#f2f2ee;
+  --e-2:0 8px 28px rgba(0,0,0,.5);
+  --sheet-lift:0 12px 40px rgba(0,0,0,.5);
 }
 
-@media (prefers-color-scheme:light){
-  :root:not([data-theme="dark"]){
-    color-scheme:light;
-    --chrome:#f6f7f6;
-    --chrome-2:#eceeec;
-    --chrome-3:#d5dad7;
-    --chrome-ink:#171b19;
-    --chrome-dim:#5a6360;
-    --patina:#1d6e59;
-    --amber:#8a5a12;
-    --text-1:#2c3431;
-    --text-2:#3d4643;
-    --text-3:#5f6a66;
-    --text-4:#6d7773;
-    --veil:rgba(246,247,246,.94);
-    --tint:rgba(0,0,0,.04);
-    --accent-wash:rgba(29,110,89,.10);
-    --accent-line:rgba(29,110,89,.40);
-    --warn-wash:#f6efdd;
-    --patina-lift:#12523f;
-    --bit-0:#d5dad7;
-    --bit-1:#9dc4b6;
-    --e-1:0 1px 2px rgba(20,22,28,.07);
-    --e-2:0 6px 18px rgba(20,22,28,.12);
-    --sheet-lift:0 10px 34px rgba(20,22,28,.16);
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --chrome:#121212;
+    --chrome-2:#1e1e1c;
+    --chrome-3:#34342f;
+    --chrome-ink:#f2f2ee;
+    --chrome-dim:#a3a39c;
+    --patina:#ff5a4a;
+    --amber:#f2f2ee;
+    --text-1:#dcdcd6;
+    --text-2:#c4c4bd;
+    --text-3:#a3a39c;
+    --text-4:#8e8e87;
+    --veil:rgba(18,18,18,.96);
+    --tint:rgba(255,255,255,.045);
+    --accent-wash:rgba(255,90,74,.1);
+    --accent-line:rgba(255,90,74,.55);
+    --warn-wash:#1e1e1c;
+    --patina-lift:#ff8174;
+    --bit-0:#34342f;
+    --bit-1:#f2f2ee;
+    --e-2:0 8px 28px rgba(0,0,0,.5);
+    --sheet-lift:0 12px 40px rgba(0,0,0,.5);
   }
 }
 
@@ -144,76 +151,80 @@
 html,body{margin:0;padding:0}
 body{
   background:var(--chrome);color:var(--chrome-ink);
-  font-family:var(--mono);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
   -webkit-print-color-adjust:exact;print-color-adjust:exact;
 }
 
 /* ─────────── control bar ─────────── */
-.bar{padding:var(--sp-3) 0}
-.bar-in{max-width:1000px;margin:0 auto;padding:0 18px;display:flex;flex-wrap:wrap;
+.bar{padding:var(--sp-3) 0 var(--sp-4);border-top:1px solid var(--chrome-3)}
+.bar-in{max-width:var(--measure);margin:0 auto;padding:0 var(--gutter);display:flex;flex-wrap:wrap;
   gap:var(--sp-3) var(--sp-4);align-items:flex-end}
-.brand{display:flex;flex-direction:column;gap:var(--sp-1);margin-right:var(--sp-2)}
-.brand b{font:600 13px/1 var(--mono);letter-spacing:var(--track)}
-.brand span{font:400 10px/1 var(--mono);letter-spacing:var(--track);color:var(--patina);text-transform:uppercase}
-.ctl{display:flex;flex-direction:column;gap:var(--sp-2);min-width:0}
-.ctl>label{font:500 var(--fs-label)/1 var(--mono);letter-spacing:var(--track);
-  text-transform:uppercase;color:var(--chrome-dim)}
+.brand{display:flex;flex-direction:column;gap:3px;margin-right:var(--sp-2)}
+.brand b{font:800 18px/1 var(--sans);letter-spacing:-.02em}
+.brand span{font:500 11px/1 var(--sans);color:var(--text-3)}
+.ctl{display:flex;flex-direction:column;gap:6px;min-width:0}
+.ctl>label{font:700 var(--fs-label)/1 var(--sans);color:var(--chrome-ink)}
 
 /* One control surface for every job: a menu, a field and a button are the same
    object with different work to do. 36px is the shortest a pointer target can
    be before it starts costing accuracy; the phone breakpoint raises it again. */
 select,input[type=search],input[type=text],button{
-  font:500 var(--fs-sm)/1 var(--mono);color:var(--chrome-ink);
-  background:var(--chrome-2);border:1px solid var(--chrome-3);
-  border-radius:var(--r-1);padding:9px 11px;min-height:36px}
+  font:500 var(--fs-sm)/1 var(--sans);color:var(--chrome-ink);
+  background:var(--chrome);border:1px solid var(--chrome-3);
+  border-radius:var(--r-1);padding:9px 11px;min-height:38px}
 @media (prefers-reduced-motion:no-preference){
   select,input[type=search],input[type=text],button{
-    transition:background-color .14s ease,border-color .14s ease,
-      color .14s ease,box-shadow .14s ease}
+    transition:background-color .14s ease,border-color .14s ease,color .14s ease}
 }
 /* The chevron is two gradients on the element itself, so every select on the
    page carries the same one without a wrapper element around it. */
 /* A select is as wide as its longest option, and one option here is a sentence.
    Without the clamp that sets the width of a 320px phone. */
-select{max-width:100%;appearance:none;-webkit-appearance:none;padding-right:28px;cursor:pointer;
-  background-image:linear-gradient(45deg,transparent 50%,var(--chrome-dim) 50%),
-    linear-gradient(135deg,var(--chrome-dim) 50%,transparent 50%);
-  background-position:calc(100% - 16px) center,calc(100% - 11px) center;
+select{max-width:100%;appearance:none;-webkit-appearance:none;padding-right:30px;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--chrome-ink) 50%),
+    linear-gradient(135deg,var(--chrome-ink) 50%,transparent 50%);
+  background-position:calc(100% - 17px) center,calc(100% - 12px) center;
   background-size:5px 5px;background-repeat:no-repeat}
-select:hover{border-color:var(--chrome-dim)}
+select:hover{border-color:var(--chrome-ink)}
 input[type=search],input[type=text]{width:180px;max-width:100%}
-input[type=search]::placeholder,input[type=text]::placeholder{color:var(--text-3)}
-input[type=search]:hover,input[type=text]:hover{border-color:var(--chrome-dim)}
+input[type=search]::placeholder,input[type=text]::placeholder{color:var(--text-4)}
+input[type=search]:hover,input[type=text]:hover{border-color:var(--chrome-ink)}
+input{caret-color:var(--patina)}
 
-/* A button sits on the page rather than in it, and goes down when pressed.
-   That is the whole difference between a control and a label. */
-button{cursor:pointer;box-shadow:var(--e-1)}
-button:hover{border-color:var(--patina);color:var(--patina)}
-button:active{transform:translateY(1px);box-shadow:none}
-button[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none;transform:none}
-.btn-print{background:var(--patina);border-color:var(--patina);color:var(--chrome);
-  font-weight:700;letter-spacing:.08em}
-.btn-print:hover{background:var(--patina-lift);border-color:var(--patina-lift);color:var(--chrome)}
+/* A button is an outlined block that fills with ink under the pointer and
+   goes down when pressed. That is the whole difference between a control and
+   a label. */
+button{cursor:pointer;font-weight:700;border-color:var(--chrome-ink)}
+button:hover{background:var(--chrome-ink);color:var(--chrome)}
+button:active{transform:translateY(1px)}
+button[disabled]{opacity:.4;cursor:not-allowed;transform:none;
+  background:var(--chrome);color:var(--chrome-ink)}
+/* The one action a panel exists for is solid ink, and red once you reach it. */
+.btn-print{background:var(--chrome-ink);border-color:var(--chrome-ink);color:var(--chrome)}
+.btn-print:hover{background:var(--patina);border-color:var(--patina);color:var(--chrome)}
 
 .toggles{display:flex;gap:var(--sp-3);flex-wrap:wrap;align-items:center}
 /* The whole row is the target, not the 16px box inside it. */
-.tg{display:flex;align-items:center;gap:var(--sp-2);min-height:36px;
-  font:400 11px/1 var(--mono);color:var(--chrome-dim);cursor:pointer}
-.tg input{accent-color:var(--patina);width:16px;height:16px;margin:0;cursor:pointer}
+.tg{display:flex;align-items:center;gap:var(--sp-2);min-height:38px;
+  font:500 var(--fs-sm)/1 var(--sans);color:var(--text-2);cursor:pointer}
+.tg input{accent-color:var(--chrome-ink);width:16px;height:16px;margin:0;cursor:pointer}
 .tg:hover{color:var(--chrome-ink)}
 
 /* One ring, everywhere, and it never sits under the thing it is marking. */
 :focus-visible{outline:2px solid var(--patina);outline-offset:2px}
 
-.readout{max-width:1000px;margin:9px auto 0;padding:0 18px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
-  font:400 10.5px/1.5 var(--mono);color:var(--text-3);letter-spacing:.02em}
-.readout .spec{color:var(--chrome-ink);font-weight:600;letter-spacing:.06em}
-.readout .pt{color:var(--patina);font-weight:700}
-.readout .pt.small{color:var(--amber)}
+.readout{max-width:var(--measure);margin:10px auto 0;padding:0 var(--gutter);display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
+  font:400 12px/1.5 var(--mono);color:var(--text-3);font-variant-numeric:tabular-nums}
+.readout .spec{color:var(--chrome-ink);font-weight:600}
+.readout .pt{color:var(--chrome-ink);font-weight:700}
+.readout .pt.small{color:var(--patina)}
 .readout .hit{color:var(--patina)}
 
 /* ─────────── sheets ─────────── */
-.stage{padding:26px 16px 60px;display:flex;flex-direction:column;align-items:center;gap:26px}
+/* A white sheet on a white field has no edge, so the poster sits on the grey. */
+#view-poster{background:var(--chrome-2)}
+.stage{padding:32px 16px 72px;display:flex;flex-direction:column;align-items:center;gap:32px}
 /* Sized in px to the sheet's *scaled* footprint: a transform does not shrink the
    layout box, so without this the document is as wide as the unscaled sheet and
    large paper scrolls sideways. */
