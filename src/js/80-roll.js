@@ -114,6 +114,7 @@ function rollLoad(){
   const err = $("rollerr");
   if (!parsed){
     err.textContent = t("roll.loadBad");
+    err.classList.add("bad");
     err.hidden = false;
     return;
   }

@@ -8,8 +8,6 @@
   padding:var(--sp-4) var(--sp-5);font:400 var(--fs-body)/1.55 var(--sans);
   margin:0 0 var(--sp-6);max-width:56em}
 .roll-warn b{font-weight:800}
-.roll-warn b::before{content:"";display:inline-block;width:11px;height:11px;margin-right:var(--sp-2);
-  background:var(--patina)}
 .roll-warn em{font-style:normal;font-weight:700}
 .roll-warn a{color:inherit}
 
@@ -24,10 +22,9 @@
 .roll-err{font:500 var(--fs-sm)/1.6 var(--sans);color:var(--chrome-ink);
   background:var(--chrome-2);
   padding:var(--sp-2) var(--sp-3);margin:0 0 var(--sp-4)}
-.roll-err.bad{color:var(--patina);background:var(--accent-wash)}
+.roll-err.bad{font-weight:700}
 
-/* The pad is where the hand works. Resting shadow, lit border on hover, a real
-   dip when pressed: the key has to answer before the bits do. */
+/* The pad is where the hand works. A pressed key has to answer before the bits do. */
 .roll-pad{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-bottom:var(--sp-2)}
 .roll-key{width:68px;height:68px;font:800 22px/1 var(--sans);color:var(--chrome-ink);
   background:var(--chrome);border:1px solid var(--chrome-ink);border-radius:var(--r-2);

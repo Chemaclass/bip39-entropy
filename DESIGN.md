@@ -3,7 +3,6 @@ name: BIP-39 Entropy
 description: The number behind a seed phrase, set on a Swiss grid in ink and one red.
 colors:
   signal-red: "#d4211b"
-  signal-red-line: "rgba(212,33,27,.5)"
   ink: "#111111"
   field: "#ffffff"
   field-grey: "#f0f0ec"
@@ -13,7 +12,6 @@ colors:
   text-3: "#5c5c58"
   text-4: "#66665f"
   signal-red-dark: "#ff5a4a"
-  signal-red-line-dark: "rgba(255,90,74,.55)"
   ink-dark: "#f2f2ee"
   field-dark: "#121212"
   field-grey-dark: "#1e1e1c"
@@ -163,7 +161,7 @@ The red is scarce on purpose. It marks the checksum, where you are, and what to 
 A monochrome ink-and-paper palette with warm neutral greys and a single signal red.
 
 ### Primary
-- **Signal Red** (`signal-red`, dark theme `signal-red-dark`): the checksum cells and bytes, the active tab bar, the active rail entry, the focus ring, the text caret, the reading-progress line, link hover, the primary button on hover, a pressed dice key, the chosen last word. The same hue at half opacity (`signal-red-line`) underlines every prose link.
+- **Signal Red** (`signal-red`, dark theme `signal-red-dark`): the checksum cells and bytes, the active tab bar, the active rail entry, the focus ring, the text caret, the reading-progress line, link hover, the primary button on hover, a pressed dice key, the chosen last word. Prose link underlines use neutral grey.
 
 ### Neutral
 - **Ink** (`ink` / `ink-dark`): headings, button outlines, 2px block rules, the filled bit cells, the reversed warning block, selection background.
@@ -216,20 +214,19 @@ Breakpoints: 560px (phone: 16px controls, 44px targets, full-bleed warning), 900
 
 ## Elevation & Depth
 
-Flat. Depth is carried by rules, grey fields and the one reversed block. Things on the page have no shadow. Only what floats over the page lifts: the rail's contents panel and the back-to-top button use one soft overlay shadow. The sticky header marks its lift with a 1px hairline under its 2px ink rule, not a blur. Inset box-shadows are used as drawn lines (the 4px red tab bar, the 2px red ring on the chosen last word, empty-cell outlines), which is a rule device, not elevation.
+Flat. Depth is carried by rules, grey fields and the one reversed block. Only the rail's contents panel and the back-to-top button carry a site UI shadow. The sticky header keeps its 2px ink rule. Inset box-shadows draw lines (the 4px red tab bar, the 2px red ring on the chosen last word, empty-cell outlines), not elevation. The poster sheet keeps its separate paper-on-desk shadow on screen.
 
 ### Shadow Vocabulary
 - **Overlay** (`box-shadow: 0 8px 28px rgba(0,0,0,.14)`, dark `rgba(0,0,0,.5)`): rail panel and back-to-top only.
-- **Header lift** (`box-shadow: 0 1px 0 var(--chrome-3)`): the sticky header once the page has scrolled.
 
 ### Named Rules
 **The Only Floats Lift Rule.** A shadow means the thing is over the page. Cards, panels, keys and the warning never carry one.
 
 ## Shapes
 
-Square corners, all of them (`rounded.none`): controls, keys, cards, panels, cells, the bit figure's SVG rects. The recurring shape is the cell: a solid square. It is the eleven-bit cell of the number figure, the 9px ink bullet of the short version, the 14px red square before the warning's name, the 11px red square in the roller warning, and the key swatches under the figure. Rules come in two weights: 2px ink to open a block or frame the header and footer, 1px hairline to divide rows. Doors end in a stroked 2px arrow drawn as inline SVG.
+Square corners, all of them (`rounded.none`): controls, keys, cards, panels, cells, the bit figure's SVG rects. The recurring shape is the cell: a solid square. It is the eleven-bit cell of the number figure, the 9px ink bullet of the short version, and the key swatches under the figure. Rules come in two weights: 2px ink to open a block or frame the header and footer, 1px hairline to divide rows. Doors end in a stroked 2px arrow drawn as inline SVG.
 
-**The Cell Mark Rule.** When a list or a label needs a marker, it is a filled square in ink, or red when it marks the checksum or a warning. No round bullets, no glyph icons.
+**The Cell Mark Rule.** When a list needs a marker, it is a filled square in ink, or red when it marks the checksum. No round bullets, no glyph icons.
 
 ## Components
 
@@ -244,7 +241,7 @@ Outlined blocks that fill with ink under the pointer and drop 1px when pressed.
 ### Inputs / Fields
 - **Style:** the same object as a button: field background, 1px hairline border, 500 14px, 9px 11px padding, 38px minimum. Selects draw their chevron as two gradients on the element.
 - **Hover:** border turns ink. **Caret:** red. **Placeholder:** Text 4.
-- **Error:** a message on a grey wash; red text on a faint red wash when the input is rejected.
+- **Error:** a message in ink on a grey wash, with text that explains the problem.
 
 ### Navigation
 - **Header:** sticky, 96% opaque field veil, 2px ink bottom rule, 60px minimum. Brand in 800 18px, turns red on hover.
@@ -255,7 +252,7 @@ Outlined blocks that fill with ink under the pointer and drop 1px when pressed.
 
 ### Blocks
 - **Short version:** 2px ink rule, headline-size name left, list right with 1px hairline rows and 9px ink cell bullets.
-- **Warning:** the one reversed block (ink field, field text, `sp-6` padding), its name led by a red cell. Full bleed on phones.
+- **Warning:** the one reversed block (ink field, field text, `sp-6` padding). Full bleed on phones.
 - **Note:** a 1px ink left rule and 14px Text 2, for caveats.
 - **Table:** 2px ink top rule, 12px bold column heads over a 1px ink line, hairline rows, right-aligned tabular figures, first column left.
 

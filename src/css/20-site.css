@@ -12,7 +12,6 @@ main:focus{outline:none}
    compositing pass per frame for pixels nobody can see. */
 .chrome{position:sticky;top:0;z-index:20;background:var(--veil);
   border-bottom:2px solid var(--chrome-ink)}
-.chrome.lift{box-shadow:var(--lift)}
 .top{padding:0}
 /* The bar shares its edges with everything under it, on every view, so the brand
    and the prose start at the same x and switching tabs moves nothing. The poster's
@@ -56,8 +55,7 @@ main:focus{outline:none}
    .view.has-rail{display:grid}, silently keeps a hidden view on the page. */
 .view[hidden]{display:none !important}
 
-/* Prose links: ink, underlined in red, red under the pointer. Red is where you
-   go next. */
+/* Prose links stay neutral until the pointer makes one the next action. */
 .learn-sec a,.learn-lead a,.learn-tldr a,.roll-lead a,.roll-fact a{color:inherit;
   text-decoration:underline;text-decoration-color:var(--accent-line);
   text-decoration-thickness:2px;text-underline-offset:.2em}

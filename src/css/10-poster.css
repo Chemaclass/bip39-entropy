@@ -28,8 +28,7 @@
   --text-4:#66665f;
   --veil:rgba(255,255,255,.96);
   --tint:rgba(0,0,0,.035);
-  --accent-wash:rgba(212,33,27,.07);
-  --accent-line:rgba(212,33,27,.5);
+  --accent-line:var(--chrome-dim);
   --warn-wash:#f0f0ec;
   --patina-lift:#a8150f;
   --bit-0:#d6d6d0;
@@ -75,9 +74,7 @@
 
   /* Depth. Rules and fields carry the structure, so a thing on the page has
      none. Only what floats over it, a menu or the back-to-top button, lifts. */
-  --e-1:none;
   --e-2:0 8px 28px rgba(0,0,0,.14);
-  --lift:0 1px 0 var(--chrome-3);
   /* Paper on a desk, which is deeper than anything else the page stacks. */
   --sheet-lift:0 10px 34px rgba(20,22,28,.16);
 
@@ -110,8 +107,6 @@
   --text-4:#8e8e87;
   --veil:rgba(18,18,18,.96);
   --tint:rgba(255,255,255,.045);
-  --accent-wash:rgba(255,90,74,.1);
-  --accent-line:rgba(255,90,74,.55);
   --warn-wash:#1e1e1c;
   --patina-lift:#ff8174;
   --bit-0:#34342f;
@@ -136,8 +131,6 @@
     --text-4:#8e8e87;
     --veil:rgba(18,18,18,.96);
     --tint:rgba(255,255,255,.045);
-    --accent-wash:rgba(255,90,74,.1);
-    --accent-line:rgba(255,90,74,.55);
     --warn-wash:#1e1e1c;
     --patina-lift:#ff8174;
     --bit-0:#34342f;
@@ -152,7 +145,6 @@ html,body{margin:0;padding:0}
 body{
   background:var(--chrome);color:var(--chrome-ink);
   font-family:var(--sans);
-  -webkit-font-smoothing:antialiased;
   -webkit-print-color-adjust:exact;print-color-adjust:exact;
 }
 
@@ -218,7 +210,7 @@ button[disabled]{opacity:.4;cursor:not-allowed;transform:none;
   font:400 12px/1.5 var(--mono);color:var(--text-3);font-variant-numeric:tabular-nums}
 .readout .spec{color:var(--chrome-ink);font-weight:600}
 .readout .pt{color:var(--chrome-ink);font-weight:700}
-.readout .pt.small{color:var(--patina)}
+.readout .pt.small{color:var(--text-2)}
 .readout .hit{color:var(--patina)}
 
 /* ─────────── sheets ─────────── */

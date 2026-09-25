@@ -70,7 +70,9 @@ p.learn-lead em{font-style:normal;font-weight:700}
   .learn-head .numfig{grid-column:2;grid-row:1 / span 2;align-self:end}
 }
 @media (max-width:899px){
-  .learn-head .numfig{margin-top:var(--sp-6)}
+  .learn-head:has(.numfig){display:flex;flex-direction:column}
+  .learn-head .numfig{order:1;margin-top:var(--sp-6)}
+  .learn-head .learn-lead{order:2}
   .numfig-grid{max-width:420px}
 }
 
@@ -114,10 +116,7 @@ p.learn-lead em{font-style:normal;font-weight:700}
 }
 .learn-warn p{font-size:var(--fs-body);line-height:1.6}
 .learn-warn p+p{margin-top:var(--sp-3)}
-.learn-warn .learn-warn-label{display:flex;align-items:baseline;gap:var(--sp-3);
-  font:700 var(--fs-h2)/1.15 var(--sans)}
-.learn-warn .learn-warn-label::before{content:"";flex:0 0 auto;width:14px;height:14px;
-  background:var(--patina);transform:translateY(-1px)}
+.learn-warn .learn-warn-label{font:700 var(--fs-h2)/1.15 var(--sans)}
 .learn-warn b{font-weight:700}
 .learn-warn a{color:inherit}
 
@@ -143,8 +142,6 @@ p.learn-lead em{font-style:normal;font-weight:700}
   position:sticky;top:84px;
   font:700 var(--fs-h2)/1.15 var(--sans);letter-spacing:-.02em;
 }
-.learn-num{display:block;margin-bottom:var(--sp-2);
-  color:var(--text-4);font-variant-numeric:tabular-nums}
 .learn-sec > p{font-size:var(--fs-body);line-height:1.65;color:var(--text-1);max-width:40em}
 .learn .learn-sec > * + *{margin-top:var(--sp-4)}
 .learn .learn-sec > h2 + *{margin-top:0}
@@ -218,7 +215,7 @@ p.learn-lead em{font-style:normal;font-weight:700}
 .bitfig-rule path{stroke:var(--chrome-ink);fill:none;stroke-width:1}
 .bitfig-lead text{fill:var(--chrome-ink);font:700 13px var(--sans);text-anchor:middle}
 .bitfig-sum text{fill:var(--text-2);font:500 13px var(--sans);text-anchor:middle}
-.bitfig-word text{fill:var(--patina);font:800 19px var(--sans);text-anchor:middle;letter-spacing:-.01em}
+.bitfig-word text{fill:var(--chrome-ink);font:800 19px var(--sans);text-anchor:middle;letter-spacing:-.01em}
 .bitfig figcaption{margin-top:var(--sp-3);font:400 var(--fs-sm)/1.6 var(--sans);color:var(--text-3)}
 
 @media (prefers-reduced-motion:no-preference){

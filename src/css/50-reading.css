@@ -64,7 +64,7 @@
   font-variant-numeric:tabular-nums}
 .scale-line b{color:var(--chrome-ink);font-weight:800}
 .learn .scale-dim{font-size:var(--fs-sm);color:var(--text-3)}
-.learn .scale-warn,.scale-warn b{color:var(--patina)}
+.learn .scale-warn,.scale-warn b{color:var(--chrome-ink)}
 
 /* ─────────── the checklist offer ─────────── */
 .learn .cl-widget{background:var(--chrome-2);padding:var(--sp-5);margin:var(--sp-5) 0;
