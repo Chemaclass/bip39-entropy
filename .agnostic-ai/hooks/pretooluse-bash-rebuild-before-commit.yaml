@@ -1,0 +1,9 @@
+command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/rebuild-before-commit.sh"'
+description: Runs the script on this event.
+on: before-tool
+if: Bash(git commit:*)
+match: shell
+name: pretooluse-bash-rebuild-before-commit
+statusMessage: Checking index.html is current
+target: claude
+timeout: 30

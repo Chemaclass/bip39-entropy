@@ -1,6 +1,6 @@
 ---
 name: poster
-description: Build, preview and audit the BIP-39 site: poster layout, entropy explainer, dice/coin roller, PDF output. Use when changing anything under src/, the grid or typography, the word list, the seed engine, or when asked to run, open, screenshot or print-check the page.
+description: "Build, preview and audit the BIP-39 site: poster layout, entropy explainer, dice/coin roller, PDF output. Use when changing anything under src/, the grid or typography, the word list, the seed engine, or when asked to run, open, screenshot or print-check the page."
 ---
 
 # Working on the site

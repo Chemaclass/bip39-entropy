@@ -1,0 +1,7 @@
+command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/heal-stale-index.sh"'
+description: Runs the script on this event.
+event: Stop
+matcher: ""
+name: stop-heal-stale-index
+timeout: 30
+target: claude

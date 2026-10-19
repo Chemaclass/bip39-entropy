@@ -1,6 +1,7 @@
 ---
 description: Rebuild index.html and open it in the browser for a print-layout check
-allowed-tools: Bash(python3 scripts/build.py:*), Bash(open index.html), Read
+x-claude:
+  allowed-tools: Bash(python3 scripts/build.py:*), Bash(open index.html), Read
 ---
 
 Rebuild with `python3 scripts/build.py`, then `open index.html`.
