@@ -1,0 +1,17 @@
+permissions:
+    allow:
+        - shell(python3 scripts/build.py:*)
+        - shell(./scripts/verify.sh:*)
+        - shell(open index.html)
+        - shell(git status:*)
+        - shell(git diff:*)
+        - shell(git log:*)
+        - shell(git show:*)
+        - shell(shasum:*)
+        - shell(sha256sum:*)
+        - shell(wc:*)
+        - shell(diff:*)
+        - shell(cmp:*)
+    deny:
+        - edit(index.html)
+        - Write(index.html)

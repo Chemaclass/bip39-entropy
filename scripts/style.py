@@ -3,7 +3,7 @@
 
 The rules that can be machined are here. The ones that cannot, fragments for
 punch, two-way contrast, an ending that stamps, are left to a person. See
-.claude/rules/writing-style.md, which points at the canonical guide.
+.agnostic-ai/rules/writing-style.md, which points at the canonical guide.
 
     python3 scripts/style.py            # report
     python3 scripts/style.py --strict   # exit 1 if anything is found

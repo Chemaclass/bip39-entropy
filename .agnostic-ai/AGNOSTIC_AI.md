@@ -99,7 +99,7 @@ scripts/style.py      the machine-readable half of the voice guide
 ## Writing style
 
 Every reader-facing word on this site follows the owner's voice guide:
-`.claude/rules/writing-style.md`, which points at the canonical version on
+`.agnostic-ai/rules/writing-style.md`, which points at the canonical version on
 chemaclass.com. Short sentences, plain words, contractions, `you` while
 teaching, bold for punchlines, stamped endings, no em dash, no hedging, no
 filler adverbs. Spanish is derived from English and uses informal `tú`.

@@ -1,6 +1,7 @@
 ---
 description: Run the full poster audit (word-list hash, reproducible build, 2048 words, no remote assets)
-allowed-tools: Bash(./scripts/verify.sh:*), Bash(python3 scripts/build.py:*), Bash(grep:*), Read, Edit
+x-claude:
+  allowed-tools: Bash(./scripts/verify.sh:*), Bash(python3 scripts/build.py:*), Bash(grep:*), Read, Edit
 ---
 
 Run `./scripts/verify.sh`, then run the same remote-asset check CI does:
